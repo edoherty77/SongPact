@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import LinearGradient from 'expo-linear-gradient'
 
 import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
@@ -107,7 +108,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 10,
     borderRadius: 10,
-    backgroundColor: '#FFFAFF',
+    backgroundColor: '#30BCED',
+    // backgroundColor: '#FFFAFF',
   },
   options: {
     flex: 0,
