@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "client",
-    "slug": "client",
+    "name": "SongPact",
+    "slug": "songpact",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "SongPact is a contract generating and networking app built for creators to streamline rights acquisition and clearance throughout the creative collaboration process. SongPact gives creators the tools they need to secure the rights necessary to create, market and sell their art. SongPact allows users to generate, send, execute and retain industry-standard, legally binding written agreements in minutes. All SongPact agreements are customizable and allow the sender to input the material terms of the specific agreement, and retrieve that information in the form of a simple summary. The Receiving party can review the summary of material terms and either individually accept or make a counter offer to the Sender. Once all terms are agreed, the Receiving party signs the agreement and it is sent to the Sender for countersignature. Upon full execution, the long form agreement is stored in each party's account along with a quick summary."
   }
 }
