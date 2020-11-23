@@ -1,12 +1,21 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+
+import Header from '../components/Header'
 
 function Contacts() {
   return (
-    <View>
-      <Text>Contacts</Text>
+    <View style={styles.contacts}>
+      <Header title="Contacts" />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  contacts: {
+    flex: 1,
+    backgroundColor: '#30BCED',
+  },
+})
 
 export default Contacts

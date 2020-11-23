@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import LoggedOut from './app/views/LoggedOut'
 import ButtonIcon from './app/components/ButtonIcon'
@@ -14,47 +15,55 @@ import Menu from './app/views/Menu'
 
 const Tab = createBottomTabNavigator()
 
-export default function App() {
+export default function App({ navigation }) {
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Dashboard"
         tabBarOptions={{
-          activeTintColor: 'gold',
-          // activeBackgroundColor: colors.primary,
+          style: {
+            borderTopColor: '#30BCED',
+          },
+          activeTintColor: '#FFFAFF',
           inactiveTintColor: '#303036',
           labelStyle: {
+            display: 'flex',
             fontSize: 10,
             fontWeight: 'bold',
-            paddingBottom: 40,
+            paddingBottom: 45,
           },
+
           tabStyle: {
             height: 100,
+
             backgroundColor: '#30BCED',
           },
         }}
       >
         <Tab.Screen
+          name="Dashboard"
+          component={Dashboard}
           options={{
-            tabBarLabel: 'Home',
+            name: 'Home',
 
             tabBarIcon: ({ color, size }) => (
-              <ButtonIcon
-                name="home-outline"
-                backgroundColor="transparent"
-                iconColor="red"
+              <MaterialCommunityIcons
+                name="home"
+                color={color}
+                size={30}
+                backgroundColor="red"
               />
             ),
           }}
-          name="Dashboard"
-          component={Dashboard}
         />
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (
-              <ButtonIcon
+              <MaterialCommunityIcons
+                // style={{ marginTop: 5 }}
                 name="account-multiple"
-                backgroundColor="transparent"
+                color={color}
+                size={30}
               />
             ),
             tabBarLabel: 'Contacts',
@@ -65,10 +74,11 @@ export default function App() {
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (
-              <ButtonIcon
+              <MaterialCommunityIcons
+                style={{ marginTop: 10 }}
                 name="plus-circle"
-                backgroundColor="transparent"
-                iconColor="#303036"
+                color={color}
+                size={30}
               />
             ),
             tabBarLabel: '',
@@ -79,7 +89,7 @@ export default function App() {
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (
-              <ButtonIcon name="bell" backgroundColor="transparent" />
+              <MaterialCommunityIcons name="bell" color={color} size={30} />
             ),
             tabBarLabel: 'Notifications',
           }}
@@ -89,7 +99,7 @@ export default function App() {
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (
-              <ButtonIcon name="menu" backgroundColor="transparent" />
+              <MaterialCommunityIcons name="menu" color={color} size={30} />
             ),
             tabBarLabel: 'Menu',
           }}
