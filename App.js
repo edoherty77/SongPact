@@ -2,11 +2,12 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 
+import LoggedOut from './app/views/LoggedOut'
+
 export default function App() {
-  console.log('yo')
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Dashboard</Text>
+      <LoggedOut />
     </SafeAreaView>
   )
 }
