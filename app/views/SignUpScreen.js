@@ -53,13 +53,14 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    alignItems: "center",
   },
   inputs: {
-    flex: 0.5,
+    flex: 0.7,
     width: "80%",
     alignSelf: "center",
-    marginVertical: "30%",
+    marginVertical: "20%",
+    justifyContent: "space-between",
+    // backgroundColor: colors.secondary,
   },
   firstLast: {
     flexDirection: "row",
