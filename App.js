@@ -13,8 +13,8 @@ const Tab = createBottomTabNavigator()
 export default function App({ navigation }) {
   return (
     <>
-      {/* <SignIn /> */}
-      <AppNavigator />
+      {/* <AppNavigator /> */}
+      <SignIn />
       <StatusBar style={"light"} />
     </>
   )

@@ -36,9 +36,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Login"
               color={colors.confirm}
-              onPress={() => {
-                navigation.navigate("Dashboard")
-              }}
+              onPress={() => console.log("login")}
             />
           </View>
         </View>
@@ -48,7 +46,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Sign Up"
               color={colors.secondary}
-              onPress={() => console.log("signUp pressed")}
+              onPress={() => console.log("signUp")}
             />
           </View>
         </View>
