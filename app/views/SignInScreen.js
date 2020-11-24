@@ -1,13 +1,29 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import AppButton from '../components/AppButton'
-import AppText from '../components/AppText'
-import Header from '../components/Header'
-import colors from '../config/colors'
+import React, { useContext } from "react"
+import { StyleSheet, Text, View } from "react-native"
+import { LinearGradient } from "expo-linear-gradient"
+import AppButton from "../components/AppButton"
+import AppText from "../components/AppText"
+import Header from "../components/Header"
+import colors from "../config/colors"
+import UserContext from "../context/userContext"
+import AppTextInput from "../components/AppTextInput"
 
 const SignIn = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext)
+
   return (
     <View style={styles.screen}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(0,0,0,0.8)", "transparent"]}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
       <Header title="SongPact" noIcon />
       <View style={styles.body}>
         <View style={styles.welcomeMessage}>
@@ -25,20 +41,14 @@ const SignIn = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppText color={colors.black} style={styles.input}>
-              USERNAME
-            </AppText>
-            <AppText color={colors.black} style={styles.input}>
-              PASSWORD
-            </AppText>
+            <AppTextInput placeholder={"Email"} />
+            <AppTextInput placeholder={"Password"} />
           </View>
           <View style={styles.loginButton}>
             <AppButton
               title="Login"
               color={colors.confirm}
-              onPress={() => {
-                navigation.navigate('Dashboard')
-              }}
+              onPress={() => setUser(true)}
             />
           </View>
         </View>
@@ -48,7 +58,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Sign Up"
               color={colors.secondary}
-              onPress={() => console.log('signUp pressed')}
+              onPress={navigation.navigate}
             />
           </View>
         </View>
@@ -66,50 +76,50 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   welcomeMessage: {
-    marginTop: '10%',
+    marginTop: "10%",
     flex: 1,
-    width: '80%',
+    width: "80%",
   },
   welcome: {
     fontSize: 18,
-    textAlign: 'center',
-    paddingBottom: '5%',
+    textAlign: "center",
+    paddingBottom: "5%",
   },
   message: {
-    textAlign: 'justify',
+    textAlign: "justify",
   },
   signIn: {
     flex: 0.2,
     // flexDirection: "row",
-    width: '100%',
+    width: "100%",
     // backgroundColor: "red",
     marginTop: 20,
-    marginBottom: '20%',
-    alignItems: 'center',
+    marginBottom: "20%",
+    alignItems: "center",
   },
   inputs: {
-    width: '80%',
+    width: "80%",
   },
-  input: {
-    backgroundColor: colors.light,
-    marginBottom: '2%',
-    height: '40%',
-  },
+  // input: {
+  //   backgroundColor: colors.light,
+  //   marginBottom: "2%",
+  //   height: "40%",
+  // },
   loginButton: {
-    width: '60%',
+    width: "60%",
   },
   signUp: {
     flex: 0.2,
-    flexDirection: 'row',
+    flexDirection: "row",
     // backgroundColor: "blue",
     marginTop: 20,
-    marginBottom: '10%',
+    marginBottom: "10%",
   },
   signUpButton: {
-    width: '20%',
-    marginLeft: '10%',
+    width: "20%",
+    marginLeft: "10%",
   },
 })
