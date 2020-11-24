@@ -3,18 +3,20 @@ import { StyleSheet, Text, View, SafeAreaView } from "react-native"
 
 import ButtonIcon from "./ButtonIcon"
 
-const Header = ({ title }) => {
+const Header = ({ title, noIcon }) => {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.appHeader}>
         <Text style={styles.screenName}>{title}</Text>
 
-        <ButtonIcon
-          style={styles.messageBtn}
-          iconColor="#303036"
-          size={45}
-          name="message-text"
-        />
+        {!noIcon && (
+          <ButtonIcon
+            style={styles.messageBtn}
+            iconColor="#303036"
+            size={45}
+            name="message-text"
+          />
+        )}
       </View>
     </SafeAreaView>
   )
