@@ -1,16 +1,28 @@
 import React, { useContext } from "react"
 import { StyleSheet, Text, View } from "react-native"
+import { LinearGradient } from "expo-linear-gradient"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
 import Header from "../components/Header"
 import colors from "../config/colors"
 import UserContext from "../context/userContext"
 
-const SignIn = ({ navigation, setUser }) => {
-  // const { user, setUser } = useContext(UserContext)
+const SignIn = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext)
 
   return (
     <View style={styles.screen}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(0,0,0,0.8)", "transparent"]}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
       <Header title="SongPact" noIcon />
       <View style={styles.body}>
         <View style={styles.welcomeMessage}>
