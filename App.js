@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
@@ -13,11 +13,16 @@ import Dashboard from "./app/views/DashboardScreen"
 const Tab = createBottomTabNavigator()
 
 export default function App({ navigation }) {
+  const [user, setUser] = useState(false)
+
+  useEffect(() => {
+    user
+  }, [user])
   return (
     <>
       {/* <AppNavigator /> */}
       {/* <SignIn /> */}
-      <Dashboard />
+      {user ? <Dashboard /> : <SignIn />}
       <StatusBar style={"light"} />
     </>
   )
