@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import AppButton from '../components/AppButton'
 import colors from '../config/colors'
 import Screen from '../components/Screen'
 import Header from '../components/Header'
@@ -11,7 +10,7 @@ import PactButton from '../components/PactButton'
 import Separator from '../components/Separator'
 import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
-import Header from '../components/Header'
+
 import defaultStyles from '../config/styles'
 
 function DashboardScreen() {
