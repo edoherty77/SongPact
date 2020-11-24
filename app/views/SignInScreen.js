@@ -27,8 +27,10 @@ const SignInScreen = ({ navigation }) => {
       <Header title="SongPact" noIcon />
       <View style={styles.body}>
         <View style={styles.welcomeMessage}>
-          <AppText style={styles.welcome}>Welcome Message</AppText>
-          <AppText style={styles.message}>
+          <AppText style={styles.welcome} color={colors.white}>
+            Welcome Message
+          </AppText>
+          <AppText style={styles.message} color={colors.white}>
             Laborum nostrud proident sit elit qui occaecat proident sunt ut.
             Lorem proident velit culpa non nostrud enim non. Est adipisicing
             laboris mollit fugiat esse et. Nostrud amet qui eiusmod sit commodo
@@ -57,7 +59,7 @@ const SignInScreen = ({ navigation }) => {
           <View style={styles.signUpButton}>
             <AppButton
               title="Sign Up"
-              color={colors.secondary}
+              color={colors.white}
               onPress={() => navigation.navigate("SignUp")}
             />
           </View>
