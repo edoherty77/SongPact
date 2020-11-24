@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import LinearGradient from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient'
 
 import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
@@ -9,6 +9,18 @@ import Header from '../components/Header'
 function Dashboard() {
   return (
     <View style={styles.dashboard}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: 300,
+        }}
+      />
+
       <Header title="Dashboard" />
       <View style={styles.modal}>
         <View style={styles.modalHeader}>
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 10,
     borderRadius: 10,
-    backgroundColor: '#30BCED',
+    backgroundColor: 'transparent',
     // backgroundColor: '#FFFAFF',
   },
   options: {

@@ -12,6 +12,7 @@ import Contacts from './app/views/Contacts'
 import New from './app/views/NewSongPact'
 import Notifications from './app/views/Notifications'
 import Menu from './app/views/Menu'
+import LinearGradient from 'expo'
 
 const Tab = createBottomTabNavigator()
 
