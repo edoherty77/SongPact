@@ -17,7 +17,7 @@ function Dashboard() {
           left: 0,
           right: 0,
           top: 0,
-          height: 300,
+          height: '100%',
         }}
       />
 
@@ -28,7 +28,9 @@ function Dashboard() {
           <ButtonIcon
             name="magnify"
             backgroundColor="transparent"
-            iconColor="#303036"
+            // backgroundColor="red"
+            iconColor="#FFFAFF"
+            style={{ paddingBottom: 20 }}
           />
         </View>
         <View
@@ -40,24 +42,39 @@ function Dashboard() {
           }}
         />
         <View style={styles.options}>
-          <Text>Open</Text>
-          <Text style={{ fontWeight: 'bold' }}>Needs Action</Text>
-          <Text>All</Text>
+          <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>Open</Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#FFFAFF',
+              fontFamily: 'Courier',
+            }}
+          >
+            Needs Action
+          </Text>
+          <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>All</Text>
         </View>
         <View style={styles.pact}>
           <View style={styles.top}>
             <Text
-              style={{ fontSize: 25, fontWeight: 'bold', color: '#FFFAFF' }}
+              style={{
+                fontSize: 25,
+                fontFamily: 'Courier',
+                fontWeight: 'bold',
+                color: '#FFFAFF',
+              }}
             >
               A Walk
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>Type: Producer</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Type: Producer
+            </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF' }}>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
               Started By: <Text style={{ color: '#30BCED' }}>Stephan</Text>
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
               Status:<Text style={{ color: 'yellow' }}> Pending</Text>
             </Text>
           </View>
@@ -65,36 +82,64 @@ function Dashboard() {
         <View style={styles.pact}>
           <View style={styles.top}>
             <Text
-              style={{ fontSize: 25, fontWeight: 'bold', color: '#FFFAFF' }}
+              style={{
+                fontSize: 25,
+                fontWeight: 'bold',
+                color: '#FFFAFF',
+                fontFamily: 'Courier',
+              }}
             >
               Adrift
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>Type: Remix</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Type: Remix
+            </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF' }}>
-              Started By: <Text style={{ color: '#30BCED' }}>Seth</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Started By:{' '}
+              <Text style={{ color: '#30BCED', fontFamily: 'Courier' }}>
+                Seth
+              </Text>
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>
-              Status:<Text style={{ color: 'yellow' }}> Pending</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Status:
+              <Text style={{ color: 'yellow', fontFamily: 'Courier' }}>
+                {' '}
+                Pending
+              </Text>
             </Text>
           </View>
         </View>
         <View style={styles.pact}>
           <View style={styles.top}>
             <Text
-              style={{ fontSize: 25, fontWeight: 'bold', color: '#FFFAFF' }}
+              style={{
+                fontSize: 25,
+                fontWeight: 'bold',
+                color: '#FFFAFF',
+                fontFamily: 'Courier',
+              }}
             >
               Japan
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>Type: Producer</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Type: Producer
+            </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF' }}>
-              Started By: <Text style={{ color: '#30BCED' }}>You</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Started By:{' '}
+              <Text style={{ color: '#30BCED', fontFamily: 'Courier' }}>
+                You
+              </Text>
             </Text>
-            <Text style={{ color: '#FFFAFF' }}>
-              Status:<Text style={{ color: 'yellow' }}> Pending</Text>
+            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+              Status:
+              <Text style={{ color: 'yellow', fontFamily: 'Courier' }}>
+                {' '}
+                Pending
+              </Text>
             </Text>
           </View>
         </View>
@@ -104,15 +149,15 @@ function Dashboard() {
 }
 
 const styles = StyleSheet.create({
-  dashboard: {
-    flex: 1,
-    backgroundColor: '#30BCED',
-  },
-  modalHeader: {
+  bottom: {
+    margin: 5,
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,
+  },
+  dashboard: {
+    flex: 1,
+    backgroundColor: '#30BCED',
   },
   modal: {
     flex: 1,
@@ -123,12 +168,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     // backgroundColor: '#FFFAFF',
   },
+  modalHeader: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+
   options: {
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 10,
     marginBottom: 20,
+    color: '#FFFAFF',
   },
   pact: {
     backgroundColor: '#303036',
@@ -138,22 +191,17 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  pactHeader: {
+    fontSize: 35,
+    color: '#FFFAFF',
+    fontWeight: 'bold',
+    fontFamily: 'Courier',
+  },
   top: {
     margin: 5,
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  bottom: {
-    margin: 5,
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  pactHeader: {
-    fontSize: 35,
-    color: '#303036',
-    fontWeight: 'bold',
   },
 })
 
