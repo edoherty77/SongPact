@@ -7,6 +7,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import AppNavigator from "./app/navigation/AppNavigator"
 import SignIn from "./app/views/SignInScreen"
+import SignUp from "./app/views/SignUpScreen"
+import Dashboard from "./app/views/DashboardScreen"
 
 const Tab = createBottomTabNavigator()
 
@@ -14,7 +16,8 @@ export default function App({ navigation }) {
   return (
     <>
       {/* <AppNavigator /> */}
-      <SignIn />
+      {/* <SignIn /> */}
+      <Dashboard />
       <StatusBar style={"light"} />
     </>
   )
