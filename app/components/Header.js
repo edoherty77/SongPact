@@ -1,7 +1,7 @@
-import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import React from "react"
+import { StyleSheet, Text, View, SafeAreaView } from "react-native"
 
-import ButtonIcon from './ButtonIcon'
+import ButtonIcon from "./ButtonIcon"
 
 const Header = ({ title }) => {
   return (
@@ -24,21 +24,21 @@ export default Header
 
 const styles = StyleSheet.create({
   appHeader: {
-    flexDirection: 'row',
+    flexDirection: "row",
     // backgroundColor: 'green',
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     padding: 20,
   },
   screenName: {
     fontSize: 50,
     // padding: 20,
-    color: '#FFFAFF',
-    fontWeight: 'bold',
+    color: "#FFFAFF",
+    fontWeight: "bold",
     // backgroundColor: 'blue',
   },
   messageBtn: {
     paddingTop: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     // backgroundColor: '#FFFAFF',
   },
 })
