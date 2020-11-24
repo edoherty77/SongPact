@@ -20,25 +20,27 @@ function SignUpScreen() {
   return (
     <Screen>
       <Header title="Sign Up" noIcon />
-      <View style={styles.inputs}>
-        <View style={styles.firstLast}>
-          <AppTextInput placeholder="First Name*" paddingRight={"5%"} />
-          <AppTextInput placeholder="Last Name*" paddingRight={"23%"} />
+      <View style={styles.body}>
+        <View style={styles.inputs}>
+          <View style={styles.firstLast}>
+            <AppTextInput placeholder="First Name*" paddingRight={"5%"} />
+            <AppTextInput placeholder="Last Name*" paddingRight={"23%"} />
+          </View>
+          <AppTextInput placeholder="Artist Name*" />
+          <AppTextInput placeholder="Company Name" />
+          <AppTextInput placeholder="Email*" />
+          <AppTextInput placeholder="Password*" />
+          <AppTextInput placeholder="Repeat Password*" />
         </View>
-        <AppTextInput placeholder="Artist Name*" />
-        <AppTextInput placeholder="Company Name" />
-        <AppTextInput placeholder="Email*" />
-        <AppTextInput placeholder="Password*" />
-        <AppTextInput placeholder="Repeat Password*" />
+        <AppButton
+          style={styles.createButton}
+          title="Create Profile"
+          color={colors.confirm}
+          onPress={() => {
+            console.log("Create Profile")
+          }}
+        />
       </View>
-      <AppButton
-        style={styles.createButton}
-        title="Create Profile"
-        color={colors.confirm}
-        onPress={() => {
-          console.log("Create Profile")
-        }}
-      />
     </Screen>
   )
 }
@@ -48,6 +50,10 @@ export default SignUpScreen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  body: {
+    flex: 1,
+    alignItems: "center",
   },
   inputs: {
     flex: 0.5,
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
     // width: "100%",
   },
   createButton: {
-    marginTop: "24%",
     width: "100%",
-    alignSelf: "center",
+    position: "absolute",
+    bottom: "20%",
   },
 })

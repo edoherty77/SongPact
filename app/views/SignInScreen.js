@@ -36,14 +36,13 @@ const SignInScreen = ({ navigation }) => {
             <AppTextInput placeholder="Email" />
             <AppTextInput placeholder="Password" />
           </View>
-          <View style={styles.loginButton}>
-            <AppButton
-              title="Login"
-              color={colors.confirm}
-              onPress={() => setUser(true)}
-            />
-          </View>
         </View>
+        <AppButton
+          style={styles.loginButton}
+          title="Login"
+          color={colors.confirm}
+          onPress={() => setUser(true)}
+        />
         <View style={styles.signUp}>
           <AppText>Don't have an account?</AppText>
           <View style={styles.signUpButton}>
@@ -96,6 +95,8 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: "100%",
+    position: "absolute",
+    bottom: "20%",
   },
   signUp: {
     flex: 0.2,
