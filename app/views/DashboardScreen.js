@@ -4,46 +4,38 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
+import colors from '../config/colors'
 import Screen from '../components/Screen'
 import Header from '../components/Header'
+import SubHeader from '../components/SubHeader'
 import PactButton from '../components/PactButton'
+import Separator from '../components/Separator'
 
 function DashboardScreen() {
   return (
     <Screen>
       <Header title="Dashboard" />
-      <View style={styles.subHeader}>
-        <Text style={styles.subHeaderText}>Your Pacts</Text>
-        <ButtonIcon
-          name="magnify"
-          backgroundColor="transparent"
-          // backgroundColor="red"
-          iconColor="#FFFAFF"
-          style={{ paddingBottom: 20 }}
-        />
-      </View>
-      <View
-        style={{
-          borderBottomColor: 'lightgray',
-          borderBottomWidth: 1,
-          width: '100%',
-          backgroundColor: 'red',
-        }}
-      />
+      <SubHeader name="magnify" text="Your Pacts" />
+      <Separator />
       <View style={styles.options}>
-        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>Open</Text>
+        <Text style={styles.optionsText}>Open</Text>
         <Text
-          style={{
-            fontWeight: 'bold',
-            color: '#FFFAFF',
-            fontFamily: 'Courier',
-          }}
+          style={[styles.optionsText, { fontWeight: 'bold', fontSize: 18 }]}
         >
           Needs Action
         </Text>
-        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>All</Text>
+        <Text style={styles.optionsText}>All</Text>
       </View>
       <View style={styles.pactList}>
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
         <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
       </View>
     </Screen>
@@ -57,25 +49,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 10,
     marginBottom: 20,
-    color: '#FFFAFF',
+    color: colors.white,
+  },
+  optionsText: {
+    fontWeight: 'bold',
+    color: colors.white,
+    fontFamily: 'Courier',
   },
   pactList: {
     padding: 10,
-  },
-  subHeader: {
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 20,
-    // paddingBottom: 20,
-    paddingLeft: 35,
-    paddingRight: 35,
-  },
-  subHeaderText: {
-    fontSize: 35,
-    color: '#FFFAFF',
-    fontWeight: 'bold',
-    fontFamily: 'Courier',
   },
 })
 

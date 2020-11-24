@@ -1,36 +1,24 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
+import colors from '../config/colors'
+
 const PactButton = ({ type, title, name, status }) => {
   return (
-    <TouchableOpacity style={styles.pact}>
+    <TouchableOpacity style={styles.pactButton}>
       <View style={styles.top}>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: 'bold',
-            color: '#FFFAFF',
-            fontFamily: 'Courier',
-          }}
-        >
+        <Text style={[styles.text, { fontWeight: 'bold', fontSize: 25 }]}>
           {title}
         </Text>
-        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-          Type: {type}
-        </Text>
+        <Text style={styles.text}>Type: {type}</Text>
       </View>
       <View style={styles.bottom}>
-        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-          Started By:{' '}
-          <Text style={{ color: '#30BCED', fontFamily: 'Courier' }}>
-            {name}
-          </Text>
+        <Text style={styles.text}>
+          Started By: <Text style={styles.text}>{name}</Text>
         </Text>
-        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
+        <Text style={styles.text}>
           Status:{' '}
-          <Text style={{ color: 'yellow', fontFamily: 'Courier' }}>
-            {status}
-          </Text>
+          <Text style={[styles.text, { color: colors.pending }]}>{status}</Text>
         </Text>
       </View>
     </TouchableOpacity>
@@ -46,13 +34,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  pact: {
-    backgroundColor: '#303036',
+  pactButton: {
+    backgroundColor: colors.secondary,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
     padding: 10,
     borderRadius: 5,
+  },
+  text: {
+    color: colors.white,
+    fontFamily: 'Courier',
   },
   top: {
     margin: 5,
