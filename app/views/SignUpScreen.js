@@ -1,7 +1,7 @@
 import React from "react"
 import { View, Text } from "react-native"
 
-function SignUp() {
+function SignUpScreen() {
   return (
     <View>
       <Text>Sign Up</Text>
@@ -9,4 +9,4 @@ function SignUp() {
   )
 }
 
-export default SignUp
+export default SignUpScreen

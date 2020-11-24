@@ -8,7 +8,7 @@ import colors from "../config/colors"
 import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
 
-const SignIn = ({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
 
   return (
@@ -58,7 +58,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Sign Up"
               color={colors.secondary}
-              onPress={navigation.navigate}
+              onPress={() => navigation.navigate("SignUp")}
             />
           </View>
         </View>
@@ -67,7 +67,7 @@ const SignIn = ({ navigation }) => {
   )
 }
 
-export default SignIn
+export default SignInScreen
 
 const styles = StyleSheet.create({
   screen: {
@@ -93,28 +93,21 @@ const styles = StyleSheet.create({
   },
   signIn: {
     flex: 0.2,
-    // flexDirection: "row",
     width: "100%",
-    // backgroundColor: "red",
     marginTop: 20,
-    marginBottom: "20%",
+    marginVertical: "30%",
     alignItems: "center",
   },
   inputs: {
     width: "80%",
+    marginVertical: 5,
   },
-  // input: {
-  //   backgroundColor: colors.light,
-  //   marginBottom: "2%",
-  //   height: "40%",
-  // },
   loginButton: {
     width: "60%",
   },
   signUp: {
     flex: 0.2,
     flexDirection: "row",
-    // backgroundColor: "blue",
     marginTop: 20,
     marginBottom: "10%",
   },
