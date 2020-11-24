@@ -24,8 +24,14 @@ const SignIn = () => {
           </AppText>
         </View>
         <View style={styles.signIn}>
-          <AppText>USERNAME</AppText>
-          <AppText>PASSWORD</AppText>
+          <View style={styles.inputs}>
+            <AppText color={colors.black} style={styles.input}>
+              USERNAME
+            </AppText>
+            <AppText color={colors.black} style={styles.input}>
+              PASSWORD
+            </AppText>
+          </View>
           <View style={styles.loginButton}>
             <AppButton
               title="Login"
@@ -33,8 +39,10 @@ const SignIn = () => {
               onPress={() => console.log("login pressed")}
             />
           </View>
-          <View style={styles.signUp}>
-            <AppText>Don't have an account?</AppText>
+        </View>
+        <View style={styles.signUp}>
+          <AppText>Don't have an account?</AppText>
+          <View style={styles.signUpButton}>
             <AppButton
               title="Sign Up"
               color={colors.secondary}
@@ -52,30 +60,54 @@ export default SignIn
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
   },
   body: {
     flex: 1,
     alignItems: "center",
   },
   welcomeMessage: {
+    marginTop: "10%",
     flex: 1,
     width: "80%",
   },
   welcome: {
     fontSize: 18,
+    textAlign: "center",
+    paddingBottom: "5%",
   },
   message: {
     textAlign: "justify",
   },
   signIn: {
-    flex: 1,
+    flex: 0.2,
+    // flexDirection: "row",
     width: "100%",
+    // backgroundColor: "red",
+    marginTop: 20,
+    marginBottom: "20%",
+    alignItems: "center",
+  },
+  inputs: {
+    width: "80%",
+  },
+  input: {
+    backgroundColor: colors.light,
+    marginBottom: "2%",
+    height: "40%",
   },
   loginButton: {
-    width: "50%",
+    width: "60%",
   },
   signUp: {
-    flex: 1,
+    flex: 0.2,
+    flexDirection: "row",
+    // backgroundColor: "blue",
+    marginTop: 20,
+    marginBottom: "10%",
+  },
+  signUpButton: {
+    width: "20%",
+    marginLeft: "10%",
   },
 })

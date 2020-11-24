@@ -2,9 +2,11 @@ import React from "react"
 import { Text, StyleSheet } from "react-native"
 import colors from "../config/colors"
 
-export default function AppText({ children, style, fontSize }) {
+export default function AppText({ children, style, fontSize, color }) {
   return (
-    <Text style={[styles.text, { fontSize: fontSize }, style]}>{children}</Text>
+    <Text style={[styles.text, { fontSize: fontSize, color: color }, style]}>
+      {children}
+    </Text>
   )
 }
 
