@@ -7,23 +7,13 @@ import Header from "../components/Header"
 import colors from "../config/colors"
 import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
+import Screen from "../components/Screen"
 
 const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
 
   return (
-    <View style={styles.screen}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["rgba(0,0,0,0.8)", "transparent"]}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: "100%",
-        }}
-      />
+    <Screen>
       <Header title="SongPact" noIcon />
       <View style={styles.body}>
         <View style={styles.welcomeMessage}>
@@ -43,8 +33,8 @@ const SignInScreen = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppTextInput placeholder={"Email"} />
-            <AppTextInput placeholder={"Password"} />
+            <AppTextInput placeholder="Email" />
+            <AppTextInput placeholder="Password" />
           </View>
           <View style={styles.loginButton}>
             <AppButton
@@ -65,7 +55,7 @@ const SignInScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </View>
+    </Screen>
   )
 }
 
@@ -105,7 +95,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   loginButton: {
-    width: "60%",
+    width: "100%",
   },
   signUp: {
     flex: 0.2,
