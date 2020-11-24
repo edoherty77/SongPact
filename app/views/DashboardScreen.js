@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient"
 import ButtonIcon from "../components/ButtonIcon"
 import AppButton from "../components/AppButton"
 import Header from "../components/Header"
-import style from "../config/style"
+import defaultStyles from "../config/styles"
 
 function Dashboard() {
   return (
@@ -48,12 +48,14 @@ function Dashboard() {
             style={{
               fontWeight: "bold",
               color: "#FFFAFF",
-              fontFamily: style.fontFamily,
+              fontFamily: defaultStyles.fontFamily,
             }}
           >
             Needs Action
           </Text>
-          <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+          <Text
+            style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+          >
             All
           </Text>
         </View>
@@ -62,22 +64,28 @@ function Dashboard() {
             <Text
               style={{
                 fontSize: 25,
-                fontFamily: style.fontFamily,
+                fontFamily: defaultStyles.fontFamily,
                 fontWeight: "bold",
                 color: "#FFFAFF",
               }}
             >
               A Walk
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Type: Producer
             </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Started By: <Text style={{ color: "#30BCED" }}>Stephan</Text>
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Status:<Text style={{ color: "yellow" }}> Pending</Text>
             </Text>
           </View>
@@ -89,25 +97,41 @@ function Dashboard() {
                 fontSize: 25,
                 fontWeight: "bold",
                 color: "#FFFAFF",
-                fontFamily: style.fontFamily,
+                fontFamily: defaultStyles.fontFamily,
               }}
             >
               Adrift
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Type: Remix
             </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Started By:{" "}
-              <Text style={{ color: "#30BCED", fontFamily: style.fontFamily }}>
+              <Text
+                style={{
+                  color: "#30BCED",
+                  fontFamily: defaultStyles.fontFamily,
+                }}
+              >
                 Seth
               </Text>
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Status:
-              <Text style={{ color: "yellow", fontFamily: style.fontFamily }}>
+              <Text
+                style={{
+                  color: "yellow",
+                  fontFamily: defaultStyles.fontFamily,
+                }}
+              >
                 {" "}
                 Pending
               </Text>
@@ -121,25 +145,41 @@ function Dashboard() {
                 fontSize: 25,
                 fontWeight: "bold",
                 color: "#FFFAFF",
-                fontFamily: style.fontFamily,
+                fontFamily: defaultStyles.fontFamily,
               }}
             >
               Japan
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Type: Producer
             </Text>
           </View>
           <View style={styles.bottom}>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Started By:{" "}
-              <Text style={{ color: "#30BCED", fontFamily: style.fontFamily }}>
+              <Text
+                style={{
+                  color: "#30BCED",
+                  fontFamily: defaultStyles.fontFamily,
+                }}
+              >
                 You
               </Text>
             </Text>
-            <Text style={{ color: "#FFFAFF", fontFamily: style.fontFamily }}>
+            <Text
+              style={{ color: "#FFFAFF", fontFamily: defaultStyles.fontFamily }}
+            >
               Status:
-              <Text style={{ color: "yellow", fontFamily: style.fontFamily }}>
+              <Text
+                style={{
+                  color: "yellow",
+                  fontFamily: defaultStyles.fontFamily,
+                }}
+              >
                 {" "}
                 Pending
               </Text>
@@ -198,7 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: "#FFFAFF",
     fontWeight: "bold",
-    fontFamily: style.fontFamily,
+    fontFamily: defaultStyles.fontFamily,
   },
   top: {
     margin: 5,

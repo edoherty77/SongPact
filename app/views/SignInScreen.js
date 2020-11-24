@@ -6,6 +6,7 @@ import AppText from "../components/AppText"
 import Header from "../components/Header"
 import colors from "../config/colors"
 import UserContext from "../context/userContext"
+import AppTextInput from "../components/AppTextInput"
 
 const SignIn = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
@@ -40,12 +41,8 @@ const SignIn = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppText color={colors.black} style={styles.input}>
-              USERNAME
-            </AppText>
-            <AppText color={colors.black} style={styles.input}>
-              PASSWORD
-            </AppText>
+            <AppTextInput placeholder={"Email"} />
+            <AppTextInput placeholder={"Password"} />
           </View>
           <View style={styles.loginButton}>
             <AppButton
@@ -61,7 +58,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Sign Up"
               color={colors.secondary}
-              onPress={() => console.log("signUp")}
+              onPress={navigation.navigate}
             />
           </View>
         </View>
@@ -106,11 +103,11 @@ const styles = StyleSheet.create({
   inputs: {
     width: "80%",
   },
-  input: {
-    backgroundColor: colors.light,
-    marginBottom: "2%",
-    height: "40%",
-  },
+  // input: {
+  //   backgroundColor: colors.light,
+  //   marginBottom: "2%",
+  //   height: "40%",
+  // },
   loginButton: {
     width: "60%",
   },
