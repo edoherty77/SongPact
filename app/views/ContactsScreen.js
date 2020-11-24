@@ -1,23 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 
 import Header from '../components/Header'
+import Screen from '../components/Screen'
 
 function Contacts() {
-  return (
-    <LinearGradient
-      colors={['#448AFF', '#9E9E9E', '#FFEB3B', '#FF5722']}
-      style={{ flex: 1 }}
-    />
-  )
+  return <Screen>{/* <Header title="Contact" /> */}</Screen>
 }
 
-const styles = StyleSheet.create({
-  // contacts: {
-  //   flex: 1,
-  //   backgroundColor: '#30BCED',
-  // },
-})
+const styles = StyleSheet.create({})
 
 export default Contacts
