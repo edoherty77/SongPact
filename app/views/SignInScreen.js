@@ -1,11 +1,14 @@
-import React from "react"
+import React, { useContext } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
 import Header from "../components/Header"
 import colors from "../config/colors"
+import UserContext from "../context/userContext"
 
-const SignIn = ({ navigation }) => {
+const SignIn = ({ navigation, setUser }) => {
+  // const { user, setUser } = useContext(UserContext)
+
   return (
     <View style={styles.screen}>
       <Header title="SongPact" noIcon />
@@ -36,7 +39,7 @@ const SignIn = ({ navigation }) => {
             <AppButton
               title="Login"
               color={colors.confirm}
-              onPress={() => console.log("login")}
+              onPress={() => setUser(true)}
             />
           </View>
         </View>

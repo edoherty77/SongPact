@@ -24,7 +24,7 @@ export default function App({ navigation }) {
       {/* <AppNavigator /> */}
       {/* <SignIn /> */}
       <UserContext.Provider value={(user, setUser)}>
-        {user ? <Dashboard /> : <SignIn />}
+        {user ? <Dashboard /> : <SignIn setUser={setUser} />}
       </UserContext.Provider>
       <StatusBar style={"light"} />
     </>
