@@ -4,177 +4,53 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
+import Screen from '../components/Screen'
 import Header from '../components/Header'
+import PactButton from '../components/PactButton'
 
-function Dashboard() {
+function DashboardScreen() {
   return (
-    <View style={styles.dashboard}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
+    <Screen>
+      <Header title="Dashboard" />
+      <View style={styles.subHeader}>
+        <Text style={styles.subHeaderText}>Your Pacts</Text>
+        <ButtonIcon
+          name="magnify"
+          backgroundColor="transparent"
+          // backgroundColor="red"
+          iconColor="#FFFAFF"
+          style={{ paddingBottom: 20 }}
+        />
+      </View>
+      <View
         style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          height: '100%',
+          borderBottomColor: 'lightgray',
+          borderBottomWidth: 1,
+          width: '100%',
+          backgroundColor: 'red',
         }}
       />
-
-      <Header title="Dashboard" />
-      <View style={styles.modal}>
-        <View style={styles.modalHeader}>
-          <Text style={styles.pactHeader}>Your Pacts</Text>
-          <ButtonIcon
-            name="magnify"
-            backgroundColor="transparent"
-            // backgroundColor="red"
-            iconColor="#FFFAFF"
-            style={{ paddingBottom: 20 }}
-          />
-        </View>
-        <View
+      <View style={styles.options}>
+        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>Open</Text>
+        <Text
           style={{
-            borderBottomColor: 'lightgrey',
-            borderBottomWidth: 1,
-            width: '100%',
-            backgroundColor: 'red',
+            fontWeight: 'bold',
+            color: '#FFFAFF',
+            fontFamily: 'Courier',
           }}
-        />
-        <View style={styles.options}>
-          <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>Open</Text>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              color: '#FFFAFF',
-              fontFamily: 'Courier',
-            }}
-          >
-            Needs Action
-          </Text>
-          <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>All</Text>
-        </View>
-        <View style={styles.pact}>
-          <View style={styles.top}>
-            <Text
-              style={{
-                fontSize: 25,
-                fontFamily: 'Courier',
-                fontWeight: 'bold',
-                color: '#FFFAFF',
-              }}
-            >
-              A Walk
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Type: Producer
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Started By: <Text style={{ color: '#30BCED' }}>Stephan</Text>
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Status:<Text style={{ color: 'yellow' }}> Pending</Text>
-            </Text>
-          </View>
-        </View>
-        <View style={styles.pact}>
-          <View style={styles.top}>
-            <Text
-              style={{
-                fontSize: 25,
-                fontWeight: 'bold',
-                color: '#FFFAFF',
-                fontFamily: 'Courier',
-              }}
-            >
-              Adrift
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Type: Remix
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Started By:{' '}
-              <Text style={{ color: '#30BCED', fontFamily: 'Courier' }}>
-                Seth
-              </Text>
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Status:
-              <Text style={{ color: 'yellow', fontFamily: 'Courier' }}>
-                {' '}
-                Pending
-              </Text>
-            </Text>
-          </View>
-        </View>
-        <View style={styles.pact}>
-          <View style={styles.top}>
-            <Text
-              style={{
-                fontSize: 25,
-                fontWeight: 'bold',
-                color: '#FFFAFF',
-                fontFamily: 'Courier',
-              }}
-            >
-              Japan
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Type: Producer
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Started By:{' '}
-              <Text style={{ color: '#30BCED', fontFamily: 'Courier' }}>
-                You
-              </Text>
-            </Text>
-            <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>
-              Status:
-              <Text style={{ color: 'yellow', fontFamily: 'Courier' }}>
-                {' '}
-                Pending
-              </Text>
-            </Text>
-          </View>
-        </View>
+        >
+          Needs Action
+        </Text>
+        <Text style={{ color: '#FFFAFF', fontFamily: 'Courier' }}>All</Text>
       </View>
-    </View>
+      <View style={styles.pactList}>
+        <PactButton status="pending" name="Seth" title="Adrift" type="Remix" />
+      </View>
+    </Screen>
   )
 }
 
 const styles = StyleSheet.create({
-  bottom: {
-    margin: 5,
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  dashboard: {
-    flex: 1,
-    backgroundColor: '#30BCED',
-  },
-  modal: {
-    flex: 1,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
-    borderRadius: 10,
-    backgroundColor: 'transparent',
-    // backgroundColor: '#FFFAFF',
-  },
-  modalHeader: {
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-
   options: {
     flex: 0,
     flexDirection: 'row',
@@ -183,26 +59,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#FFFAFF',
   },
-  pact: {
-    backgroundColor: '#303036',
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
+  pactList: {
     padding: 10,
-    borderRadius: 5,
   },
-  pactHeader: {
+  subHeader: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 20,
+    // paddingBottom: 20,
+    paddingLeft: 35,
+    paddingRight: 35,
+  },
+  subHeaderText: {
     fontSize: 35,
     color: '#FFFAFF',
     fontWeight: 'bold',
     fontFamily: 'Courier',
   },
-  top: {
-    margin: 5,
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
 })
 
-export default Dashboard
+export default DashboardScreen
