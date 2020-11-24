@@ -10,6 +10,7 @@ import SignIn from "./app/views/SignInScreen"
 import SignUp from "./app/views/SignUpScreen"
 import Dashboard from "./app/views/DashboardScreen"
 import UserContext from "./app/context/userContext"
+// import AuthNavigator from "./app/navigation/AuthNavigator"
 
 const Tab = createBottomTabNavigator()
 
@@ -21,6 +22,7 @@ export default function App({ navigation }) {
   }, [user])
   return (
     <>
+      {/* <AuthNavigator /> */}
       {/* <AppNavigator /> */}
       {/* <SignIn /> */}
       <UserContext.Provider value={(user, setUser)}>
