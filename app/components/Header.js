@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   screenName: {
-    fontSize: 50,
+    fontSize: 40,
     fontFamily: defaultStyles.fontFamily,
     color: defaultStyles.colors.white,
     fontWeight: "bold",
