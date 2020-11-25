@@ -11,7 +11,6 @@ const SubHeader = ({ text, name }) => {
       <ButtonIcon
         name={name}
         backgroundColor="transparent"
-        // backgroundColor="red"
         iconColor={colors.white}
         style={{ paddingBottom: 20 }}
       />
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 20,
-    // paddingBottom: 20,
     paddingLeft: 35,
     paddingRight: 35,
   },
