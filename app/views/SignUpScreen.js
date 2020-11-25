@@ -1,5 +1,12 @@
 import React, { useState } from "react"
-import { StyleSheet, View, Text } from "react-native"
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native"
+import KeyboardAwareScrollView from "react-native-keyboard-aware-scroll-view"
 import AppButton from "../components/AppButton"
 import AppTextInput from "../components/AppTextInput"
 import Header from "../components/Header"
@@ -17,10 +24,12 @@ function SignUpScreen() {
     password2: "",
   })
 
+  const SignUp = () => {}
+
   return (
     <Screen>
       <Header title="Sign Up" noIcon />
-      <View style={styles.body}>
+      <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.inputs}>
           <View style={styles.firstLast}>
             <AppTextInput placeholder="First Name*" paddingRight={"5%"} />
@@ -40,7 +49,7 @@ function SignUpScreen() {
             console.log("Create Profile")
           }}
         />
-      </View>
+      </KeyboardAvoidingView>
     </Screen>
   )
 }

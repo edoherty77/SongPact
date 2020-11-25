@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { LinearGradient } from "expo-linear-gradient"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
@@ -8,6 +9,7 @@ import colors from "../config/colors"
 import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
 import Screen from "../components/Screen"
+import { ScrollView } from "react-native-gesture-handler"
 
 const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
@@ -15,7 +17,7 @@ const SignInScreen = ({ navigation }) => {
   return (
     <Screen>
       <Header title="SongPact" noIcon />
-      <View style={styles.body}>
+      <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.welcomeMessage}>
           <AppText style={styles.welcome} color={colors.white}>
             Welcome Message
@@ -53,7 +55,7 @@ const SignInScreen = ({ navigation }) => {
             />
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Screen>
   )
 }
@@ -67,6 +69,9 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+    alignItems: "center",
+  },
+  container: {
     alignItems: "center",
   },
   welcomeMessage: {
