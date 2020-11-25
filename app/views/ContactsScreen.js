@@ -5,7 +5,11 @@ import Header from '../components/Header'
 import Screen from '../components/Screen'
 
 function Contacts() {
-  return <Screen>{/* <Header title="Contact" /> */}</Screen>
+  return (
+    <Screen>
+      <Header title="Contacts" />
+    </Screen>
+  )
 }
 
 const styles = StyleSheet.create({})

@@ -2,6 +2,7 @@ import React from "react"
 import { StyleSheet, Text, View, SafeAreaView } from "react-native"
 
 import ButtonIcon from "./ButtonIcon"
+import defaultStyles from "../config/styles"
 
 const Header = ({ title, noIcon }) => {
   return (
@@ -12,7 +13,7 @@ const Header = ({ title, noIcon }) => {
         {!noIcon && (
           <ButtonIcon
             style={styles.messageBtn}
-            iconColor="#FFFAFF"
+            iconColor={defaultStyles.colors.white}
             size={45}
             name="message-text"
           />
@@ -27,21 +28,17 @@ export default Header
 const styles = StyleSheet.create({
   appHeader: {
     flexDirection: "row",
-    // backgroundColor: 'green',
     justifyContent: "space-between",
     padding: 20,
   },
   screenName: {
-    fontSize: 50,
-    fontFamily: "Avenir Next",
-    // padding: 20,
-    color: "#FFFAFF",
+    fontSize: 40,
+    fontFamily: defaultStyles.fontFamily,
+    color: defaultStyles.colors.white,
     fontWeight: "bold",
-    // backgroundColor: 'blue',
   },
   messageBtn: {
-    color: "#FFFAFF",
+    color: defaultStyles.colors.white,
     backgroundColor: "transparent",
-    // backgroundColor: '#FFFAFF',
   },
 })

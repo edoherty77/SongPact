@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { LinearGradient } from "expo-linear-gradient"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
@@ -7,28 +8,21 @@ import Header from "../components/Header"
 import colors from "../config/colors"
 import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
+import Screen from "../components/Screen"
+import { ScrollView } from "react-native-gesture-handler"
 
-const SignIn = ({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
 
   return (
-    <View style={styles.screen}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["rgba(0,0,0,0.8)", "transparent"]}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: "100%",
-        }}
-      />
+    <Screen>
       <Header title="SongPact" noIcon />
-      <View style={styles.body}>
+      <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.welcomeMessage}>
-          <AppText style={styles.welcome}>Welcome Message</AppText>
-          <AppText style={styles.message}>
+          <AppText style={styles.welcome} color={colors.white}>
+            Welcome Message
+          </AppText>
+          <AppText style={styles.message} color={colors.white}>
             Laborum nostrud proident sit elit qui occaecat proident sunt ut.
             Lorem proident velit culpa non nostrud enim non. Est adipisicing
             laboris mollit fugiat esse et. Nostrud amet qui eiusmod sit commodo
@@ -41,33 +35,32 @@ const SignIn = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppTextInput placeholder={"Email"} />
-            <AppTextInput placeholder={"Password"} />
-          </View>
-          <View style={styles.loginButton}>
-            <AppButton
-              title="Login"
-              color={colors.confirm}
-              onPress={() => setUser(true)}
-            />
+            <AppTextInput placeholder="Email" />
+            <AppTextInput placeholder="Password" />
           </View>
         </View>
+        <AppButton
+          style={styles.loginButton}
+          title="Login"
+          color={colors.confirm}
+          onPress={() => setUser(true)}
+        />
         <View style={styles.signUp}>
           <AppText>Don't have an account?</AppText>
           <View style={styles.signUpButton}>
             <AppButton
               title="Sign Up"
-              color={colors.secondary}
-              onPress={navigation.navigate}
+              color={colors.white}
+              onPress={() => navigation.navigate("SignUp")}
             />
           </View>
         </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </Screen>
   )
 }
 
-export default SignIn
+export default SignInScreen
 
 const styles = StyleSheet.create({
   screen: {
@@ -76,6 +69,9 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+    alignItems: "center",
+  },
+  container: {
     alignItems: "center",
   },
   welcomeMessage: {
@@ -93,28 +89,23 @@ const styles = StyleSheet.create({
   },
   signIn: {
     flex: 0.2,
-    // flexDirection: "row",
     width: "100%",
-    // backgroundColor: "red",
     marginTop: 20,
-    marginBottom: "20%",
+    marginVertical: "30%",
     alignItems: "center",
   },
   inputs: {
     width: "80%",
+    marginVertical: 5,
   },
-  // input: {
-  //   backgroundColor: colors.light,
-  //   marginBottom: "2%",
-  //   height: "40%",
-  // },
   loginButton: {
-    width: "60%",
+    width: "100%",
+    position: "absolute",
+    bottom: "20%",
   },
   signUp: {
     flex: 0.2,
     flexDirection: "row",
-    // backgroundColor: "blue",
     marginTop: 20,
     marginBottom: "10%",
   },
