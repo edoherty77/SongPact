@@ -11,7 +11,7 @@ import AppTextInput from "../components/AppTextInput"
 
 import colors from "../config/colors"
 
-const SignInScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
 
   const login = (values) => {
@@ -91,7 +91,7 @@ const SignInScreen = ({ navigation }) => {
   )
 }
 
-export default SignInScreen
+export default LoginScreen
 
 const styles = StyleSheet.create({
   screen: {
