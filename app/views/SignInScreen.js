@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
+import { Formik } from "formik"
 
 import Screen from "../components/Screen"
 import AppButton from "../components/AppButton"
@@ -12,11 +13,9 @@ import colors from "../config/colors"
 
 const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
 
-  const login = () => {
-    console.log(email, password)
+  const login = (values) => {
+    console.log(values)
     // setUser(true)
   }
 
@@ -41,32 +40,42 @@ const SignInScreen = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppTextInput
-              placeholder="Email"
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="email"
-              onChangeText={(text) => setEmail(text)}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-            />
-            <AppTextInput
-              placeholder="Password"
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="lock"
-              onChangeText={(text) => setPassword(text)}
-              textContentType="password"
-              secureTextEntry
-            />
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              onSubmit={(values) => login(values)}
+            >
+              {({ handleChange, handleSubmit }) => (
+                <>
+                  <AppTextInput
+                    placeholder="Email"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="email"
+                    onChangeText={handleChange("email")}
+                    textContentType="emailAddress"
+                    keyboardType="email-address"
+                  />
+                  <AppTextInput
+                    placeholder="Password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="lock"
+                    onChangeText={handleChange("password")}
+                    textContentType="password"
+                    secureTextEntry
+                  />
+                  <AppButton
+                    // style={styles.loginButton}
+                    title="Login"
+                    color={colors.confirm}
+                    onPress={handleSubmit}
+                  />
+                </>
+              )}
+            </Formik>
           </View>
         </View>
-        <AppButton
-          style={styles.loginButton}
-          title="Login"
-          color={colors.confirm}
-          onPress={login}
-        />
+
         <View style={styles.signUp}>
           <AppText>Don't have an account?</AppText>
           <View style={styles.signUpButton}>
@@ -87,7 +96,6 @@ export default SignInScreen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.primary,
   },
   body: {
     flex: 1,
