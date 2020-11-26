@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     // marginVertical: 5,
   },
   loginButton: {
-    width: "100%",
+    width: "80%",
     marginTop: 10,
     backgroundColor: colors.confirm,
   },
