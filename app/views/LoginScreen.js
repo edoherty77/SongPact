@@ -14,6 +14,7 @@ import colors from "../config/colors"
 import ErrorMessage from "../components/forms/ErrorMessage"
 import AppFormField from "../components/forms/AppFormField"
 import { SubmitButton } from "../components/forms"
+import AppForm from "../components/forms/AppForm"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -48,48 +49,37 @@ const LoginScreen = ({ navigation }) => {
           </AppText>
         </View>
         <View style={styles.signIn}>
-          <Formik
+          <AppForm
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => login(values)}
             validationSchema={validationSchema}
           >
-            {({
-              handleChange,
-              handleSubmit,
-              errors,
-              setFieldTouched,
-              touched,
-            }) => (
-              <>
-                <AppFormField
-                  name="email"
-                  style={styles.inputs}
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="email"
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                />
-                <AppFormField
-                  name="password"
-                  style={styles.inputs}
-                  placeholder="Password"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="lock"
-                  textContentType="password"
-                  secureTextEntry
-                />
-                <SubmitButton
-                  style={styles.loginButton}
-                  title="Login"
-                  color={colors.confirm}
-                  // handleSubmit={handleSubmit}
-                />
-              </>
-            )}
-          </Formik>
+            <AppFormField
+              name="email"
+              style={styles.inputs}
+              placeholder="Email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="email"
+              textContentType="emailAddress"
+              keyboardType="email-address"
+            />
+            <AppFormField
+              name="password"
+              style={styles.inputs}
+              placeholder="Password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="lock"
+              textContentType="password"
+              secureTextEntry
+            />
+            <SubmitButton
+              style={styles.loginButton}
+              title="Login"
+              color={colors.confirm}
+            />
+          </AppForm>
         </View>
 
         <View style={styles.signUp}>
