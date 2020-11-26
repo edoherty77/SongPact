@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
 import { Formik } from "formik"
+import * as Yup from "yup"
 
 import Screen from "../components/Screen"
 import AppButton from "../components/AppButton"
@@ -10,6 +11,11 @@ import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
 
 import colors from "../config/colors"
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+})
 
 const LoginScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
@@ -43,8 +49,9 @@ const LoginScreen = ({ navigation }) => {
             <Formik
               initialValues={{ email: "", password: "" }}
               onSubmit={(values) => login(values)}
+              validationSchema={validationSchema}
             >
-              {({ handleChange, handleSubmit }) => (
+              {({ handleChange, handleSubmit, errors }) => (
                 <>
                   <AppTextInput
                     placeholder="Email"
@@ -55,6 +62,7 @@ const LoginScreen = ({ navigation }) => {
                     textContentType="emailAddress"
                     keyboardType="email-address"
                   />
+                  <AppText>{errors.email}</AppText>
                   <AppTextInput
                     placeholder="Password"
                     autoCapitalize="none"
@@ -64,6 +72,7 @@ const LoginScreen = ({ navigation }) => {
                     textContentType="password"
                     secureTextEntry
                   />
+                  <AppText>{errors.password}</AppText>
                   <AppButton
                     // style={styles.loginButton}
                     title="Login"
