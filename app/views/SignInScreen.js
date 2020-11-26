@@ -1,18 +1,24 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import { LinearGradient } from "expo-linear-gradient"
+
+import Screen from "../components/Screen"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
 import Header from "../components/Header"
-import colors from "../config/colors"
 import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
-import Screen from "../components/Screen"
-import { ScrollView } from "react-native-gesture-handler"
+
+import colors from "../config/colors"
 
 const SignInScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const login = () => {
+    console.log(email, password)
+    // setUser(true)
+  }
 
   return (
     <Screen>
@@ -35,15 +41,31 @@ const SignInScreen = ({ navigation }) => {
         </View>
         <View style={styles.signIn}>
           <View style={styles.inputs}>
-            <AppTextInput placeholder="Email" />
-            <AppTextInput placeholder="Password" />
+            <AppTextInput
+              placeholder="Email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="email"
+              onChangeText={(text) => setEmail(text)}
+              textContentType="emailAddress"
+              keyboardType="email-address"
+            />
+            <AppTextInput
+              placeholder="Password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="lock"
+              onChangeText={(text) => setPassword(text)}
+              textContentType="password"
+              secureTextEntry
+            />
           </View>
         </View>
         <AppButton
           style={styles.loginButton}
           title="Login"
           color={colors.confirm}
-          onPress={() => setUser(true)}
+          onPress={login}
         />
         <View style={styles.signUp}>
           <AppText>Don't have an account?</AppText>

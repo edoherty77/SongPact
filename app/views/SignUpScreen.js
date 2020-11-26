@@ -9,6 +9,7 @@ import {
 import KeyboardAwareScrollView from "react-native-keyboard-aware-scroll-view"
 import AppButton from "../components/AppButton"
 import AppTextInput from "../components/AppTextInput"
+import { Form, FormField, SubmitButton } from "../components/forms"
 import Header from "../components/Header"
 import Screen from "../components/Screen"
 import colors from "../config/colors"
@@ -30,6 +31,10 @@ function SignUpScreen() {
     user[key] = text
   }
 
+  const handleSubmit = () => {
+    console.log("submit")
+  }
+
   const SignUp = () => {}
 
   return (
@@ -37,28 +42,28 @@ function SignUpScreen() {
       <Header title="Sign Up" noIcon />
       <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.inputs}>
-          <View style={styles.firstLast}>
-            <AppTextInput
-              placeholder="First Name*"
-              paddingRight={"5%"}
-              onChangeText={(text) => onTextInput(firstName, text)}
-            />
-            <AppTextInput placeholder="Last Name*" paddingRight={"23%"} />
-          </View>
-          <AppTextInput placeholder="Artist Name*" />
-          <AppTextInput placeholder="Company Name" />
-          <AppTextInput placeholder="Email*" />
-          <AppTextInput placeholder="Password*" />
-          <AppTextInput placeholder="Repeat Password*" />
+          <Form>
+            <View style={styles.firstLast}>
+              <FormField
+                placeholder="First Name*"
+                paddingRight={"5%"}
+                onChangeText={(text) => onTextInput(firstName, text)}
+              />
+              <FormField placeholder="Last Name*" paddingRight={"23%"} />
+            </View>
+            <FormField placeholder="Artist Name*" />
+            <FormField placeholder="Company Name" />
+            <FormField placeholder="Email*" />
+            <FormField placeholder="Password*" />
+            <FormField placeholder="Repeat Password*" />
+          </Form>
         </View>
-        <AppButton
+        {/* <SubmitButton
           style={styles.createButton}
           title="Create Profile"
           color={colors.confirm}
-          onPress={() => {
-            console.log("Create Profile")
-          }}
-        />
+          handleSubmit={handleSubmit}
+        /> */}
       </KeyboardAvoidingView>
     </Screen>
   )
