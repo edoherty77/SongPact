@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password1: Yup.string().required().label("Password1"),
   password2: Yup.string().oneOf(
-    [Yup.ref("password"), null],
+    [Yup.ref("password1"), null],
     "Passwords must match"
   ),
 })
@@ -58,22 +58,20 @@ function SignUpScreen() {
             onSubmit={(values) => register(values)}
             validationSchema={validationSchema}
           >
-            <View style={styles.firstLast}>
-              <AppFormField
-                name="firstName"
-                placeholder="First Name*"
-                autoCorrect={false}
-                textContentType="givenName"
-                paddingRight={"8%"}
-              />
-              <AppFormField
-                name="lastName"
-                placeholder="Last Name*"
-                autoCorrect={false}
-                textContentType="familyName"
-                paddingRight={"17%"}
-              />
-            </View>
+            <AppFormField
+              name="firstName"
+              placeholder="First Name*"
+              autoCorrect={false}
+              textContentType="givenName"
+              paddingRight={"8%"}
+            />
+            <AppFormField
+              name="lastName"
+              placeholder="Last Name*"
+              autoCorrect={false}
+              textContentType="familyName"
+              paddingRight={"17%"}
+            />
             <AppFormField
               name="artistName"
               placeholder="Artist Name*"
@@ -138,15 +136,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginVertical: "20%",
     justifyContent: "space-between",
-    // backgroundColor: colors.secondary,
-  },
-  firstLast: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    // width: "100%",
   },
   createButton: {
     width: "100%",
+    marginTop: 20,
     backgroundColor: colors.confirm,
   },
 })
