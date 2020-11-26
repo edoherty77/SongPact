@@ -12,6 +12,8 @@ import AppTextInput from "../components/AppTextInput"
 
 import colors from "../config/colors"
 import ErrorMessage from "../components/forms/ErrorMessage"
+import AppFormField from "../components/forms/AppFormField"
+import { SubmitButton } from "../components/forms"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -59,37 +61,31 @@ const LoginScreen = ({ navigation }) => {
               touched,
             }) => (
               <>
-                <AppTextInput
+                <AppFormField
+                  name="email"
                   style={styles.inputs}
-                  onBlur={() => setFieldTouched("email")}
                   placeholder="Email"
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="email"
-                  onChangeText={handleChange("email")}
                   textContentType="emailAddress"
                   keyboardType="email-address"
                 />
-                <ErrorMessage error={errors.email} visible={touched.email} />
-                <AppTextInput
+                <AppFormField
+                  name="password"
                   style={styles.inputs}
                   placeholder="Password"
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="lock"
-                  onChangeText={handleChange("password")}
                   textContentType="password"
                   secureTextEntry
                 />
-                <ErrorMessage
-                  error={errors.password}
-                  visible={touched.password}
-                />
-                <AppButton
+                <SubmitButton
                   style={styles.loginButton}
                   title="Login"
                   color={colors.confirm}
-                  onPress={handleSubmit}
+                  // handleSubmit={handleSubmit}
                 />
               </>
             )}
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputs: {
-    width: "80%",
+    width: "70%",
     alignSelf: "center",
     // marginBottom: 20,
     // marginVertical: 5,
@@ -153,6 +149,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: "100%",
     marginTop: 10,
+    backgroundColor: colors.confirm,
   },
   signUp: {
     flex: 0.2,
