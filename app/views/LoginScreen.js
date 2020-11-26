@@ -26,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <Header title="SongPact" noIcon />
+      <Header title="SongTract" noIcon />
       <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.welcomeMessage}>
           <AppText style={styles.welcome} color={colors.white}>
