@@ -1,20 +1,15 @@
 import React, { useContext } from "react"
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native"
-import { Formik } from "formik"
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native"
 import * as Yup from "yup"
 
 import Screen from "../components/Screen"
+import Header from "../components/Header"
 import AppButton from "../components/AppButton"
 import AppText from "../components/AppText"
-import Header from "../components/Header"
+import { AppForm, AppFormField, SubmitButton } from "../components/forms"
 import UserContext from "../context/userContext"
-import AppTextInput from "../components/AppTextInput"
 
 import colors from "../config/colors"
-import ErrorMessage from "../components/forms/ErrorMessage"
-import AppFormField from "../components/forms/AppFormField"
-import { SubmitButton } from "../components/forms"
-import AppForm from "../components/forms/AppForm"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),

@@ -1,18 +1,25 @@
 import React, { useState } from "react"
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native"
-import KeyboardAwareScrollView from "react-native-keyboard-aware-scroll-view"
-import AppButton from "../components/AppButton"
-import AppTextInput from "../components/AppTextInput"
-import { Form, FormField, SubmitButton } from "../components/forms"
-import Header from "../components/Header"
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native"
+import * as Yup from "yup"
+
 import Screen from "../components/Screen"
+import Header from "../components/Header"
+import { AppForm, AppFormField, SubmitButton } from "../components/forms"
+
 import colors from "../config/colors"
+
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required().label("First name"),
+  lastName: Yup.string().required().label("Last name"),
+  artistName: Yup.string().required().label("Artist name"),
+  companyName: Yup.string().label("Artist name"),
+  email: Yup.string().required().email().label("Email"),
+  password1: Yup.string().required().label("Password1"),
+  password2: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
+})
 
 function SignUpScreen() {
   const [user, setUser] = useState({
@@ -27,12 +34,8 @@ function SignUpScreen() {
 
   console.log(user.firstName)
 
-  const onTextInput = (key, text) => {
-    user[key] = text
-  }
-
-  const handleSubmit = () => {
-    console.log("submit")
+  const register = (values) => {
+    console.log(values)
   }
 
   const SignUp = () => {}
@@ -42,28 +45,79 @@ function SignUpScreen() {
       <Header title="Sign Up" noIcon />
       <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.inputs}>
-          <Form>
+          <AppForm
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              artistName: "",
+              companyName: "",
+              email: "",
+              password1: "",
+              password2: "",
+            }}
+            onSubmit={(values) => register(values)}
+            validationSchema={validationSchema}
+          >
             <View style={styles.firstLast}>
-              <FormField
+              <AppFormField
+                name="firstName"
                 placeholder="First Name*"
-                paddingRight={"5%"}
-                onChangeText={(text) => onTextInput(firstName, text)}
+                autoCorrect={false}
+                textContentType="givenName"
+                paddingRight={"8%"}
               />
-              <FormField placeholder="Last Name*" paddingRight={"23%"} />
+              <AppFormField
+                name="lastName"
+                placeholder="Last Name*"
+                autoCorrect={false}
+                textContentType="familyName"
+                paddingRight={"17%"}
+              />
             </View>
-            <FormField placeholder="Artist Name*" />
-            <FormField placeholder="Company Name" />
-            <FormField placeholder="Email*" />
-            <FormField placeholder="Password*" />
-            <FormField placeholder="Repeat Password*" />
-          </Form>
+            <AppFormField
+              name="artistName"
+              placeholder="Artist Name*"
+              autoCorrect={false}
+              // paddingRight={"5%"}
+            />
+            <AppFormField
+              name="companyName"
+              placeholder="Company Name"
+              autoCorrect={false}
+              // paddingRight={"5%"}
+            />
+            <AppFormField
+              name="email"
+              placeholder="Email*"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              // paddingRight={"5%"}
+            />
+            <AppFormField
+              name="password1"
+              placeholder="Password*"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="password"
+              secureTextEntry
+            />
+            <AppFormField
+              name="password2"
+              placeholder="Confirm password*"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="password"
+              secureTextEntry
+            />
+            <SubmitButton
+              style={styles.createButton}
+              title="Create Profile"
+              color={colors.confirm}
+            />
+          </AppForm>
         </View>
-        {/* <SubmitButton
-          style={styles.createButton}
-          title="Create Profile"
-          color={colors.confirm}
-          handleSubmit={handleSubmit}
-        /> */}
       </KeyboardAvoidingView>
     </Screen>
   )
@@ -93,7 +147,6 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: "100%",
-    position: "absolute",
-    bottom: "20%",
+    backgroundColor: colors.confirm,
   },
 })
