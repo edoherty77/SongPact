@@ -11,6 +11,7 @@ import UserContext from "../context/userContext"
 import AppTextInput from "../components/AppTextInput"
 
 import colors from "../config/colors"
+import ErrorMessage from "../components/forms/ErrorMessage"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -45,55 +46,54 @@ const LoginScreen = ({ navigation }) => {
           </AppText>
         </View>
         <View style={styles.signIn}>
-          <View style={styles.inputs}>
-            <Formik
-              initialValues={{ email: "", password: "" }}
-              onSubmit={(values) => login(values)}
-              validationSchema={validationSchema}
-            >
-              {({ handleChange, handleSubmit, errors }) => (
-                <>
-                  <AppTextInput
-                    placeholder="Email"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="email"
-                    onChangeText={handleChange("email")}
-                    textContentType="emailAddress"
-                    keyboardType="email-address"
-                  />
-                  <AppText>{errors.email}</AppText>
-                  <AppTextInput
-                    placeholder="Password"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="lock"
-                    onChangeText={handleChange("password")}
-                    textContentType="password"
-                    secureTextEntry
-                  />
-                  <AppText>{errors.password}</AppText>
-                  <AppButton
-                    // style={styles.loginButton}
-                    title="Login"
-                    color={colors.confirm}
-                    onPress={handleSubmit}
-                  />
-                </>
-              )}
-            </Formik>
-          </View>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => login(values)}
+            validationSchema={validationSchema}
+          >
+            {({ handleChange, handleSubmit, errors }) => (
+              <>
+                <AppTextInput
+                  style={styles.inputs}
+                  placeholder="Email"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  icon="email"
+                  onChangeText={handleChange("email")}
+                  textContentType="emailAddress"
+                  keyboardType="email-address"
+                />
+                <ErrorMessage error={errors.email} />
+                <AppTextInput
+                  style={styles.inputs}
+                  placeholder="Password"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  icon="lock"
+                  onChangeText={handleChange("password")}
+                  textContentType="password"
+                  secureTextEntry
+                />
+                <ErrorMessage error={errors.password} />
+                <AppButton
+                  style={styles.loginButton}
+                  title="Login"
+                  color={colors.confirm}
+                  onPress={handleSubmit}
+                />
+              </>
+            )}
+          </Formik>
         </View>
 
         <View style={styles.signUp}>
           <AppText>Don't have an account?</AppText>
-          <View style={styles.signUpButton}>
-            <AppButton
-              title="Sign Up"
-              color={colors.white}
-              onPress={() => navigation.navigate("SignUp")}
-            />
-          </View>
+          <AppButton
+            style={styles.signUpButton}
+            title="Sign Up"
+            color={colors.white}
+            onPress={() => navigation.navigate("SignUp")}
+          />
         </View>
       </KeyboardAvoidingView>
     </Screen>
@@ -127,25 +127,26 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
   signIn: {
-    flex: 0.2,
+    // flex: 0.2,
     width: "100%",
-    marginTop: 20,
-    marginVertical: "30%",
+    // marginTop: 20,
+    marginBottom: 40,
+    // marginVertical: "30%",
     alignItems: "center",
   },
   inputs: {
     width: "80%",
-    marginVertical: 5,
+    alignSelf: "center",
+    // marginBottom: 20,
+    // marginVertical: 5,
   },
   loginButton: {
     width: "100%",
-    position: "absolute",
-    bottom: "20%",
+    marginTop: 10,
   },
   signUp: {
     flex: 0.2,
     flexDirection: "row",
-    marginTop: 20,
     marginBottom: "10%",
   },
   signUpButton: {
