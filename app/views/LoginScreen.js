@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
   register: {
     flexDirection: "row",
     alignSelf: "center",
+    alignItems: "center",
   },
   registerBtn: {
     width: "30%",
-    marginLeft: "10%",
+    marginLeft: "5%",
   },
 })
