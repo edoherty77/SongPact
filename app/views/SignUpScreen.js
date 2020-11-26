@@ -24,6 +24,12 @@ function SignUpScreen() {
     password2: "",
   })
 
+  console.log(user.firstName)
+
+  const onTextInput = (key, text) => {
+    user[key] = text
+  }
+
   const SignUp = () => {}
 
   return (
@@ -32,7 +38,11 @@ function SignUpScreen() {
       <KeyboardAvoidingView behavior="padding" style={styles.body}>
         <View style={styles.inputs}>
           <View style={styles.firstLast}>
-            <AppTextInput placeholder="First Name*" paddingRight={"5%"} />
+            <AppTextInput
+              placeholder="First Name*"
+              paddingRight={"5%"}
+              onChangeText={(text) => onTextInput(firstName, text)}
+            />
             <AppTextInput placeholder="Last Name*" paddingRight={"23%"} />
           </View>
           <AppTextInput placeholder="Artist Name*" />
