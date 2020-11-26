@@ -1,5 +1,11 @@
 import React, { useState } from "react"
-import { StyleSheet, View, KeyboardAvoidingView } from "react-native"
+import {
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native"
 import * as Yup from "yup"
 
 import Screen from "../components/Screen"
@@ -42,80 +48,94 @@ function SignUpScreen() {
 
   return (
     <Screen>
-      <Header title="Sign Up" noIcon />
-      <KeyboardAvoidingView behavior="padding" style={styles.body}>
-        <View style={styles.inputs}>
-          <AppForm
-            initialValues={{
-              firstName: "",
-              lastName: "",
-              artistName: "",
-              companyName: "",
-              email: "",
-              password1: "",
-              password2: "",
-            }}
-            onSubmit={(values) => register(values)}
-            validationSchema={validationSchema}
-          >
-            <AppFormField
-              name="firstName"
-              placeholder="First Name*"
-              autoCorrect={false}
-              textContentType="givenName"
-              paddingRight={"8%"}
-            />
-            <AppFormField
-              name="lastName"
-              placeholder="Last Name*"
-              autoCorrect={false}
-              textContentType="familyName"
-              paddingRight={"17%"}
-            />
-            <AppFormField
-              name="artistName"
-              placeholder="Artist Name*"
-              autoCorrect={false}
-              // paddingRight={"5%"}
-            />
-            <AppFormField
-              name="companyName"
-              placeholder="Company Name"
-              autoCorrect={false}
-              // paddingRight={"5%"}
-            />
-            <AppFormField
-              name="email"
-              placeholder="Email*"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              // paddingRight={"5%"}
-            />
-            <AppFormField
-              name="password1"
-              placeholder="Password*"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="password"
-              secureTextEntry
-            />
-            <AppFormField
-              name="password2"
-              placeholder="Confirm password*"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="password"
-              secureTextEntry
-            />
-            <SubmitButton
-              style={styles.createButton}
-              title="Create Profile"
-              color={colors.confirm}
-            />
-          </AppForm>
-        </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <Header title="Register" noIcon />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.register}>
+            <AppForm
+              initialValues={{
+                firstName: "",
+                lastName: "",
+                artistName: "",
+                companyName: "",
+                email: "",
+                password1: "",
+                password2: "",
+              }}
+              onSubmit={(values) => register(values)}
+              validationSchema={validationSchema}
+            >
+              <AppFormField
+                style={styles.input}
+                name="firstName"
+                placeholder="First Name*"
+                autoCorrect={false}
+                textContentType="givenName"
+                paddingRight={"8%"}
+              />
+              <AppFormField
+                style={styles.input}
+                name="lastName"
+                placeholder="Last Name*"
+                autoCorrect={false}
+                textContentType="familyName"
+                paddingRight={"17%"}
+              />
+              <AppFormField
+                style={styles.input}
+                name="artistName"
+                placeholder="Artist Name*"
+                autoCorrect={false}
+                // paddingRight={"5%"}
+              />
+              <AppFormField
+                style={styles.input}
+                name="companyName"
+                placeholder="Company Name"
+                autoCorrect={false}
+                // paddingRight={"5%"}
+              />
+              <AppFormField
+                style={styles.input}
+                name="email"
+                placeholder="Email*"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="emailAddress"
+                keyboardType="email-address"
+                // paddingRight={"5%"}
+              />
+              <AppFormField
+                style={styles.input}
+                name="password1"
+                placeholder="Password*"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="password"
+                secureTextEntry
+              />
+              <AppFormField
+                style={styles.input}
+                name="password2"
+                placeholder="Confirm password*"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="password"
+                secureTextEntry
+              />
+              <SubmitButton
+                style={styles.createButton}
+                title="Create Profile"
+                color={colors.confirm}
+                dismissKey={Keyboard.dismiss}
+              />
+            </AppForm>
+          </View>
+        </TouchableWithoutFeedback>
+        <View style={{ flex: 1 }} />
       </KeyboardAvoidingView>
     </Screen>
   )
@@ -124,21 +144,20 @@ function SignUpScreen() {
 export default SignUpScreen
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
+    justifyContent: "flex-end",
   },
-  body: {
-    flex: 1,
+  register: {
+    width: "100%",
+    // marginVertical: 30,
+    alignItems: "center",
   },
-  inputs: {
-    flex: 0.7,
-    width: "80%",
-    alignSelf: "center",
-    marginVertical: "20%",
-    justifyContent: "space-between",
+  input: {
+    width: "70%",
   },
   createButton: {
-    width: "100%",
+    width: "80%",
     marginTop: 20,
     backgroundColor: colors.confirm,
   },

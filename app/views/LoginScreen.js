@@ -66,7 +66,7 @@ const LoginScreen = ({ navigation }) => {
               >
                 <AppFormField
                   name="email"
-                  style={styles.inputs}
+                  style={styles.input}
                   placeholder="Email"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -76,7 +76,7 @@ const LoginScreen = ({ navigation }) => {
                 />
                 <AppFormField
                   name="password"
-                  style={styles.inputs}
+                  style={styles.input}
                   placeholder="Password"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -93,11 +93,11 @@ const LoginScreen = ({ navigation }) => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        <View style={styles.signUp}>
+        <View style={styles.register}>
           <AppText>Don't have an account?</AppText>
           <AppButton
-            style={styles.signUpButton}
-            title="Sign Up"
+            style={styles.registerBtn}
+            title="Register"
             color={colors.white}
             onPress={() => navigation.navigate("SignUp")}
           />
@@ -114,10 +114,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-  },
-  body: {
-    flex: 1,
-    alignItems: "center",
   },
   welcomeBox: {
     width: "80%",
@@ -136,7 +132,7 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     alignItems: "center",
   },
-  inputs: {
+  input: {
     width: "70%",
   },
   loginButton: {
@@ -144,14 +140,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: colors.confirm,
   },
-  signUp: {
-    flex: 0.2,
+  register: {
     flexDirection: "row",
-    marginBottom: "10%",
     alignSelf: "center",
   },
-  signUpButton: {
-    width: "20%",
+  registerBtn: {
+    width: "30%",
     marginLeft: "10%",
   },
 })
