@@ -11,6 +11,7 @@ import * as Yup from "yup"
 import Screen from "../components/Screen"
 import Header from "../components/Header"
 import { AppForm, AppFormField, SubmitButton } from "../components/forms"
+import User from "../stores/user"
 
 import colors from "../config/colors"
 
@@ -41,7 +42,8 @@ function SignUpScreen() {
   console.log(user.firstName)
 
   const register = (values) => {
-    console.log(values)
+    const newUser = new User(values)
+    console.log(newUser)
   }
 
   const SignUp = () => {}
