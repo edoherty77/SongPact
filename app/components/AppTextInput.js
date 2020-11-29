@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 3,
     flexDirection: "row",
-    padding: 5,
-    marginVertical: 5,
+    padding: 10,
+    marginVertical: 10,
   },
   icon: {
     marginRight: 10,
