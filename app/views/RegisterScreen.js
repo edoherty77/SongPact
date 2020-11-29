@@ -11,7 +11,8 @@ import * as Yup from "yup"
 import Screen from "../components/Screen"
 import Header from "../components/Header"
 import { AppForm, AppFormField, SubmitButton } from "../components/forms"
-import User from "../stores/user"
+
+import User from "../stores/User"
 
 import colors from "../config/colors"
 
@@ -28,22 +29,11 @@ const validationSchema = Yup.object().shape({
   ),
 })
 
-function SignUpScreen() {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    artistName: "",
-    companyName: "",
-    email: "",
-    password1: "",
-    password2: "",
-  })
-
-  console.log(user.firstName)
-
+function RegisterScreen() {
   const register = (values) => {
     const newUser = new User(values)
     console.log(newUser)
+    // UserStore.addUser(newUser)
   }
 
   const SignUp = () => {}
@@ -143,7 +133,7 @@ function SignUpScreen() {
   )
 }
 
-export default SignUpScreen
+export default RegisterScreen
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { observer } from "mobx-react"
 import {
   StyleSheet,
   View,
@@ -12,9 +13,12 @@ import * as Yup from "yup"
 import Screen from "../components/Screen"
 import Header from "../components/Header"
 import AppButton from "../components/AppButton"
+import ButtonIcon from "../components/ButtonIcon"
 import AppText from "../components/AppText"
 import { AppForm, AppFormField, SubmitButton } from "../components/forms"
 import UserContext from "../context/userContext"
+
+import store from "../stores/TestStore"
 
 import colors from "../config/colors"
 
@@ -23,7 +27,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 })
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = observer(({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
 
   const login = (values) => {
@@ -102,11 +106,30 @@ const LoginScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("SignUp")}
           />
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            paddingVertical: 20,
+          }}
+        >
+          <ButtonIcon name="plus" onPress={() => store.increase()} />
+          <AppButton
+            style={{ width: "20%" }}
+            title={store.value}
+            color={colors.light}
+            onPress={() => navigation.navigate("Mobx")}
+          />
+          <ButtonIcon name="minus" onPress={() => store.decrease()} />
+        </View>
         <View style={{ flex: 1 }} />
       </KeyboardAvoidingView>
     </Screen>
   )
-}
+})
 
 export default LoginScreen
 

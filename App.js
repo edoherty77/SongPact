@@ -1,14 +1,10 @@
-import { StatusBar } from 'expo-status-bar'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { StatusBar } from "expo-status-bar"
+import React, { useEffect, useState } from "react"
+import { NavigationContainer } from "@react-navigation/native"
 
-import AppNavigator from './app/navigation/AppNavigator'
-import UserContext from './app/context/userContext'
-import AuthNavigator from './app/navigation/AuthNavigator'
-
-const Tab = createBottomTabNavigator()
+import AppNavigator from "./app/navigation/AppNavigator"
+import UserContext from "./app/context/userContext"
+import AuthNavigator from "./app/navigation/AuthNavigator"
 
 export default function App({ navigation }) {
   const [user, setUser] = useState(false)
@@ -16,6 +12,7 @@ export default function App({ navigation }) {
   useEffect(() => {
     user
   }, [user])
+
   return (
     <>
       <NavigationContainer>
@@ -23,14 +20,7 @@ export default function App({ navigation }) {
           {user ? <AppNavigator /> : <AuthNavigator />}
         </UserContext.Provider>
       </NavigationContainer>
-      <StatusBar style={'light'} />
+      <StatusBar style={"light"} />
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#30BCED',
-  },
-})

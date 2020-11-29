@@ -1,15 +1,17 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 import LoginScreen from "../views/LoginScreen"
-import SignUpScreen from "../views/RegisterScreen"
+import RegisterScreen from "../views/RegisterScreen"
+import TestMobX from "../views/TestMobX"
 
 const Stack = createStackNavigator()
 
-const AuthNavigator = () => {
+const AuthNavigator = ({ store }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="SignIn" component={LoginScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="SignUp" component={RegisterScreen} />
+      <Stack.Screen name="Mobx" component={TestMobX} />
     </Stack.Navigator>
   )
 }
