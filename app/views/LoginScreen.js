@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { PixelRatio } from "react-native"
 import { observer } from "mobx-react"
 import {
   StyleSheet,
@@ -113,7 +114,7 @@ const LoginScreen = observer(({ navigation }) => {
             alignSelf: "center",
             alignItems: "center",
             justifyContent: "space-evenly",
-            paddingVertical: 20,
+            paddingVertical: 4 * PixelRatio.get(),
           }}
         >
           <ButtonIcon name="plus" onPress={() => store.increase()} />
@@ -143,16 +144,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   welcomeTitle: {
-    fontSize: 18,
+    fontSize: 7 * PixelRatio.get(),
     textAlign: "center",
   },
   welcomeMessage: {
-    marginTop: 20,
+    marginTop: 5 * PixelRatio.get(),
+    fontSize: 5 * PixelRatio.get(),
     textAlign: "justify",
   },
   signIn: {
     width: "100%",
-    marginVertical: 40,
+    marginVertical: 10 * PixelRatio.get(),
     alignItems: "center",
   },
   input: {
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: "80%",
-    marginTop: 10,
+    marginTop: 3 * PixelRatio.get(),
     backgroundColor: colors.confirm,
   },
   register: {

@@ -33,7 +33,6 @@ function RegisterScreen() {
   const register = (values) => {
     const newUser = new User(values)
     console.log(newUser)
-    // UserStore.addUser(newUser)
   }
 
   const SignUp = () => {}
