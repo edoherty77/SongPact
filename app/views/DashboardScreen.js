@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useQuery } from '@apollo/react-hooks'
 
 import colors from '../config/colors'
 import Screen from '../components/Screen'
@@ -12,8 +13,13 @@ import ButtonIcon from '../components/ButtonIcon'
 import AppButton from '../components/AppButton'
 
 import defaultStyles from '../config/styles'
+import GET_ALL_USERS from '../src/graphql/Queries'
 
-function DashboardScreen() {
+function DashboardScreen(props) {
+  // const { loading, data } = useQuery(GET_ALL_USERS)
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [])
   return (
     <Screen>
       <Header title="Dashboard" />
