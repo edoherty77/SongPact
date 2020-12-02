@@ -16,26 +16,39 @@ function Contacts() {
   return (
     <Screen>
       <Header title="Contacts" />
-      <AppTextInput
-        width="100%"
-        placeholder={'Search'}
-        icon={'account-search'}
-        style={styles.input}
-      />
-      {/* <SubHeader /> */}
       <Separator />
+      <View style={styles.inputView}>
+        <AppTextInput
+          width="90%"
+          placeholder={'Search'}
+          icon={'account-search'}
+          style={styles.input}
+        />
+      </View>
+
       <View>
-        <ContactButton initials={'ED'} name={'Evan Doherty'} />
-        <ContactButton initials={'PD'} name={'Pat Doherty'} />
-        <ContactButton initials={'SJ'} name={'Seth Johnson'} />
-        <ContactButton initials={'MG'} name={'Michael Giannone'} />
-        <ContactButton initials={'SN'} name={'Stephan Nale'} />
         <ContactButton initials={'CD'} name={'Christopher Dibona'} />
+        <ContactButton initials={'ED'} name={'Evan Doherty'} />
+        <ContactButton initials={'MG'} name={'Michael Giannone'} />
+        <ContactButton initials={'PD'} name={'Pat Doherty'} />
+        <ContactButton initials={'RK'} name={'Ryan Kleshefsky'} />
+        <ContactButton initials={'SJ'} name={'Seth Johnson'} />
+        <ContactButton initials={'SN'} name={'Stephan Nale'} />
+        <ContactButton initials={'ZF'} name={'Zack Fye'} />
       </View>
     </Screen>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  inputView: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 5,
+    marginTop: 5,
+  },
+})
 
 export default Contacts

@@ -22,8 +22,8 @@ function DashboardScreen(props) {
   // }, [])
   return (
     <Screen>
-      <Header title="Dashboard" />
-      <SubHeader name="magnify" text="Your Pacts" />
+      <Header title="Your Pacts" />
+      {/* <SubHeader name="magnify" text="Your Pacts" /> */}
       <Separator />
       <View style={styles.options}>
         <Text style={styles.optionsText}>Open</Text>
