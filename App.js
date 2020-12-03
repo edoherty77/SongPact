@@ -35,7 +35,7 @@ export default function App({ navigation }) {
 
         {/* </ApolloProvider> */}
       </NavigationContainer>
-      <StatusBar style={'light'} />
+      {/* <StatusBar style={'light'} /> */}
     </>
   )
 }
