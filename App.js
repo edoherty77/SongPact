@@ -1,40 +1,50 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { useQuery } from '@apollo/react-hooks'
 
 import AppNavigator from './app/navigation/AppNavigator'
 import UserContext from './app/context/userContext'
 import AuthNavigator from './app/navigation/AuthNavigator'
 
-import GET_ALL_USERS from './app/src/graphql/Queries'
+import { ApolloProvider } from '@apollo/client'
+import { GET_ALL_USERS } from './app/src/graphql/Queries'
+import { client } from './app/src/graphql/Client'
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import DashboardScreen from './app/views/DashboardScreen'
-
-const client = new ApolloClient({
-  uri: 'http://192.168.1.8:4000/graphql',
-  cache: new InMemoryCache(),
-})
 
 export default function App({ navigation }) {
   const [user, setUser] = useState(false)
 
-  useEffect(() => {
-    user
-  }, [user])
+  // useEffect(() => {
+  //   user
+  // }, [user])
+  // useEffect(() => {
+  //   requestUser()
+  // }, [])
+
+  // const requestUser = () => {
+  //   client
+  //     .query({
+  //       query: GET_ALL_USERS,
+  //     })
+  //     .then((response) => {
+  //       console.log('RESPONSE ==>', response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log('ERROR ==>', error)
+  //     })
+  // }
 
   return (
     <>
-      <NavigationContainer>
-        {/* <ApolloProvider client={client}> */}
-        {/* <UserContext.Provider value={{ setUser: setUser }}>
+      <ApolloProvider client={client}>
+        <NavigationContainer>
+          {/* <UserContext.Provider value={{ setUser: setUser }}>
           {user ? <AppNavigator /> : <AuthNavigator />}
         </UserContext.Provider> */}
-        <AppNavigator />
-
-        {/* </ApolloProvider> */}
-      </NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </ApolloProvider>
       {/* <StatusBar style={'light'} /> */}
     </>
   )

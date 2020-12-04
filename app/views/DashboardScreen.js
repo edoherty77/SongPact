@@ -1,7 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
-import { useQuery } from '@apollo/react-hooks'
 
 import colors from '../config/colors'
 import Screen from '../components/Screen'
@@ -16,11 +14,24 @@ import defaultStyles from '../config/styles'
 import GET_ALL_USERS from '../src/graphql/Queries'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-function DashboardScreen(props) {
-  // const { loading, data } = useQuery(GET_ALL_USERS)
+function DashboardScreen(client) {
+  console.log(client)
   // useEffect(() => {
-  //   console.log(data)
+  //   requestUser()
   // }, [])
+
+  // const requestUser = () => {
+  //   client
+  //     .query({
+  //       query: GET_ALL_USERS,
+  //     })
+  //     .then((response) => {
+  //       console.log('RESPONSE ==>', response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log('ERROR ==>', error)
+  //     })
+  // }
   return (
     <Screen>
       <Header title="Your Pacts" />
@@ -61,7 +72,7 @@ function DashboardScreen(props) {
             fontSize={20}
             color={colors.black}
           >
-            My Contacts:
+            Recent Contacts:
           </AppText>
           <AppText color={colors.red}>See All</AppText>
         </View>

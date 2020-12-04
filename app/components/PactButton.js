@@ -8,19 +8,36 @@ const PactButton = ({ type, title, name, status }) => {
   return (
     <TouchableOpacity style={styles.pactButton}>
       <View style={styles.top}>
-        <AppText style={[styles.text, { fontWeight: 'bold', fontSize: 25 }]}>
+        <AppText
+          style={[
+            styles.text,
+            { fontWeight: 'bold', color: colors.red, fontSize: 25 },
+          ]}
+        >
           {title}
         </AppText>
-        <AppText style={styles.text}>Type: {type}</AppText>
+        <AppText style={styles.text}>
+          Type:{' '}
+          <AppText
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
+          >
+            {type}
+          </AppText>
+        </AppText>
       </View>
       <View style={styles.bottom}>
         <AppText style={styles.text}>
-          Started By: <AppText style={styles.text}>{name}</AppText>
+          Started By:{' '}
+          <AppText
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
+          >
+            {name}
+          </AppText>
         </AppText>
         <AppText style={styles.text}>
           Status:{' '}
           <AppText
-            style={[styles.text, { fontWeight: 'bold', color: 'black' }]}
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
           >
             {status}
           </AppText>
@@ -40,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   pactButton: {
-    backgroundColor: colors.red,
+    backgroundColor: colors.tan,
     // marginLeft: 10,
     // marginRight: 10,
     marginBottom: 10,
@@ -48,8 +65,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   text: {
-    color: 'white',
+    color: colors.black,
     fontFamily: 'Courier',
+    fontWeight: 'bold',
   },
   top: {
     margin: 5,
