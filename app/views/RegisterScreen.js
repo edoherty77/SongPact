@@ -20,9 +20,8 @@ import User from '../stores/user'
 import colors from '../config/colors'
 
 const validationSchema = Yup.object().shape({
-  // firstName: Yup.string().required().label('First name'),
-  // lastName: Yup.string().required().label('Last name'),
-  username: Yup.string().required().label('username'),
+  firstName: Yup.string().required().label('First name'),
+  lastName: Yup.string().required().label('Last name'),
   artistName: Yup.string().required().label('Artist name'),
   // companyName: Yup.string().label('Artist name'),
   email: Yup.string().required().email().label('Email'),
@@ -38,8 +37,6 @@ function RegisterScreen() {
 
   // const register = (values) => {
   // const newUser = new User(values)
-  // test({ variables: { type: values } })
-  // console.log(test)
   // console.log(values)
   // UserStore.addUser(newUser)
   // }
@@ -48,7 +45,7 @@ function RegisterScreen() {
       variables: values,
     })
     if (data) {
-      console.log(data)
+      console.log(data.signupUser)
     }
   }
 
@@ -70,13 +67,13 @@ function RegisterScreen() {
                 artistName: '',
                 companyName: '',
                 email: '',
-                password1: '',
+                password: '',
                 password2: '',
               }}
               onSubmit={(values) => submit(values)}
               validationSchema={validationSchema}
             >
-              {/* <AppFormField
+              <AppFormField
                 style={styles.input}
                 name="firstName"
                 placeholder="First Name*"
@@ -90,14 +87,6 @@ function RegisterScreen() {
                 placeholder="Last Name*"
                 autoCorrect={false}
                 textContentType="familyName"
-                paddingRight={'17%'}
-              /> */}
-              <AppFormField
-                style={styles.input}
-                name="username"
-                placeholder="Username*"
-                autoCorrect={false}
-                // textContentType="familyName"
                 paddingRight={'17%'}
               />
               <AppFormField
