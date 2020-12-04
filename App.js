@@ -20,32 +20,15 @@ export default function App({ navigation }) {
   useEffect(() => {
     user
   }, [user])
-  useEffect(() => {
-    requestUser()
-  }, [])
-
-  const requestUser = () => {
-    client
-      .query({
-        query: GET_ALL_USERS,
-      })
-      .then((response) => {
-        console.log('RESPONSE ==>', response.data)
-      })
-      .catch((error) => {
-        console.log('ERROR ==>', error)
-      })
-  }
 
   return (
     <>
       <ApolloProvider client={client}>
-        {/* <NavigationContainer> */}
-        {/* <UserContext.Provider value={{ setUser: setUser }}>
-          {user ? <AppNavigator /> : <AuthNavigator />}
-        </UserContext.Provider> */}
-        {/* <AppNavigator /> */}
-        {/* </NavigationContainer> */}
+        {/* <NavigationContainer>
+          <UserContext.Provider value={{ setUser: setUser }}>
+            {user ? <AppNavigator /> : <AuthNavigator />}
+          </UserContext.Provider>
+        </NavigationContainer> */}
         <RegisterScreen />
       </ApolloProvider>
       {/* <StatusBar style={'light'} /> */}

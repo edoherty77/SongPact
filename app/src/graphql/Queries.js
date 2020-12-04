@@ -4,7 +4,8 @@ import gql from 'graphql-tag'
 export const GET_ALL_USERS = gql`
   query {
     getAllUsers {
-      username
+      firstName
+      lastName
       artistName
       email
       joinDate
@@ -18,13 +19,15 @@ export const GET_ALL_USERS = gql`
 
 export const SIGNUP_USER = gql`
   mutation(
-    $username: String!
+    $firstName: String!
+    $lastName: String!
     $email: String!
     $password: String!
     $artistName: String!
   ) {
     signupUser(
-      username: $username
+      firstName: $firstName
+      lastName: $lastName
       email: $email
       password: $password
       artistName: $artistName
