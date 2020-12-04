@@ -1,39 +1,55 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-} from "react-native"
-import * as Yup from "yup"
+} from 'react-native'
+import * as Yup from 'yup'
 
-import Screen from "../components/Screen"
-import Header from "../components/Header"
-import { AppForm, AppFormField, SubmitButton } from "../components/forms"
+import Screen from '../components/Screen'
+import Header from '../components/Header'
+import { AppForm, AppFormField, SubmitButton } from '../components/forms'
 
-import User from "../stores/User"
+import { SIGNUP_USER } from '../src/graphql/Queries'
+import { useMutation } from '@apollo/client'
 
-import colors from "../config/colors"
+import User from '../stores/user'
+
+import colors from '../config/colors'
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label("First name"),
-  lastName: Yup.string().required().label("Last name"),
-  artistName: Yup.string().required().label("Artist name"),
-  companyName: Yup.string().label("Artist name"),
-  email: Yup.string().required().email().label("Email"),
-  password1: Yup.string().required().label("Password1"),
+  // firstName: Yup.string().required().label('First name'),
+  // lastName: Yup.string().required().label('Last name'),
+  username: Yup.string().required().label('username'),
+  artistName: Yup.string().required().label('Artist name'),
+  // companyName: Yup.string().label('Artist name'),
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().label('Password1'),
   password2: Yup.string().oneOf(
-    [Yup.ref("password1"), null],
-    "Passwords must match"
+    [Yup.ref('password'), null],
+    'Passwords must match',
   ),
 })
 
 function RegisterScreen() {
-  const register = (values) => {
-    const newUser = new User(values)
-    console.log(newUser)
-    // UserStore.addUser(newUser)
+  const [mutate] = useMutation(SIGNUP_USER)
+
+  // const register = (values) => {
+  // const newUser = new User(values)
+  // test({ variables: { type: values } })
+  // console.log(test)
+  // console.log(values)
+  // UserStore.addUser(newUser)
+  // }
+  async function submit(values) {
+    const { data } = await mutate({
+      variables: values,
+    })
+    if (data) {
+      console.log(data)
+    }
   }
 
   const SignUp = () => {}
@@ -41,7 +57,7 @@ function RegisterScreen() {
   return (
     <Screen>
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
         <Header title="Register" noIcon />
@@ -49,24 +65,24 @@ function RegisterScreen() {
           <View style={styles.register}>
             <AppForm
               initialValues={{
-                firstName: "",
-                lastName: "",
-                artistName: "",
-                companyName: "",
-                email: "",
-                password1: "",
-                password2: "",
+                firstName: '',
+                lastName: '',
+                artistName: '',
+                companyName: '',
+                email: '',
+                password1: '',
+                password2: '',
               }}
-              onSubmit={(values) => register(values)}
+              onSubmit={(values) => submit(values)}
               validationSchema={validationSchema}
             >
-              <AppFormField
+              {/* <AppFormField
                 style={styles.input}
                 name="firstName"
                 placeholder="First Name*"
                 autoCorrect={false}
                 textContentType="givenName"
-                paddingRight={"8%"}
+                paddingRight={'8%'}
               />
               <AppFormField
                 style={styles.input}
@@ -74,7 +90,15 @@ function RegisterScreen() {
                 placeholder="Last Name*"
                 autoCorrect={false}
                 textContentType="familyName"
-                paddingRight={"17%"}
+                paddingRight={'17%'}
+              /> */}
+              <AppFormField
+                style={styles.input}
+                name="username"
+                placeholder="Username*"
+                autoCorrect={false}
+                // textContentType="familyName"
+                paddingRight={'17%'}
               />
               <AppFormField
                 style={styles.input}
@@ -102,7 +126,7 @@ function RegisterScreen() {
               />
               <AppFormField
                 style={styles.input}
-                name="password1"
+                name="password"
                 placeholder="Password*"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -138,18 +162,18 @@ export default RegisterScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   register: {
-    width: "100%",
+    width: '100%',
     // marginVertical: 30,
-    alignItems: "center",
+    alignItems: 'center',
   },
   input: {
-    width: "70%",
+    width: '70%',
   },
   createButton: {
-    width: "80%",
+    width: '80%',
     marginTop: 20,
     backgroundColor: colors.confirm,
   },

@@ -1,15 +1,16 @@
-import React, { useContext, useEffect } from "react"
-import { NavigationContainer } from "@react-navigation/native"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import { View, Text, StyleSheet } from "react-native"
+import React, { useContext, useEffect } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, StyleSheet } from 'react-native'
 
-import ButtonIcon from "../components/ButtonIcon"
-import Dashboard from "../views/DashboardScreen"
-import Contacts from "../views/ContactsScreen"
-import New from "../views/NewSongPactScreen"
-import Notifications from "../views/NotificationsScreen"
-import Menu from "../views/MenuScreen"
+import ButtonIcon from '../components/ButtonIcon'
+import Dashboard from '../views/DashboardScreen'
+import Contacts from '../views/ContactsScreen'
+import New from '../views/NewSongPactScreen'
+import Notifications from '../views/NotificationsScreen'
+import Menu from '../views/MenuScreen'
+import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()
 
@@ -19,21 +20,20 @@ export default function AppNavigator() {
       initialRouteName="Dashboard"
       tabBarOptions={{
         style: {
-          borderTopColor: "#30BCED",
+          borderTopColor: 'black',
         },
-        activeTintColor: "#FFFAFF",
-        inactiveTintColor: "#303036",
+        activeTintColor: colors.red,
+        inactiveTintColor: colors.black,
         labelStyle: {
-          display: "flex",
+          display: 'flex',
           fontSize: 10,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           paddingBottom: 45,
         },
 
         tabStyle: {
           height: 100,
-
-          backgroundColor: "#30BCED",
+          backgroundColor: colors.lttan,
         },
       }}
     >
@@ -41,7 +41,7 @@ export default function AppNavigator() {
         name="Dashboard"
         component={Dashboard}
         options={{
-          name: "Home",
+          name: 'Home',
 
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -63,7 +63,7 @@ export default function AppNavigator() {
               size={30}
             />
           ),
-          tabBarLabel: "Contacts",
+          tabBarLabel: 'Contacts',
         }}
         name="Contacts"
         component={Contacts}
@@ -78,7 +78,7 @@ export default function AppNavigator() {
               size={30}
             />
           ),
-          tabBarLabel: "",
+          tabBarLabel: '',
         }}
         name="New"
         component={New}
@@ -88,7 +88,7 @@ export default function AppNavigator() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bell" color={color} size={30} />
           ),
-          tabBarLabel: "Notifications",
+          tabBarLabel: 'Notifications',
         }}
         name="Notifications"
         component={Notifications}
@@ -98,7 +98,7 @@ export default function AppNavigator() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="menu" color={color} size={30} />
           ),
-          tabBarLabel: "Menu",
+          tabBarLabel: 'Menu',
         }}
         name="Menu"
         component={Menu}
@@ -110,6 +110,6 @@ export default function AppNavigator() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#30BCED",
+    backgroundColor: '#30BCED',
   },
 })

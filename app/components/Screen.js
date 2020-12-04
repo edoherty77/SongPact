@@ -1,26 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
 import colors from '../config/colors'
 
 const Screen = ({ children }) => {
-  return (
-    <View style={styles.screen}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          height: '100%',
-        }}
-      />
-      {children}
-    </View>
-  )
+  return <SafeAreaView style={styles.screen}>{children}</SafeAreaView>
 }
 
 export default Screen
@@ -28,6 +13,6 @@ export default Screen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: 'white',
   },
 })

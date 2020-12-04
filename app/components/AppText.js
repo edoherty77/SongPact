@@ -1,10 +1,22 @@
-import React from "react"
-import { Text, StyleSheet } from "react-native"
-import colors from "../config/colors"
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
+import colors from '../config/colors'
 
-export default function AppText({ children, style, fontSize, color }) {
+export default function AppText({
+  fontWeight,
+  children,
+  style,
+  fontSize,
+  color,
+}) {
   return (
-    <Text style={[styles.text, { fontSize: fontSize, color: color }, style]}>
+    <Text
+      style={[
+        styles.text,
+        { fontSize: fontSize, color: color, fontWeight: fontWeight },
+        style,
+      ]}
+    >
       {children}
     </Text>
   )
@@ -13,7 +25,7 @@ export default function AppText({ children, style, fontSize, color }) {
 const styles = StyleSheet.create({
   text: {
     fontSize: 18,
-    fontFamily: "Avenir Next",
+    fontFamily: 'Avenir Next',
     color: colors.text,
   },
 })

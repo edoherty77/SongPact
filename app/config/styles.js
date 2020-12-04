@@ -1,10 +1,10 @@
-import colors from "./colors"
+import colors from './colors'
 
 export default {
   colors,
   text: {
-    color: colors.dark,
+    color: colors.red,
     fontSize: 18,
-    fontFamily: "Avenir Next",
+    fontFamily: 'Avenir Next',
   },
 }
