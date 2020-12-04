@@ -1,25 +1,47 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
+import AppText from '../components/AppText'
 import colors from '../config/colors'
 
 const PactButton = ({ type, title, name, status }) => {
   return (
     <TouchableOpacity style={styles.pactButton}>
       <View style={styles.top}>
-        <Text style={[styles.text, { fontWeight: 'bold', fontSize: 25 }]}>
+        <AppText
+          style={[
+            styles.text,
+            { fontWeight: 'bold', color: colors.red, fontSize: 25 },
+          ]}
+        >
           {title}
-        </Text>
-        <Text style={styles.text}>Type: {type}</Text>
+        </AppText>
+        <AppText style={styles.text}>
+          Type:{' '}
+          <AppText
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
+          >
+            {type}
+          </AppText>
+        </AppText>
       </View>
       <View style={styles.bottom}>
-        <Text style={styles.text}>
-          Started By: <Text style={styles.text}>{name}</Text>
-        </Text>
-        <Text style={styles.text}>
+        <AppText style={styles.text}>
+          Started By:{' '}
+          <AppText
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
+          >
+            {name}
+          </AppText>
+        </AppText>
+        <AppText style={styles.text}>
           Status:{' '}
-          <Text style={[styles.text, { color: colors.pending }]}>{status}</Text>
-        </Text>
+          <AppText
+            style={[styles.text, { fontWeight: 'bold', color: colors.red }]}
+          >
+            {status}
+          </AppText>
+        </AppText>
       </View>
     </TouchableOpacity>
   )
@@ -35,16 +57,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   pactButton: {
-    backgroundColor: colors.secondary,
-    marginLeft: 10,
-    marginRight: 10,
+    backgroundColor: colors.tan,
+    // marginLeft: 10,
+    // marginRight: 10,
     marginBottom: 10,
     padding: 10,
     borderRadius: 5,
   },
   text: {
-    color: colors.white,
+    color: colors.black,
     fontFamily: 'Courier',
+    fontWeight: 'bold',
   },
   top: {
     margin: 5,

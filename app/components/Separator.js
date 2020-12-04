@@ -9,9 +9,9 @@ function Separator({ Children }) {
 
 const styles = StyleSheet.create({
   separator: {
-    borderBottomColor: colors.white,
+    borderBottomColor: colors.black,
     borderBottomWidth: 1,
-    width: '100%',
+    width: '85%',
   },
 })
 

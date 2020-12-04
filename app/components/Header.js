@@ -1,21 +1,24 @@
-import React from "react"
-import { StyleSheet, Text, View, SafeAreaView } from "react-native"
+import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 
-import ButtonIcon from "./ButtonIcon"
-import defaultStyles from "../config/styles"
+import ButtonIcon from './ButtonIcon'
+import defaultStyles from '../config/styles'
+import AppText from '../components/AppText'
+import colors from '../config/colors'
 
 const Header = ({ title, noIcon }) => {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.appHeader}>
-        <Text style={styles.screenName}>{title}</Text>
+        <AppText style={styles.screenName}>{title}</AppText>
 
         {!noIcon && (
           <ButtonIcon
             style={styles.messageBtn}
-            iconColor={defaultStyles.colors.white}
+            iconColor={colors.red}
             size={45}
             name="message-text"
+            backgroundColor="transparent"
           />
         )}
       </View>
@@ -27,18 +30,19 @@ export default Header
 
 const styles = StyleSheet.create({
   appHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 20,
   },
   screenName: {
-    fontSize: 40,
+    fontSize: 50,
     fontFamily: defaultStyles.fontFamily,
-    color: defaultStyles.colors.white,
-    fontWeight: "bold",
+    color: colors.black,
+    fontWeight: 'bold',
   },
   messageBtn: {
-    color: defaultStyles.colors.white,
-    backgroundColor: "transparent",
+    marginTop: 4,
+    // color: defaultStyles.colors.black,
+    // backgroundColor: 'transparent',
   },
 })
