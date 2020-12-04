@@ -1,11 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
 import colors from '../config/colors'
 
 const Screen = ({ children }) => {
-  return <View style={styles.screen}>{children}</View>
+  return <SafeAreaView style={styles.screen}>{children}</SafeAreaView>
 }
 
 export default Screen

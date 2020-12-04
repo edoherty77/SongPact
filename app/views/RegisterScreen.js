@@ -12,28 +12,44 @@ import Screen from '../components/Screen'
 import Header from '../components/Header'
 import { AppForm, AppFormField, SubmitButton } from '../components/forms'
 
+import { SIGNUP_USER } from '../src/graphql/Queries'
+import { useMutation } from '@apollo/client'
+
 import User from '../stores/user'
 
 import colors from '../config/colors'
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label('First name'),
-  lastName: Yup.string().required().label('Last name'),
+  // firstName: Yup.string().required().label('First name'),
+  // lastName: Yup.string().required().label('Last name'),
+  username: Yup.string().required().label('username'),
   artistName: Yup.string().required().label('Artist name'),
-  companyName: Yup.string().label('Artist name'),
+  // companyName: Yup.string().label('Artist name'),
   email: Yup.string().required().email().label('Email'),
-  password1: Yup.string().required().label('Password1'),
+  password: Yup.string().required().label('Password1'),
   password2: Yup.string().oneOf(
-    [Yup.ref('password1'), null],
+    [Yup.ref('password'), null],
     'Passwords must match',
   ),
 })
 
 function RegisterScreen() {
-  const register = (values) => {
-    const newUser = new User(values)
-    console.log(newUser)
-    // UserStore.addUser(newUser)
+  const [mutate] = useMutation(SIGNUP_USER)
+
+  // const register = (values) => {
+  // const newUser = new User(values)
+  // test({ variables: { type: values } })
+  // console.log(test)
+  // console.log(values)
+  // UserStore.addUser(newUser)
+  // }
+  async function submit(values) {
+    const { data } = await mutate({
+      variables: values,
+    })
+    if (data) {
+      console.log(data)
+    }
   }
 
   const SignUp = () => {}
@@ -57,10 +73,10 @@ function RegisterScreen() {
                 password1: '',
                 password2: '',
               }}
-              onSubmit={(values) => register(values)}
+              onSubmit={(values) => submit(values)}
               validationSchema={validationSchema}
             >
-              <AppFormField
+              {/* <AppFormField
                 style={styles.input}
                 name="firstName"
                 placeholder="First Name*"
@@ -74,6 +90,14 @@ function RegisterScreen() {
                 placeholder="Last Name*"
                 autoCorrect={false}
                 textContentType="familyName"
+                paddingRight={'17%'}
+              /> */}
+              <AppFormField
+                style={styles.input}
+                name="username"
+                placeholder="Username*"
+                autoCorrect={false}
+                // textContentType="familyName"
                 paddingRight={'17%'}
               />
               <AppFormField
@@ -102,7 +126,7 @@ function RegisterScreen() {
               />
               <AppFormField
                 style={styles.input}
-                name="password1"
+                name="password"
                 placeholder="Password*"
                 autoCapitalize="none"
                 autoCorrect={false}
