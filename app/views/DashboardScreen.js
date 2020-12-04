@@ -14,24 +14,7 @@ import defaultStyles from '../config/styles'
 import GET_ALL_USERS from '../src/graphql/Queries'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-function DashboardScreen(client) {
-  console.log(client)
-  // useEffect(() => {
-  //   requestUser()
-  // }, [])
-
-  // const requestUser = () => {
-  //   client
-  //     .query({
-  //       query: GET_ALL_USERS,
-  //     })
-  //     .then((response) => {
-  //       console.log('RESPONSE ==>', response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log('ERROR ==>', error)
-  //     })
-  // }
+function DashboardScreen() {
   return (
     <Screen>
       <Header title="Your Pacts" />

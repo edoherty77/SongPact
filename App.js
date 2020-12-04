@@ -15,25 +15,25 @@ import DashboardScreen from './app/views/DashboardScreen'
 export default function App({ navigation }) {
   const [user, setUser] = useState(false)
 
-  // useEffect(() => {
-  //   user
-  // }, [user])
-  // useEffect(() => {
-  //   requestUser()
-  // }, [])
+  useEffect(() => {
+    user
+  }, [user])
+  useEffect(() => {
+    requestUser()
+  }, [])
 
-  // const requestUser = () => {
-  //   client
-  //     .query({
-  //       query: GET_ALL_USERS,
-  //     })
-  //     .then((response) => {
-  //       console.log('RESPONSE ==>', response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log('ERROR ==>', error)
-  //     })
-  // }
+  const requestUser = () => {
+    client
+      .query({
+        query: GET_ALL_USERS,
+      })
+      .then((response) => {
+        console.log('RESPONSE ==>', response.data)
+      })
+      .catch((error) => {
+        console.log('ERROR ==>', error)
+      })
+  }
 
   return (
     <>
