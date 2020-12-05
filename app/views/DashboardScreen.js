@@ -23,16 +23,21 @@ function DashboardScreen() {
         <Separator />
       </View>
       <View style={styles.options}>
-        <Text style={styles.optionsText}>Open</Text>
+        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
+          Open
+        </Text>
         <Text
           style={[
             styles.optionsText,
             { color: colors.five, fontWeight: 'bold', fontSize: 18 },
           ]}
+          onPress={() => console.log('pressed')}
         >
           Needs Action
         </Text>
-        <Text style={styles.optionsText}>All</Text>
+        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
+          All
+        </Text>
       </View>
       <View style={styles.pactList}>
         <PactButton status="pending" name="Mark" title="Adrift" type="Remix" />
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
   optionsText: {
     fontWeight: 'bold',
     color: colors.red,
-    fontFamily: 'Courier',
+    // fontFamily: 'Courier',
   },
   pactList: {
     padding: 10,
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'green',
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 5,
+    // marginTop: 5,
     padding: 10,
   },
   contactText: {

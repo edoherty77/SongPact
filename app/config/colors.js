@@ -34,7 +34,8 @@ export default {
   // gray: '#A7A7A7',
 
   tan: '#d8c7c0',
-  red: '#ff345d',
+  red: '#fc4364',
+  // red: '#ff345d',
   gray: '#dad8d8',
   black: '#544e51',
   lttan: '#eae3e3',
