@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Text,
+  ImageBackground,
 } from 'react-native'
 import * as Yup from 'yup'
 
@@ -57,6 +58,15 @@ function SignUpScreen({ navigation }) {
 
   return (
     <Screen>
+      {/* <ImageBackground
+        imageStyle={{ opacity: 0.4 }}
+        style={{
+          flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'center',
+        }}
+        source={require('../assets/pic1.jpeg')}
+      > */}
       <KeyboardAvoidingView
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
@@ -160,6 +170,7 @@ function SignUpScreen({ navigation }) {
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+      {/* </ImageBackground> */}
     </Screen>
   )
 }
@@ -180,12 +191,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // backgroundColor: 'gray',
     height: '100%',
     flex: 1,
   },
   fieldView: {
-    // backgroundColor: 'gray',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -205,7 +214,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
 
     width: '95%',
-    // backgroundColor: 'green',
     flex: 1,
   },
   createButton: {
@@ -218,7 +226,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    // backgroundColor: 'blue',
     width: '90%',
     marginTop: 10,
     flex: 1,

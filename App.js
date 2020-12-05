@@ -26,9 +26,6 @@ export default function App({ navigation }) {
             {user ? <AppNavigator /> : <AuthNavigator />}
           </UserContext.Provider>
         </NavigationContainer>
-        {/* <AppNavigator /> */}
-        {/* <RegisterScreen /> */}
-        {/* <LoginScreen /> */}
       </ApolloProvider>
       {/* <StatusBar style={'light'} /> */}
     </>
