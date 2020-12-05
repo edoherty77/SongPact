@@ -21,6 +21,7 @@ import User from '../stores/user'
 import colors from '../config/colors'
 import AppText from '../components/AppText'
 import AppButton from '../components/AppButton'
+import ButtonText from '../components/ButtonText'
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label('First name'),
@@ -147,18 +148,13 @@ function RegisterScreen() {
               <View style={styles.loginView}>
                 <Text style={{ fontSize: 20, fontFamily: 'Futura' }}>
                   Already have an accout with us?{' '}
-                  <Text
-                    style={{
-                      color: 'blue',
-                      fontWeight: 'bold',
-                      fontSize: 20,
-                      fontFamily: 'Futura',
-                    }}
-                    onPress={() => console.log('back to login screen')}
-                  >
-                    Login
-                  </Text>
                 </Text>
+                <ButtonText
+                  title="Login"
+                  color={colors.red}
+                  fontSize={20}
+                  onPress={() => console.log('back to login screen')}
+                />
               </View>
             </AppForm>
           </View>

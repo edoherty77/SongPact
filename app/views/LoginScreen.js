@@ -7,6 +7,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from 'react-native'
 import * as Yup from 'yup'
 
@@ -24,6 +25,7 @@ import colors from '../config/colors'
 
 import { SIGNIN_USER } from '../src/graphql/Queries'
 import { useMutation } from '@apollo/client'
+import ButtonText from '../components/ButtonText'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -50,76 +52,187 @@ const LoginScreen = observer(({ navigation }) => {
 
   return (
     <Screen>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        style={styles.container}
+      <ImageBackground
+        imageStyle={{ opacity: 0.4 }}
+        style={{
+          flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'center',
+        }}
+        source={require('../assets/pic1.jpeg')}
       >
-        <Header title="SongPact" noIcon />
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View>
-            <View style={styles.welcomeBox}>
-              <AppText style={styles.welcomeTitle} color={colors.white}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          style={styles.container}
+        >
+          {/* <Header title="" noIcon /> */}
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.mainView}>
+              {/* <View style={styles.welcomeBox}>
+                <AppText style={styles.welcomeTitle} color={colors.white}>
                 Welcome Message
               </AppText>
-              <AppText style={styles.welcomeMessage} color={colors.white}>
-                Laborum nostrud proident sit elit qui occaecat proident sunt ut.
-                Lorem proident velit culpa non nostrud enim non. Est adipisicing
-                laboris mollit fugiat esse et. Nostrud amet qui eiusmod sit
-                commodo voluptate quis cillum ipsum qui Lorem sint laborum. Enim
-                quis excepteur fugiat quis laborum sunt consequat aliqua aute
-                cillum laborum deserunt cillum reprehenderit. Eu dolore nulla
-                nostrud velit in aliqua cupidatat ea. Ad do culpa culpa
-                excepteur qui magna sunt veniam consectetur qui qui qui.
-              </AppText>
-              <AppText style={styles.welcomeMessage} color={colors.white}>
+                <AppText
+                  style={styles.welcomeMessage}
+                  fontSize={25}
+                  color="white"
+                >
+                  SongPact is a contract generating and networking app built for
+                  creators to streamline rights acquisition and clearance
+                  throughout the creative collaboration process. SongPact gives
+                  creators the tools they need to secure the rights necessary to
+                  create, market and sell their art.
+                </AppText>
+                <AppText style={styles.welcomeMessage} color={colors.white}>
                 Login or Register to continue.
               </AppText>
+              </View> */}
+              <View style={styles.header}>
+                <AppText
+                  style={{
+                    fontFamily: 'Futura',
+                  }}
+                  fontWeight="bold"
+                  fontSize={70}
+                >
+                  Song
+                  {/* Play with fonts here if you want */}
+                  {/* http://iosfonts.com/ */}
+                  <AppText style={{ fontFamily: 'Baskerville-BoldItalic' }}>
+                    Pact
+                  </AppText>
+                </AppText>
+              </View>
+              <View style={styles.signinView}>
+                <AppForm
+                  initialValues={{ email: '', password: '' }}
+                  onSubmit={(values) => submit(values)}
+                  validationSchema={validationSchema}
+                >
+                  <AppFormField
+                    name="email"
+                    style={styles.input}
+                    placeholder="Email"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholderTextColor={colors.black}
+                    // icon="email"
+                    textContentType="emailAddress"
+                    keyboardType="email-address"
+                  />
+                  <AppFormField
+                    name="password"
+                    style={styles.input}
+                    placeholder="Password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    // icon="lock"
+                    placeholderTextColor={colors.black}
+                    textContentType="password"
+                    secureTextEntry
+                  />
+                  <SubmitButton style={styles.loginButton} title="Login" />
+                  <View style={styles.registerView}>
+                    <AppText fontWeight="bold" fontSize={20}>
+                      Don't Have An Account?
+                    </AppText>
+                    <ButtonText
+                      fontSize={25}
+                      color={colors.red}
+                      style={styles.createBtn}
+                      title="Sign Up"
+                      onPress={() => navigation.navigate('SignUp')}
+                    />
+                  </View>
+                </AppForm>
+              </View>
+
+              <ButtonText
+                fontSize={20}
+                style={styles.helpBtn}
+                title="Need Help?"
+                onPress={() => console.log('help me')}
+              />
             </View>
-            <View style={styles.signIn}>
-              <AppForm
-                initialValues={{ email: '', password: '' }}
-                onSubmit={(values) => submit(values)}
-                validationSchema={validationSchema}
-              >
-                <AppFormField
-                  name="email"
-                  style={styles.input}
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="email"
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                />
-                <AppFormField
-                  name="password"
-                  style={styles.input}
-                  placeholder="Password"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="lock"
-                  textContentType="password"
-                  secureTextEntry
-                />
-                <SubmitButton
-                  style={styles.loginButton}
-                  title="Login"
-                  color={colors.confirm}
-                />
-              </AppForm>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.register}>
-          <AppText>Don't have an account?</AppText>
-          <AppButton
-            style={styles.registerBtn}
-            title="Register"
-            color={colors.white}
-            onPress={() => navigation.navigate('SignUp')}
-          />
-        </View>
-        {/* <View
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </ImageBackground>
+    </Screen>
+  )
+})
+
+export default LoginScreen
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mainView: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  header: {
+    marginTop: 50,
+    justifyContent: 'center',
+  },
+  // welcomeBox: {
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: 'rgba(250, 250, 250, 0.5)',
+  //   flex: 5,
+  //   margin: 60,
+  // },
+  // welcomeTitle: {
+  //   fontSize: 18,
+  //   textAlign: 'center',
+  // },
+  // welcomeMessage: {
+  //   textAlign: 'justify',
+  // },
+  signinView: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    width: '80%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    fontSize: 18,
+    paddingLeft: 20,
+    height: 45,
+    borderRadius: 25,
+  },
+  loginButton: {
+    marginTop: 10,
+    borderRadius: 50,
+    height: 45,
+    backgroundColor: colors.red,
+    width: '80%',
+  },
+  registerView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    width: '100%',
+  },
+  createBtn: {
+    paddingTop: 10,
+  },
+  helpBtn: {
+    position: 'absolute',
+    bottom: -30,
+    right: 70,
+  },
+})
+
+{
+  /* <View
           style={{
             flexDirection: 'row',
             width: '100%',
@@ -138,51 +251,5 @@ const LoginScreen = observer(({ navigation }) => {
           />
           <ButtonIcon name="minus" onPress={() => store.decrease()} />
         </View>
-        <View style={{ flex: 1 }} /> */}
-      </KeyboardAvoidingView>
-    </Screen>
-  )
-})
-
-export default LoginScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  welcomeBox: {
-    width: '80%',
-    alignSelf: 'center',
-  },
-  welcomeTitle: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  welcomeMessage: {
-    marginTop: 20,
-    textAlign: 'justify',
-  },
-  signIn: {
-    width: '100%',
-    marginVertical: 40,
-    alignItems: 'center',
-  },
-  input: {
-    width: '70%',
-  },
-  loginButton: {
-    width: '80%',
-    marginTop: 10,
-    backgroundColor: colors.confirm,
-  },
-  register: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  registerBtn: {
-    width: '30%',
-    marginLeft: '5%',
-  },
-})
+        <View style={{ flex: 1 }} /> */
+}
