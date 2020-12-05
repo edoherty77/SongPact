@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import colors from '../config/colors'
 
 const Screen = ({ children }) => {
-  return <SafeAreaView style={styles.screen}>{children}</SafeAreaView>
+  return <View style={styles.screen}>{children}</View>
 }
 
 export default Screen
