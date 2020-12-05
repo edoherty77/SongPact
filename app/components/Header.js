@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
   },
   screenName: {
     fontSize: 50,
-    fontFamily: defaultStyles.fontFamily,
+
+    // fontFamily: 'Futura',
     color: colors.black,
     fontWeight: 'bold',
   },

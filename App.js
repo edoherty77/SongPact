@@ -13,6 +13,7 @@ import { client } from './app/src/graphql/Client'
 import DashboardScreen from './app/views/DashboardScreen'
 import SignUnScreen from './app/views/SignUpScreen'
 import RegisterScreen from './app/views/RegisterScreen'
+import LoginScreen from './app/views/LoginScreen'
 
 export default function App({ navigation }) {
   const [user, setUser] = useState(false)
@@ -24,12 +25,14 @@ export default function App({ navigation }) {
   return (
     <>
       <ApolloProvider client={client}>
-        {/* <NavigationContainer>
-          <UserContext.Provider value={{ setUser: setUser }}>
+        {/* <NavigationContainer> */}
+        {/* <UserContext.Provider value={{ setUser: setUser }}>
             {user ? <AppNavigator /> : <AuthNavigator />}
-          </UserContext.Provider>
-        </NavigationContainer> */}
-        <RegisterScreen />
+          </UserContext.Provider> */}
+        {/* <AppNavigator /> */}
+        {/* </NavigationContainer> */}
+        {/* <RegisterScreen /> */}
+        <LoginScreen />
       </ApolloProvider>
       {/* <StatusBar style={'light'} /> */}
     </>

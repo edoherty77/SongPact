@@ -17,7 +17,7 @@ const AppTextInput = ({ icon, width, ...otherProps }) => {
       )}
       <TextInput
         placeholderTextColor={colors.black}
-        style={defaultStyles.text}
+        style={{ fontFamily: 'Futura' }}
         {...otherProps}
       />
     </View>

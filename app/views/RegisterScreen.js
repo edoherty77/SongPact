@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Text,
 } from 'react-native'
 import * as Yup from 'yup'
 
@@ -18,6 +19,8 @@ import { useMutation } from '@apollo/client'
 import User from '../stores/user'
 
 import colors from '../config/colors'
+import AppText from '../components/AppText'
+import AppButton from '../components/AppButton'
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label('First name'),
@@ -141,6 +144,22 @@ function RegisterScreen() {
                   dismissKey={Keyboard.dismiss}
                 />
               </View>
+              <View style={styles.loginView}>
+                <Text style={{ fontSize: 20, fontFamily: 'Futura' }}>
+                  Already have an accout with us?{' '}
+                  <Text
+                    style={{
+                      color: 'blue',
+                      fontWeight: 'bold',
+                      fontSize: 20,
+                      fontFamily: 'Futura',
+                    }}
+                    onPress={() => console.log('back to login screen')}
+                  >
+                    Login
+                  </Text>
+                </Text>
+              </View>
             </AppForm>
           </View>
         </TouchableWithoutFeedback>
@@ -174,7 +193,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 5,
   },
   input: {
     width: '95%',
@@ -187,7 +206,7 @@ const styles = StyleSheet.create({
   submitView: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
 
     width: '95%',
     // backgroundColor: 'green',
@@ -198,5 +217,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 50,
     backgroundColor: colors.red,
+  },
+  loginView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    // backgroundColor: 'blue',
+    width: '90%',
+    marginTop: 10,
+    flex: 1,
   },
 })

@@ -1,5 +1,5 @@
-import React, { useContext } from "react"
-import { observer } from "mobx-react"
+import React, { useContext } from 'react'
+import { observer } from 'mobx-react'
 import {
   StyleSheet,
   View,
@@ -7,41 +7,54 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-} from "react-native"
-import * as Yup from "yup"
+} from 'react-native'
+import * as Yup from 'yup'
 
-import Screen from "../components/Screen"
-import Header from "../components/Header"
-import AppButton from "../components/AppButton"
-import ButtonIcon from "../components/ButtonIcon"
-import AppText from "../components/AppText"
-import { AppForm, AppFormField, SubmitButton } from "../components/forms"
-import UserContext from "../context/userContext"
+import Screen from '../components/Screen'
+import Header from '../components/Header'
+import AppButton from '../components/AppButton'
+import ButtonIcon from '../components/ButtonIcon'
+import AppText from '../components/AppText'
+import { AppForm, AppFormField, SubmitButton } from '../components/forms'
+import UserContext from '../context/userContext'
 
-import store from "../stores/TestStore"
+import store from '../stores/TestStore'
 
-import colors from "../config/colors"
+import colors from '../config/colors'
+
+import { SIGNIN_USER } from '../src/graphql/Queries'
+import { useMutation } from '@apollo/client'
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().min(4).label('Password'),
 })
 
 const LoginScreen = observer(({ navigation }) => {
-  const { user, setUser } = useContext(UserContext)
+  // const { user, setUser } = useContext(UserContext)
+  const [mutate] = useMutation(SIGNIN_USER)
 
-  const login = (values) => {
-    console.log(values)
-    // setUser(true)
+  // const login = (values) => {
+  //   console.log(values)
+  //   // setUser(true)
+  // }
+
+  async function submit(values) {
+    const { data } = await mutate({
+      variables: values,
+    })
+    if (data) {
+      console.log(data.signinUser)
+    }
   }
 
   return (
     <Screen>
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <Header title="SongTract" noIcon />
+        <Header title="SongPact" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
             <View style={styles.welcomeBox}>
@@ -64,8 +77,8 @@ const LoginScreen = observer(({ navigation }) => {
             </View>
             <View style={styles.signIn}>
               <AppForm
-                initialValues={{ email: "", password: "" }}
-                onSubmit={(values) => login(values)}
+                initialValues={{ email: '', password: '' }}
+                onSubmit={(values) => submit(values)}
                 validationSchema={validationSchema}
               >
                 <AppFormField
@@ -103,29 +116,29 @@ const LoginScreen = observer(({ navigation }) => {
             style={styles.registerBtn}
             title="Register"
             color={colors.white}
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.navigate('SignUp')}
           />
         </View>
-        <View
+        {/* <View
           style={{
-            flexDirection: "row",
-            width: "100%",
-            alignSelf: "center",
-            alignItems: "center",
-            justifyContent: "space-evenly",
+            flexDirection: 'row',
+            width: '100%',
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
             paddingVertical: 20,
           }}
         >
           <ButtonIcon name="plus" onPress={() => store.increase()} />
           <AppButton
-            style={{ width: "20%" }}
+            style={{ width: '20%' }}
             title={store.value}
             color={colors.light}
-            onPress={() => navigation.navigate("Mobx")}
+            onPress={() => navigation.navigate('Mobx')}
           />
           <ButtonIcon name="minus" onPress={() => store.decrease()} />
         </View>
-        <View style={{ flex: 1 }} />
+        <View style={{ flex: 1 }} /> */}
       </KeyboardAvoidingView>
     </Screen>
   )
@@ -136,40 +149,40 @@ export default LoginScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   welcomeBox: {
-    width: "80%",
-    alignSelf: "center",
+    width: '80%',
+    alignSelf: 'center',
   },
   welcomeTitle: {
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
   },
   welcomeMessage: {
     marginTop: 20,
-    textAlign: "justify",
+    textAlign: 'justify',
   },
   signIn: {
-    width: "100%",
+    width: '100%',
     marginVertical: 40,
-    alignItems: "center",
+    alignItems: 'center',
   },
   input: {
-    width: "70%",
+    width: '70%',
   },
   loginButton: {
-    width: "80%",
+    width: '80%',
     marginTop: 10,
     backgroundColor: colors.confirm,
   },
   register: {
-    flexDirection: "row",
-    alignSelf: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
   registerBtn: {
-    width: "30%",
-    marginLeft: "5%",
+    width: '30%',
+    marginLeft: '5%',
   },
 })
