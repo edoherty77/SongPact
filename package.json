@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.2",
+    "@apollo/client": "^3.3.3",
     "@apollo/react-hooks": "^4.0.0",
     "@expo/vector-icons": "^10.0.0",
     "@react-native-community/masked-view": "0.1.10",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "react": "^16.14.0"
+    "react": "^16.13.1"
   },
   "private": true
 }

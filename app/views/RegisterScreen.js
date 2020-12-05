@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
   artistName: Yup.string().required().label("Artist name"),
   // companyName: Yup.string().label('Artist name'),
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().label("Password1"),
+  password: Yup.string().required().label("Password"),
   password2: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
@@ -41,11 +41,15 @@ function RegisterScreen() {
   // UserStore.addUser(newUser)
   // }
   async function submit(values) {
-    const { data } = await mutate({
-      variables: values,
-    })
-    if (data) {
-      console.log(data.signupUser)
+    try {
+      const { data } = await mutate({
+        variables: values,
+      })
+      if (data) {
+        console.log(data.signupUser)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 

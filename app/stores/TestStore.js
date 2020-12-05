@@ -1,4 +1,10 @@
-import { makeAutoObservable } from "mobx"
+import {
+  makeAutoObservable,
+  makeObservable,
+  observable,
+  action,
+  computed,
+} from "mobx"
 
 class TestStore {
   value = 0
