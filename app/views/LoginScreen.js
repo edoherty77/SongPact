@@ -22,6 +22,8 @@ import UserContext from "../context/userContext"
 import store from "../stores/TestStore"
 
 import colors from "../config/colors"
+import { useMutation } from "@apollo/client"
+import { GET_ALL_USERS } from "../src/graphql/Queries"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -29,11 +31,16 @@ const validationSchema = Yup.object().shape({
 })
 
 const LoginScreen = observer(({ navigation }) => {
+  const [mutate] = useMutation(GET_ALL_USERS)
   const { user, setUser } = useContext(UserContext)
 
-  const login = (values) => {
+  const login = async (values) => {
     console.log(values)
-    // setUser(true)
+    try {
+      const 
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

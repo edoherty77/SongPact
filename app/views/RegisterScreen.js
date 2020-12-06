@@ -15,7 +15,7 @@ import { AppForm, AppFormField, SubmitButton } from "../components/forms"
 import { SIGNUP_USER } from "../src/graphql/Queries"
 import { useMutation } from "@apollo/client"
 
-import User from "../stores/user"
+import User from "../stores/UserStore"
 
 import colors from "../config/colors"
 
