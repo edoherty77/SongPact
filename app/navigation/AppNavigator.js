@@ -29,6 +29,7 @@ export default function AppNavigator() {
           fontSize: 10,
           fontWeight: 'bold',
           paddingBottom: 45,
+          fontFamily: 'Futura',
         },
 
         tabStyle: {

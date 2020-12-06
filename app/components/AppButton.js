@@ -1,5 +1,5 @@
-import React from "react"
-import { Text, StyleSheet, TouchableOpacity } from "react-native"
+import React from 'react'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default function AppButton({
   title,
@@ -23,17 +23,18 @@ export default function AppButton({
 
 const styles = StyleSheet.create({
   button: {
-    width: "100%",
+    width: '100%',
     height: 40,
     borderRadius: 2,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 0,
   },
   text: {
     // color: colors.white,
     fontSize: 18,
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    fontFamily: 'Futura',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   },
 })

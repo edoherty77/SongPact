@@ -1,14 +1,12 @@
 import gql from "graphql-tag"
 
 //USER QUERIES
-export const GET_ALL_USERS = gql`
+export const GET_CURRENT_USER = gql`
   query {
-    getAllUsers {
-      firstName
-      lastName
-      artistName
+    getCurrentUser {
       email
       joinDate
+      artistName
     }
   }
 `
@@ -16,6 +14,14 @@ export const GET_ALL_USERS = gql`
 //PACT QUERIES
 
 //USER MUTATIONS
+
+export const SIGNIN_USER = gql`
+  mutation($email: String!, $password: String!) {
+    signinUser(email: $email, password: $password) {
+      token
+    }
+  }
+`
 
 export const SIGNUP_USER = gql`
   mutation(
