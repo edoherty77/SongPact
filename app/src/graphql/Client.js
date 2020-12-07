@@ -3,7 +3,7 @@ import { onError } from "apollo-link-error"
 import { HttpLink } from "apollo-link-http"
 import { from } from "apollo-link"
 
-import { setContext } from 'apollo-link-context'
+// import { setContext } from "apollo-link-context"
 
 //CURRENT SET UP WITHOUT LOCAL STORAGE
 //NEEDS MOBX LOCALSTORAGE
