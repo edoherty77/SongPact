@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { NavigationContainer } from "@react-navigation/native"
 
+// AMPLIFY
+import Amplify, { Auth } from "aws-amplify"
+import awsconfig from "./aws-exports"
+Amplify.configure(awsconfig)
+
 import AppNavigator from "./app/navigation/AppNavigator"
 import UserContext from "./app/context/userContext"
 import AuthNavigator from "./app/navigation/AuthNavigator"
