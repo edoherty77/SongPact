@@ -1,8 +1,8 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import SignInScreen from '../views/SIgnInScreen'
-import SignUpScreen from '../views/SignUpScreen'
-import TestMobX from '../views/TestMobX'
+import React from "react"
+import { createStackNavigator } from "@react-navigation/stack"
+import SignInScreen from "../views/SignInScreen"
+import SignUpScreen from "../views/SignUpScreen"
+import TestMobX from "../views/TestMobX"
 
 const Stack = createStackNavigator()
 

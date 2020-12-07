@@ -1,9 +1,9 @@
 import {
-  action,
-  computed,
   makeAutoObservable,
   makeObservable,
   observable,
+  action,
+  computed,
 } from "mobx"
 
 class TestStore {

@@ -1,9 +1,9 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { onError } from 'apollo-link-error'
-import { HttpLink } from 'apollo-link-http'
-import { from } from 'apollo-link'
+import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { onError } from "apollo-link-error"
+import { HttpLink } from "apollo-link-http"
+import { from } from "apollo-link"
 
-import { setContext } from 'apollo-link-context'
+// import { setContext } from "apollo-link-context"
 
 //CURRENT SET UP WITHOUT LOCAL STORAGE
 //NEEDS MOBX LOCALSTORAGE
@@ -16,11 +16,11 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 })
 
 const httpLink = new HttpLink({
-  uri: 'http://192.168.1.8:4000/graphql',
+  uri: "http://localhost:4000/graphql",
 })
 
 export const client = new ApolloClient({
-  link: from([httpLink, errorLink]),
+  link: from([errorLink, httpLink]),
   cache: new InMemoryCache(),
 })
 

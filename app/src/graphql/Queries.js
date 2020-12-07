@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from "graphql-tag"
 
 //USER QUERIES
 export const GET_CURRENT_USER = gql`

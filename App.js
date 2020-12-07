@@ -1,33 +1,63 @@
-import { StatusBar } from 'expo-status-bar'
-import React, { useEffect, useState } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { StatusBar } from "expo-status-bar"
+import React, { useEffect, useState } from "react"
 
-import AppNavigator from './app/navigation/AppNavigator'
-import UserContext from './app/context/userContext'
-import AuthNavigator from './app/navigation/AuthNavigator'
+// AMPLIFY & AUTH
+import Amplify, { Auth } from "aws-amplify"
+import awsconfig from "./aws-exports"
+Amplify.configure({
+  ...awsconfig,
+  Analytics: {
+    disabled: true, // kills unhandled promise warning
+  },
+})
+import { withAuthenticator } from "aws-amplify-react-native"
 
-import { ApolloProvider } from '@apollo/client'
-import { client } from './app/src/graphql/Client'
+// NAV
+import { NavigationContainer } from "@react-navigation/native"
+import AppNavigator from "./app/navigation/AppNavigator"
 
-import DashboardScreen from './app/views/DashboardScreen'
+// DATA FLOW
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { ApolloProvider } from "@apollo/client"
+import { client } from "./app/src/graphql/Client"
 
-export default function App({ navigation }) {
-  const [user, setUser] = useState(false)
+function App({ navigation }) {
+  const [user, setUser] = useState(null)
+
+  const getCurrentUser = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      setUser(user.attributes) // TODO remove or move to user store
+      // look for user ID that matches sub ID
+      // if found
+      // return foundUser data
+      // store foundUser data in state store
+      // if not found
+      // create newUser entry with ID == sub
+      // store newUser data in state
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  if (user) {
+    console.log("user///", user)
+  }
 
   useEffect(() => {
-    user
-  }, [user])
+    getCurrentUser()
+  }, [])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          <UserContext.Provider value={{ setUser: setUser }}>
-            {user ? <AppNavigator /> : <AuthNavigator />}
-          </UserContext.Provider>
+          <AppNavigator />
         </NavigationContainer>
       </ApolloProvider>
-      {/* <StatusBar style={'light'} /> */}
+      <StatusBar style={"auto"} />
     </>
   )
 }
+
+export default withAuthenticator(App)
