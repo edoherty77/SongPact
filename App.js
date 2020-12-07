@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 // AMPLIFY & AUTH
 import Amplify, { Auth } from "aws-amplify"
@@ -17,31 +17,6 @@ import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
 
 function App({ navigation }) {
-  const [user, setUser] = useState({
-    firstName: "",
-    email: "",
-  })
-
-  const checkForUser = async () => {
-    try {
-      const localUser = await AsyncStorage.getItem("firstName")
-      const localEmail = await AsyncStorage.getItem("firstName")
-
-      if (localUser) {
-        setUser({
-          firstName: localUser,
-          email: localEmail,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    checkForUser
-  }, [user.email])
-
   return (
     <>
       <ApolloProvider client={client}>
