@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import Amplify, { Auth } from "aws-amplify"
 import awsconfig from "./aws-exports"
 Amplify.configure(awsconfig)
+import { withAuthenticator } from "aws-amplify-react-native"
 
 import AppNavigator from "./app/navigation/AppNavigator"
 import UserContext from "./app/context/userContext"
@@ -17,7 +18,7 @@ import { client } from "./app/src/graphql/Client"
 
 import DashboardScreen from "./app/views/DashboardScreen"
 
-export default function App({ navigation }) {
+function App({ navigation }) {
   const [user, setUser] = useState({
     firstName: "",
     email: "",
@@ -47,12 +48,12 @@ export default function App({ navigation }) {
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          <UserContext.Provider value={{ setUser: setUser }}>
-            {user.email ? <AppNavigator /> : <AuthNavigator />}
-          </UserContext.Provider>
+          <AppNavigator />
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={"auto"} />
     </>
   )
 }
+
+export default withAuthenticator(App)
