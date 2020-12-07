@@ -10,6 +10,11 @@
       "StackName": "amplify-songpact-dev-114806",
       "StackId": "arn:aws:cloudformation:us-west-2:979084183884:stack/amplify-songpact-dev-114806/22c942a0-38c5-11eb-a507-06519b4450d1",
       "AmplifyAppId": "d27znecia7ptib"
+    },
+    "categories": {
+      "auth": {
+        "songpactc5efc38e": {}
+      }
     }
   }
 }

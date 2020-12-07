@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "songpactc5efc38e": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
