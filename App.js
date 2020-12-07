@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 // AMPLIFY & AUTH
-import Amplify from "aws-amplify"
+import Amplify, { Auth } from "aws-amplify"
 import awsconfig from "./aws-exports"
 Amplify.configure({
   ...awsconfig,
@@ -21,7 +21,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
 
-function App() {
+function App({ navigation }) {
+  const [user, setUser] = useState(null)
+
+  const verify = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      setUser(user.attributes)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  if (user) {
+    console.log("user///", user)
+  }
+
+  useEffect(() => {
+    verify()
+  }, [])
+
   return (
     <>
       <ApolloProvider client={client}>
