@@ -24,10 +24,17 @@ import { client } from "./app/src/graphql/Client"
 function App({ navigation }) {
   const [user, setUser] = useState(null)
 
-  const verify = async () => {
+  const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      setUser(user.attributes)
+      setUser(user.attributes) // TODO remove or move to user store
+      // look for user ID that matches sub ID
+      // if found
+      // return foundUser data
+      // store foundUser data in state store
+      // if not found
+      // create newUser entry with ID == sub
+      // store newUser data in state
     } catch (error) {
       console.log(error)
     }
@@ -38,7 +45,7 @@ function App({ navigation }) {
   }
 
   useEffect(() => {
-    verify()
+    getCurrentUser()
   }, [])
 
   return (
