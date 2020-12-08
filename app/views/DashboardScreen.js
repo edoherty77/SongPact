@@ -14,8 +14,9 @@ import defaultStyles from "../config/styles"
 import GET_ALL_USERS from "../src/graphql/Queries"
 import { Colors } from "react-native/Libraries/NewAppScreen"
 import store from "../stores/TestStore"
+import { observer } from "mobx-react"
 
-function DashboardScreen() {
+const DashboardScreen = observer(() => {
   useEffect(() => {
     store
   }, [store])
@@ -47,7 +48,7 @@ function DashboardScreen() {
       <View style={styles.pactList}>
         <PactButton
           status="pending"
-          name={store.email}
+          name={store.email ? store.email : "Mark"}
           title="Adrift"
           type="Remix"
         />
@@ -109,7 +110,7 @@ function DashboardScreen() {
       </View>
     </Screen>
   )
-}
+})
 
 const styles = StyleSheet.create({
   options: {
