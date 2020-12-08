@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet, TextInput, View } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import colors from '../config/colors'
-import defaultStyles from '../config/styles'
+import React from "react"
+import { StyleSheet, TextInput, View } from "react-native"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import colors from "../config/colors"
+import defaultStyles from "../config/styles"
 
 const AppTextInput = ({ placeholderTextColor, icon, width, ...otherProps }) => {
   return (
@@ -29,11 +29,11 @@ export default AppTextInput
 const styles = StyleSheet.create({
   container: {
     borderRadius: 3,
-    flexDirection: 'row',
+    flexDirection: "row",
     // padding: 10,
     marginVertical: 10,
 
-    width: '100%',
+    width: "100%",
   },
   icon: {
     marginRight: 10,

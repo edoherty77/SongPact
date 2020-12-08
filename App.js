@@ -20,14 +20,13 @@ import AppNavigator from "./app/navigation/AppNavigator"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
+import store from "./app/stores/TestStore"
 
 function App({ navigation }) {
-  const [user, setUser] = useState(null)
-
   const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      setUser(user.attributes) // TODO remove or move to user store
+      store.setUser(user.attributes) // TODO remove or move to user store
       // look for user ID that matches sub ID
       // if found
       // return foundUser data
@@ -40,13 +39,13 @@ function App({ navigation }) {
     }
   }
 
-  if (user) {
-    console.log("user///", user)
+  if (store.email) {
+    console.log("signed in as: ", store.email)
   }
 
   useEffect(() => {
     getCurrentUser()
-  }, [])
+  }, [store])
 
   return (
     <>

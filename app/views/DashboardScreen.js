@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from "react"
+import { View, Text, StyleSheet } from "react-native"
 
-import colors from '../config/colors'
-import Screen from '../components/Screen'
-import Header from '../components/Header'
-import SubHeader from '../components/SubHeader'
-import PactButton from '../components/PactButton'
-import Separator from '../components/Separator'
-import ButtonIcon from '../components/ButtonIcon'
-import AppText from '../components/AppText'
+import colors from "../config/colors"
+import Screen from "../components/Screen"
+import Header from "../components/Header"
+import SubHeader from "../components/SubHeader"
+import PactButton from "../components/PactButton"
+import Separator from "../components/Separator"
+import ButtonIcon from "../components/ButtonIcon"
+import AppText from "../components/AppText"
 
-import defaultStyles from '../config/styles'
-import GET_ALL_USERS from '../src/graphql/Queries'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+import defaultStyles from "../config/styles"
+import GET_ALL_USERS from "../src/graphql/Queries"
+import { Colors } from "react-native/Libraries/NewAppScreen"
+import store from "../stores/TestStore"
 
 function DashboardScreen() {
+  useEffect(() => {
+    store
+  }, [store])
+
   return (
     <Screen>
       <Header title="Your Pacts" />
@@ -23,24 +28,29 @@ function DashboardScreen() {
         <Separator />
       </View>
       <View style={styles.options}>
-        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
+        <Text onPress={() => console.log("pressed")} style={styles.optionsText}>
           Open
         </Text>
         <Text
           style={[
             styles.optionsText,
-            { color: colors.five, fontWeight: 'bold', fontSize: 18 },
+            { color: colors.five, fontWeight: "bold", fontSize: 18 },
           ]}
-          onPress={() => console.log('pressed')}
+          onPress={() => console.log("pressed")}
         >
           Needs Action
         </Text>
-        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
+        <Text onPress={() => console.log("pressed")} style={styles.optionsText}>
           All
         </Text>
       </View>
       <View style={styles.pactList}>
-        <PactButton status="pending" name="Mark" title="Adrift" type="Remix" />
+        <PactButton
+          status="pending"
+          name={store.email}
+          title="Adrift"
+          type="Remix"
+        />
         <PactButton
           status="pending"
           name="Stephan"
@@ -56,7 +66,7 @@ function DashboardScreen() {
         <View style={styles.contactText}>
           <AppText
             style={{ marginBottom: 5 }}
-            fontWeight={'bold'}
+            fontWeight={"bold"}
             fontSize={20}
             color={colors.black}
           >
@@ -104,13 +114,13 @@ function DashboardScreen() {
 const styles = StyleSheet.create({
   options: {
     flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 10,
     marginBottom: 20,
   },
   optionsText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.red,
     // fontFamily: 'Courier',
   },
@@ -120,16 +130,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     elevation: 1,
-    shadowColor: 'rgb(50,50,50)',
+    shadowColor: "rgb(50,50,50)",
     shadowOpacity: 0.5,
     borderRadius: 10,
   },
   separatorView: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
   contactsView: {
     // backgroundColor: 'green',
@@ -139,20 +149,20 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   contactText: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   contactList: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   circle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.lttan,
     width: 50,
     height: 50,
