@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
+import { Auth } from "aws-amplify"
 
 import colors from "../config/colors"
 import Screen from "../components/Screen"
@@ -21,9 +22,14 @@ const DashboardScreen = observer(() => {
     store
   }, [store])
 
+  const headerPress = async () => {
+    console.log("header button pressed")
+    await Auth.signOut()
+  }
+
   return (
     <Screen>
-      <Header title="Your Pacts" />
+      <Header title="Your Pacts" onPress={headerPress} />
 
       <View style={styles.separatorView}>
         <Separator />

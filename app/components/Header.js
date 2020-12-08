@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import React from "react"
+import { StyleSheet, Text, View, SafeAreaView } from "react-native"
 
-import ButtonIcon from './ButtonIcon'
-import defaultStyles from '../config/styles'
-import AppText from '../components/AppText'
-import colors from '../config/colors'
+import ButtonIcon from "./ButtonIcon"
+import defaultStyles from "../config/styles"
+import AppText from "../components/AppText"
+import colors from "../config/colors"
 
-const Header = ({ title, noIcon }) => {
+const Header = ({ title, noIcon, ...otherProps }) => {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.appHeader}>
@@ -19,6 +19,7 @@ const Header = ({ title, noIcon }) => {
             size={45}
             name="message-text"
             backgroundColor="transparent"
+            {...otherProps}
           />
         )}
       </View>
@@ -30,8 +31,8 @@ export default Header
 
 const styles = StyleSheet.create({
   appHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 20,
   },
   screenName: {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
 
     // fontFamily: 'Futura',
     color: colors.black,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   messageBtn: {
     marginTop: 4,
