@@ -32,15 +32,6 @@ const DashboardScreen = observer(() => {
     }
   }
 
-  async function signOut() {
-    try {
-      await Auth.signOut()
-      store.resetUser()
-    } catch (error) {
-      console.log("error signing out: ", error)
-    }
-  }
-
   return (
     <Screen>
       <Header title="Your Pacts" onPress={headerPress} />

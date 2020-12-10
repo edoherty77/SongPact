@@ -45,15 +45,6 @@ const App = observer(({ navigation }) => {
     }
   }
 
-  const getLocalSub = async () => {
-    try {
-      let subString = await AsyncStorage.getItem("sub")
-      console.log("subString: ", subString)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   if (email) {
     console.log("user///", email)
   }
