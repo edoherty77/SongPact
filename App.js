@@ -25,38 +25,36 @@ import { client } from './app/src/graphql/Client'
 function App({ navigation }) {
   const [user, setUser] = useState(null)
 
-  // const getCurrentUser = async () => {
-  //   try {
-  // const user = await Auth.currentAuthenticatedUser()
-  // setUser(user.attributes)
-  // TODO remove or move to user store
-  // look for user ID that matches sub ID
-  // if found
-  // return foundUser data
-  // store foundUser data in state store
-  // if not found
-  // create newUser entry with ID == sub
-  // store newUser data in state
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const getCurrentUser = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      setUser(user.attributes)
+      // TODO remove or move to user store
+      // look for user ID that matches sub ID
+      // if found
+      // return foundUser data
+      // store foundUser data in state store
+      // if not found
+      // create newUser entry with ID == sub
+      // store newUser data in state
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  // if (user) {
-  //   console.log('user///', user)
-  // }
+  if (user) {
+    console.log('user///', user)
+  }
 
-  // useEffect(() => {
-  //   getCurrentUser()
-  // }, [])
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          {/* <AppNavigator /> */}
-
-          <AuthNavigator />
+          {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={'auto'} />
