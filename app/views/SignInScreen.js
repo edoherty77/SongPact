@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { observer } from "mobx-react"
+import NativeModal from "react-native-modal"
 import {
   StyleSheet,
   View,
@@ -12,12 +13,10 @@ import {
 import * as Yup from "yup"
 
 import Screen from "../components/Screen"
-import Header from "../components/Header"
-import AppButton from "../components/AppButton"
-import ButtonIcon from "../components/ButtonIcon"
 import AppText from "../components/AppText"
 import { AppForm, AppFormField, SubmitButton } from "../components/forms"
-import UserContext from "../context/userContext"
+
+import { Auth } from "aws-amplify"
 
 import store from "../stores/TestStore"
 
@@ -32,7 +31,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 })
 
-const SignInScreen = observer(({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   // const { user, setUser } = useContext(UserContext)
   // const [mutate] = useMutation(SIGNIN_USER)
 
@@ -57,6 +56,19 @@ const SignInScreen = observer(({ navigation }) => {
   //     console.log(data.signinUser)
   //   }
   // }
+
+  async function login(values) {
+    try {
+      const user = await Auth.signIn({
+        username: values.email,
+        password: values.password,
+      })
+      console.log(user.attributes)
+      store.setUser({ ...user.attributes })
+    } catch (error) {
+      console.log("error signing in", error)
+    }
+  }
 
   return (
     <Screen>
@@ -167,7 +179,7 @@ const SignInScreen = observer(({ navigation }) => {
       </ImageBackground>
     </Screen>
   )
-})
+}
 
 export default SignInScreen
 

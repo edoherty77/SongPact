@@ -15,18 +15,23 @@ import { withAuthenticator } from "aws-amplify-react-native"
 // NAV
 import { NavigationContainer } from "@react-navigation/native"
 import AppNavigator from "./app/navigation/AppNavigator"
+import AuthNavigator from "./app/navigation/AuthNavigator"
 
 // DATA FLOW
-import AsyncStorage from "@react-native-community/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
 import store from "./app/stores/TestStore"
+import { observer } from "mobx-react"
 
-function App({ navigation }) {
+const App = observer(({ navigation }) => {
+  const email = store.email
+
   const getCurrentUser = async () => {
     try {
-      const data = await Auth.currentAuthenticatedUser()
-      store.setUser(data.attributes) // TODO remove or move to user store
+      const user = await Auth.currentAuthenticatedUser()
+      store.setUser(user.attributes)
+      // TODO remove or move to user store
       // look for user ID that matches sub ID
       // if found
       // return foundUser data
@@ -34,7 +39,7 @@ function App({ navigation }) {
       // if not found
       // create newUser entry with ID == sub
       // store newUser data in state
-      await AsyncStorage.setItem("sub", store.sub)
+      // await AsyncStorage.setItem("sub", store.sub)
     } catch (error) {
       console.log(error)
     }
@@ -49,25 +54,25 @@ function App({ navigation }) {
     }
   }
 
-  if (store.email) {
-    console.log("signed in as: ", store.email)
-    getLocalSub()
+  if (email) {
+    console.log("user///", email)
   }
 
   useEffect(() => {
-    getCurrentUser()
-  }, [store])
+    // getCurrentUser()
+  }, [store.email])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          <AppNavigator />
+          {email ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={"auto"} />
     </>
   )
-}
+})
 
-export default withAuthenticator(App)
+export default App
+// export default withAuthenticator(App)

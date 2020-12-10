@@ -1,7 +1,7 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { onError } from "apollo-link-error"
-import { HttpLink } from "apollo-link-http"
-import { from } from "apollo-link"
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { onError } from 'apollo-link-error'
+import { HttpLink } from 'apollo-link-http'
+import { from } from 'apollo-link'
 
 // import { setContext } from "apollo-link-context"
 
@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 })
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: 'http://192.168.1.8:4000/graphql',
 })
 
 export const client = new ApolloClient({

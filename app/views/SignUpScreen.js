@@ -9,10 +9,14 @@ import {
   ImageBackground,
 } from "react-native"
 import * as Yup from "yup"
+import NativeModal from "react-native-modal"
 
 import Screen from "../components/Screen"
 import Header from "../components/Header"
+
 import { AppForm, AppFormField, SubmitButton } from "../components/forms"
+
+import { Auth } from "aws-amplify"
 
 import { SIGNUP_USER } from "../src/graphql/Queries"
 import { useMutation } from "@apollo/client"
@@ -36,35 +40,40 @@ const validationSchema = Yup.object().shape({
 })
 
 function SignUpScreen({ navigation }) {
-  const [mutate] = useMutation(SIGNUP_USER)
-
-  // const register = (values) => {
-  // const newUser = new User(values)
-  // console.log(values)
-  // UserStore.addUser(newUser)
-  // }
+  const [modalVisible, setModalVisible] = useState(false)
   async function submit(values) {
-    const { data } = await mutate({
-      variables: values,
-    })
-    if (data) {
-      console.log(data.signupUser)
+    try {
+      const { user } = await Auth.signUp({
+        username: values.email,
+        password: values.password,
+        attributes: {
+          email: values.email,
+        },
+      })
+      if (user) {
+        // const { data } = await mutate({
+        //   variables: values,
+        // })
+        setModalVisible(true)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  const SignUp = () => {}
+  async function verify(values) {
+    const authCode = values.code
+    const username = values.email
+    // console.log(authCode)
+    Auth.confirmSignUp(username, authCode)
+      .then((data) => console.log(data))
+      .then(() => setModalVisible(false))
+      .then(() => navigation.navigate("SignIn"))
+      .catch((err) => console.log(err))
+  }
 
   return (
     <Screen>
-      {/* <ImageBackground
-        imageStyle={{ opacity: 0.4 }}
-        style={{
-          flex: 1,
-          resizeMode: 'cover',
-          justifyContent: 'center',
-        }}
-        source={require('../assets/pic1.jpeg')}
-      > */}
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
@@ -165,10 +174,60 @@ function SignUpScreen({ navigation }) {
                 />
               </View>
             </AppForm>
+            <NativeModal
+              hasBackdrop={true}
+              isVisible={modalVisible}
+              animationType="slide"
+              onBackdropPress={() => setModalVisible(false)}
+              // backdropColor="blue"
+              backdropOpacity={0.6}
+              // onModalHide={() => {
+              //   getLocation(), refreshMap(100)
+              // }}
+              style={styles.confirmModal}
+            >
+              <View style={styles.modalView}>
+                <AppText fontWeight="bold" color={colors.black} fontSize={25}>
+                  Verify Your Account
+                </AppText>
+                <AppForm
+                  initialValues={{
+                    email: "",
+                    code: "",
+                  }}
+                  onSubmit={(values) => verify(values)}
+                  // validationSchema={validationSchema}
+                >
+                  <View style={styles.fieldView}>
+                    <AppFormField
+                      style={[styles.input, { width: "100%" }]}
+                      name="email"
+                      autoCapitalize="none"
+                      placeholder="Email"
+                      autoCorrect={false}
+                      textContentType="emailAddress"
+                      keyboardType="email-address"
+                      paddingRight={"8%"}
+                    />
+                    <AppFormField
+                      style={[styles.input, { width: "100%" }]}
+                      name="code"
+                      placeholder="Verification Code"
+                      paddingRight={"8%"}
+                    />
+                    <SubmitButton
+                      style={[{ width: "100%" }, styles.createButton]}
+                      title="Submit"
+                      color={colors.confirm}
+                      dismissKey={Keyboard.dismiss}
+                    />
+                  </View>
+                </AppForm>
+              </View>
+            </NativeModal>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      {/* </ImageBackground> */}
     </Screen>
   )
 }
@@ -210,7 +269,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-
     width: "95%",
     flex: 1,
   },
@@ -227,5 +285,20 @@ const styles = StyleSheet.create({
     width: "90%",
     marginTop: 10,
     flex: 1,
+  },
+  confirmModal: {
+    backgroundColor: colors.lttan,
+    marginHorizontal: 50,
+    marginTop: 200,
+    marginBottom: 250,
+    padding: 0,
+    borderRadius: 30,
+  },
+  modalView: {
+    height: 350,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 20,
   },
 })

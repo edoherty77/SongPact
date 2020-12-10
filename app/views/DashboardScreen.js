@@ -23,7 +23,22 @@ const DashboardScreen = observer(() => {
   }, [store])
 
   const headerPress = async () => {
-    await Auth.signOut()
+    console.log("signing out")
+    try {
+      await Auth.signOut()
+      store.resetUser()
+    } catch (error) {
+      console.log("error signing out: ", error)
+    }
+  }
+
+  async function signOut() {
+    try {
+      await Auth.signOut()
+      store.resetUser()
+    } catch (error) {
+      console.log("error signing out: ", error)
+    }
   }
 
   return (

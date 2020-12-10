@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag'
 
 //USER QUERIES
 export const GET_CURRENT_USER = gql`
@@ -38,7 +38,10 @@ export const SIGNUP_USER = gql`
       password: $password
       artistName: $artistName
     ) {
-      token
+      lastName
+      firstName
+      artistName
+      email
     }
   }
 `
