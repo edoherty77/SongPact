@@ -23,7 +23,6 @@ const DashboardScreen = observer(() => {
   }, [store])
 
   const headerPress = async () => {
-    console.log("header button pressed")
     await Auth.signOut()
   }
 
