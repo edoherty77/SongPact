@@ -25,7 +25,7 @@ import store from "./app/stores/TestStore"
 import { observer } from "mobx-react"
 
 const App = observer(({ navigation }) => {
-  const email = store.email
+  const sub = store.sub
 
   const getCurrentUser = async () => {
     try {
@@ -45,19 +45,19 @@ const App = observer(({ navigation }) => {
     }
   }
 
-  if (email) {
-    console.log("user///", email)
+  if (sub) {
+    console.log("user///", sub)
   }
 
   useEffect(() => {
     // getCurrentUser()
-  }, [store.email])
+  }, [store.sub])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          {email ? <AppNavigator /> : <AuthNavigator />}
+          {sub ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={"auto"} />
