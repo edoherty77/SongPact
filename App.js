@@ -25,13 +25,11 @@ import store from "./app/stores/TestStore"
 import { observer } from "mobx-react"
 
 const App = observer(({ navigation }) => {
-  const [sub, setSub] = useState(null)
-
   const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
       store.setUser(user.attributes)
-      setSub(store.sub)
+      // setSub(store.sub)
       // TODO remove or move to user store
       // look for user ID that matches sub ID
       // if found
@@ -46,11 +44,6 @@ const App = observer(({ navigation }) => {
     }
   }
 
-  // TODO remove
-  if (sub) {
-    console.log("user///", sub)
-  }
-
   useEffect(() => {
     getCurrentUser()
   }, [store.sub])
@@ -59,7 +52,7 @@ const App = observer(({ navigation }) => {
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          {sub ? <AppNavigator /> : <AuthNavigator />}
+          {store.sub ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={"auto"} />
