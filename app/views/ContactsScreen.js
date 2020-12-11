@@ -1,40 +1,52 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-
-import Header from '../components/Header'
+import { View, StyleSheet } from 'react-native'
+import { Header, Item, Input, Icon, Button, Text } from 'native-base'
+import Head from '../components/Header'
 import Screen from '../components/Screen'
-import Separator from '../components/Separator'
 import AppTextInput from '../components/AppTextInput'
-import SubHeader from '../components/SubHeader'
-import AppText from '../components/AppText'
-import colors from '../config/colors'
-import ButtonIcon from '../components/ButtonIcon'
 import ContactButton from '../components/ContactButton'
 
 function Contacts() {
   const [firstName, setFirstName] = useState('')
   return (
     <Screen>
-      <Header title="Contacts" />
-      <Separator />
-      <View style={styles.inputView}>
+      <Head title="Contacts" />
+      {/* <Separator /> */}
+      {/* <View style={styles.inputView}>
         <AppTextInput
           width="90%"
           placeholder={'Search'}
           icon={'account-search'}
           style={styles.input}
         />
-      </View>
+      </View> */}
+      <Header
+        transparent={true}
+        searchBar
+        noshadow
+        rounded
+        width={300}
+        alignSelf="center"
+      >
+        <Item>
+          <Icon name="ios-search" />
+          <Input placeholder="Search" />
+          <Icon name="ios-people" />
+        </Item>
+        {/* <Button transparent>
+          <Text>Search</Text>
+        </Button> */}
+      </Header>
 
       <View>
-        <ContactButton initials={'CD'} name={'Christopher Dibona'} />
-        <ContactButton initials={'ED'} name={'Evan Doherty'} />
-        <ContactButton initials={'MG'} name={'Michael Giannone'} />
-        <ContactButton initials={'PD'} name={'Pat Doherty'} />
-        <ContactButton initials={'RK'} name={'Ryan Kleshefsky'} />
-        <ContactButton initials={'SJ'} name={'Seth Johnson'} />
-        <ContactButton initials={'SN'} name={'Stephan Nale'} />
-        <ContactButton initials={'ZF'} name={'Zack Fye'} />
+        <ContactButton name={'Christopher Dibona'} />
+        <ContactButton name={'Evan Doherty'} />
+        <ContactButton name={'Michael Giannone'} />
+        <ContactButton name={'Pat Doherty'} />
+        <ContactButton name={'Ryan Kleshefsky'} />
+        <ContactButton name={'Seth Johnson'} />
+        <ContactButton name={'Stephan Nale'} />
+        <ContactButton name={'Zack Fye'} />
       </View>
     </Screen>
   )

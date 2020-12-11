@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import ButtonIcon from '../components/ButtonIcon'
 import Dashboard from '../views/DashboardScreen'
@@ -19,8 +18,13 @@ export default function AppNavigator() {
     <Tab.Navigator
       initialRouteName="Dashboard"
       tabBarOptions={{
+        showLabel: false,
         style: {
+          // marginBottom: 60,
+          height: 90,
+          marginTop: 0,
           borderTopColor: 'black',
+          display: 'flex',
         },
         activeTintColor: colors.red,
         inactiveTintColor: colors.black,
@@ -31,10 +35,10 @@ export default function AppNavigator() {
           paddingBottom: 45,
           fontFamily: 'Futura',
         },
-
         tabStyle: {
-          height: 100,
-          backgroundColor: colors.lttan,
+          height: 90,
+          backgroundColor: colors.gray,
+          paddingBottom: 10,
         },
       }}
     >
@@ -58,13 +62,12 @@ export default function AppNavigator() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              // style={{ marginTop: 5 }}
               name="account-multiple"
               color={color}
               size={30}
             />
           ),
-          tabBarLabel: 'Contacts',
+          // tabBarLabel: 'Contacts',
         }}
         name="Contacts"
         component={Contacts}
@@ -73,13 +76,12 @@ export default function AppNavigator() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              style={{ marginTop: 10 }}
               name="plus-circle"
               color={color}
               size={30}
             />
           ),
-          tabBarLabel: '',
+          // tabBarLabel: '',
         }}
         name="New"
         component={New}
@@ -89,7 +91,8 @@ export default function AppNavigator() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bell" color={color} size={30} />
           ),
-          tabBarLabel: 'Notifications',
+          // tabBarBadge: 3,
+          // tabBarLabel: 'Notifications',
         }}
         name="Notifications"
         component={Notifications}
@@ -99,7 +102,8 @@ export default function AppNavigator() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="menu" color={color} size={30} />
           ),
-          tabBarLabel: 'Menu',
+
+          // tabBarLabel: 'Menu',
         }}
         name="Menu"
         component={Menu}

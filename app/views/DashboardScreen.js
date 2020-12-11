@@ -1,57 +1,86 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import colors from '../config/colors'
 import Screen from '../components/Screen'
-import Header from '../components/Header'
-import SubHeader from '../components/SubHeader'
+import Head from '../components/Header'
 import PactButton from '../components/PactButton'
-import Separator from '../components/Separator'
-import ButtonIcon from '../components/ButtonIcon'
+
+import OpenList from '../components/UserPacts/OpenList'
+import NeedsActionList from '../components/UserPacts/NeedsActionList'
+import AllList from '../components/UserPacts/AllList'
+
 import AppText from '../components/AppText'
 
 import defaultStyles from '../config/styles'
 import GET_ALL_USERS from '../src/graphql/Queries'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-function DashboardScreen() {
+import {
+  Container,
+  Header,
+  Tab,
+  Tabs,
+  TabHeading,
+  Icon,
+  Text,
+} from 'native-base'
+
+function DashboardScreen({ navigation }) {
+  async function signOut() {
+    try {
+      await Auth.signOut()
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
   return (
     <Screen>
-      <Header title="Your Pacts" />
+      <Head
+        title="Your Pacts"
+        onPress={signOut}
+        borderBottomColor="transparent"
+        borderBottomWidth={0}
+      />
 
-      <View style={styles.separatorView}>
-        <Separator />
-      </View>
-      <View style={styles.options}>
-        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
-          Open
-        </Text>
-        <Text
-          style={[
-            styles.optionsText,
-            { color: colors.five, fontWeight: 'bold', fontSize: 18 },
-          ]}
-          onPress={() => console.log('pressed')}
+      <Tabs
+        initialPage={1}
+        tabBarUnderlineStyle={{ backgroundColor: 'red' }}
+        tabContainerStyle={{ borderColor: 'black' }}
+      >
+        <Tab
+          tabStyle={{ backgroundColor: 'blue' }}
+          heading={
+            <TabHeading
+              style={{ backgroundColor: colors.gray }}
+              activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
+            >
+              {/* <Icon name="camera" /> */}
+              <AppText>Open</AppText>
+            </TabHeading>
+          }
         >
-          Needs Action
-        </Text>
-        <Text onPress={() => console.log('pressed')} style={styles.optionsText}>
-          All
-        </Text>
-      </View>
-      <View style={styles.pactList}>
-        <PactButton status="pending" name="Mark" title="Adrift" type="Remix" />
-        <PactButton
-          status="pending"
-          name="Stephan"
-          title="A Walk"
-          type="Producer"
-        />
-        <PactButton status="pending" name="Me" title="Closer" type="Beat" />
-        <PactButton status="pending" name="Seth" title="Orbit" type="Remix" />
-        <PactButton status="pending" name="Me" title="Around" type="Producer" />
-        {/* <PactButton status="pending" name="Seth" title="Adrift" type="Remix" /> */}
-      </View>
+          <OpenList />
+        </Tab>
+        <Tab
+          heading={
+            <TabHeading style={{ backgroundColor: colors.gray }}>
+              <AppText>Needs Action</AppText>
+            </TabHeading>
+          }
+        >
+          <NeedsActionList />
+        </Tab>
+        <Tab
+          heading={
+            <TabHeading style={{ backgroundColor: colors.gray }}>
+              <AppText>All</AppText>
+            </TabHeading>
+          }
+        >
+          <AllList />
+        </Tab>
+      </Tabs>
       <View style={styles.contactsView}>
         <View style={styles.contactText}>
           <AppText
@@ -62,7 +91,12 @@ function DashboardScreen() {
           >
             Recent Contacts:
           </AppText>
-          <AppText color={colors.red}>See All</AppText>
+          <AppText
+            onPress={() => navigation.navigate('Contacts')}
+            color={colors.red}
+          >
+            See All
+          </AppText>
         </View>
         <View style={styles.contactList}>
           <View style={styles.circle}>
@@ -123,13 +157,6 @@ const styles = StyleSheet.create({
     shadowColor: 'rgb(50,50,50)',
     shadowOpacity: 0.5,
     borderRadius: 10,
-  },
-  separatorView: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
   },
   contactsView: {
     // backgroundColor: 'green',

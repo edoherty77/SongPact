@@ -28,6 +28,9 @@ function App({ navigation }) {
   const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
+      if (!user) {
+        setUser(null)
+      }
       setUser(user.attributes)
       // TODO remove or move to user store
       // look for user ID that matches sub ID
