@@ -42,45 +42,46 @@ function DashboardScreen({ navigation }) {
         borderBottomColor="transparent"
         borderBottomWidth={0}
       />
-
-      <Tabs
-        initialPage={1}
-        tabBarUnderlineStyle={{ backgroundColor: 'red' }}
-        tabContainerStyle={{ borderColor: 'black' }}
-      >
-        <Tab
-          tabStyle={{ backgroundColor: 'blue' }}
-          heading={
-            <TabHeading
-              style={{ backgroundColor: colors.gray }}
-              activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
-            >
-              {/* <Icon name="camera" /> */}
-              <AppText>Open</AppText>
-            </TabHeading>
-          }
+      <View style={styles.tabView}>
+        <Tabs
+          locked={true}
+          initialPage={1}
+          tabBarUnderlineStyle={{ backgroundColor: 'red' }}
+          tabContainerStyle={{ borderColor: 'black' }}
         >
-          <OpenList />
-        </Tab>
-        <Tab
-          heading={
-            <TabHeading style={{ backgroundColor: colors.gray }}>
-              <AppText>Needs Action</AppText>
-            </TabHeading>
-          }
-        >
-          <NeedsActionList />
-        </Tab>
-        <Tab
-          heading={
-            <TabHeading style={{ backgroundColor: colors.gray }}>
-              <AppText>All</AppText>
-            </TabHeading>
-          }
-        >
-          <AllList />
-        </Tab>
-      </Tabs>
+          <Tab
+            tabStyle={{ backgroundColor: 'blue' }}
+            heading={
+              <TabHeading
+                style={{ backgroundColor: colors.gray }}
+                activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
+              >
+                <AppText>Open</AppText>
+              </TabHeading>
+            }
+          >
+            <OpenList />
+          </Tab>
+          <Tab
+            heading={
+              <TabHeading style={{ backgroundColor: colors.gray }}>
+                <AppText>Needs Action</AppText>
+              </TabHeading>
+            }
+          >
+            <NeedsActionList />
+          </Tab>
+          <Tab
+            heading={
+              <TabHeading style={{ backgroundColor: colors.gray }}>
+                <AppText>All</AppText>
+              </TabHeading>
+            }
+          >
+            <AllList />
+          </Tab>
+        </Tabs>
+      </View>
       <View style={styles.contactsView}>
         <View style={styles.contactText}>
           <AppText
@@ -148,6 +149,9 @@ const styles = StyleSheet.create({
     color: colors.red,
     // fontFamily: 'Courier',
   },
+  tabView: {
+    flex: 6,
+  },
   pactList: {
     padding: 10,
     // backgroundColor: 'black',
@@ -164,6 +168,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     // marginTop: 5,
     padding: 10,
+    flex: 1,
   },
   contactText: {
     display: 'flex',

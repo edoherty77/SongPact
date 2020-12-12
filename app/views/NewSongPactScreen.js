@@ -20,7 +20,6 @@ function NewSongPact() {
   return (
     <Screen>
       <Header title="Create A Pact" />
-      {/* <Separator /> */}
       <View style={styles.mainView}>
         <View style={styles.rowView}>
           <NewPactButton
