@@ -8,9 +8,11 @@ export default function AppText({
   style,
   fontSize,
   color,
+  onPress,
 }) {
   return (
     <Text
+      onPress={onPress}
       style={[
         styles.text,
         { fontSize: fontSize, color: color, fontWeight: fontWeight },

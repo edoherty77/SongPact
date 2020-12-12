@@ -4,14 +4,25 @@ import { StyleSheet, Text, View } from 'react-native'
 import colors from '../config/colors'
 
 function Separator({ Children }) {
-  return <View style={styles.separator} />
+  return (
+    <View style={styles.separatorView}>
+      <View style={styles.separator} />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
+  separatorView: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   separator: {
     borderBottomColor: colors.black,
-    borderBottomWidth: 1,
-    width: '85%',
+    borderBottomWidth: 0.5,
+    width: '95%',
   },
 })
 

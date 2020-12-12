@@ -4,8 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 import colors from '../config/colors'
 
-const Screen = ({ children }) => {
-  return <View style={styles.screen}>{children}</View>
+const Screen = ({ children, backgroundColor }) => {
+  return (
+    <View style={[styles.screen, { backgroundColor: backgroundColor }]}>
+      {children}
+    </View>
+  )
 }
 
 export default Screen

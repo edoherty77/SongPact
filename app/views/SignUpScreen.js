@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
 })
 
 function SignUpScreen({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false)
+  const [isModalVisible, setModalVisible] = useState(false)
   async function submit(values) {
     try {
       const { user } = await Auth.signUp({
@@ -176,7 +176,7 @@ function SignUpScreen({ navigation }) {
             </AppForm>
             <NativeModal
               hasBackdrop={true}
-              isVisible={modalVisible}
+              isVisible={isModalVisible}
               animationType="slide"
               onBackdropPress={() => setModalVisible(false)}
               // backdropColor="blue"

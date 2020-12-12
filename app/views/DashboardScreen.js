@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
-import { Auth } from "aws-amplify"
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import colors from "../config/colors"
-import Screen from "../components/Screen"
-import Header from "../components/Header"
-import SubHeader from "../components/SubHeader"
-import PactButton from "../components/PactButton"
-import Separator from "../components/Separator"
-import ButtonIcon from "../components/ButtonIcon"
-import AppText from "../components/AppText"
+import colors from '../config/colors'
+import Screen from '../components/Screen'
+import Head from '../components/Header'
+import PactButton from '../components/PactButton'
 
-import defaultStyles from "../config/styles"
-import GET_ALL_USERS from "../src/graphql/Queries"
-import { Colors } from "react-native/Libraries/NewAppScreen"
-import store from "../stores/TestStore"
-import { observer } from "mobx-react"
+import OpenList from '../components/UserPacts/OpenList'
+import NeedsActionList from '../components/UserPacts/NeedsActionList'
+import AllList from '../components/UserPacts/AllList'
+
+import AppText from '../components/AppText'
+
+import defaultStyles from '../config/styles'
+import GET_ALL_USERS from '../src/graphql/Queries'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
+import store from '../stores/TestStore'
+import { observer } from 'mobx-react'
+import { Tab, Tabs, TabHeading } from 'native-base'
 
 const DashboardScreen = observer(() => {
   useEffect(() => {
@@ -23,68 +25,87 @@ const DashboardScreen = observer(() => {
   }, [store])
 
   const headerPress = async () => {
-    console.log("signing out")
+    console.log('signing out')
     try {
       await Auth.signOut()
       store.resetUser()
     } catch (error) {
-      console.log("error signing out: ", error)
+      console.log('error signing out: ', error)
     }
   }
 
+  async function signOut() {
+    try {
+      await Auth.signOut()
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
   return (
     <Screen>
-      <Header title="Your Pacts" onPress={headerPress} />
-
-      <View style={styles.separatorView}>
-        <Separator />
-      </View>
-      <View style={styles.options}>
-        <Text onPress={() => console.log("pressed")} style={styles.optionsText}>
-          Open
-        </Text>
-        <Text
-          style={[
-            styles.optionsText,
-            { color: colors.five, fontWeight: "bold", fontSize: 18 },
-          ]}
-          onPress={() => console.log("pressed")}
+      <Head
+        title="Your Pacts"
+        onPress={signOut}
+        borderBottomColor="transparent"
+        borderBottomWidth={0}
+        onPress={headerPress}
+      />
+      <View style={styles.tabView}>
+        <Tabs
+          locked={true}
+          initialPage={1}
+          tabBarUnderlineStyle={{ backgroundColor: 'red' }}
+          tabContainerStyle={{ borderColor: 'black' }}
         >
-          Needs Action
-        </Text>
-        <Text onPress={() => console.log("pressed")} style={styles.optionsText}>
-          All
-        </Text>
-      </View>
-      <View style={styles.pactList}>
-        <PactButton
-          status="pending"
-          name={store.email ? store.email : "Mark"}
-          title="Adrift"
-          type="Remix"
-        />
-        <PactButton
-          status="pending"
-          name="Stephan"
-          title="A Walk"
-          type="Producer"
-        />
-        <PactButton status="pending" name="Me" title="Closer" type="Beat" />
-        <PactButton status="pending" name="Seth" title="Orbit" type="Remix" />
-        <PactButton status="pending" name="Me" title="Around" type="Producer" />
-        {/* <PactButton status="pending" name="Seth" title="Adrift" type="Remix" /> */}
+          <Tab
+            tabStyle={{ backgroundColor: 'blue' }}
+            heading={
+              <TabHeading
+                style={{ backgroundColor: colors.gray }}
+                activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
+              >
+                <AppText>Open</AppText>
+              </TabHeading>
+            }
+          >
+            <OpenList />
+          </Tab>
+          <Tab
+            heading={
+              <TabHeading style={{ backgroundColor: colors.gray }}>
+                <AppText>Needs Action</AppText>
+              </TabHeading>
+            }
+          >
+            <NeedsActionList />
+          </Tab>
+          <Tab
+            heading={
+              <TabHeading style={{ backgroundColor: colors.gray }}>
+                <AppText>All</AppText>
+              </TabHeading>
+            }
+          >
+            <AllList />
+          </Tab>
+        </Tabs>
       </View>
       <View style={styles.contactsView}>
         <View style={styles.contactText}>
           <AppText
             style={{ marginBottom: 5 }}
-            fontWeight={"bold"}
+            fontWeight={'bold'}
             fontSize={20}
             color={colors.black}
           >
             Recent Contacts:
           </AppText>
-          <AppText color={colors.red}>See All</AppText>
+          <AppText
+            onPress={() => navigation.navigate('Contacts')}
+            color={colors.red}
+          >
+            See All
+          </AppText>
         </View>
         <View style={styles.contactList}>
           <View style={styles.circle}>
@@ -126,15 +147,18 @@ const DashboardScreen = observer(() => {
 const styles = StyleSheet.create({
   options: {
     flex: 0,
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginTop: 10,
     marginBottom: 20,
   },
   optionsText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.red,
     // fontFamily: 'Courier',
+  },
+  tabView: {
+    flex: 6,
   },
   pactList: {
     padding: 10,
@@ -142,16 +166,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     elevation: 1,
-    shadowColor: "rgb(50,50,50)",
+    shadowColor: 'rgb(50,50,50)',
     shadowOpacity: 0.5,
     borderRadius: 10,
-  },
-  separatorView: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
   },
   contactsView: {
     // backgroundColor: 'green',
@@ -159,22 +176,23 @@ const styles = StyleSheet.create({
     marginRight: 10,
     // marginTop: 5,
     padding: 10,
+    flex: 1,
   },
   contactText: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 5,
   },
   contactList: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
   },
   circle: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.lttan,
     width: 50,
     height: 50,

@@ -1,28 +1,28 @@
-import { StatusBar } from "expo-status-bar"
-import React, { useEffect, useState } from "react"
+import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useState } from 'react'
 
 // AMPLIFY & AUTH
-import Amplify, { Auth } from "aws-amplify"
-import awsconfig from "./aws-exports"
+import Amplify, { Auth } from 'aws-amplify'
+import awsconfig from './aws-exports'
 Amplify.configure({
   ...awsconfig,
   Analytics: {
     disabled: true, // kills unhandled promise warning
   },
 })
-import { withAuthenticator } from "aws-amplify-react-native"
+import { withAuthenticator } from 'aws-amplify-react-native'
 
 // NAV
-import { NavigationContainer } from "@react-navigation/native"
-import AppNavigator from "./app/navigation/AppNavigator"
-import AuthNavigator from "./app/navigation/AuthNavigator"
+import { NavigationContainer } from '@react-navigation/native'
+import AppNavigator from './app/navigation/AppNavigator'
+import AuthNavigator from './app/navigation/AuthNavigator'
 
 // DATA FLOW
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { ApolloProvider } from "@apollo/client"
-import { client } from "./app/src/graphql/Client"
-import store from "./app/stores/TestStore"
-import { observer } from "mobx-react"
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ApolloProvider } from '@apollo/client'
+import { client } from './app/src/graphql/Client'
+import store from './app/stores/TestStore'
+import { observer } from 'mobx-react'
 
 const App = observer(({ navigation }) => {
   const getCurrentUser = async () => {
@@ -55,7 +55,7 @@ const App = observer(({ navigation }) => {
           {store.sub ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
-      <StatusBar style={"auto"} />
+      <StatusBar style={'auto'} />
     </>
   )
 })
