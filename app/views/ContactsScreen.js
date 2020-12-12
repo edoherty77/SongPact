@@ -15,8 +15,8 @@ function Contacts() {
       {/* <View style={styles.inputView}>
         <AppTextInput
           width="90%"
-          placeholder={'Search'}
-          icon={'account-search'}
+          placeholder={"Search"}
+          icon={"account-search"}
           style={styles.input}
         />
       </View> */}

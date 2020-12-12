@@ -12,6 +12,7 @@ const Header = ({
   noIcon,
   borderBottomColor,
   borderBottomWidth,
+  ...otherProps
 }) => {
   return (
     <SafeAreaView
@@ -23,17 +24,16 @@ const Header = ({
           <AppText style={styles.screenName}>{title}</AppText>
         </View>
 
-        <View style={styles.iconView}>
-          {!noIcon && (
-            <ButtonIcon
-              style={styles.messageBtn}
-              iconColor={colors.red}
-              size={40}
-              name="message-text"
-              backgroundColor="transparent"
-            />
-          )}
-        </View>
+        {!noIcon && (
+          <ButtonIcon
+            style={styles.messageBtn}
+            iconColor={colors.red}
+            size={45}
+            name="message-text"
+            backgroundColor="transparent"
+            {...otherProps}
+          />
+        )}
       </View>
     </SafeAreaView>
   )
@@ -50,19 +50,13 @@ const styles = StyleSheet.create({
   },
   appHeader: {
     flexDirection: 'row',
-    // justifyContent: 'space-evenly',
-    marginBottom: 10,
-    // backgroundColor: colors.lttan,
+    justifyContent: 'space-between',
+    padding: 20,
   },
   screenName: {
     fontSize: 40,
     color: colors.black,
-    // fontWeight: 'bold',
-  },
-  iconView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // fontWeight: "bold",
   },
   messageBtn: {
     // marginTop: 4,

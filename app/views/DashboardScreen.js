@@ -15,18 +15,25 @@ import AppText from '../components/AppText'
 import defaultStyles from '../config/styles'
 import GET_ALL_USERS from '../src/graphql/Queries'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import store from '../stores/TestStore'
+import { observer } from 'mobx-react'
+import { Tab, Tabs, TabHeading } from 'native-base'
 
-import {
-  Container,
-  Header,
-  Tab,
-  Tabs,
-  TabHeading,
-  Icon,
-  Text,
-} from 'native-base'
+const DashboardScreen = observer(() => {
+  useEffect(() => {
+    store
+  }, [store])
 
-function DashboardScreen({ navigation }) {
+  const headerPress = async () => {
+    console.log('signing out')
+    try {
+      await Auth.signOut()
+      store.resetUser()
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
+
   async function signOut() {
     try {
       await Auth.signOut()
@@ -41,6 +48,7 @@ function DashboardScreen({ navigation }) {
         onPress={signOut}
         borderBottomColor="transparent"
         borderBottomWidth={0}
+        onPress={headerPress}
       />
       <View style={styles.tabView}>
         <Tabs
@@ -134,7 +142,7 @@ function DashboardScreen({ navigation }) {
       </View>
     </Screen>
   )
-}
+})
 
 const styles = StyleSheet.create({
   options: {

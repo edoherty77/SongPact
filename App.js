@@ -21,17 +21,15 @@ import AuthNavigator from './app/navigation/AuthNavigator'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ApolloProvider } from '@apollo/client'
 import { client } from './app/src/graphql/Client'
+import store from './app/stores/TestStore'
+import { observer } from 'mobx-react'
 
-function App({ navigation }) {
-  const [user, setUser] = useState(null)
-
+const App = observer(({ navigation }) => {
   const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      if (!user) {
-        setUser(null)
-      }
-      setUser(user.attributes)
+      store.setUser(user.attributes)
+      // setSub(store.sub)
       // TODO remove or move to user store
       // look for user ID that matches sub ID
       // if found
@@ -40,30 +38,27 @@ function App({ navigation }) {
       // if not found
       // create newUser entry with ID == sub
       // store newUser data in state
+      // await AsyncStorage.setItem("sub", store.sub)
     } catch (error) {
       console.log(error)
     }
   }
 
-  if (user) {
-    console.log('user///', user)
-  }
-
   useEffect(() => {
     getCurrentUser()
-  }, [])
+  }, [store.sub])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          {user ? <AppNavigator /> : <AuthNavigator />}
+          {store.sub ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
       <StatusBar style={'auto'} />
     </>
   )
-}
+})
 
 export default App
 // export default withAuthenticator(App)

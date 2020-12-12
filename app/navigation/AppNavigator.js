@@ -7,7 +7,7 @@ import ButtonIcon from '../components/ButtonIcon'
 import Dashboard from '../views/DashboardScreen'
 import Contacts from '../views/ContactsScreen'
 import New from '../views/NewSongPactScreen'
-import Notifications from '../views/NotificationsScreen'
+import NotificationsScreen from '../views/NotificationsScreen'
 import Menu from '../views/MenuScreen'
 import colors from '../config/colors'
 
@@ -95,7 +95,7 @@ export default function AppNavigator() {
           // tabBarLabel: 'Notifications',
         }}
         name="Notifications"
-        component={Notifications}
+        component={NotificationsScreen}
       />
       <Tab.Screen
         options={{
