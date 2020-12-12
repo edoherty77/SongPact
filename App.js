@@ -1,34 +1,35 @@
-import { StatusBar } from 'expo-status-bar'
-import React, { useEffect, useState } from 'react'
+import { StatusBar } from "expo-status-bar"
+import React, { useEffect, useState } from "react"
 
 // AMPLIFY & AUTH
-import Amplify, { Auth } from 'aws-amplify'
-import awsconfig from './aws-exports'
+import Amplify, { Auth } from "aws-amplify"
+import awsconfig from "./aws-exports"
 Amplify.configure({
   ...awsconfig,
   Analytics: {
     disabled: true, // kills unhandled promise warning
   },
 })
-import { withAuthenticator } from 'aws-amplify-react-native'
+import { withAuthenticator } from "aws-amplify-react-native"
 
 // NAV
-import { NavigationContainer } from '@react-navigation/native'
-import AppNavigator from './app/navigation/AppNavigator'
-import AuthNavigator from './app/navigation/AuthNavigator'
+import { NavigationContainer } from "@react-navigation/native"
+import AppNavigator from "./app/navigation/AppNavigator"
+import AuthNavigator from "./app/navigation/AuthNavigator"
 
 // DATA FLOW
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ApolloProvider } from '@apollo/client'
-import { client } from './app/src/graphql/Client'
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { ApolloProvider } from "@apollo/client"
+import { client } from "./app/src/graphql/Client"
+import store from "./app/stores/TestStore"
+import { observer } from "mobx-react"
 
-function App({ navigation }) {
-  const [user, setUser] = useState(null)
-
+const App = observer(({ navigation }) => {
   const getCurrentUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      setUser(user.attributes)
+      store.setUser(user.attributes)
+      // setSub(store.sub)
       // TODO remove or move to user store
       // look for user ID that matches sub ID
       // if found
@@ -37,30 +38,27 @@ function App({ navigation }) {
       // if not found
       // create newUser entry with ID == sub
       // store newUser data in state
+      // await AsyncStorage.setItem("sub", store.sub)
     } catch (error) {
       console.log(error)
     }
   }
 
-  if (user) {
-    console.log('user///', user)
-  }
-
   useEffect(() => {
     getCurrentUser()
-  }, [])
+  }, [store.sub])
 
   return (
     <>
       <ApolloProvider client={client}>
         <NavigationContainer>
-          {user ? <AppNavigator /> : <AuthNavigator />}
+          {store.sub ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ApolloProvider>
-      <StatusBar style={'auto'} />
+      <StatusBar style={"auto"} />
     </>
   )
-}
+})
 
 export default App
 // export default withAuthenticator(App)
