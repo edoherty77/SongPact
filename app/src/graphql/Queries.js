@@ -11,6 +11,18 @@ export const GET_CURRENT_USER = gql`
   }
 `
 
+export const listPets = gql`
+  query {
+    listPet {
+      items {
+        id
+        name
+        description
+      }
+    }
+  }
+`
+
 //PACT QUERIES
 
 //USER MUTATIONS

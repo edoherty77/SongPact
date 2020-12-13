@@ -1,0 +1,11 @@
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Pet @model @auth(rules: [{ allow: public, operations: [read, create] }]) {
+  id: ID!
+  name: String!
+  description: String
+}

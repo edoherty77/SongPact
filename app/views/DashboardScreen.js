@@ -20,18 +20,14 @@ import { observer } from 'mobx-react'
 import { Tab, Tabs, TabHeading } from 'native-base'
 
 const DashboardScreen = observer(() => {
-  useEffect(() => {
-    store
-  }, [store])
-
-  const headerPress = async () => {
+  const headerPress = () => {
     console.log('signing out')
-    try {
-      await Auth.signOut()
-      store.resetUser()
-    } catch (error) {
-      console.log('error signing out: ', error)
-    }
+    // try {
+    //   await Auth.signOut()
+    //   store.resetUser()
+    // } catch (error) {
+    //   console.log('error signing out: ', error)
+    // }
   }
 
   async function signOut() {
@@ -41,11 +37,13 @@ const DashboardScreen = observer(() => {
       console.log('error signing out: ', error)
     }
   }
+  useEffect(() => {
+    store
+  }, [store])
   return (
     <Screen>
       <Head
         title="Your Pacts"
-        onPress={signOut}
         borderBottomColor="transparent"
         borderBottomWidth={0}
         onPress={headerPress}

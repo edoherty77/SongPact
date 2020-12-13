@@ -17,8 +17,9 @@ const Header = ({
   return (
     <SafeAreaView
       style={[styles.screenContainer, { borderBottomColor, borderBottomWidth }]}
+      onPress={onPress}
     >
-      <View style={styles.appHeader} onPress={onPress}>
+      <View style={styles.appHeader}>
         <View style={{ flex: 1 }}></View>
         <View style={{ alignItems: 'center', flex: 5 }}>
           <AppText style={styles.screenName}>{title}</AppText>
@@ -38,8 +39,6 @@ const Header = ({
     </SafeAreaView>
   )
 }
-
-export default Header
 
 const styles = StyleSheet.create({
   screenContainer: {
@@ -64,3 +63,5 @@ const styles = StyleSheet.create({
     // backgroundColor: 'transparent',
   },
 })
+
+export default Header
