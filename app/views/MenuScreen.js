@@ -23,15 +23,6 @@ const createPet = `
 }`
 
 class Menu extends React.Component {
-  // async headerPress() {
-  //   console.log('signing out')
-  //   try {
-  //     await Auth.signOut()
-  //     store.resetUser()
-  //   } catch (error) {
-  //     console.log('error signing out: ', error)
-  //   }
-  // }
   state = { name: '', description: '', pets: [] }
   async componentDidMount() {
     try {

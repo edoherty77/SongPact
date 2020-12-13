@@ -13,11 +13,22 @@ export const GET_CURRENT_USER = gql`
 
 export const listPets = gql`
   query {
-    listPet {
+    listPets {
       items {
         id
         name
         description
+      }
+    }
+  }
+`
+export const listPacts = gql`
+  query {
+    listPacts {
+      items {
+        id
+        name
+        recordTitle
       }
     }
   }

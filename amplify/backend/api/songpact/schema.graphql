@@ -1,0 +1,17 @@
+type Todo @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Pet @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Pact @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  recordTitle: String
+}
