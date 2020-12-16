@@ -60,5 +60,5 @@ const App = observer(({ navigation }) => {
   )
 })
 
-export default App
-// export default withAuthenticator(App)
+// export default App
+export default withAuthenticator(App)
