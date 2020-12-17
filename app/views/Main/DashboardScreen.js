@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from "react"
+import { View, StyleSheet } from "react-native"
 
-import colors from '../../config/colors'
-import Screen from '../../components/Screen'
-import Header from '../../components/Header'
-import PactButton from '../../components/PactButton'
+import colors from "../../config/colors"
+import Screen from "../../components/Screen"
+import Header from "../../components/Header"
+import PactButton from "../../components/PactButton"
 
-import OpenList from '../../components/UserPacts/OpenList'
-import NeedsActionList from '../../components/UserPacts/NeedsActionList'
-import AllList from '../../components/UserPacts/AllList'
+import OpenList from "../../components/UserPacts/OpenList"
+import NeedsActionList from "../../components/UserPacts/NeedsActionList"
+import AllList from "../../components/UserPacts/AllList"
 
-import AppText from '../../components/AppText'
+import AppText from "../../components/AppText"
 
-import defaultStyles from '../../config/styles'
-import GET_ALL_USERS from '../../src/graphql/Queries'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-import store from '../../stores/TestStore'
-import { observer } from 'mobx-react'
-import { Tab, Tabs, TabHeading } from 'native-base'
+import defaultStyles from "../../config/styles"
+import GET_ALL_USERS from "../../src/graphql/Queries"
+import { Colors } from "react-native/Libraries/NewAppScreen"
+import store from "../../stores/TestStore"
+import { observer } from "mobx-react"
+import { Tab, Tabs, TabHeading } from "native-base"
+import { Auth } from "aws-amplify"
 
 const DashboardScreen = observer(() => {
-  const headerPress = () => {
-    console.log('signing out')
-    // try {
-    //   await Auth.signOut()
-    //   store.resetUser()
-    // } catch (error) {
-    //   console.log('error signing out: ', error)
-    // }
+  const headerPress = async () => {
+    console.log("signing out")
+    try {
+      await Auth.signOut()
+      store.resetUser()
+    } catch (error) {
+      console.log("error signing out: ", error)
+    }
   }
 
   async function signOut() {
     try {
       await Auth.signOut()
     } catch (error) {
-      console.log('error signing out: ', error)
+      console.log("error signing out: ", error)
     }
   }
   useEffect(() => {
@@ -52,15 +53,15 @@ const DashboardScreen = observer(() => {
         <Tabs
           locked={true}
           initialPage={1}
-          tabBarUnderlineStyle={{ backgroundColor: 'red' }}
-          tabContainerStyle={{ borderColor: 'black' }}
+          tabBarUnderlineStyle={{ backgroundColor: "red" }}
+          tabContainerStyle={{ borderColor: "black" }}
         >
           <Tab
-            tabStyle={{ backgroundColor: 'blue' }}
+            tabStyle={{ backgroundColor: "blue" }}
             heading={
               <TabHeading
                 style={{ backgroundColor: colors.gray }}
-                activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
+                activeTextStyle={{ fontWeight: "bold", fontSize: 40 }}
               >
                 <AppText>Open</AppText>
               </TabHeading>
@@ -92,14 +93,14 @@ const DashboardScreen = observer(() => {
         <View style={styles.contactText}>
           <AppText
             style={{ marginBottom: 5 }}
-            fontWeight={'bold'}
+            fontWeight={"bold"}
             fontSize={20}
             color={colors.black}
           >
             Recent Contacts:
           </AppText>
           <AppText
-            onPress={() => navigation.navigate('Contacts')}
+            onPress={() => navigation.navigate("Contacts")}
             color={colors.red}
           >
             See All
@@ -145,13 +146,13 @@ const DashboardScreen = observer(() => {
 const styles = StyleSheet.create({
   options: {
     flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 10,
     marginBottom: 20,
   },
   optionsText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.red,
     // fontFamily: 'Courier',
   },
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     elevation: 1,
-    shadowColor: 'rgb(50,50,50)',
+    shadowColor: "rgb(50,50,50)",
     shadowOpacity: 0.5,
     borderRadius: 10,
   },
@@ -177,20 +178,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contactText: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   contactList: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   circle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.lttan,
     width: 50,
     height: 50,

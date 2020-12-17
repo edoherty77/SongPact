@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import PactButton from '../PactButton'
-import { API, Auth, graphqlOperation } from 'aws-amplify'
-import { listPacts } from '../../src/graphql/Queries'
+import React, { useEffect, useState } from "react"
+import { Text, View, StyleSheet } from "react-native"
+import PactButton from "../PactButton"
+import { API, Auth, graphqlOperation } from "aws-amplify"
+import { listPacts } from "../../src/graphql/Queries"
 
 const AllList = () => {
   const [pacts, setPacts] = useState([])
@@ -11,9 +11,9 @@ const AllList = () => {
       const data = await API.graphql(graphqlOperation(listPacts))
       setPacts(data)
     } catch (err) {
-      console.log('error: ', err)
+      console.log("error: ", err)
     }
-    // console.log('pacts:', pacts)
+    console.log("pacts:", pacts)
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     elevation: 1,
-    shadowColor: 'rgb(50,50,50)',
+    shadowColor: "rgb(50,50,50)",
     shadowOpacity: 0.5,
     borderRadius: 10,
   },
