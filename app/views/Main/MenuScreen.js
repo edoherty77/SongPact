@@ -20,7 +20,13 @@ export default function MenuScreen() {
     <Screen>
       <Header title="Menu" />
       <View style={styles.menuContainer}>
-        <AppText onPress={signOut}>Sign Out</AppText>
+        <AppText style={styles.menuItem}>My Info</AppText>
+        <AppText style={styles.menuItem}>How It Works</AppText>
+        <AppText style={styles.menuItem}>Help</AppText>
+        <AppText style={styles.menuItem}>Prefs</AppText>
+        <AppText style={styles.menuItem} onPress={signOut}>
+          Sign Out
+        </AppText>
       </View>
     </Screen>
   )
@@ -31,5 +37,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 30,
     marginHorizontal: 30,
+  },
+  menuItem: {
+    fontSize: 24,
+    marginBottom: 20,
   },
 })
