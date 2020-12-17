@@ -2,13 +2,13 @@ import React, { useContext, useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { StyleSheet } from 'react-native'
-
+import CreatPactNavigator from './CreatePactNavigator'
 import ButtonIcon from '../components/ButtonIcon'
-import Dashboard from '../views/DashboardScreen'
-import Contacts from '../views/ContactsScreen'
-import New from '../views/NewSongPactScreen'
-import NotificationsScreen from '../views/NotificationsScreen'
-import Menu from '../views/MenuScreen'
+import Dashboard from '../views/Main/DashboardScreen'
+import Contacts from '../views/Main/ContactsScreen'
+import New from '../views/Main/NewSongPactScreen'
+import NotificationsScreen from '../views/Main/NotificationsScreen'
+import Menu from '../views/Main/MenuScreen'
 import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()
@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator()
 export default function AppNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="Dashboard"
+      // initialRouteName="Dashboard"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -46,8 +46,6 @@ export default function AppNavigator() {
         name="Dashboard"
         component={Dashboard}
         options={{
-          name: 'Home',
-
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="home"
@@ -84,7 +82,7 @@ export default function AppNavigator() {
           // tabBarLabel: '',
         }}
         name="New"
-        component={New}
+        component={CreatPactNavigator}
       />
       <Tab.Screen
         options={{

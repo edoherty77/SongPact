@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import PactButton from '../PactButton'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
+import { listPacts } from '../../src/graphql/Queries'
 
 const AllList = () => {
+  const [pacts, setPacts] = useState([])
+  const getPacts = async () => {
+    try {
+      const data = await API.graphql(graphqlOperation(listPacts))
+      setPacts(data)
+    } catch (err) {
+      console.log('error: ', err)
+    }
+    // console.log('pacts:', pacts)
+  }
+
+  useEffect(() => {
+    getPacts()
+  }, [])
+
   return (
     <View style={styles.pactList}>
       <PactButton status="pending" name="Mark" title="Adrift" type="Remix" />

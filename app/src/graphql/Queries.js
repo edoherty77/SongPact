@@ -11,30 +11,22 @@ export const GET_CURRENT_USER = gql`
   }
 `
 
-export const listPets = gql`
-  query {
-    listPets {
-      items {
-        id
-        name
-        description
-      }
-    }
-  }
-`
+//PACT QUERIES
+
 export const listPacts = gql`
   query {
     listPacts {
       items {
         id
-        name
+        type
+        role
         recordTitle
+        initBy
+        contributor
       }
     }
   }
 `
-
-//PACT QUERIES
 
 //USER MUTATIONS
 
@@ -70,3 +62,29 @@ export const SIGNUP_USER = gql`
 `
 
 //PACT MUTATIONS
+
+export const createPact = gql`
+  mutation(
+    $type: String!
+    $initBy: String
+    $recordTitle: String!
+    $contributor: String
+    $role: String
+  ) {
+    createPact(
+      input: {
+        type: $type
+        initBy: $initBy
+        role: $role
+        recordTitle: $recordTitle
+        contributor: $contributor
+      }
+    ) {
+      type
+      recordTitle
+      initBy
+      contributor
+      role
+    }
+  }
+`

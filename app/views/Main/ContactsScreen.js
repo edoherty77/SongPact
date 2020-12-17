@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Header, Item, Input, Icon, Button, Text } from 'native-base'
-import Head from '../components/Header'
-import Screen from '../components/Screen'
-import AppTextInput from '../components/AppTextInput'
-import ContactButton from '../components/ContactButton'
+import Head from '../../components/Header'
+import Screen from '../../components/Screen'
+import AppTextInput from '../../components/AppTextInput'
+import ContactButton from '../../components/ContactButton'
 
 function Contacts() {
   const [firstName, setFirstName] = useState('')
