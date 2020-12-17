@@ -21,33 +21,16 @@ import { Tab, Tabs, TabHeading } from "native-base"
 import { Auth } from "aws-amplify"
 
 const DashboardScreen = observer(() => {
-  const headerPress = async () => {
-    console.log("signing out")
-    try {
-      await Auth.signOut()
-      store.resetUser()
-    } catch (error) {
-      console.log("error signing out: ", error)
-    }
-  }
-
-  async function signOut() {
-    try {
-      await Auth.signOut()
-    } catch (error) {
-      console.log("error signing out: ", error)
-    }
-  }
   useEffect(() => {
     store
   }, [store])
+
   return (
     <Screen>
       <Header
         title="Your Pacts"
         borderBottomColor="transparent"
         borderBottomWidth={0}
-        onPress={headerPress}
       />
       <View style={styles.tabView}>
         <Tabs

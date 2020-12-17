@@ -1,6 +1,6 @@
-import React from 'react'
-import { Text, StyleSheet } from 'react-native'
-import colors from '../config/colors'
+import React from "react"
+import { Text, StyleSheet } from "react-native"
+import colors from "../config/colors"
 
 export default function AppText({
   fontWeight,
@@ -27,7 +27,7 @@ export default function AppText({
 const styles = StyleSheet.create({
   text: {
     fontSize: 18,
-    fontFamily: 'Futura',
+    fontFamily: "Futura",
     color: colors.text,
   },
 })
