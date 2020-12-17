@@ -8,6 +8,7 @@ import NewPactButton from '../../components/NewPactButton'
 import colors from '../../config/colors'
 import AppText from '../../components/AppText'
 import { AppLoading } from 'expo'
+import ConfirmModal from '../../components/ConfirmModal'
 
 function NewSongPact({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
@@ -25,7 +26,11 @@ function NewSongPact({ navigation }) {
     setModalVisible(true)
   }
 
-  function confirm(type) {
+  function createDeny() {
+    setModalVisible(false)
+  }
+
+  function createConfirm(type) {
     setModalVisible(false)
     navigation.navigate('First', {
       type: type,
@@ -42,6 +47,11 @@ function NewSongPact({ navigation }) {
             name="Producer"
             image={pics.drake}
             info="producer shit blah blah blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah"
+            text="Would you like to initialize a contract?"
+            confirm={() => createConfirm('Producer')}
+            deny={createDeny}
+            onBackdropPress={() => setModalVisible(false)}
+            isVisible={isModalVisible}
           />
           <NewPactButton
             name="Creative Services"
@@ -74,28 +84,13 @@ function NewSongPact({ navigation }) {
           />
         </View>
       </View>
-      <NativeModal
-        style={styles.infoModal}
-        hasBackdrop={true}
-        isVisible={isModalVisible}
+      {/* <ConfirmModal
+        text="Would you like to initialize a contract?"
+        confirm={(type) => createConfirm('Producer')}
+        deny={createDeny}
         onBackdropPress={() => setModalVisible(false)}
-      >
-        <View style={styles.modalView}>
-          <AppText style={styles.modalName} fontSize={25}>
-            Would you like to initialize a contract?
-          </AppText>
-          <AppText
-            onPress={(type) => confirm('Producer')}
-            style={styles.modalInfo}
-            fontSize={25}
-          >
-            Yes
-          </AppText>
-          <AppText style={styles.modalInfo} fontSize={25}>
-            No
-          </AppText>
-        </View>
-      </NativeModal>
+        isVisible={isModalVisible}
+      /> */}
     </Screen>
   )
 }

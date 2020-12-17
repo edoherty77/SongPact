@@ -11,11 +11,12 @@ type Pet @model @auth(rules: [{ allow: public }]) {
   nickname: String
 }
 
-type Pact @model {
+type Pact @model @auth(rules: [{ allow: public }]) {
   id: ID!
   type: String!
   recordTitle: String!
-  initBy: String!
-  contributor: String!
+  role: String
+  initBy: String
+  contributor: String
   status: Boolean
 }

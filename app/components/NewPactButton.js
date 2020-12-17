@@ -7,8 +7,19 @@ import AppText from '../components/AppText'
 import ButtonIcon from '../components/ButtonIcon'
 import colors from '../config/colors'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import ConfirmModal from './ConfirmModal'
 
-const NewPactButton = ({ name, image, info, onPress }) => {
+const NewPactButton = ({
+  name,
+  image,
+  info,
+  onPress,
+  text,
+  confirm,
+  deny,
+  isVisible,
+  onBackdropPress,
+}) => {
   const [isModalVisible, setModalVisible] = useState(false)
 
   function handleInfoPress() {
@@ -44,6 +55,13 @@ const NewPactButton = ({ name, image, info, onPress }) => {
           />
         </View>
       </View>
+      <ConfirmModal
+        isVisible={isVisible}
+        onBackdropPress={onBackdropPress}
+        text={text}
+        confirm={confirm}
+        deny={deny}
+      />
       <NativeModal
         style={styles.infoModal}
         hasBackdrop={true}

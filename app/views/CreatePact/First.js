@@ -9,6 +9,11 @@ import Collaborator from '../../components/Collaborator'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import config from '../../../aws-exports'
+Amplify.configure(config)
+import { createPact } from '../../src/graphql/Queries'
+
 import {
   AppForm,
   AppFormField,
@@ -18,8 +23,8 @@ import {
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({
-  recordTitle: Yup.string().required().label('recordTitle'),
-  radio: Yup.string().required().label('radio'),
+  recordTitle: Yup.string().required().label('Record Title'),
+  role: Yup.string().required().label('role'),
   // .test(
   //   'is-true',
   //   'Must agree to terms to continue',
@@ -29,10 +34,25 @@ const validationSchema = Yup.object().shape({
 
 export default function First({ route, navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
+  const [isContactModalVisible, setContactModalVisible] = useState(false)
+  const [data, setData] = useState(null)
   const { type } = route.params
 
-  function next(values) {
-    console.log(values)
+  async function next(values) {
+    const stuff = {
+      recordTitle: values.recordTitle,
+      role: values.role,
+      type: type,
+    }
+    setData(stuff)
+    console.log('Stuff:', stuff)
+    console.log('data:', data)
+    try {
+      await API.graphql(graphqlOperation(createPact, data))
+      console.log('pact successfully created.')
+    } catch (err) {
+      console.log('error creating pact...', err)
+    }
   }
 
   function trash() {
@@ -47,6 +67,10 @@ export default function First({ route, navigation }) {
     setModalVisible(false)
     navigation.navigate('New')
   }
+
+  function showContacts() {
+    setContactModalVisible(true)
+  }
   return (
     <Screen>
       <Header icon={'information'} title={type} />
@@ -54,41 +78,47 @@ export default function First({ route, navigation }) {
         <AppForm
           initialValues={{
             recordTitle: '',
-            radio: false,
+            role: false,
           }}
           onSubmit={(values) => next(values)}
           validationSchema={validationSchema}
         >
           <View style={styles.titleView}>
-            <AppText fontSize={25}>Record Title</AppText>
+            <View style={styles.sectionText}>
+              <AppText fontSize={30}>Record Title</AppText>
+            </View>
             <AppFormField
               name="recordTitle"
               style={styles.input}
               placeholder="Record Title"
-              // autoCapitalize="none"
               autoCorrect={false}
               placeholderTextColor={colors.black}
-              // textContentType="emailAddress"
-              // keyboardType="email-address"
             />
           </View>
           <View style={styles.roleView}>
-            <AppText fontSize={25}>Your Role</AppText>
+            <View style={styles.sectionText}>
+              <AppText fontSize={30}>Your Role</AppText>
+            </View>
             <AppFormRadio
-              name="radio"
+              name="role"
               value1="Producer"
               value2="Purchaser"
-              formikKey="radio"
+              formikKey="role"
             />
           </View>
           <View style={styles.collabView}>
-            <AppText fontSize={25}>Add Collaborators</AppText>
-            <ButtonIcon
-              name="plus"
-              backgroundColor="transparent"
-              iconColor="black"
-            />
-            <AppText>Collaborators: </AppText>
+            <View style={styles.sectionText}>
+              <AppText fontSize={30}>Add Collaborators</AppText>
+              <ButtonIcon
+                onPress={showContacts}
+                name="plus"
+                backgroundColor="transparent"
+                iconColor={colors.red}
+              />
+            </View>
+            <View style={styles.sectionText}>
+              <AppText>Collaborators: </AppText>
+            </View>
             <View style={styles.collabListView}>
               <Collaborator
                 name="Evan Doherty"
@@ -99,13 +129,17 @@ export default function First({ route, navigation }) {
             </View>
           </View>
           <View style={styles.footer}>
+            {/* <View style={styles.nextBtnView}> */}
             <SubmitButton style={styles.nextButton} title="Next" />
-            <ButtonIcon
-              onPress={trash}
-              name="delete"
-              backgroundColor="transparent"
-              iconColor={colors.red}
-            />
+            {/* </View> */}
+            <View style={styles.iconView}>
+              <ButtonIcon
+                onPress={trash}
+                name="delete"
+                backgroundColor="transparent"
+                iconColor={colors.red}
+              />
+            </View>
           </View>
         </AppForm>
         <ConfirmModal
@@ -124,29 +158,44 @@ const styles = StyleSheet.create({
   mainView: {
     display: 'flex',
     flex: 1,
-    backgroundColor: 'purple',
+    // backgroundColor: colors.gray,
+    padding: 10,
+    justifyContent: 'space-evenly',
   },
   titleView: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
+  },
+  sectionText: {
+    paddingLeft: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   roleView: {
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   collabView: {
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
     flex: 5,
   },
   collabListView: {
-    backgroundColor: 'white',
-    flex: 1,
-    margin: 30,
+    // backgroundColor: 'white',
+    // flex: 1,
+    marginTop: 20,
+    marginLeft: 30,
+    marginRight: 30,
   },
 
   footer: {
     justifyContent: 'center',
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    backgroundColor: 'pink',
+    alignItems: 'center',
+    // backgroundColor: 'pink',
+    // alignSelf: 'flex-end',
+    // justifyContent: 'space-between',
+  },
+  iconView: {
+    position: 'absolute',
+    right: 10,
   },
   input: {
     width: '80%',
@@ -157,10 +206,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   nextButton: {
-    marginTop: 10,
+    // marginTop: 10,
     borderRadius: 50,
     height: 45,
-    backgroundColor: colors.red,
-    width: '80%',
+    backgroundColor: colors.tan,
+    width: '50%',
   },
 })
