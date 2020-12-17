@@ -22,19 +22,22 @@ export const listPets = gql`
     }
   }
 `
+
+//PACT QUERIES
+
 export const listPacts = gql`
   query {
     listPacts {
       items {
         id
-        name
+        type
         recordTitle
+        initBy
+        contributor
       }
     }
   }
 `
-
-//PACT QUERIES
 
 //USER MUTATIONS
 
@@ -70,3 +73,26 @@ export const SIGNUP_USER = gql`
 `
 
 //PACT MUTATIONS
+
+export const createPact = gql`
+  mutation(
+    $type: String!
+    $initBy: String!
+    $recordTitle: String!
+    $contributor: String!
+  ) {
+    createPact(
+      input: {
+        type: $type
+        initBy: $initBy
+        recordTitle: $recordTitle
+        contributor: $contributor
+      }
+    ) {
+      type
+      recordTitle
+      initBy
+      contributor
+    }
+  }
+`

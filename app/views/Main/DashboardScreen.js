@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import colors from '../config/colors'
-import Screen from '../components/Screen'
-import Head from '../components/Header'
-import PactButton from '../components/PactButton'
+import colors from '../../config/colors'
+import Screen from '../../components/Screen'
+import Head from '../../components/Header'
+import PactButton from '../../components/PactButton'
 
-import OpenList from '../components/UserPacts/OpenList'
-import NeedsActionList from '../components/UserPacts/NeedsActionList'
-import AllList from '../components/UserPacts/AllList'
+import OpenList from '../../components/UserPacts/OpenList'
+import NeedsActionList from '../../components/UserPacts/NeedsActionList'
+import AllList from '../../components/UserPacts/AllList'
 
-import AppText from '../components/AppText'
+import AppText from '../../components/AppText'
 
-import defaultStyles from '../config/styles'
-import GET_ALL_USERS from '../src/graphql/Queries'
+import defaultStyles from '../../config/styles'
+import GET_ALL_USERS from '../../src/graphql/Queries'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
-import store from '../stores/TestStore'
+import store from '../../stores/TestStore'
 import { observer } from 'mobx-react'
 import { Tab, Tabs, TabHeading } from 'native-base'
 

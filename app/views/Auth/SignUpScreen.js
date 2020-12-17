@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   StyleSheet,
   View,
@@ -7,35 +7,35 @@ import {
   Keyboard,
   Text,
   ImageBackground,
-} from "react-native"
-import * as Yup from "yup"
-import NativeModal from "react-native-modal"
+} from 'react-native'
+import * as Yup from 'yup'
+import NativeModal from 'react-native-modal'
 
-import Screen from "../components/Screen"
-import Header from "../components/Header"
+import Screen from '../../components/Screen'
+import Header from '../../components/Header'
 
-import { AppForm, AppFormField, SubmitButton } from "../components/forms"
+import { AppForm, AppFormField, SubmitButton } from '../../components/forms'
 
-import { Auth } from "aws-amplify"
+import { Auth } from 'aws-amplify'
 
-import { SIGNUP_USER } from "../src/graphql/Queries"
-import { useMutation } from "@apollo/client"
+import { SIGNUP_USER } from '../../src/graphql/Queries'
+import { useMutation } from '@apollo/client'
 
-import colors from "../config/colors"
-import AppText from "../components/AppText"
-import AppButton from "../components/AppButton"
-import ButtonText from "../components/ButtonText"
+import colors from '../../config/colors'
+import AppText from '../../components/AppText'
+import AppButton from '../../components/AppButton'
+import ButtonText from '../../components/ButtonText'
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label("First name"),
-  lastName: Yup.string().required().label("Last name"),
-  artistName: Yup.string().required().label("Artist name"),
+  firstName: Yup.string().required().label('First name'),
+  lastName: Yup.string().required().label('Last name'),
+  artistName: Yup.string().required().label('Artist name'),
   // companyName: Yup.string().label('Artist name'),
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().label("Password"),
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().label('Password'),
   password2: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Passwords must match"
+    [Yup.ref('password'), null],
+    'Passwords must match',
   ),
 })
 
@@ -68,14 +68,14 @@ function SignUpScreen({ navigation }) {
     Auth.confirmSignUp(username, authCode)
       .then((data) => console.log(data))
       .then(() => setModalVisible(false))
-      .then(() => navigation.navigate("SignIn"))
+      .then(() => navigation.navigate('SignIn'))
       .catch((err) => console.log(err))
   }
 
   return (
     <Screen>
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
         <Header title="Register" noIcon />
@@ -83,13 +83,13 @@ function SignUpScreen({ navigation }) {
           <View style={styles.registerView}>
             <AppForm
               initialValues={{
-                firstName: "",
-                lastName: "",
-                artistName: "",
-                companyName: "",
-                email: "",
-                password: "",
-                password2: "",
+                firstName: '',
+                lastName: '',
+                artistName: '',
+                companyName: '',
+                email: '',
+                password: '',
+                password2: '',
               }}
               onSubmit={(values) => submit(values)}
               validationSchema={validationSchema}
@@ -101,7 +101,7 @@ function SignUpScreen({ navigation }) {
                   placeholder="First Name*"
                   autoCorrect={false}
                   textContentType="givenName"
-                  paddingRight={"8%"}
+                  paddingRight={'8%'}
                 />
                 <AppFormField
                   style={styles.input}
@@ -109,7 +109,7 @@ function SignUpScreen({ navigation }) {
                   placeholder="Last Name*"
                   autoCorrect={false}
                   textContentType="familyName"
-                  paddingRight={"17%"}
+                  paddingRight={'17%'}
                 />
                 <AppFormField
                   style={styles.input}
@@ -163,14 +163,14 @@ function SignUpScreen({ navigation }) {
                 />
               </View>
               <View style={styles.loginView}>
-                <Text style={{ fontSize: 20, fontFamily: "Futura" }}>
-                  Already have an accout with us?{" "}
+                <Text style={{ fontSize: 20, fontFamily: 'Futura' }}>
+                  Already have an accout with us?{' '}
                 </Text>
                 <ButtonText
                   title="Login"
                   color={colors.red}
                   fontSize={20}
-                  onPress={() => navigation.navigate("SignIn")}
+                  onPress={() => navigation.navigate('SignIn')}
                 />
               </View>
             </AppForm>
@@ -192,31 +192,31 @@ function SignUpScreen({ navigation }) {
                 </AppText>
                 <AppForm
                   initialValues={{
-                    email: "",
-                    code: "",
+                    email: '',
+                    code: '',
                   }}
                   onSubmit={(values) => verify(values)}
                   // validationSchema={validationSchema}
                 >
                   <View style={styles.fieldView}>
                     <AppFormField
-                      style={[styles.input, { width: "100%" }]}
+                      style={[styles.input, { width: '100%' }]}
                       name="email"
                       autoCapitalize="none"
                       placeholder="Email"
                       autoCorrect={false}
                       textContentType="emailAddress"
                       keyboardType="email-address"
-                      paddingRight={"8%"}
+                      paddingRight={'8%'}
                     />
                     <AppFormField
-                      style={[styles.input, { width: "100%" }]}
+                      style={[styles.input, { width: '100%' }]}
                       name="code"
                       placeholder="Verification Code"
-                      paddingRight={"8%"}
+                      paddingRight={'8%'}
                     />
                     <SubmitButton
-                      style={[{ width: "100%" }, styles.createButton]}
+                      style={[{ width: '100%' }, styles.createButton]}
                       title="Submit"
                       color={colors.confirm}
                       dismissKey={Keyboard.dismiss}
@@ -237,28 +237,28 @@ export default SignUpScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: colors.lttan,
   },
   registerView: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: "100%",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '100%',
     flex: 1,
   },
   fieldView: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 5,
   },
   input: {
-    width: "95%",
+    width: '95%',
     backgroundColor: colors.gray,
     fontSize: 18,
     paddingLeft: 20,
@@ -266,10 +266,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   submitView: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "95%",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: '95%',
     flex: 1,
   },
   createButton: {
@@ -279,10 +279,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red,
   },
   loginView: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "90%",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '90%',
     marginTop: 10,
     flex: 1,
   },
@@ -296,9 +296,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     height: 350,
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 20,
   },
 })

@@ -4,11 +4,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { StyleSheet } from 'react-native'
 
 import ButtonIcon from '../components/ButtonIcon'
-import Dashboard from '../views/DashboardScreen'
-import Contacts from '../views/ContactsScreen'
-import New from '../views/NewSongPactScreen'
-import NotificationsScreen from '../views/NotificationsScreen'
-import Menu from '../views/MenuScreen'
+import Dashboard from '../views/Main/DashboardScreen'
+import Contacts from '../views/Main/ContactsScreen'
+import New from '../views/Main/NewSongPactScreen'
+import NotificationsScreen from '../views/Main/NotificationsScreen'
+import Menu from '../views/Main/MenuScreen'
 import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()

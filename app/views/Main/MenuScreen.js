@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
 
-import Header from '../components/Header'
+import Header from '../../components/Header'
 
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 // import Amplify from '@aws-amplify/core'
-import config from '../../aws-exports'
+import config from '../../../aws-exports'
 Amplify.configure(config)
 
-import { listPets } from '../src/graphql/Queries'
+import { listPets } from '../../src/graphql/Queries'
 
 const createPet = `
   mutation($name: String!, $description: String) {

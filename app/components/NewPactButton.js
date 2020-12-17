@@ -8,7 +8,7 @@ import ButtonIcon from '../components/ButtonIcon'
 import colors from '../config/colors'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-const NewPactButton = ({ name, image, info, pressPact }) => {
+const NewPactButton = ({ name, image, info, onPress }) => {
   const [isModalVisible, setModalVisible] = useState(false)
 
   function handleInfoPress() {
@@ -16,7 +16,7 @@ const NewPactButton = ({ name, image, info, pressPact }) => {
   }
 
   return (
-    <TouchableOpacity style={styles.newPactButton} onPress={pressPact}>
+    <TouchableOpacity style={styles.newPactButton} onPress={onPress}>
       <View style={styles.buttonView}>
         <View style={styles.imgView}>
           <Image
