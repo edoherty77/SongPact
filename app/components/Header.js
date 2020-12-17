@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, SafeAreaView } from 'react-native'
 
 import ButtonIcon from './ButtonIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import defaultStyles from '../config/styles'
 import AppText from '../components/AppText'
 import colors from '../config/colors'
@@ -10,6 +11,8 @@ const Header = ({
   onPress,
   title,
   noIcon,
+  icon,
+  iconPress,
   borderBottomColor,
   borderBottomWidth,
   ...otherProps
@@ -20,7 +23,18 @@ const Header = ({
       onPress={onPress}
     >
       <View style={styles.appHeader}>
-        <View style={{ flex: 1 }}></View>
+        <View
+          style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+        >
+          {icon && (
+            <MaterialCommunityIcons
+              onPress={iconPress}
+              name={icon}
+              size={35}
+              color="#42C1FC"
+            />
+          )}
+        </View>
         <View style={{ alignItems: 'center', flex: 5 }}>
           <AppText style={styles.screenName}>{title}</AppText>
         </View>

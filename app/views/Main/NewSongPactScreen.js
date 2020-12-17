@@ -9,7 +9,7 @@ import colors from '../../config/colors'
 import AppText from '../../components/AppText'
 import { AppLoading } from 'expo'
 
-function NewSongPact() {
+function NewSongPact({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const pics = {
@@ -25,8 +25,11 @@ function NewSongPact() {
     setModalVisible(true)
   }
 
-  function confirm() {
-    console.log('yes')
+  function confirm(type) {
+    setModalVisible(false)
+    navigation.navigate('First', {
+      type: type,
+    })
   }
 
   return (
@@ -81,7 +84,11 @@ function NewSongPact() {
           <AppText style={styles.modalName} fontSize={25}>
             Would you like to initialize a contract?
           </AppText>
-          <AppText onPress={confirm} style={styles.modalInfo} fontSize={25}>
+          <AppText
+            onPress={(type) => confirm('Producer')}
+            style={styles.modalInfo}
+            fontSize={25}
+          >
             Yes
           </AppText>
           <AppText style={styles.modalInfo} fontSize={25}>

@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 
 import colors from '../../config/colors'
 import Screen from '../../components/Screen'
-import Head from '../../components/Header'
+import Header from '../../components/Header'
 import PactButton from '../../components/PactButton'
 
 import OpenList from '../../components/UserPacts/OpenList'
@@ -42,7 +42,7 @@ const DashboardScreen = observer(() => {
   }, [store])
   return (
     <Screen>
-      <Head
+      <Header
         title="Your Pacts"
         borderBottomColor="transparent"
         borderBottomWidth={0}
