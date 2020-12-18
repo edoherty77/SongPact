@@ -13,7 +13,7 @@ export default function UserIcon({ title, onPress }) {
       onPress={onPress}
       // activeOpacity={activeOpacity}
     >
-      <AppText fontSize={40} onPress={onPress}>
+      <AppText fontSize={30} onPress={onPress}>
         {initials}
       </AppText>
     </TouchableOpacity>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     backgroundColor: colors.red,
-    borderRadius: 25,
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },

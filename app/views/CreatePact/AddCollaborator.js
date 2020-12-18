@@ -1,21 +1,14 @@
 import React, { useState, Fragment } from 'react'
-import {
-  View,
-  StyleSheet,
-  Button,
-  TextInput,
-  Text,
-  FlatList,
-  SafeAreaView,
-} from 'react-native'
+import { View, StyleSheet, Button, FlatList } from 'react-native'
 import { Header, Item, Icon, Input } from 'native-base'
 import Head from '../../components/Header'
 import Screen from '../../components/Screen'
 import AppText from '../../components/AppText'
 import ContactCheckBox from '../../components/ContactCheckBox'
 import UserIcon from '../../components/UserIcon'
+import Separator from '../../components/Separator'
 
-import { Formik, Field, Form, FieldArray } from 'formik'
+import { Formik, FieldArray } from 'formik'
 import AppButton from '../../components/AppButton'
 
 const contacts = [
@@ -26,8 +19,8 @@ const contacts = [
   { first: 'Matt', last: 'O', id: 5 },
   { first: 'Tom', last: 'Johnson', id: 6 },
   { first: 'Kyle', last: 'Mooney', id: 7 },
-  { first: 'Kyle', last: 'Mooney', id: 8 },
-  { first: 'Kyle', last: 'Mooney', id: 9 },
+  { first: 'Michael', last: 'Bradcliff', id: 8 },
+  { first: 'Steve', last: 'Pearn', id: 9 },
 ]
 
 function AddCollaborator({ navigation }) {
@@ -109,6 +102,7 @@ function AddCollaborator({ navigation }) {
                   )}
                 </FieldArray>
               </View>
+              <Separator />
               <View style={styles.contactsView}>
                 <FieldArray name="collabs">
                   {({ push, remove }) => (
@@ -172,6 +166,7 @@ const styles = StyleSheet.create({
   },
   contactsView: {
     // backgroundColor: 'orange',
+    marginTop: 15,
   },
   submitView: {
     position: 'absolute',

@@ -10,9 +10,11 @@ const ContactCheckBox = ({ children, title, onPress, name }) => {
     <View style={styles.mainView}>
       <RNCheckboxCard
         text={title}
-        backgroundColor="pink"
+        height={40}
+        backgroundColor="transparent"
         textStyle={styles.checkbox}
         onPress={onPress}
+        sortIconImageSource={'null'}
         // onPress={(checked: boolean) => console.log('Checked: ', checked)}
       />
     </View>
@@ -24,6 +26,8 @@ export default ContactCheckBox
 const styles = StyleSheet.create({
   mainView: { paddingBottom: 5 },
   checkbox: {
+    fontFamily: 'Futura',
+    fontSize: 20,
     textDecorationLine: 'none',
   },
 })

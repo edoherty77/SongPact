@@ -84,28 +84,30 @@ export default function First({ route, navigation }) {
           onSubmit={(values) => next(values)}
           validationSchema={validationSchema}
         >
-          <View style={styles.titleView}>
-            <View style={styles.sectionText}>
-              <AppText fontSize={30}>Record Title</AppText>
+          <View style={styles.formView}>
+            <View style={styles.titleView}>
+              <View style={styles.sectionText}>
+                <AppText fontSize={30}>Record Title</AppText>
+              </View>
+              <AppFormField
+                name="recordTitle"
+                style={styles.input}
+                placeholder="Record Title"
+                autoCorrect={false}
+                placeholderTextColor={colors.black}
+              />
             </View>
-            <AppFormField
-              name="recordTitle"
-              style={styles.input}
-              placeholder="Record Title"
-              autoCorrect={false}
-              placeholderTextColor={colors.black}
-            />
-          </View>
-          <View style={styles.roleView}>
-            <View style={styles.sectionText}>
-              <AppText fontSize={30}>Your Role</AppText>
+            <View style={styles.roleView}>
+              <View style={styles.sectionText}>
+                <AppText fontSize={30}>Your Role</AppText>
+              </View>
+              <AppFormRadio
+                name="role"
+                value1="Producer"
+                value2="Purchaser"
+                formikKey="role"
+              />
             </View>
-            <AppFormRadio
-              name="role"
-              value1="Producer"
-              value2="Purchaser"
-              formikKey="role"
-            />
           </View>
           <View style={styles.footer}>
             {/* <View style={styles.nextBtnView}> */}
@@ -137,12 +139,21 @@ const styles = StyleSheet.create({
   mainView: {
     display: 'flex',
     flex: 1,
-    // backgroundColor: colors.gray,
+    backgroundColor: 'white',
     padding: 10,
     justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  formView: {
+    backgroundColor: colors.gray,
+    width: '85%',
+    height: '60%',
+    paddingLeft: 10,
   },
   titleView: {
     // backgroundColor: 'green',
+    justifyContent: 'center',
+    flex: 1,
   },
   sectionText: {
     paddingLeft: 5,
@@ -150,7 +161,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   roleView: {
-    // backgroundColor: 'red',
+    // backgroundColor: 'blue',
+    justifyContent: 'space-evenly',
+    flex: 1,
   },
   collabView: {
     // backgroundColor: 'gray',
@@ -168,6 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
     // backgroundColor: 'pink',
     // alignSelf: 'flex-end',
     // justifyContent: 'space-between',
@@ -177,7 +191,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   input: {
-    width: '80%',
+    width: '90%',
     backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
@@ -188,7 +202,7 @@ const styles = StyleSheet.create({
     // marginTop: 10,
     borderRadius: 50,
     height: 45,
-    backgroundColor: colors.tan,
+    backgroundColor: colors.gray,
     width: '50%',
   },
 })
