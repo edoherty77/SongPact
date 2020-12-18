@@ -125,7 +125,7 @@ export default function SignUp({ navigation }) {
                   secureTextEntry
                 />
                 <SubmitButton
-                  style={styles.createButton}
+                  style={styles.signUpButton}
                   title="Create Profile"
                   color={colors.confirm}
                   dismissKey={Keyboard.dismiss}
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
     paddingLeft: 20,
-    height: 45,
-    borderRadius: 25,
+    height: 35,
+    borderRadius: 15,
   },
   signUpButton: {
     marginTop: 20,
@@ -213,22 +213,7 @@ const styles = StyleSheet.create({
     // justifyContent: "space-around",
     alignItems: "center",
     // width: "90%",
-    marginTop: 30,
-    flex: 1,
+    marginVertical: 50,
+    // flex: 1,
   },
-  // confirmModal: {
-  //   backgroundColor: colors.lttan,
-  //   marginHorizontal: 50,
-  //   marginTop: 200,
-  //   marginBottom: 250,
-  //   padding: 0,
-  //   borderRadius: 30,
-  // },
-  // modalView: {
-  //   height: 350,
-  //   display: "flex",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   padding: 20,
-  // },
 })
