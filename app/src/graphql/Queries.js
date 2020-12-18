@@ -68,7 +68,7 @@ export const createPact = gql`
     $type: String!
     $initBy: String
     $recordTitle: String!
-    $contributor: String
+    $contributors: [User]
     $role: String
   ) {
     createPact(

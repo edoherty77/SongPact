@@ -4,7 +4,9 @@ import AppNavigator from './AppNavigator'
 
 import New from '../views/Main/NewSongPactScreen'
 import First from '../views/CreatePact/First'
+
 import Second from '../views/CreatePact/Second'
+import AddCollaborator from '../views/CreatePact/AddCollaborator'
 
 const Stack = createStackNavigator()
 
@@ -14,6 +16,8 @@ const CreatePactNavigator = () => {
       {/* <Stack.Screen name="Dashboard" component={AppNavigator} /> */}
       <Stack.Screen name="New" component={New} />
       <Stack.Screen name="First" component={First} />
+      <Stack.Screen name="AddCollab" component={AddCollaborator} />
+
       <Stack.Screen name="Second" component={Second} />
     </Stack.Navigator>
   )
