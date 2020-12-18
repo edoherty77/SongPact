@@ -1,27 +1,35 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-
+import { useFormikContext } from 'formik'
 import AppText from '../components/AppText'
 import Separator from '../components/Separator'
 import colors from '../config/colors'
 import ButtonIcon from '../components/ButtonIcon'
 
-const ContactButton = ({ initials, name }) => {
+const ContactButton = ({
+  initials,
+  title,
+  onPress,
+
+  noIcon,
+}) => {
   return (
-    <TouchableOpacity style={styles.contactButton}>
+    <TouchableOpacity onPress={onPress} style={styles.contactButton}>
       <View style={styles.contactView}>
         <View style={styles.textView}>
           <AppText fontSize={20} style={styles.name}>
-            {name}
+            {title}
           </AppText>
         </View>
         <View style={styles.btnView}>
-          <ButtonIcon
-            name="dots-horizontal"
-            backgroundColor={'transparent'}
-            size={35}
-            iconColor={colors.red}
-          />
+          {!noIcon && (
+            <ButtonIcon
+              name="dots-horizontal"
+              backgroundColor={'transparent'}
+              size={35}
+              iconColor={colors.red}
+            />
+          )}
         </View>
       </View>
       <Separator />

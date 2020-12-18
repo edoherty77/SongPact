@@ -69,7 +69,7 @@ export default function First({ route, navigation }) {
   }
 
   function showContacts() {
-    setContactModalVisible(true)
+    navigation.navigate('AddCollab')
   }
   return (
     <Screen>
