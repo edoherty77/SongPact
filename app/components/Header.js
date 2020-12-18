@@ -1,11 +1,11 @@
-import React from 'react'
-import { StyleSheet, View, SafeAreaView } from 'react-native'
+import React from "react"
+import { StyleSheet, View, SafeAreaView } from "react-native"
 
-import ButtonIcon from './ButtonIcon'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import defaultStyles from '../config/styles'
-import AppText from '../components/AppText'
-import colors from '../config/colors'
+import ButtonIcon from "./ButtonIcon"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import defaultStyles from "../config/styles"
+import AppText from "../components/AppText"
+import colors from "../config/colors"
 
 const Header = ({
   onPress,
@@ -26,7 +26,7 @@ const Header = ({
     >
       <View style={styles.appHeader}>
         <View
-          style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
         >
           {icon && (
             <MaterialCommunityIcons
@@ -37,7 +37,7 @@ const Header = ({
             />
           )}
         </View>
-        <View style={{ alignItems: 'center', flex: 5 }}>
+        <View style={{ alignItems: "center", flex: 5 }}>
           <AppText style={styles.screenName}>{title}</AppText>
         </View>
 
@@ -49,6 +49,7 @@ const Header = ({
             size={45}
             name={name}
             backgroundColor="transparent"
+            onPress={onPress}
             {...otherProps}
           />
         )}
@@ -60,13 +61,13 @@ const Header = ({
 const styles = StyleSheet.create({
   screenContainer: {
     backgroundColor: colors.gray,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     elevation: 1,
     borderBottomWidth: 0.4,
   },
   appHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 20,
   },
   screenName: {

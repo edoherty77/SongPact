@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Header, Item, Input, Icon, Button, Text } from 'native-base'
-import Head from '../../components/Header'
-import Screen from '../../components/Screen'
-import AppTextInput from '../../components/AppTextInput'
-import ContactButton from '../../components/ContactButton'
+import React, { useState } from "react"
+import { View, StyleSheet } from "react-native"
+import { Header, Item, Input, Icon, Button, Text } from "native-base"
+import Head from "../../components/Header"
+import Screen from "../../components/Screen"
+import AppTextInput from "../../components/AppTextInput"
+import ContactButton from "../../components/ContactButton"
 
 function Contacts() {
-  const [firstName, setFirstName] = useState('')
+  const [firstName, setFirstName] = useState("")
   return (
     <Screen>
       <Head title="Contacts" />
@@ -39,14 +39,14 @@ function Contacts() {
       </Header>
 
       <View>
-        <ContactButton name={'Christopher Dibona'} />
-        <ContactButton name={'Evan Doherty'} />
-        <ContactButton name={'Michael Giannone'} />
-        <ContactButton name={'Pat Doherty'} />
-        <ContactButton name={'Ryan Kleshefsky'} />
-        <ContactButton name={'Seth Johnson'} />
-        <ContactButton name={'Stephan Nale'} />
-        <ContactButton name={'Zack Fye'} />
+        <ContactButton name={"Christopher Dibona"} />
+        <ContactButton name={"Evan Doherty"} />
+        <ContactButton name={"Michael Giannone"} />
+        <ContactButton name={"Pat Doherty"} />
+        <ContactButton name={"Ryan Kleshefsky"} />
+        <ContactButton name={"Seth Johnson"} />
+        <ContactButton name={"Stephan Nale"} />
+        <ContactButton name={"Zack Fye"} />
       </View>
     </Screen>
   )
@@ -54,10 +54,10 @@ function Contacts() {
 
 const styles = StyleSheet.create({
   inputView: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
     marginBottom: 5,
     marginTop: 5,
   },
