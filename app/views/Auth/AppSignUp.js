@@ -13,6 +13,7 @@ import { Platform } from "react-native"
 import * as Yup from "yup"
 import colors from "../../config/colors"
 import AppText from "../../components/AppText"
+import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -52,7 +53,85 @@ export default function SignUp({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainView}>
             <View style={styles.registerView}>
-              <AppTextInput
+              <AppForm
+                initialValues={{
+                  firstName: "",
+                  lastName: "",
+                  artistName: "",
+                  companyName: "",
+                  email: "",
+                  password: "",
+                  password2: "",
+                }}
+                onSubmit={(values) => console.log(values)}
+                validationSchema={validationSchema}
+              >
+                <AppFormField
+                  style={styles.input}
+                  name="firstName"
+                  placeholder="First Name*"
+                  autoCorrect={false}
+                  textContentType="givenName"
+                  paddingRight={"8%"}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="lastName"
+                  placeholder="Last Name*"
+                  autoCorrect={false}
+                  textContentType="familyName"
+                  paddingRight={"17%"}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="artistName"
+                  placeholder="Artist Name*"
+                  autoCorrect={false}
+                  // paddingRight={"5%"}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="companyName"
+                  placeholder="Company Name"
+                  autoCorrect={false}
+                  // paddingRight={"5%"}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="email"
+                  placeholder="Email*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="emailAddress"
+                  keyboardType="email-address"
+                  // paddingRight={"5%"}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="password"
+                  placeholder="Password*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="password"
+                  secureTextEntry
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="password2"
+                  placeholder="Confirm Password*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="password"
+                  secureTextEntry
+                />
+                <SubmitButton
+                  style={styles.createButton}
+                  title="Create Profile"
+                  color={colors.confirm}
+                  dismissKey={Keyboard.dismiss}
+                />
+              </AppForm>
+              {/* <AppTextInput
                 style={styles.input}
                 value={username}
                 onChangeText={(text) => setUsername(text)}
@@ -74,20 +153,11 @@ export default function SignUp({ navigation }) {
                 secureTextEntry
                 // textContentType="password" // TODO uncomment!
               />
-              {/* <AppTextInput
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          icon="email"
-          placeholder="Enter email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        /> */}
               <AppButton
                 title="Sign Up"
                 onPress={signUp}
                 style={styles.signUpButton}
-              />
+              /> */}
             </View>
             <View style={styles.loginView}>
               <AppText>Already have an account?</AppText>
