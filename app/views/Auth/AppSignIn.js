@@ -89,11 +89,16 @@ export default function AppSignIn({ navigation, updateAuthState }) {
                 />
               </View>
               <View style={styles.footerButtonContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                  <Text style={styles.forgotPasswordButtonText}>
+                <AppText>Don't have an account?</AppText>
+                <AppButton
+                  title="Sign Up"
+                  onPress={() => navigation.navigate("SignUp")}
+                />
+                {/* <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                  <AppText style={styles.forgotPasswordButtonText}>
                     Don't have an account? Sign Up
-                  </Text>
-                </TouchableOpacity>
+                  </AppText>
+                </TouchableOpacity> */}
               </View>
             </View>
           </TouchableWithoutFeedback>
@@ -106,9 +111,9 @@ export default function AppSignIn({ navigation, updateAuthState }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    // flexDirection: "column",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   mainView: {
     flex: 1,

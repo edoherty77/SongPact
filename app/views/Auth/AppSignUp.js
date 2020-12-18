@@ -11,6 +11,8 @@ import { TouchableWithoutFeedback } from "react-native"
 import { Keyboard } from "react-native"
 import { Platform } from "react-native"
 import * as Yup from "yup"
+import colors from "../../config/colors"
+import AppText from "../../components/AppText"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -46,30 +48,33 @@ export default function SignUp({ navigation }) {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <Header title="Register" noIcon />
+        <Header title="Sign Up" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.registerView}>
-            <AppTextInput
-              value={username}
-              onChangeText={(text) => setUsername(text)}
-              icon="email"
-              placeholder="Email"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              textContentType="emailAddress"
-            />
-            <AppTextInput
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              icon="lock"
-              placeholder="Password"
-              autoCapitalize="none"
-              autoCorrect={false}
-              secureTextEntry
-              // textContentType="password" // TODO uncomment!
-            />
-            {/* <AppTextInput
+          <View style={styles.mainView}>
+            <View style={styles.registerView}>
+              <AppTextInput
+                style={styles.input}
+                value={username}
+                onChangeText={(text) => setUsername(text)}
+                // icon="email"
+                placeholder="Email"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                textContentType="emailAddress"
+              />
+              <AppTextInput
+                style={styles.input}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                // icon="lock"
+                placeholder="Password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry
+                // textContentType="password" // TODO uncomment!
+              />
+              {/* <AppTextInput
           value={email}
           onChangeText={(text) => setEmail(text)}
           icon="email"
@@ -78,13 +83,18 @@ export default function SignUp({ navigation }) {
           keyboardType="email-address"
           textContentType="emailAddress"
         /> */}
-            <AppButton title="Sign Up" onPress={signUp} />
-            <View style={styles.footerButtonContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-                <Text style={styles.forgotPasswordButtonText}>
-                  Already have an account? Sign In
-                </Text>
-              </TouchableOpacity>
+              <AppButton
+                title="Sign Up"
+                onPress={signUp}
+                style={styles.signUpButton}
+              />
+            </View>
+            <View style={styles.loginView}>
+              <AppText>Already have an account?</AppText>
+              <AppButton
+                title="Sign In"
+                onPress={() => navigation.navigate("SignIn")}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -94,28 +104,61 @@ export default function SignUp({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  safeAreaContainer: {
-    flex: 1,
-    backgroundColor: "white",
-  },
   container: {
     flex: 1,
+    backgroundColor: colors.lttan,
+  },
+  mainView: {
+    flex: 1,
+    width: "100%",
     alignItems: "center",
+    justifyContent: "space-around",
   },
-  title: {
-    fontSize: 20,
-    color: "#202020",
-    fontWeight: "500",
-    marginVertical: 15,
-  },
-  footerButtonContainer: {
-    marginVertical: 15,
+  registerView: {
+    flex: 1,
+    // justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
-    alignItems: "center",
   },
-  forgotPasswordButtonText: {
-    color: "tomato",
+  input: {
+    width: "80%",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
-    fontWeight: "600",
+    paddingLeft: 20,
+    height: 45,
+    borderRadius: 25,
   },
+  signUpButton: {
+    marginTop: 20,
+    borderRadius: 50,
+    height: 50,
+    backgroundColor: colors.red,
+    width: "80%",
+  },
+  loginView: {
+    display: "flex",
+    // flexDirection: "row",
+    // justifyContent: "space-around",
+    alignItems: "center",
+    // width: "90%",
+    marginTop: 30,
+    flex: 1,
+  },
+  // confirmModal: {
+  //   backgroundColor: colors.lttan,
+  //   marginHorizontal: 50,
+  //   marginTop: 200,
+  //   marginBottom: 250,
+  //   padding: 0,
+  //   borderRadius: 30,
+  // },
+  // modalView: {
+  //   height: 350,
+  //   display: "flex",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  //   padding: 20,
+  // },
 })

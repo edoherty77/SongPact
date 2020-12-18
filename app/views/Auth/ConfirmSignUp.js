@@ -4,6 +4,7 @@ import { Auth } from "aws-amplify"
 import { SafeAreaView } from "react-native-safe-area-context"
 import AppTextInput from "../../components/AppTextInput"
 import AppButton from "../../components/AppButton"
+
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("")
   const [authCode, setAuthCode] = useState("")
