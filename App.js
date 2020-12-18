@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar"
 import React, { useEffect, useState } from "react"
-
+import { ActivityIndicator, View } from "react-native"
 import { FormProvider } from "./app/context/form-context"
 
 // AMPLIFY & AUTH
@@ -12,10 +12,11 @@ Amplify.configure({
     disabled: true, // kills unhandled promise warning
   },
 })
-import { withAuthenticator, SignIn } from "aws-amplify-react-native"
+import { withAuthenticator } from "aws-amplify-react-native"
 
 // NAV
 import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
 import AppNavigator from "./app/navigation/AppNavigator"
 import AuthNavigator from "./app/navigation/AuthNavigator"
 
@@ -25,13 +26,24 @@ import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
 import store from "./app/stores/TestStore"
 import { observer } from "mobx-react"
-import AppSignIn from "./app/views/Auth/AppSignIn"
+
+const Initializing = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="tomato" />
+    </View>
+  )
+}
 
 const App = observer(({ navigation }) => {
-  const getCurrentUser = async () => {
+  const [isUserLoggedIn, setUserLoggedIn] = useState("initializing")
+
+  const checkAuthState = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser()
+      console.log("✅ User is signed in")
       store.setUser(user.attributes)
+      setUserLoggedIn("loggedIn")
       // setSub(store.sub)
       // TODO remove or move to user store
       // look for user ID that matches sub ID
@@ -43,12 +55,18 @@ const App = observer(({ navigation }) => {
       // store newUser data in state
       // await AsyncStorage.setItem("sub", store.sub)
     } catch (error) {
-      console.log(error)
+      console.log("❌ User is not signed in")
+      store.resetUser()
+      setUserLoggedIn("loggedOut")
     }
   }
 
+  const updateAuthState = (isUserLoggedIn) => {
+    setUserLoggedIn(isUserLoggedIn)
+  }
+
   useEffect(() => {
-    getCurrentUser()
+    checkAuthState()
   }, [store.sub])
 
   return (
@@ -56,7 +74,14 @@ const App = observer(({ navigation }) => {
       <ApolloProvider client={client}>
         <FormProvider>
           <NavigationContainer>
-            {store.sub ? <AppNavigator /> : <AuthNavigator />}
+            {/* {store.sub ? <AppNavigator /> : <AuthNavigator />} */}
+            {isUserLoggedIn === "initializing" && <Initializing />}
+            {isUserLoggedIn === "loggedIn" && (
+              <AppNavigator updateAuthState={updateAuthState} />
+            )}
+            {isUserLoggedIn === "loggedOut" && (
+              <AuthNavigator updateAuthState={updateAuthState} />
+            )}
           </NavigationContainer>
         </FormProvider>
       </ApolloProvider>
@@ -66,11 +91,4 @@ const App = observer(({ navigation }) => {
 })
 
 // export default App
-export default withAuthenticator(App, false, [
-  // <AppSignIn />,
-  //confirm sign in
-  //sign up
-  //confirm sign up
-  //forgot password
-  //require new password
-])
+export default App

@@ -6,11 +6,12 @@ import Header from "../../components/Header"
 import Screen from "../../components/Screen"
 import store from "../../stores/TestStore"
 
-export default function MenuScreen() {
+export default function MenuScreen({ updateAuthState }) {
   const signOut = async () => {
     try {
       await Auth.signOut()
       store.resetUser()
+      updateAuthState("loggedOut")
     } catch (error) {
       console.log("error signing out: ", error)
     }

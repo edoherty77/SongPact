@@ -10,10 +10,11 @@ import New from "../views/Main/NewSongPactScreen"
 import NotificationsScreen from "../views/Main/NotificationsScreen"
 import Menu from "../views/Main/MenuScreen"
 import colors from "../config/colors"
+import MenuScreen from "../views/Main/MenuScreen"
 
 const Tab = createBottomTabNavigator()
 
-export default function AppNavigator() {
+export default function AppNavigator(props) {
   return (
     <Tab.Navigator
       // initialRouteName="Dashboard"
@@ -104,8 +105,14 @@ export default function AppNavigator() {
           // tabBarLabel: 'Menu',
         }}
         name="Menu"
-        component={Menu}
-      />
+      >
+        {(screenProps) => (
+          <MenuScreen
+            {...screenProps}
+            updateAuthState={props.updateAuthState}
+          />
+        )}
+      </Tab.Screen>
     </Tab.Navigator>
   )
 }
