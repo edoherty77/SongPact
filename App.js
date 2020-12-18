@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 
+import { FormProvider } from './app/context/form-context'
+
 // AMPLIFY & AUTH
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from './aws-exports'
@@ -51,9 +53,11 @@ const App = observer(({ navigation }) => {
   return (
     <>
       <ApolloProvider client={client}>
-        <NavigationContainer>
-          {store.sub ? <AppNavigator /> : <AuthNavigator />}
-        </NavigationContainer>
+        <FormProvider>
+          <NavigationContainer>
+            {store.sub ? <AppNavigator /> : <AuthNavigator />}
+          </NavigationContainer>
+        </FormProvider>
       </ApolloProvider>
       <StatusBar style={'auto'} />
     </>

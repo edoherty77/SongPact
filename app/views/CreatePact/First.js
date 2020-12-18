@@ -34,7 +34,6 @@ const validationSchema = Yup.object().shape({
 
 export default function First({ route, navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
-  const [isContactModalVisible, setContactModalVisible] = useState(false)
   const [data, setData] = useState(null)
   const { type } = route.params
 
@@ -68,12 +67,14 @@ export default function First({ route, navigation }) {
     navigation.navigate('New')
   }
 
-  function showContacts() {
-    setContactModalVisible(true)
-  }
   return (
     <Screen>
-      <Header icon={'information'} title={type} />
+      <Header
+        icon={'information'}
+        title={type}
+        iconPress={() => navigation.navigate('AddCollab')}
+        name="arrow-right-bold"
+      />
       <View style={styles.mainView}>
         <AppForm
           initialValues={{
@@ -105,28 +106,6 @@ export default function First({ route, navigation }) {
               value2="Purchaser"
               formikKey="role"
             />
-          </View>
-          <View style={styles.collabView}>
-            <View style={styles.sectionText}>
-              <AppText fontSize={30}>Add Collaborators</AppText>
-              <ButtonIcon
-                onPress={showContacts}
-                name="plus"
-                backgroundColor="transparent"
-                iconColor={colors.red}
-              />
-            </View>
-            <View style={styles.sectionText}>
-              <AppText>Collaborators: </AppText>
-            </View>
-            <View style={styles.collabListView}>
-              <Collaborator
-                name="Evan Doherty"
-                role="Purchaser"
-                onPress={() => console.log('fuck')}
-              />
-              <Collaborator name="Seth Johnson" role="Purchaser" />
-            </View>
           </View>
           <View style={styles.footer}>
             {/* <View style={styles.nextBtnView}> */}

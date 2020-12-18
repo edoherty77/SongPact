@@ -11,7 +11,9 @@ const Header = ({
   onPress,
   title,
   noIcon,
+  back,
   icon,
+  name = 'message-text',
   iconPress,
   borderBottomColor,
   borderBottomWidth,
@@ -28,7 +30,7 @@ const Header = ({
         >
           {icon && (
             <MaterialCommunityIcons
-              onPress={iconPress}
+              onPress={back}
               name={icon}
               size={35}
               color="#42C1FC"
@@ -41,10 +43,11 @@ const Header = ({
 
         {!noIcon && (
           <ButtonIcon
+            onPress={iconPress}
             style={styles.messageBtn}
             iconColor={colors.red}
             size={45}
-            name="message-text"
+            name={name}
             backgroundColor="transparent"
             onPress={onPress}
             {...otherProps}
