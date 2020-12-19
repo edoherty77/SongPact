@@ -42,8 +42,10 @@ export default function SignUp({ navigation }) {
         attributes: { email: values.email },
       })
       console.log("✅ Sign-up Confirmed")
-      console.log(data)
-      store.setUser(values)
+      console.log(data) // TODO remove
+      console.log("sub ////", data.userSub) // TODO remove
+      store.setUser(values) // TODO remove
+      // create user profile in API using values with ID == data.userSub
       navigation.navigate("ConfirmSignUp")
     } catch (error) {
       console.log("❌ Error signing up...", error)

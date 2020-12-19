@@ -19,8 +19,11 @@ export default function AppSignIn({ navigation, updateAuthState }) {
 
   async function signIn() {
     try {
-      await Auth.signIn(username, password)
+      const data = await Auth.signIn(username, password)
       console.log("success")
+      console.log(data.attributes)
+      // const user = query API for user profile with ID === data.attributes.sub
+      // store.setUser(user)
       updateAuthState("loggedIn")
     } catch (err) {
       console.log("Error signing in...", err)
