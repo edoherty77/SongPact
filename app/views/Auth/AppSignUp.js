@@ -14,6 +14,7 @@ import * as Yup from "yup"
 import colors from "../../config/colors"
 import AppText from "../../components/AppText"
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
+import store from "../../stores/UserStore"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -33,10 +34,16 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState("")
   //   const [email, setEmail] = useState("")
 
-  async function signUp() {
+  async function signUp(values) {
     try {
-      await Auth.signUp({ username, password, attributes: { email: username } })
+      const data = await Auth.signUp({
+        username: values.email,
+        password: values.password,
+        attributes: { email: values.email },
+      })
       console.log("✅ Sign-up Confirmed")
+      console.log(data)
+      store.setUser(values)
       navigation.navigate("ConfirmSignUp")
     } catch (error) {
       console.log("❌ Error signing up...", error)
@@ -63,7 +70,7 @@ export default function SignUp({ navigation }) {
                   password: "",
                   password2: "",
                 }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => signUp(values)}
                 validationSchema={validationSchema}
               >
                 <AppFormField
@@ -112,8 +119,8 @@ export default function SignUp({ navigation }) {
                   placeholder="Password*"
                   autoCapitalize="none"
                   autoCorrect={false}
-                  textContentType="password"
-                  secureTextEntry
+                  // textContentType="password" // TODO uncomment!!!
+                  // secureTextEntry
                 />
                 <AppFormField
                   style={styles.input}
@@ -121,8 +128,8 @@ export default function SignUp({ navigation }) {
                   placeholder="Confirm Password*"
                   autoCapitalize="none"
                   autoCorrect={false}
-                  textContentType="password"
-                  secureTextEntry
+                  // textContentType="password" // TODO uncomment!!!
+                  // secureTextEntry
                 />
                 <SubmitButton
                   style={styles.signUpButton}

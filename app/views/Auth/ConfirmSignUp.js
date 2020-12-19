@@ -10,8 +10,9 @@ export default function ConfirmSignUp({ navigation }) {
   const [authCode, setAuthCode] = useState("")
   async function confirmSignUp() {
     try {
-      await Auth.confirmSignUp(username, authCode)
+      const data = await Auth.confirmSignUp(username, authCode)
       console.log("✅ Code confirmed")
+      // console.log(data)
       navigation.navigate("SignIn")
     } catch (error) {
       console.log(

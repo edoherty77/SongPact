@@ -6,16 +6,18 @@ import AppTextInput from "../../components/AppTextInput"
 
 import Header from "../../components/Header"
 import colors from "../../config/colors"
-import store from "../../stores/TestStore"
+import store from "../../stores/UserStore"
 
 const NotificationsScreen = observer(() => {
   return (
     <View style={styles.notifications}>
       <Header title="Notifications" />
       <View style={styles.stateDisplay}>
+        <AppText>Email: {store.firstName}</AppText>
+        <AppText>Email: {store.lastName}</AppText>
+        <AppText>Email: {store.artistName}</AppText>
+        <AppText>Email: {store.companyName}</AppText>
         <AppText>Email: {store.email}</AppText>
-        <AppText>Phone: {store.phone}</AppText>
-        <AppText>ID: {store.sub}</AppText>
       </View>
       <View style={styles.update}>
         <AppTextInput
