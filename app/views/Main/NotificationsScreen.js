@@ -13,22 +13,11 @@ const NotificationsScreen = observer(() => {
     <View style={styles.notifications}>
       <Header title="Notifications" />
       <View style={styles.stateDisplay}>
-        <AppText>Email: {store.firstName}</AppText>
-        <AppText>Email: {store.lastName}</AppText>
-        <AppText>Email: {store.artistName}</AppText>
-        <AppText>Email: {store.companyName}</AppText>
+        <AppText>First: {store.firstName}</AppText>
+        <AppText>Last: {store.lastName}</AppText>
+        <AppText>Artist: {store.artistName}</AppText>
+        <AppText>Company: {store.companyName}</AppText>
         <AppText>Email: {store.email}</AppText>
-      </View>
-      <View style={styles.update}>
-        <AppTextInput
-          width="90%"
-          placeholder="Update email"
-          icon={"account-search"}
-          style={styles.input}
-          autoCompleteType={"off"}
-          autoCorrect={false}
-          onChangeText={(text) => store.updateEmail(text)}
-        />
       </View>
     </View>
   )
