@@ -1,26 +1,23 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import colors from '../../config/colors'
 import Screen from '../../components/Screen'
 import AppText from '../../components/AppText'
 import Header from '../../components/Header'
-
+import { Formik, FieldArray } from 'formik'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
-
+import { useFormState, useFormDispatch } from '../../context/form-context'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import config from '../../../aws-exports'
 Amplify.configure(config)
-import { createPact } from '../../src/graphql/Queries'
-import { Formik } from 'formik'
-import { useFormState, useFormDispatch } from '../../context/form-context'
 
 import {
   AppForm,
   AppFormField,
   SubmitButton,
-  AppFormRadio,
+  AppFormSwitch,
 } from '../../components/forms'
 import * as Yup from 'yup'
 
@@ -34,8 +31,7 @@ const validationSchema = Yup.object().shape({
   // ),
 })
 
-export default function First({ route, navigation }) {
-  const Lest = { AppForm }
+export default function Last({ navigation }) {
   const form = React.useRef()
   const dispatch = useFormDispatch()
   const { values: formValues, errors: formErrors } = useFormState('customer')
@@ -58,25 +54,7 @@ export default function First({ route, navigation }) {
   }, [navigation])
 
   const [isModalVisible, setModalVisible] = useState(false)
-  const [data, setData] = useState(null)
-  const { type } = route.params
-
-  async function next(values) {
-    const stuff = {
-      recordTitle: values.recordTitle,
-      role: values.role,
-      type: type,
-    }
-    setData(stuff)
-    console.log('Stuff:', stuff)
-    console.log('data:', data)
-    try {
-      await API.graphql(graphqlOperation(createPact, data))
-      console.log('pact successfully created.')
-    } catch (err) {
-      console.log('error creating pact...', err)
-    }
-  }
+  const [isInputVisible, setInputVisible] = useState(false)
 
   function trash() {
     setModalVisible(true)
@@ -91,56 +69,65 @@ export default function First({ route, navigation }) {
     navigation.navigate('New')
   }
 
+  const toggleInput = () => {
+    setInputVisible(!isInputVisible)
+  }
+
   return (
     <Screen>
       <Header
-        icon={'information'}
-        title={type}
+        back={() => navigation.navigate('Second')}
+        icon="arrow-left-bold"
         iconPress={() => {
-          navigation.navigate('Second')
+          navigation.navigate('Third')
         }}
         name="arrow-right-bold"
       />
       <Formik
         innerRef={form}
-        enableReinitialize
         initialValues={formValues}
         initialErrors={formErrors}
-        validationSchema={validationSchema}
+        enableReinitialize
       >
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
-              <View style={styles.titleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Record Title</AppText>
-                </View>
-                <AppFormField
-                  name="recordTitle"
-                  style={styles.input}
-                  placeholder="Record Title"
-                  autoCorrect={false}
-                  placeholderTextColor={colors.black}
+              <View style={styles.switchView}>
+                <AppFormSwitch
+                  name="sample"
+                  label="Sample?"
+                  formikKey="sample"
+                />
+                <AppFormSwitch
+                  name="recordLabel"
+                  label="Record Label?"
+                  formikKey="recordLabel"
+                  onChange={toggleInput}
                 />
               </View>
-              <View style={styles.roleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Your Role</AppText>
+              {isInputVisible ? (
+                <View style={styles.labelView}>
+                  <View style={styles.labelText}>
+                    <AppText fontSize={30}>Label Name</AppText>
+                  </View>
+                  <AppFormField
+                    name="labelName"
+                    style={styles.input}
+                    placeholder="Name"
+                    autoCorrect={false}
+                    placeholderTextColor={colors.black}
+                  />
                 </View>
-                <AppFormRadio
-                  name="role"
-                  value1="Producer"
-                  value2="Purchaser"
-                  formikKey="role"
-                />
-              </View>
+              ) : (
+                <View style={styles.noLabelView}></View>
+              )}
             </View>
             <View style={styles.footer}>
               <SubmitButton
+                title="Review"
                 style={styles.nextButton}
-                title="Next"
                 onPress={() => {
-                  navigation.push('Second')
+                  navigation.push('ReviewAndSign'), console.log(values)
                 }}
               />
               <View style={styles.iconView}>
@@ -168,58 +155,32 @@ export default function First({ route, navigation }) {
 
 const styles = StyleSheet.create({
   mainView: {
-    display: 'flex',
     flex: 1,
-    backgroundColor: 'white',
-    padding: 10,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    // backgroundColor: 'orange',
   },
   formView: {
-    backgroundColor: colors.gray,
-    width: '85%',
-    height: '60%',
-    paddingLeft: 10,
-  },
-  titleView: {
-    // backgroundColor: 'green',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  sectionText: {
-    paddingLeft: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  roleView: {
-    // backgroundColor: 'blue',
-    justifyContent: 'space-evenly',
-    flex: 1,
-  },
-  collabView: {
     // backgroundColor: 'gray',
-    flex: 5,
+    flex: 1,
+    margin: 40,
+    // padding: 20,
   },
-  collabListView: {
-    // backgroundColor: 'white',
-    // flex: 1,
-    marginTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
+  switchView: {
+    justifyContent: 'space-evenly',
+    flex: 2,
+    paddingTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+    backgroundColor: 'lightgray',
   },
-
-  footer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    // backgroundColor: 'pink',
-    // alignSelf: 'flex-end',
-    // justifyContent: 'space-between',
+  labelView: {
+    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: 'lightgray',
+    justifyContent: 'flex-start',
   },
-  iconView: {
-    position: 'absolute',
-    right: 10,
+  noLabelView: {
+    flex: 1,
   },
   input: {
     width: '90%',
@@ -229,8 +190,19 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 25,
   },
+  footer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+  },
+  iconView: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+  },
   nextButton: {
-    // marginTop: 10,
+    marginBottom: 10,
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,

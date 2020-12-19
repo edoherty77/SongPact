@@ -4,7 +4,7 @@ const FormStateContext = React.createContext()
 const FormDispatchContext = React.createContext()
 
 const initialState = {
-  pact: {
+  customer: {
     values: {},
     errors: {},
   },

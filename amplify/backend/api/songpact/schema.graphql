@@ -15,5 +15,10 @@ type Pact @model @auth(rules: [{ allow: public }]) {
   role: String
   initBy: String
   contributors: [User]
+  perfPublish: Int
+  prodAdvance: Int
+  prodPublish: Int
+  prodRoyalty: Int
+  prodCredit: String
   status: Boolean
 }

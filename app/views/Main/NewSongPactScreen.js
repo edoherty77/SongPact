@@ -1,25 +1,25 @@
-import React, { useState } from "react"
-import { View, TouchableOpacity, StyleSheet } from "react-native"
+import React, { useState } from 'react'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 
-import Screen from "../../components/Screen"
-import Header from "../../components/Header"
-import NativeModal from "react-native-modal"
-import NewPactButton from "../../components/NewPactButton"
-import colors from "../../config/colors"
-import AppText from "../../components/AppText"
-import { AppLoading } from "expo"
-import ConfirmModal from "../../components/ConfirmModal"
+import Screen from '../../components/Screen'
+import Header from '../../components/Header'
+import NativeModal from 'react-native-modal'
+import NewPactButton from '../../components/NewPactButton'
+import colors from '../../config/colors'
+import AppText from '../../components/AppText'
+import { AppLoading } from 'expo'
+import ConfirmModal from '../../components/ConfirmModal'
 
 function NewSongPact({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const pics = {
-    drake: require("../../assets/drake.jpg"),
-    fkj: require("../../assets/FKJ.jpg"),
-    remix: require("../../assets/remix.jpg"),
-    post: require("../../assets/post.jpeg"),
-    location: require("../../assets/location.jpg"),
-    work: require("../../assets/work.jpeg"),
+    drake: require('../../assets/drake.jpg'),
+    fkj: require('../../assets/FKJ.jpg'),
+    remix: require('../../assets/remix.jpg'),
+    post: require('../../assets/post.jpeg'),
+    location: require('../../assets/location.jpg'),
+    work: require('../../assets/work.jpeg'),
   }
 
   function createNew() {
@@ -32,7 +32,7 @@ function NewSongPact({ navigation }) {
 
   function createConfirm(type) {
     setModalVisible(false)
-    navigation.navigate("First", {
+    navigation.navigate('First', {
       type: type,
     })
   }
@@ -48,7 +48,7 @@ function NewSongPact({ navigation }) {
             image={pics.drake}
             info="producer shit blah blah blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah"
             text="Would you like to initialize a contract?"
-            confirm={() => createConfirm("Producer")}
+            confirm={() => createConfirm('Producer')}
             deny={createDeny}
             onBackdropPress={() => setModalVisible(false)}
             isVisible={isModalVisible}
@@ -97,16 +97,16 @@ function NewSongPact({ navigation }) {
 
 const styles = StyleSheet.create({
   mainView: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     flex: 1,
     // backgroundColor: '#FEECEF',
   },
   rowView: {
     marginVertical: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   infoModal: {
     backgroundColor: colors.lttan,
@@ -118,13 +118,13 @@ const styles = StyleSheet.create({
   },
   modalView: {
     height: 350,
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     padding: 20,
   },
   modalName: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   modalInfo: {},
 })

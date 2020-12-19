@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 
 import colors from '../../config/colors'
 import Screen from '../../components/Screen'
@@ -12,8 +12,7 @@ import ConfirmModal from '../../components/ConfirmModal'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import config from '../../../aws-exports'
 Amplify.configure(config)
-import { createPact } from '../../src/graphql/Queries'
-import { Formik } from 'formik'
+import { Formik, FieldArray } from 'formik'
 import { useFormState, useFormDispatch } from '../../context/form-context'
 
 import {
@@ -34,7 +33,7 @@ const validationSchema = Yup.object().shape({
   // ),
 })
 
-export default function First({ route, navigation }) {
+export default function Third({ navigation }) {
   const Lest = { AppForm }
   const form = React.useRef()
   const dispatch = useFormDispatch()
@@ -59,24 +58,6 @@ export default function First({ route, navigation }) {
 
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
-  const { type } = route.params
-
-  async function next(values) {
-    const stuff = {
-      recordTitle: values.recordTitle,
-      role: values.role,
-      type: type,
-    }
-    setData(stuff)
-    console.log('Stuff:', stuff)
-    console.log('data:', data)
-    try {
-      await API.graphql(graphqlOperation(createPact, data))
-      console.log('pact successfully created.')
-    } catch (err) {
-      console.log('error creating pact...', err)
-    }
-  }
 
   function trash() {
     setModalVisible(true)
@@ -94,12 +75,11 @@ export default function First({ route, navigation }) {
   return (
     <Screen>
       <Header
-        icon={'information'}
-        title={type}
-        iconPress={() => {
-          navigation.navigate('Second')
-        }}
+        title="Roles"
         name="arrow-right-bold"
+        iconPress={() => navigation.navigate('Fourth')}
+        icon="arrow-left-bold"
+        back={() => navigation.navigate('Second')}
       />
       <Formik
         innerRef={form}
@@ -111,28 +91,33 @@ export default function First({ route, navigation }) {
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
-              <View style={styles.titleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Record Title</AppText>
-                </View>
-                <AppFormField
-                  name="recordTitle"
-                  style={styles.input}
-                  placeholder="Record Title"
-                  autoCorrect={false}
-                  placeholderTextColor={colors.black}
-                />
-              </View>
               <View style={styles.roleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Your Role</AppText>
-                </View>
-                <AppFormRadio
-                  name="role"
-                  value1="Producer"
-                  value2="Purchaser"
-                  formikKey="role"
-                />
+                <FieldArray name="collabs">
+                  {({ push, remove }) => (
+                    <FlatList
+                      // contentContainerStyle={{
+                      //   alignItems: 'center',
+                      //   justifyContent: 'center',
+                      //   // backgroundColor: 'blue',
+                      //   width: '100%',
+                      // }}
+                      style={styles.addedCollabsList}
+                      data={values.collabs}
+                      keyExtractor={(collab) => collab.id}
+                      renderItem={({ item, index }) => (
+                        <AppFormRadio
+                          name={`collabs.${index}`}
+                          value1="Producer"
+                          value2="Purchaser"
+                          user={`${item.first} ${item.last}`}
+                          onPress={() => {
+                            push(item.item, index)
+                          }}
+                        />
+                      )}
+                    />
+                  )}
+                </FieldArray>
               </View>
             </View>
             <View style={styles.footer}>
@@ -140,7 +125,7 @@ export default function First({ route, navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  navigation.push('Second')
+                  navigation.push('Fourth')
                 }}
               />
               <View style={styles.iconView}>

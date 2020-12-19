@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 
 import { FormProvider } from './app/context/form-context'
+import { Provider as PaperProvider } from 'react-native-paper'
 
 // AMPLIFY & AUTH
 import Amplify, { Auth } from 'aws-amplify'
@@ -52,13 +53,14 @@ const App = observer(({ navigation }) => {
 
   return (
     <>
-      <ApolloProvider client={client}>
+      <PaperProvider>
         <FormProvider>
           <NavigationContainer>
             {store.sub ? <AppNavigator /> : <AuthNavigator />}
           </NavigationContainer>
         </FormProvider>
-      </ApolloProvider>
+      </PaperProvider>
+
       <StatusBar style={'auto'} />
     </>
   )

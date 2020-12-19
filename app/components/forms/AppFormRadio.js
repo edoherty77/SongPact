@@ -11,6 +11,7 @@ const AppFormRadio = ({
   value1,
   value2,
   width,
+  user,
   ...otherProps
 }) => {
   const { setFieldValue, handleChange, errors, touched } = useFormikContext()
@@ -25,6 +26,9 @@ const AppFormRadio = ({
         value={value}
         {...otherProps}
       >
+        <View>
+          <AppText fontSize={30}>{user}</AppText>
+        </View>
         <View style={styles.optionView}>
           <View style={styles.textView}>
             <AppText fontSize={23}>{value1}:</AppText>
