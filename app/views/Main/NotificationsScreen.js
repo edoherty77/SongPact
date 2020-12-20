@@ -6,27 +6,18 @@ import AppTextInput from "../../components/AppTextInput"
 
 import Header from "../../components/Header"
 import colors from "../../config/colors"
-import store from "../../stores/TestStore"
+import store from "../../stores/UserStore"
 
 const NotificationsScreen = observer(() => {
   return (
     <View style={styles.notifications}>
       <Header title="Notifications" />
       <View style={styles.stateDisplay}>
+        <AppText>First: {store.firstName}</AppText>
+        <AppText>Last: {store.lastName}</AppText>
+        <AppText>Artist: {store.artistName}</AppText>
+        <AppText>Company: {store.companyName}</AppText>
         <AppText>Email: {store.email}</AppText>
-        <AppText>Phone: {store.phone}</AppText>
-        <AppText>ID: {store.sub}</AppText>
-      </View>
-      <View style={styles.update}>
-        <AppTextInput
-          width="90%"
-          placeholder="Update email"
-          icon={"account-search"}
-          style={styles.input}
-          autoCompleteType={"off"}
-          autoCorrect={false}
-          onChangeText={(text) => store.updateEmail(text)}
-        />
       </View>
     </View>
   )

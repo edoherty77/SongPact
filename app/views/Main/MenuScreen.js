@@ -4,13 +4,14 @@ import { StyleSheet, Text, View } from "react-native"
 import AppText from "../../components/AppText"
 import Header from "../../components/Header"
 import Screen from "../../components/Screen"
-import store from "../../stores/TestStore"
+import store from "../../stores/UserStore"
 
-export default function MenuScreen() {
+export default function MenuScreen({ updateAuthState }) {
   const signOut = async () => {
     try {
       await Auth.signOut()
       store.resetUser()
+      updateAuthState("loggedOut")
     } catch (error) {
       console.log("error signing out: ", error)
     }

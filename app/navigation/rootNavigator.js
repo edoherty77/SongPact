@@ -6,12 +6,21 @@ import DashboardStack from './DashboardStack'
 
 const Drawer = createDrawerNavigator()
 
-export const RootNavigator = () => {
+export const RootNavigator = ({ updateAuthState }) => {
   return (
     <NavigationContainer>
       {/* <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}> */}
       <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={DashboardStack} />
+        {/* <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}> */}
+        <Drawer.Screen name="Home">
+          {(screenProps) => (
+            <DashboardStack
+              {...screenProps}
+              updateAuthState={updateAuthState}
+            />
+          )}
+        </Drawer.Screen>
+        {/* component={DashboardStack} /> */}
       </Drawer.Navigator>
     </NavigationContainer>
   )
