@@ -2,15 +2,14 @@ import React, { useContext, useEffect } from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { StyleSheet } from "react-native"
-import CreatPactNavigator from "./CreatePactNavigator"
-import ButtonIcon from "../components/ButtonIcon"
-import Dashboard from "../views/Main/DashboardScreen"
+
 import Contacts from "../views/Main/ContactsScreen"
-import New from "../views/Main/NewSongPactScreen"
-import NotificationsScreen from "../views/Main/NotificationsScreen"
-import Menu from "../views/Main/MenuScreen"
-import colors from "../config/colors"
+import CreatPactNavigator from "./CreatePactNavigator"
+import Dashboard from "../views/Main/DashboardScreen"
 import MenuScreen from "../views/Main/MenuScreen"
+import NotificationsScreen from "../views/Main/NotificationsScreen"
+
+import colors from "../config/colors"
 
 const Tab = createBottomTabNavigator()
 

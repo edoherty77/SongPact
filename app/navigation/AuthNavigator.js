@@ -1,8 +1,6 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
-import SignInScreen from "../views/Auth/SignInScreen"
-import SignUpScreen from "../views/Auth/SignUpScreen"
-import TestMobX from "../views/TestMobX"
+
 import AppSignIn from "../views/Auth/AppSignIn"
 import AppSignUp from "../views/Auth/AppSignUp"
 import ConfirmSignUp from "../views/Auth/ConfirmSignUp"
@@ -24,8 +22,3 @@ const AuthNavigator = (props) => {
 }
 
 export default AuthNavigator
-
-{
-  /* <Stack.Screen name="SignIn" component={SignInScreen} />
-<Stack.Screen name="SignUp" component={SignUpScreen} /> */
-}
