@@ -62,21 +62,17 @@ const FormProvider = ({ children }) => {
 
 const useFormState = (id) => {
   const formState = React.useContext(FormStateContext)
-
   if (formState === undefined) {
     throw new Error('useFormState must be used within a FormProvider"')
   }
-
   return formState[id]
 }
 
 const useFormDispatch = () => {
   const dispatch = React.useContext(FormDispatchContext)
-
   if (dispatch === undefined) {
     throw new Error('useFormState must be used within a FormProvider"')
   }
-
   return dispatch
 }
 

@@ -22,7 +22,13 @@ export const listPacts = gql`
         role
         recordTitle
         initBy
-        contributor
+        contributors
+        perfPublish
+        prodAdvance
+        prodPublish
+        prodRoyalty
+        prodCredit
+        status
       }
     }
   }

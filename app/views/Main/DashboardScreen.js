@@ -6,15 +6,12 @@ import Screen from '../../components/Screen'
 import Header from '../../components/Header'
 import PactButton from '../../components/PactButton'
 
-import OpenList from '../../components/UserPacts/OpenList'
-import NeedsActionList from '../../components/UserPacts/NeedsActionList'
-import AllList from '../../components/UserPacts/AllList'
+import Pending from '../../components/UserPacts/Pending'
+import NeedsAction from '../../components/UserPacts/NeedsAction'
+import Closed from '../../components/UserPacts/Closed'
 
 import AppText from '../../components/AppText'
 
-import defaultStyles from '../../config/styles'
-import GET_ALL_USERS from '../../src/graphql/Queries'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 import store from '../../stores/TestStore'
 import { observer } from 'mobx-react'
 import { Tab, Tabs, TabHeading } from 'native-base'
@@ -46,20 +43,20 @@ const DashboardScreen = observer(() => {
                 style={{ backgroundColor: colors.gray }}
                 activeTextStyle={{ fontWeight: 'bold', fontSize: 40 }}
               >
-                <AppText>Open</AppText>
-              </TabHeading>
-            }
-          >
-            <OpenList />
-          </Tab>
-          <Tab
-            heading={
-              <TabHeading style={{ backgroundColor: colors.gray }}>
                 <AppText>Pending</AppText>
               </TabHeading>
             }
           >
-            <NeedsActionList />
+            <Pending />
+          </Tab>
+          <Tab
+            heading={
+              <TabHeading style={{ backgroundColor: colors.gray }}>
+                <AppText>Needs Action</AppText>
+              </TabHeading>
+            }
+          >
+            <NeedsAction />
           </Tab>
           <Tab
             heading={
@@ -68,7 +65,7 @@ const DashboardScreen = observer(() => {
               </TabHeading>
             }
           >
-            <AllList />
+            <Closed />
           </Tab>
         </Tabs>
       </View>

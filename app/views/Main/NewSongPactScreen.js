@@ -84,13 +84,6 @@ function NewSongPact({ navigation }) {
           />
         </View>
       </View>
-      {/* <ConfirmModal
-        text="Would you like to initialize a contract?"
-        confirm={(type) => createConfirm('Producer')}
-        deny={createDeny}
-        onBackdropPress={() => setModalVisible(false)}
-        isVisible={isModalVisible}
-      /> */}
     </Screen>
   )
 }

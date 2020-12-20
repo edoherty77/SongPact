@@ -14,7 +14,7 @@ type Pact @model @auth(rules: [{ allow: public }]) {
   recordTitle: String!
   role: String
   initBy: String
-  contributors: [User]
+  contributors: String
   perfPublish: Int
   prodAdvance: Int
   prodPublish: Int

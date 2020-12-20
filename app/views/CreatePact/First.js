@@ -74,9 +74,16 @@ export default function First({ route, navigation }) {
 
   async function next(values) {
     const stuff = {
-      recordTitle: values.recordTitle,
-      role: values.role,
-      type: type,
+      recordTitle: 'Feel',
+      role: 'Purchaser',
+      type: 'Producer',
+      initBy: 'Evan',
+      perfPublish: 20,
+      prodAdvance: 30,
+      prodPublish: 20,
+      prodRoyalty: 5,
+      prodCredit: 'Steeve',
+      status: True,
     }
     setData(stuff)
     console.log('Stuff:', stuff)
@@ -100,6 +107,14 @@ export default function First({ route, navigation }) {
   function trashConfirm() {
     setModalVisible(false)
     navigation.navigate('New')
+    const parent = navigation.dangerouslyGetParent()
+    parent.setOptions({
+      tabBarVisible: true,
+    })
+    return () =>
+      parent.setOptions({
+        tabBarVisible: false,
+      })
   }
 
   return (
@@ -151,6 +166,9 @@ export default function First({ route, navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
+                  {
+                    next
+                  }
                   navigation.push('Second')
                 }}
               />
