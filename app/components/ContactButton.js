@@ -11,7 +11,7 @@ const ContactButton = ({ initials, title, onPress, name, noIcon }) => {
     <TouchableOpacity onPress={onPress} style={styles.contactButton}>
       <View style={styles.contactView}>
         <View style={styles.textView}>
-          <AppText fontSize={20} style={styles.name}>
+          <AppText onPress={onPress} fontSize={20} style={styles.name}>
             {name}
           </AppText>
         </View>

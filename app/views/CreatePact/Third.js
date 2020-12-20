@@ -109,10 +109,8 @@ export default function Third({ navigation }) {
                           name={`collabs.${index}`}
                           value1="Producer"
                           value2="Purchaser"
+                          formikKey={`collabs.${index}.role`}
                           user={`${item.first} ${item.last}`}
-                          onPress={() => {
-                            push(item.item, index)
-                          }}
                         />
                       )}
                     />
