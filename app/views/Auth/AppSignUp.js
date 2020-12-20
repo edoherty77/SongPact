@@ -129,7 +129,7 @@ export default function SignUp({ navigation }) {
                 />
                 <SubmitButton
                   style={styles.signUpButton}
-                  title="Create Profile"
+                  title="Sign Up"
                   color={colors.confirm}
                   dismissKey={Keyboard.dismiss}
                 />

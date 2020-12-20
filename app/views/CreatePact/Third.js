@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 
 import colors from '../../config/colors'
 import Screen from '../../components/Screen'
@@ -12,8 +12,7 @@ import ConfirmModal from '../../components/ConfirmModal'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import config from '../../../aws-exports'
 Amplify.configure(config)
-import { createPact } from '../../src/graphql/Queries'
-import { Formik } from 'formik'
+import { Formik, FieldArray } from 'formik'
 import { useFormState, useFormDispatch } from '../../context/form-context'
 
 import {
@@ -34,7 +33,7 @@ const validationSchema = Yup.object().shape({
   // ),
 })
 
-export default function First({ route, navigation }) {
+export default function Third({ navigation }) {
   const Lest = { AppForm }
   const form = React.useRef()
   const dispatch = useFormDispatch()
@@ -57,44 +56,8 @@ export default function First({ route, navigation }) {
     return unsubscribe
   }, [navigation])
 
-  React.useEffect(() => {
-    const parent = navigation.dangerouslyGetParent()
-    parent.setOptions({
-      tabBarVisible: false,
-    })
-    return () =>
-      parent.setOptions({
-        tabBarVisible: true,
-      })
-  }, [])
-
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
-  const { type } = route.params
-
-  async function next(values) {
-    const stuff = {
-      recordTitle: 'Feel',
-      role: 'Purchaser',
-      type: 'Producer',
-      initBy: 'Evan',
-      perfPublish: 20,
-      prodAdvance: 30,
-      prodPublish: 20,
-      prodRoyalty: 5,
-      prodCredit: 'Steeve',
-      status: True,
-    }
-    setData(stuff)
-    console.log('Stuff:', stuff)
-    console.log('data:', data)
-    try {
-      await API.graphql(graphqlOperation(createPact, data))
-      console.log('pact successfully created.')
-    } catch (err) {
-      console.log('error creating pact...', err)
-    }
-  }
 
   function trash() {
     setModalVisible(true)
@@ -107,25 +70,14 @@ export default function First({ route, navigation }) {
   function trashConfirm() {
     setModalVisible(false)
     navigation.navigate('New')
-    const parent = navigation.dangerouslyGetParent()
-    parent.setOptions({
-      tabBarVisible: true,
-    })
-    return () =>
-      parent.setOptions({
-        tabBarVisible: false,
-      })
   }
 
   return (
     <Screen>
       <Header
-        icon={'information'}
-        title={type}
-        // iconPress={() => {
-        //   navigation.navigate('Second')
-        // }}
-        // name="arrow-right-bold"
+        title="Roles"
+        icon="arrow-left-bold"
+        back={() => navigation.navigate('Second')}
       />
       <Formik
         innerRef={form}
@@ -137,28 +89,31 @@ export default function First({ route, navigation }) {
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
-              <View style={styles.titleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Record Title</AppText>
-                </View>
-                <AppFormField
-                  name="recordTitle"
-                  style={styles.input}
-                  placeholder="Record Title"
-                  autoCorrect={false}
-                  placeholderTextColor={colors.black}
-                />
-              </View>
               <View style={styles.roleView}>
-                <View style={styles.sectionText}>
-                  <AppText fontSize={30}>Your Role</AppText>
-                </View>
-                <AppFormRadio
-                  name="role"
-                  value1="Producer"
-                  value2="Purchaser"
-                  formikKey="role"
-                />
+                <FieldArray name="collabs">
+                  {({ push, remove }) => (
+                    <FlatList
+                      // contentContainerStyle={{
+                      //   alignItems: 'center',
+                      //   justifyContent: 'center',
+                      //   // backgroundColor: 'blue',
+                      //   width: '100%',
+                      // }}
+                      style={styles.addedCollabsList}
+                      data={values.collabs}
+                      keyExtractor={(collab) => collab.id}
+                      renderItem={({ item, index }) => (
+                        <AppFormRadio
+                          name={`collabs.${index}`}
+                          value1="Producer"
+                          value2="Purchaser"
+                          formikKey={`collabs.${index}.role`}
+                          user={`${item.first} ${item.last}`}
+                        />
+                      )}
+                    />
+                  )}
+                </FieldArray>
               </View>
             </View>
             <View style={styles.footer}>
@@ -166,10 +121,7 @@ export default function First({ route, navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  {
-                    next
-                  }
-                  navigation.push('Second')
+                  navigation.push('Fourth')
                 }}
               />
               <View style={styles.iconView}>
@@ -236,7 +188,14 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
   },
-
+  input: {
+    width: '90%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    fontSize: 18,
+    paddingLeft: 20,
+    height: 45,
+    borderRadius: 25,
+  },
   footer: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -249,14 +208,6 @@ const styles = StyleSheet.create({
   iconView: {
     position: 'absolute',
     right: 10,
-  },
-  input: {
-    width: '90%',
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
-    fontSize: 18,
-    paddingLeft: 20,
-    height: 45,
-    borderRadius: 25,
   },
   nextButton: {
     // marginTop: 10,

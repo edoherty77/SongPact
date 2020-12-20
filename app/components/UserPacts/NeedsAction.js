@@ -19,7 +19,7 @@ import {
 } from 'native-base'
 import AppText from '../AppText'
 
-const NeedsActionList = () => {
+const NeedsAction = () => {
   const cards = [
     {
       text: 'Card One',
@@ -33,23 +33,23 @@ const NeedsActionList = () => {
     },
     {
       text: 'Card Three',
-      name: 'One',
+      name: 'Three',
       image: require('../../assets/FKJ.jpg'),
     },
     {
       text: 'Card Four',
-      name: 'One',
+      name: 'Four',
       image: require('../../assets/FKJ.jpg'),
     },
     {
       text: 'Card Five',
-      name: 'One',
+      name: 'Five',
       image: require('../../assets/FKJ.jpg'),
     },
   ]
   return (
     <View style={styles.mainView}>
-      {/* <DeckSwiper
+      <DeckSwiper
         dataSource={cards}
         renderItem={(item) => (
           <Card style={styles.card}>
@@ -76,8 +76,9 @@ const NeedsActionList = () => {
               <Icon name="heart" style={{ color: '#ED4A6A' }} />
               <Text>{item.name}</Text>
             </CardItem>
-          </Card> */}
-      {/* )} /> */}
+          </Card>
+        )}
+      />
     </View>
   )
 }
@@ -105,4 +106,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NeedsActionList
+export default NeedsAction

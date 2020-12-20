@@ -146,7 +146,6 @@ const SignInScreen = ({ navigation }) => {
                     placeholder="Password"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    // icon="lock"
                     placeholderTextColor={colors.black}
                     textContentType="password"
                     secureTextEntry

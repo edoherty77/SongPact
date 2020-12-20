@@ -2,21 +2,22 @@ import React, { useContext, useEffect } from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { StyleSheet } from "react-native"
-
-import Contacts from "../views/Main/ContactsScreen"
-import CreatPactNavigator from "./CreatePactNavigator"
+import CreatePactStack from "./CreatePactStack"
+import ButtonIcon from "../components/ButtonIcon"
 import Dashboard from "../views/Main/DashboardScreen"
-import MenuScreen from "../views/Main/MenuScreen"
+import Contacts from "../views/Main/ContactsScreen"
+import New from "../views/Main/NewSongPactScreen"
 import NotificationsScreen from "../views/Main/NotificationsScreen"
-
+import Menu from "../views/Main/MenuScreen"
 import colors from "../config/colors"
+import MenuScreen from "../views/Main/MenuScreen"
 
 const Tab = createBottomTabNavigator()
 
-export default function AppNavigator(props) {
+export default function BottomTabs({ updateAuthState }) {
   return (
     <Tab.Navigator
-      // initialRouteName="Dashboard"
+      initialRouteName="Dashboard"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -81,8 +82,11 @@ export default function AppNavigator(props) {
           ),
           // tabBarLabel: '',
         }}
+        // options={({ route }) => ({
+        //   tabBarVisible: getTabBarVisibility(route),
+        // })}
         name="New"
-        component={CreatPactNavigator}
+        component={CreatePactStack}
       />
       <Tab.Screen
         options={{
@@ -106,10 +110,7 @@ export default function AppNavigator(props) {
         name="Menu"
       >
         {(screenProps) => (
-          <MenuScreen
-            {...screenProps}
-            updateAuthState={props.updateAuthState}
-          />
+          <MenuScreen {...screenProps} updateAuthState={updateAuthState} />
         )}
       </Tab.Screen>
     </Tab.Navigator>

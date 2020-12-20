@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar"
 import React, { useEffect, useState } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { FormProvider } from "./app/context/form-context"
+import { SafeAreaProvider } from "react-native-safe-area-context"
 
 // AMPLIFY & AUTH
 import Amplify, { Auth } from "aws-amplify"
@@ -14,15 +15,14 @@ Amplify.configure({
 })
 
 // NAV
-import { NavigationContainer } from "@react-navigation/native"
-import AppNavigator from "./app/navigation/AppNavigator"
 import AuthNavigator from "./app/navigation/AuthNavigator"
+import Main from "./app/navigation/main"
 
 // DATA FLOW
-import { ApolloProvider } from "@apollo/client"
-import { client } from "./app/src/graphql/Client"
 import store from "./app/stores/TestStore"
 import { observer } from "mobx-react"
+
+// import { AppearanceProvider } from 'react-native-appearance'
 
 const Initializing = () => {
   return (
@@ -68,20 +68,19 @@ const App = observer(({ navigation }) => {
 
   return (
     <>
-      <ApolloProvider client={client}>
+      <SafeAreaProvider>
+        {/* <AppearanceProvider> */}
         <FormProvider>
-          <NavigationContainer>
-            {/* {store.sub ? <AppNavigator /> : <AuthNavigator />} */}
-            {isUserLoggedIn === "initializing" && <Initializing />}
-            {isUserLoggedIn === "loggedIn" && (
-              <AppNavigator updateAuthState={updateAuthState} />
-            )}
-            {isUserLoggedIn === "loggedOut" && (
-              <AuthNavigator updateAuthState={updateAuthState} />
-            )}
-          </NavigationContainer>
+          {isUserLoggedIn === "initializing" && <Initializing />}
+          {isUserLoggedIn === "loggedIn" && (
+            <Main updateAuthState={updateAuthState} />
+          )}
+          {isUserLoggedIn === "loggedOut" && (
+            <AuthNavigator updateAuthState={updateAuthState} />
+          )}
         </FormProvider>
-      </ApolloProvider>
+        {/* </AppearanceProvider> */}
+      </SafeAreaProvider>
       <StatusBar style={"auto"} />
     </>
   )
