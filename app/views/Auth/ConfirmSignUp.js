@@ -1,19 +1,21 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
-import { Auth } from "aws-amplify"
+import { View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import AppTextInput from "../../components/AppTextInput"
+
+import { Auth } from "aws-amplify"
+
 import AppButton from "../../components/AppButton"
 import AppText from "../../components/AppText"
+import AppTextInput from "../../components/AppTextInput"
 
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("")
   const [authCode, setAuthCode] = useState("")
+
   async function confirmSignUp() {
     try {
-      const data = await Auth.confirmSignUp(username, authCode)
+      await Auth.confirmSignUp(username, authCode)
       console.log("✅ Code confirmed")
-      // console.log(data)
       navigation.navigate("SignIn")
     } catch (error) {
       console.log(
