@@ -2,8 +2,9 @@ type User @model {
   _id: ID!
   firstName: String!
   lastName: String!
-  email: String!
   artistName: String!
+  companyName: String!
+  email: String!
   contacts: [User]
   pacts: [Pact]
 }

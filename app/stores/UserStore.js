@@ -8,19 +8,23 @@ class UserStore {
   email = ""
 
   setUser(values) {
+    console.log("setting User in UserStore...")
     this.firstName = values.firstName
     this.lastName = values.lastName
     this.artistName = values.artistName
     this.companyName = values.companyName
     this.email = values.email
+    console.log(this.firstName, this.lastName, " set")
   }
 
-  clearUser() {
+  resetUser() {
+    console.log("resetting User in UserStore...")
     this.firstName = ""
     this.lastName = ""
     this.artistName = ""
     this.companyName = ""
     this.email = ""
+    console.log("User reset")
   }
 
   constructor() {

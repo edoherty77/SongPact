@@ -1,8 +1,8 @@
 export default {
   // light blue
-  primary: '#30BCED',
+  primary: "#30BCED",
   //jet black
-  secondary: '#303036',
+  secondary: "#303036",
 
   //Summer Music Library
   //white
@@ -33,10 +33,10 @@ export default {
   // black: '#1A1A1A',
   // gray: '#A7A7A7',
 
-  tan: '#d8c7c0',
-  red: '#fc4364',
+  tan: "#d8c7c0",
+  red: "#fc4364",
   // red: '#ff345d',
-  gray: '#dad8d8',
-  black: '#544e51',
-  lttan: '#eae3e3',
+  gray: "#dad8d8",
+  black: "#544e51",
+  lttan: "#eae3e3",
 }

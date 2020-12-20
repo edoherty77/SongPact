@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react"
 import {
   Provider as PaperProvider,
   DefaultTheme,
   DarkTheme,
-} from 'react-native-paper'
-import { RootNavigator } from './rootNavigator'
+} from "react-native-paper"
+import { RootNavigator } from "./rootNavigator"
 
-export default function Main() {
+export default function Main({ updateAuthState }) {
   return (
     <PaperProvider>
-      <RootNavigator />
+      <RootNavigator updateAuthState={updateAuthState} />
     </PaperProvider>
   )
 }
