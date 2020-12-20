@@ -39,16 +39,8 @@ const App = observer(({ navigation }) => {
       console.log("✅ User is signed in")
       store.setUser(user.attributes)
       setUserLoggedIn("loggedIn")
-      // setSub(store.sub)
-      // TODO remove or move to user store
-      // look for user ID that matches sub ID
-      // if found
-      // return foundUser data
-      // store foundUser data in state store
-      // if not found
-      // create newUser entry with ID == sub
-      // store newUser data in state
-      // await AsyncStorage.setItem("sub", store.sub)
+      // const userFromAPI = query API for user profile with ID === user.attributes.sub
+      // store.setUser(userFromAPI)
     } catch (error) {
       console.log("❌ User is not signed in")
       store.resetUser()
