@@ -19,10 +19,8 @@ import AuthNavigator from "./app/navigation/AuthNavigator"
 import Main from "./app/navigation/main"
 
 // DATA FLOW
-import store from "./app/stores/TestStore"
+import store from "./app/stores/UserStore"
 import { observer } from "mobx-react"
-
-// import { AppearanceProvider } from 'react-native-appearance'
 
 const Initializing = () => {
   return (
@@ -64,7 +62,7 @@ const App = observer(({ navigation }) => {
 
   useEffect(() => {
     checkAuthState()
-  }, [store.sub])
+  }, [])
 
   return (
     <>
