@@ -12,16 +12,13 @@ Amplify.configure({
     disabled: true, // kills unhandled promise warning
   },
 })
-import { withAuthenticator } from "aws-amplify-react-native"
 
 // NAV
 import { NavigationContainer } from "@react-navigation/native"
-import { createStackNavigator } from "@react-navigation/stack"
 import AppNavigator from "./app/navigation/AppNavigator"
 import AuthNavigator from "./app/navigation/AuthNavigator"
 
 // DATA FLOW
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ApolloProvider } from "@apollo/client"
 import { client } from "./app/src/graphql/Client"
 import store from "./app/stores/TestStore"
@@ -90,5 +87,4 @@ const App = observer(({ navigation }) => {
   )
 })
 
-// export default App
 export default App

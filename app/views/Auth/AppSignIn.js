@@ -1,15 +1,19 @@
 import React, { useState } from "react"
-import { ImageBackground, StyleSheet, Text, View } from "react-native"
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Platform,
+  Keyboard,
+} from "react-native"
+
 import { Auth } from "aws-amplify"
+
 import Screen from "../../components/Screen"
-import Header from "../../components/Header"
 import AppTextInput from "../../components/AppTextInput"
 import AppButton from "../../components/AppButton"
-import { TouchableOpacity } from "react-native"
-import { KeyboardAvoidingView } from "react-native"
-import { TouchableWithoutFeedback } from "react-native"
-import { Platform } from "react-native"
-import { Keyboard } from "react-native"
 import AppText from "../../components/AppText"
 import colors from "../../config/colors"
 
@@ -97,11 +101,6 @@ export default function AppSignIn({ navigation, updateAuthState }) {
                   title="Sign Up"
                   onPress={() => navigation.navigate("SignUp")}
                 />
-                {/* <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                  <AppText style={styles.forgotPasswordButtonText}>
-                    Don't have an account? Sign Up
-                  </AppText>
-                </TouchableOpacity> */}
               </View>
             </View>
           </TouchableWithoutFeedback>
@@ -114,9 +113,6 @@ export default function AppSignIn({ navigation, updateAuthState }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column",
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   mainView: {
     flex: 1,
