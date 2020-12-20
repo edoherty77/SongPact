@@ -6,19 +6,13 @@ import Separator from '../components/Separator'
 import colors from '../config/colors'
 import ButtonIcon from '../components/ButtonIcon'
 
-const ContactButton = ({
-  initials,
-  title,
-  onPress,
-
-  noIcon,
-}) => {
+const ContactButton = ({ initials, title, onPress, name, noIcon }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.contactButton}>
       <View style={styles.contactView}>
         <View style={styles.textView}>
-          <AppText fontSize={20} style={styles.name}>
-            {title}
+          <AppText onPress={onPress} fontSize={20} style={styles.name}>
+            {name}
           </AppText>
         </View>
         <View style={styles.btnView}>

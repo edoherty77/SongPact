@@ -4,21 +4,15 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class Todo {
+export declare class User {
   readonly id: string;
-  readonly name: string;
-  readonly description?: string;
-  constructor(init: ModelInit<Todo>);
-  static copyOf(source: Todo, mutator: (draft: MutableModel<Todo>) => MutableModel<Todo> | void): Todo;
-}
-
-export declare class Pet {
-  readonly id: string;
-  readonly name: string;
-  readonly description?: string;
-  readonly nickname?: string;
-  constructor(init: ModelInit<Pet>);
-  static copyOf(source: Pet, mutator: (draft: MutableModel<Pet>) => MutableModel<Pet> | void): Pet;
+  readonly _id: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly email: string;
+  readonly artistName: string;
+  constructor(init: ModelInit<User>);
+  static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
 
 export declare class Pact {
@@ -27,7 +21,6 @@ export declare class Pact {
   readonly recordTitle: string;
   readonly role?: string;
   readonly initBy?: string;
-  readonly contributor?: string;
   readonly status?: boolean;
   constructor(init: ModelInit<Pact>);
   static copyOf(source: Pact, mutator: (draft: MutableModel<Pact>) => MutableModel<Pact> | void): Pact;

@@ -3,7 +3,7 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import PactButton from '../PactButton'
 
-const OpenList = () => {
+const Pending = () => {
   return (
     <View style={styles.pactList}>
       <PactButton status="pending" name="Mark" title="Adrift" type="Remix" />
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default OpenList
+export default Pending

@@ -11,6 +11,7 @@ const AppFormRadio = ({
   value1,
   value2,
   width,
+  user,
   ...otherProps
 }) => {
   const { setFieldValue, handleChange, errors, touched } = useFormikContext()
@@ -25,9 +26,12 @@ const AppFormRadio = ({
         value={value}
         {...otherProps}
       >
+        <View>
+          <AppText fontSize={30}>{user}</AppText>
+        </View>
         <View style={styles.optionView}>
           <View style={styles.textView}>
-            <AppText fontSize={20}>{value1}:</AppText>
+            <AppText fontSize={23}>{value1}:</AppText>
           </View>
           <View style={styles.radioBtnView}>
             <RadioButton color="#42C1FC" value={value1} />
@@ -35,7 +39,7 @@ const AppFormRadio = ({
         </View>
         <View style={styles.optionView}>
           <View style={styles.textView}>
-            <AppText fontSize={20}>{value2}:</AppText>
+            <AppText fontSize={23}>{value2}:</AppText>
           </View>
           <View style={styles.radioBtnView}>
             <RadioButton color="#42C1FC" value={value2} />
@@ -63,10 +67,10 @@ const styles = StyleSheet.create({
   },
   radioBtnView: {
     position: 'absolute',
-    right: 170,
+    right: 80,
     margin: 10,
     // width: 20,
     borderRadius: 50,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
   },
 })
