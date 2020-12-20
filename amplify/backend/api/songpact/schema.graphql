@@ -1,4 +1,6 @@
-type User @model {
+type User
+  @model
+  @auth(rules: [{ allow: public, operations: [read], provider: apiKey }]) {
   _id: ID!
   firstName: String!
   lastName: String!
@@ -8,7 +10,9 @@ type User @model {
   pacts: [Pact]
 }
 
-type Pact @model @auth(rules: [{ allow: public }]) {
+type Pact
+  @model
+  @auth(rules: [{ allow: public, operations: [read], provider: apiKey }]) {
   id: ID!
   type: String!
   recordTitle: String!

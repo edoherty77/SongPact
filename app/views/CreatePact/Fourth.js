@@ -62,8 +62,6 @@ export default function Fourth({ navigation }) {
     <Screen>
       <Header
         title="Numbers"
-        // name="arrow-right-bold"
-        // iconPress={() => navigation.navigate('Last')}
         icon="arrow-left-bold"
         back={() => navigation.navigate('Third')}
       />
