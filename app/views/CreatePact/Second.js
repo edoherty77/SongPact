@@ -9,9 +9,10 @@ import ContactCheckBox from '../../components/ContactCheckBox'
 import UserIcon from '../../components/UserIcon'
 import Separator from '../../components/Separator'
 import { SubmitButton } from '../../components/forms'
+import ButtonIcon from '../../components/ButtonIcon'
 import { Formik, FieldArray } from 'formik'
 import { useFormState, useFormDispatch } from '../../context/form-context'
-
+import ConfirmModal from '../../components/ConfirmModal'
 const contacts = [
   { first: 'Chris', last: 'Dibona', id: 1 },
   { first: 'Andrew', last: 'Leinbach', id: 2 },
@@ -49,7 +50,7 @@ function Second({ navigation }) {
   // const [isChecked, setIsChecked] = useState(false)
 
   function chooseCollab(person) {
-    console.log(person)
+    // console.log(person)
     setPeople([
       ...people,
       {
@@ -59,12 +60,25 @@ function Second({ navigation }) {
     ])
   }
 
+  const [isModalVisible, setModalVisible] = useState(false)
+
+  function trash() {
+    setModalVisible(true)
+  }
+
+  function trashDeny() {
+    setModalVisible(false)
+  }
+
+  function trashConfirm() {
+    setModalVisible(false)
+    navigation.navigate('New')
+  }
+
   return (
     <Screen>
       <Head
         title="Pick Peeps"
-        name="arrow-right-bold"
-        iconPress={() => navigation.navigate('Third')}
         icon="arrow-left-bold"
         back={() => navigation.navigate('First')}
       />
@@ -142,18 +156,33 @@ function Second({ navigation }) {
                   )}
                 </FieldArray>
               </View>
-              {/* <View style={styles.submitView}> */}
-              <SubmitButton
-                style={styles.nextButton}
-                title="submit"
-                onPress={() => {
-                  navigation.push('Third')
-                }}
-              />
-              {/* </View> */}
+              <View style={styles.footer}>
+                <SubmitButton
+                  style={styles.nextButton}
+                  title="Next"
+                  onPress={() => {
+                    navigation.push('Third')
+                  }}
+                />
+                <View style={styles.iconView}>
+                  <ButtonIcon
+                    onPress={trash}
+                    name="delete"
+                    backgroundColor="transparent"
+                    iconColor={colors.red}
+                  />
+                </View>
+              </View>
             </View>
           )}
         </Formik>
+        <ConfirmModal
+          text="Are you sure you'd like to delete?"
+          onBackdropPress={() => setModalVisible(false)}
+          isVisible={isModalVisible}
+          confirm={trashConfirm}
+          deny={trashDeny}
+        />
       </View>
     </Screen>
   )
@@ -192,18 +221,23 @@ const styles = StyleSheet.create({
     // backgroundColor: 'orange',
     marginTop: 15,
   },
-  submitView: {
-    // position: 'absolute',
-    // top: 60,
-    // right: 20,
-    backgroundColor: colors.red,
+  footer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    // backgroundColor: 'pink',
+    // alignSelf: 'flex-end',
+    // justifyContent: 'space-between',
+  },
+  iconView: {
+    position: 'absolute',
+    right: 10,
   },
   nextButton: {
-    position: 'absolute',
+    // marginTop: 10,
     borderRadius: 50,
     height: 45,
-    right: 100,
-    bottom: 20,
     backgroundColor: colors.red,
     width: '50%',
   },

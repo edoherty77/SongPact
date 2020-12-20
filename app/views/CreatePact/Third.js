@@ -76,8 +76,6 @@ export default function Third({ navigation }) {
     <Screen>
       <Header
         title="Roles"
-        name="arrow-right-bold"
-        iconPress={() => navigation.navigate('Fourth')}
         icon="arrow-left-bold"
         back={() => navigation.navigate('Second')}
       />
@@ -190,7 +188,14 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
   },
-
+  input: {
+    width: '90%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    fontSize: 18,
+    paddingLeft: 20,
+    height: 45,
+    borderRadius: 25,
+  },
   footer: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -203,14 +208,6 @@ const styles = StyleSheet.create({
   iconView: {
     position: 'absolute',
     right: 10,
-  },
-  input: {
-    width: '90%',
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
-    fontSize: 18,
-    paddingLeft: 20,
-    height: 45,
-    borderRadius: 25,
   },
   nextButton: {
     // marginTop: 10,

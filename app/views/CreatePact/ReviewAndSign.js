@@ -57,13 +57,7 @@ export default function ReviewAndSign({ navigation }) {
   }
   return (
     <Screen>
-      <Header
-        back={() => navigation.navigate('Second')}
-        icon="arrow-left-bold"
-        iconPress={() => {
-          navigation.navigate('Third')
-        }}
-      />
+      <Header back={() => navigation.navigate('Last')} icon="arrow-left-bold" />
       <Formik
         innerRef={form}
         initialValues={formValues}

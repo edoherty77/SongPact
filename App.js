@@ -1,9 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 
-import { FormProvider } from './app/context/form-context'
-import { Provider as PaperProvider } from 'react-native-paper'
-
 // AMPLIFY & AUTH
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from './aws-exports'
@@ -16,16 +13,18 @@ Amplify.configure({
 import { withAuthenticator } from 'aws-amplify-react-native'
 
 // NAV
-import { NavigationContainer } from '@react-navigation/native'
-import AppNavigator from './app/navigation/AppNavigator'
+import { FormProvider } from './app/context/form-context'
 import AuthNavigator from './app/navigation/AuthNavigator'
+import Main from './app/navigation/main'
 
 // DATA FLOW
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ApolloProvider } from '@apollo/client'
-import { client } from './app/src/graphql/Client'
+
 import store from './app/stores/TestStore'
 import { observer } from 'mobx-react'
+
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+// import { AppearanceProvider } from 'react-native-appearance'
 
 const App = observer(({ navigation }) => {
   const getCurrentUser = async () => {
@@ -53,14 +52,11 @@ const App = observer(({ navigation }) => {
 
   return (
     <>
-      <PaperProvider>
-        <FormProvider>
-          <NavigationContainer>
-            {store.sub ? <AppNavigator /> : <AuthNavigator />}
-          </NavigationContainer>
-        </FormProvider>
-      </PaperProvider>
-
+      <SafeAreaProvider>
+        {/* <AppearanceProvider> */}
+        <FormProvider>{store.sub ? <Main /> : <AuthNavigator />}</FormProvider>
+        {/* </AppearanceProvider> */}
+      </SafeAreaProvider>
       <StatusBar style={'auto'} />
     </>
   )

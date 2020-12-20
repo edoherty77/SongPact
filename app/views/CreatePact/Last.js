@@ -78,10 +78,6 @@ export default function Last({ navigation }) {
       <Header
         back={() => navigation.navigate('Fourth')}
         icon="arrow-left-bold"
-        // iconPress={() => {
-        //   navigation.navigate('Third')
-        // }}
-        // name="arrow-right-bold"
       />
       <Formik
         innerRef={form}

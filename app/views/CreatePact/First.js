@@ -57,6 +57,17 @@ export default function First({ route, navigation }) {
     return unsubscribe
   }, [navigation])
 
+  React.useEffect(() => {
+    const parent = navigation.dangerouslyGetParent()
+    parent.setOptions({
+      tabBarVisible: false,
+    })
+    return () =>
+      parent.setOptions({
+        tabBarVisible: true,
+      })
+  }, [])
+
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
   const { type } = route.params
@@ -96,10 +107,10 @@ export default function First({ route, navigation }) {
       <Header
         icon={'information'}
         title={type}
-        iconPress={() => {
-          navigation.navigate('Second')
-        }}
-        name="arrow-right-bold"
+        // iconPress={() => {
+        //   navigation.navigate('Second')
+        // }}
+        // name="arrow-right-bold"
       />
       <Formik
         innerRef={form}
