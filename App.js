@@ -30,7 +30,7 @@ const Initializing = () => {
   )
 }
 
-const App = observer(({ navigation }) => {
+const App = observer(() => {
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing")
 
   const checkAuthState = async () => {
