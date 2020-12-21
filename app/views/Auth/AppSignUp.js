@@ -70,10 +70,27 @@ export default function SignUp({ navigation }) {
         email: values.email,
       }
       const user = await API.graphql(graphqlOperation(createUser, userObj))
-      console.log(user)
+      console.log("added user: ", user)
       navigation.navigate("ConfirmSignUp")
     } catch (error) {
       console.log("❌ Error signing up...", error)
+    }
+  }
+
+  const addUser = async (id, values) => {
+    try {
+      const userObj = {
+        id: id,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        artistName: values.artistName,
+        companyName: values.companyName,
+        email: values.email,
+      }
+      const user = await API.graphql(graphqlOperation(createUser, userObj))
+      console.log(user)
+    } catch (error) {
+      console.log("Error adding user: ", error)
     }
   }
 
