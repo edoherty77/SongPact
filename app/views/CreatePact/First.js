@@ -35,7 +35,6 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function First({ route, navigation }) {
-  const Lest = { AppForm }
   const form = React.useRef()
   const dispatch = useFormDispatch()
   const { values: formValues, errors: formErrors } = useFormState('customer')
@@ -72,30 +71,6 @@ export default function First({ route, navigation }) {
   const [data, setData] = useState(null)
   const { type } = route.params
 
-  async function next(values) {
-    const stuff = {
-      recordTitle: 'Feel',
-      role: 'Purchaser',
-      type: 'Producer',
-      initBy: 'Evan',
-      perfPublish: 20,
-      prodAdvance: 30,
-      prodPublish: 20,
-      prodRoyalty: 5,
-      prodCredit: 'Steeve',
-      status: True,
-    }
-    setData(stuff)
-    console.log('Stuff:', stuff)
-    console.log('data:', data)
-    try {
-      await API.graphql(graphqlOperation(createPact, data))
-      console.log('pact successfully created.')
-    } catch (err) {
-      console.log('error creating pact...', err)
-    }
-  }
-
   function trash() {
     setModalVisible(true)
   }
@@ -119,14 +94,7 @@ export default function First({ route, navigation }) {
 
   return (
     <Screen>
-      <Header
-        icon={'information'}
-        title={type}
-        // iconPress={() => {
-        //   navigation.navigate('Second')
-        // }}
-        // name="arrow-right-bold"
-      />
+      <Header icon={'information'} title={type} />
       <Formik
         innerRef={form}
         enableReinitialize
@@ -166,9 +134,6 @@ export default function First({ route, navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  {
-                    next
-                  }
                   navigation.push('Second')
                 }}
               />
