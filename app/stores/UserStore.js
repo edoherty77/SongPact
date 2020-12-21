@@ -1,30 +1,31 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 
 class UserStore {
-  firstName = ""
-  lastName = ""
-  artistName = ""
-  companyName = ""
-  email = ""
+  id = ''
+  firstName = ''
+  lastName = ''
+  artistName = ''
+  companyName = ''
+  email = ''
 
   setUser(values) {
-    console.log("setting User in UserStore...")
+    console.log('setting User in UserStore...')
     this.firstName = values.firstName
     this.lastName = values.lastName
     this.artistName = values.artistName
     this.companyName = values.companyName
     this.email = values.email
-    console.log(this.firstName, this.lastName, " set")
+    console.log(this.firstName, this.lastName, ' set')
   }
 
   resetUser() {
-    console.log("resetting User in UserStore...")
-    this.firstName = ""
-    this.lastName = ""
-    this.artistName = ""
-    this.companyName = ""
-    this.email = ""
-    console.log("User reset")
+    console.log('resetting User in UserStore...')
+    this.firstName = ''
+    this.lastName = ''
+    this.artistName = ''
+    this.companyName = ''
+    this.email = ''
+    console.log('User reset')
   }
 
   constructor() {

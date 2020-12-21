@@ -1,12 +1,25 @@
 import gql from 'graphql-tag'
 
 //USER QUERIES
-export const GET_CURRENT_USER = gql`
+export const getUser = gql`
   query {
-    getCurrentUser {
-      email
-      joinDate
-      artistName
+    getUser(email: $email) {
+      id
+      firstName
+    }
+  }
+`
+
+export const listUsers = gql`
+  query {
+    listUsers {
+      items {
+        artistName
+        companyName
+        firstName
+        lastName
+        email
+      }
     }
   }
 `
@@ -17,7 +30,6 @@ export const listPacts = gql`
   query {
     listPacts {
       items {
-        id
         type
         role
         recordTitle
@@ -36,32 +48,28 @@ export const listPacts = gql`
 
 //USER MUTATIONS
 
-export const SIGNIN_USER = gql`
-  mutation($email: String!, $password: String!) {
-    signinUser(email: $email, password: $password) {
-      token
-    }
-  }
-`
-
-export const SIGNUP_USER = gql`
+export const createUser = gql`
   mutation(
+    $id: String!
     $firstName: String!
     $lastName: String!
     $email: String!
-    $password: String!
+    $companyName: String!
     $artistName: String!
   ) {
-    signupUser(
+    createUser(
+      id: $id
       firstName: $firstName
       lastName: $lastName
       email: $email
-      password: $password
+      companyName: $companyName
       artistName: $artistName
     ) {
+      id
       lastName
       firstName
       artistName
+      companyName
       email
     }
   }

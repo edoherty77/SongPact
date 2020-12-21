@@ -10,6 +10,7 @@ import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import { useFormState, useFormDispatch } from '../../context/form-context'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import { createPact } from '../../src/graphql/Queries'
 import config from '../../../aws-exports'
 Amplify.configure(config)
 
@@ -52,9 +53,15 @@ export default function ReviewAndSign({ navigation }) {
     navigation.navigate('New')
   }
 
-  function addPact(values) {
-    console.log(values)
+  async function addPact(values) {
+    try {
+      await API.graphql(graphqlOperation(createPact, values))
+      console.log('pact successfully created.')
+    } catch (err) {
+      console.log('error creating pact...', err)
+    }
   }
+
   return (
     <Screen>
       <Header back={() => navigation.navigate('Last')} icon="arrow-left-bold" />

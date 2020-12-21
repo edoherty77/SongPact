@@ -1,5 +1,5 @@
-type User @model {
-  _id: ID!
+type User @model @auth(rules: [{ allow: public }]) {
+  id: String!
   firstName: String!
   lastName: String!
   artistName: String!
@@ -10,7 +10,6 @@ type User @model {
 }
 
 type Pact @model @auth(rules: [{ allow: public }]) {
-  id: ID!
   type: String!
   recordTitle: String!
   role: String

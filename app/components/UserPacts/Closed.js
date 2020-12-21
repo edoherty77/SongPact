@@ -3,21 +3,24 @@ import { Text, View, StyleSheet } from 'react-native'
 import PactButton from '../PactButton'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import { listPacts } from '../../src/graphql/Queries'
+import { listUsers } from '../../src/graphql/Queries'
 
+const email = 'evan.doherty.ny@gmail.com'
 const Closed = () => {
-  const [pacts, setPacts] = useState([])
-  const getPacts = async () => {
+  const [user, setUser] = useState([])
+  const getPerson = async () => {
     try {
       const data = await API.graphql(graphqlOperation(listPacts))
-      setPacts(data)
+      setUser(data)
+      console.log(data)
     } catch (err) {
       console.log('error: ', err)
     }
-    console.log('pacts:', pacts)
+    console.log('pacts:', user)
   }
 
   useEffect(() => {
-    getPacts()
+    getPerson()
   }, [])
 
   return (
