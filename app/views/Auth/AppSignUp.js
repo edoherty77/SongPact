@@ -68,10 +68,13 @@ export default function SignUp({ navigation }) {
         artistName: values.artistName,
         companyName: values.companyName,
         email: values.email,
+        contacts: [],
+        pacts: [],
       }
-      const user = await API.graphql(graphqlOperation(createUser, userObj))
-      console.log("added user: ", user)
-      navigation.navigate("ConfirmSignUp")
+      await API.graphql(graphqlOperation(createUser, userObj))
+      console.log("user successfully created")
+      // addUser(data.userSub, values)
+      // navigation.navigate("ConfirmSignUp")
     } catch (error) {
       console.log("❌ Error signing up...", error)
     }
@@ -80,15 +83,17 @@ export default function SignUp({ navigation }) {
   const addUser = async (id, values) => {
     try {
       const userObj = {
-        id: id,
+        id: id.toString(),
         firstName: values.firstName,
         lastName: values.lastName,
         artistName: values.artistName,
         companyName: values.companyName,
         email: values.email,
+        contacts: [],
+        pacts: [],
       }
-      const user = await API.graphql(graphqlOperation(createUser, userObj))
-      console.log(user)
+      await API.graphql(graphqlOperation(createUser, userObj))
+      console.log("user successfully created")
     } catch (error) {
       console.log("Error adding user: ", error)
     }
