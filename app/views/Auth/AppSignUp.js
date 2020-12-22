@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import {
   View,
   StyleSheet,
@@ -6,73 +6,106 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-} from 'react-native'
+} from "react-native"
 
-import * as Yup from 'yup'
+import * as Yup from "yup"
 
-import AppButton from '../../components/AppButton'
-import { AppForm, AppFormField, SubmitButton } from '../../components/forms'
-import AppText from '../../components/AppText'
-import Header from '../../components/Header'
-import Screen from '../../components/Screen'
-import colors from '../../config/colors'
+import AppButton from "../../components/AppButton"
+import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
+import AppText from "../../components/AppText"
+import Header from "../../components/Header"
+import Screen from "../../components/Screen"
+import colors from "../../config/colors"
 
-import { createUser } from '../../src/graphql/Queries'
-import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import store from '../../stores/UserStore' // TODO remove
+import { createUser, listUsers } from "../../src/graphql/Queries"
+import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
+import store from "../../stores/UserStore" // TODO remove
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label('First name'),
-  lastName: Yup.string().required().label('Last name'),
-  artistName: Yup.string().required().label('Artist name'),
-  email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().label('Password'),
+  firstName: Yup.string().required().label("First name"),
+  lastName: Yup.string().required().label("Last name"),
+  artistName: Yup.string().required().label("Artist name"),
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().label("Password"),
   password2: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Passwords must match',
+    [Yup.ref("password"), null],
+    "Passwords must match"
   ),
 })
 
 const initialState = {
-  id: '',
-  firstName: '',
-  lastName: '',
-  companyName: '',
-  artistName: '',
-  email: '',
+  id: "",
+  firstName: "",
+  lastName: "",
+  artistName: "",
+  companyName: "",
+  email: "",
 }
 
 export default function SignUp({ navigation }) {
   const [formState, setFormState] = useState(initialState)
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState("")
 
   async function signUp(values) {
     try {
+      // sign up with Amplify
       const data = await Auth.signUp({
         username: values.email,
         password: values.password,
         attributes: {
           email: values.email,
-          'custom:firstName': values.firstName,
-          'custom:lastName': values.lastName,
-          'custom:companyName': values.companyName,
-          'custom:artistName': values.artistName,
         },
       })
-      console.log('✅ Sign-up Confirmed')
-      console.log(data) // TODO remove
-      console.log('sub ////', data.userSub) // TODO remove
-      store.setUser(values) // TODO remove
-      navigation.navigate('ConfirmSignUp')
+      console.log("✅ Sign-up Confirmed")
+
+      // create userObj
+      const userObj = {
+        id: data.userSub,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        artistName: values.artistName,
+        companyName: values.companyName,
+        email: values.email,
+      }
+
+      // create user in db with userObj
+      await API.graphql(graphqlOperation(createUser, userObj))
+      console.log("user successfully created")
+
+      // call listUsers to confirm new user created
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log(allUsers)
+
+      // go to confirmation screen
+      navigation.navigate("ConfirmSignUp")
     } catch (error) {
-      console.log('❌ Error signing up...', error)
+      console.log("❌ Error signing up...", error)
+    }
+  }
+
+  const addUser = async (id, values) => {
+    try {
+      const userObj = {
+        id: id,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        artistName: values.artistName,
+        companyName: values.companyName,
+        email: values.email,
+      }
+      // await API.graphql(graphqlOperation(createUser, userObj))
+      // console.log("user successfully created")
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log(allUsers)
+    } catch (error) {
+      console.log("Error adding user: ", error)
     }
   }
 
   return (
     <Screen>
       <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
       >
         <Header title="Sign Up" noIcon />
@@ -81,13 +114,13 @@ export default function SignUp({ navigation }) {
             <View style={styles.registerView}>
               <AppForm
                 initialValues={{
-                  firstName: '',
-                  lastName: '',
-                  artistName: '',
-                  companyName: '',
-                  email: '',
-                  password: '',
-                  password2: '',
+                  firstName: "",
+                  lastName: "",
+                  artistName: "",
+                  companyName: "",
+                  email: "",
+                  password: "",
+                  password2: "",
                 }}
                 onSubmit={(values) => signUp(values)}
                 validationSchema={validationSchema}
@@ -157,7 +190,7 @@ export default function SignUp({ navigation }) {
               <AppText>Already have an account?</AppText>
               <AppButton
                 title="Sign In"
-                onPress={() => navigation.navigate('SignIn')}
+                onPress={() => navigation.navigate("SignIn")}
               />
             </View>
           </View>
@@ -174,20 +207,20 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   registerView: {
     flex: 1,
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
   },
   input: {
-    width: '80%',
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    width: "80%",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
     paddingLeft: 20,
     height: 35,
@@ -198,11 +231,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 50,
     backgroundColor: colors.red,
-    width: '80%',
+    width: "80%",
   },
   loginView: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     marginVertical: 50,
   },
 })

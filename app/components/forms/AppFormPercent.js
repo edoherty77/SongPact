@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { AppFormField } from '../../components/forms'
-import { useFormikContext } from 'formik'
+import React from "react"
+import { StyleSheet, Text, View } from "react-native"
+import AppFormField from "../../components/forms/AppFormField"
+import { useFormikContext } from "formik"
 
-import AppText from '../../components/AppText'
+import AppText from "../../components/AppText"
 
-import colors from '../../config/colors'
-import ButtonIcon from '../../components/ButtonIcon'
+import colors from "../../config/colors"
+import ButtonIcon from "../../components/ButtonIcon"
 
 export default function AppFormPercent({ title, name, info }) {
   const { setFieldTouched, handleChange, errors, touched } = useFormikContext()
@@ -40,27 +40,27 @@ export default function AppFormPercent({ title, name, info }) {
 
 const styles = StyleSheet.create({
   percentView: {
-    flexDirection: 'row',
+    flexDirection: "row",
     // backgroundColor: 'red',
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   left: {
     paddingLeft: 7,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   right: {
-    display: 'flex',
-    alignSelf: 'flex-start',
+    display: "flex",
+    alignSelf: "flex-start",
     // backgroundColor: 'green',
   },
   numInput: {
     width: 35,
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     height: 35,
   },
 })
