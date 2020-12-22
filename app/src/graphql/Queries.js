@@ -14,6 +14,7 @@ export const listUsers = gql`
   query {
     listUsers {
       items {
+        id
         firstName
         lastName
         artistName
