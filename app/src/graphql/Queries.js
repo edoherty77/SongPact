@@ -14,10 +14,10 @@ export const listUsers = gql`
   query {
     listUsers {
       items {
-        artistName
-        companyName
         firstName
         lastName
+        artistName
+        companyName
         email
       }
     }
@@ -53,17 +53,19 @@ export const createUser = gql`
     $id: String!
     $firstName: String!
     $lastName: String!
-    $email: String!
-    $companyName: String!
     $artistName: String!
+    $companyName: String!
+    $email: String!
   ) {
     createUser(
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      companyName: $companyName
-      artistName: $artistName
+      input: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+        artistName: $artistName
+        companyName: $companyName
+        email: $email
+      }
     ) {
       id
       lastName

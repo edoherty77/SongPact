@@ -17,7 +17,7 @@ import Header from "../../components/Header"
 import Screen from "../../components/Screen"
 import colors from "../../config/colors"
 
-import { createUser } from "../../src/graphql/Queries"
+import { createUser, listUsers } from "../../src/graphql/Queries"
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/UserStore" // TODO remove
 
@@ -48,6 +48,7 @@ export default function SignUp({ navigation }) {
 
   async function signUp(values) {
     try {
+      // sign up with Amplify
       const data = await Auth.signUp({
         username: values.email,
         password: values.password,
@@ -56,11 +57,8 @@ export default function SignUp({ navigation }) {
         },
       })
       console.log("✅ Sign-up Confirmed")
-      console.log(data) // TODO remove
-      console.log("sub ////", data.userSub) // TODO remove
-      store.setUser(values) // TODO remove
 
-      // createUser(values) in API where id == data.userSub
+      // create userObj
       const userObj = {
         id: data.userSub,
         firstName: values.firstName,
@@ -68,13 +66,18 @@ export default function SignUp({ navigation }) {
         artistName: values.artistName,
         companyName: values.companyName,
         email: values.email,
-        contacts: [],
-        pacts: [],
       }
+
+      // create user in db with userObj
       await API.graphql(graphqlOperation(createUser, userObj))
       console.log("user successfully created")
-      // addUser(data.userSub, values)
-      // navigation.navigate("ConfirmSignUp")
+
+      // call listUsers to confirm new user created
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log(allUsers)
+
+      // go to confirmation screen
+      navigation.navigate("ConfirmSignUp")
     } catch (error) {
       console.log("❌ Error signing up...", error)
     }
@@ -83,17 +86,17 @@ export default function SignUp({ navigation }) {
   const addUser = async (id, values) => {
     try {
       const userObj = {
-        id: id.toString(),
+        id: id,
         firstName: values.firstName,
         lastName: values.lastName,
         artistName: values.artistName,
         companyName: values.companyName,
         email: values.email,
-        contacts: [],
-        pacts: [],
       }
-      await API.graphql(graphqlOperation(createUser, userObj))
-      console.log("user successfully created")
+      // await API.graphql(graphqlOperation(createUser, userObj))
+      // console.log("user successfully created")
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log(allUsers)
     } catch (error) {
       console.log("Error adding user: ", error)
     }
