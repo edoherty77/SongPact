@@ -3,9 +3,15 @@ import gql from "graphql-tag"
 //USER QUERIES
 export const getUser = gql`
   query {
-    getUser(email: $email) {
-      id
-      firstName
+    getUser(id: $id) {
+      items {
+        id
+        firstName
+        lastName
+        artistName
+        companyName
+        email
+      }
     }
   }
 `
