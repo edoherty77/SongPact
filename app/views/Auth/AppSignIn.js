@@ -16,7 +16,7 @@ import AppTextInput from "../../components/AppTextInput"
 import AppButton from "../../components/AppButton"
 import AppText from "../../components/AppText"
 import colors from "../../config/colors"
-import { getUser } from "../../src/graphql/Queries"
+import { getUser, listUsers } from "../../../graphql/queries"
 import store from "../../stores/UserStore"
 import { observer } from "mobx-react"
 
@@ -31,12 +31,26 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
       console.log(data.username)
       store.setID(data.username)
       console.log(store.id)
-      const currentUser = await API.graphql(graphqlOperation(getUser, store.id))
+      const currentUser = await API.graphql(
+        graphqlOperation(getUser, { id: data.username })
+      )
       console.log("////current user////")
-      console.log(currentUser)
+      console.log(currentUser.data.getUser.artistName)
+
+      store.setUser(currentUser.data.getUser)
+
       updateAuthState("loggedIn")
     } catch (err) {
       console.log("Error signing in...", err)
+    }
+  }
+
+  async function listAllUsers() {
+    try {
+      const data = await API.graphql(graphqlOperation(listUsers))
+      console.log(data)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -57,7 +71,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mainView}>
-              <View style={styles.header}>
+              <View style={styles.header} onPress={listAllUsers}>
                 <AppText
                   style={{
                     fontFamily: "Futura",
@@ -71,6 +85,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                   <AppText style={{ fontFamily: "Baskerville-BoldItalic" }}>
                     Pact
                   </AppText>
+                  <AppButton title="List All Users" onPress={listAllUsers} />
                 </AppText>
               </View>
               <View style={styles.signInView}>

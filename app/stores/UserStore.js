@@ -7,8 +7,8 @@ class UserStore {
   artistName = ""
   companyName = ""
   email = ""
-  // pacts = []
-  // friends = []
+  pacts = []
+  contacts = []
 
   setID(id) {
     console.log("storing authenticated user ID")
@@ -17,13 +17,14 @@ class UserStore {
 
   setUser(values) {
     console.log("setting User in UserStore...")
+    console.log(values)
     this.firstName = values.firstName
     this.lastName = values.lastName
     this.artistName = values.artistName
     this.companyName = values.companyName
     this.email = values.email
     this.pacts = values.pacts
-    this.friends = values.friends
+    this.contacts = values.contacts
     console.log(this.firstName, this.lastName, " set")
   }
 
@@ -36,7 +37,7 @@ class UserStore {
     this.companyName = ""
     this.email = ""
     this.pacts = []
-    this.friends = []
+    this.contacts = []
     console.log("User reset")
   }
 
