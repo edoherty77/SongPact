@@ -45,15 +45,6 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
     }
   }
 
-  async function listAllUsers() {
-    try {
-      const data = await API.graphql(graphqlOperation(listUsers))
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <Screen>
       <ImageBackground
@@ -71,7 +62,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mainView}>
-              <View style={styles.header} onPress={listAllUsers}>
+              <View style={styles.header}>
                 <AppText
                   style={{
                     fontFamily: "Futura",
@@ -85,7 +76,6 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                   <AppText style={{ fontFamily: "Baskerville-BoldItalic" }}>
                     Pact
                   </AppText>
-                  <AppButton title="List All Users" onPress={listAllUsers} />
                 </AppText>
               </View>
               <View style={styles.signInView}>

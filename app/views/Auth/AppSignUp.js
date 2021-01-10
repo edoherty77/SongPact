@@ -21,6 +21,7 @@ import { createUser } from "../../../graphql/mutations"
 import { listUsers } from "../../../graphql/queries"
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/UserStore" // TODO remove
+import { ScrollView } from "react-native"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -101,7 +102,7 @@ export default function signUp({ navigation }) {
         <Header title="Sign Up" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainView}>
-            <View style={styles.registerView}>
+            <ScrollView contentContainerStyle={styles.registerView}>
               <AppForm
                 initialValues={{
                   firstName: "",
@@ -175,7 +176,7 @@ export default function signUp({ navigation }) {
                   dismissKey={Keyboard.dismiss}
                 />
               </AppForm>
-            </View>
+            </ScrollView>
             <View style={styles.loginView}>
               <AppText>Already have an account?</AppText>
               <AppButton
