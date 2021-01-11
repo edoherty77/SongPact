@@ -7,8 +7,8 @@ const SubmitButton = ({ title, style, dismissKey, mode, onPress }) => {
   const { handleSubmit, values } = useFormikContext()
 
   return (
-    <AppButton title={title} onPress={handleSubmit} style={style} />
-    // <AppButton onPress={onPress} title={title} style={style} />
+    // <AppButton title={title} onPress={handleSubmit} style={style} />
+    <AppButton onPress={onPress} title={title} style={style} />
   )
 }
 

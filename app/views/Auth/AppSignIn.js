@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   ImageBackground,
   StyleSheet,
@@ -7,27 +7,32 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-} from "react-native"
+} from 'react-native'
 
-import { Auth } from "aws-amplify"
-
-import Screen from "../../components/Screen"
-import AppTextInput from "../../components/AppTextInput"
-import AppButton from "../../components/AppButton"
-import AppText from "../../components/AppText"
-import colors from "../../config/colors"
+import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { getUser, listUsers } from '../../src/graphql/Queries'
+import Screen from '../../components/Screen'
+import AppTextInput from '../../components/AppTextInput'
+import AppButton from '../../components/AppButton'
+import AppText from '../../components/AppText'
+import colors from '../../config/colors'
 
 export default function AppSignIn({ navigation, updateAuthState }) {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   async function signIn() {
     try {
       const data = await Auth.signIn(username, password)
-      console.log("Success - Signed In!")
-      updateAuthState("loggedIn")
+      console.log('Success - Signed In!')
+      updateAuthState('loggedIn')
+
+      const currentUser = await API.graphql(
+        graphqlOperation(getUser, data.attributes.sub),
+      )
+      console.log('current User:', currentUser)
     } catch (err) {
-      console.log("Error signing in...", err)
+      console.log('Error signing in...', err)
     }
   }
 
@@ -37,13 +42,13 @@ export default function AppSignIn({ navigation, updateAuthState }) {
         imageStyle={{ opacity: 0.4 }}
         style={{
           flex: 1,
-          resizeMode: "cover",
-          justifyContent: "center",
+          resizeMode: 'cover',
+          justifyContent: 'center',
         }}
-        source={require("../../assets/pic1.jpeg")}
+        source={require('../../assets/pic1.jpeg')}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -51,7 +56,7 @@ export default function AppSignIn({ navigation, updateAuthState }) {
               <View style={styles.header}>
                 <AppText
                   style={{
-                    fontFamily: "Futura",
+                    fontFamily: 'Futura',
                   }}
                   fontWeight="bold"
                   fontSize={70}
@@ -59,7 +64,7 @@ export default function AppSignIn({ navigation, updateAuthState }) {
                   Song
                   {/* Play with fonts here if you want */}
                   {/* http://iosfonts.com/ */}
-                  <AppText style={{ fontFamily: "Baskerville-BoldItalic" }}>
+                  <AppText style={{ fontFamily: 'Baskerville-BoldItalic' }}>
                     Pact
                   </AppText>
                 </AppText>
@@ -96,7 +101,7 @@ export default function AppSignIn({ navigation, updateAuthState }) {
                 <AppText>Don't have an account?</AppText>
                 <AppButton
                   title="Sign Up"
-                  onPress={() => navigation.navigate("SignUp")}
+                  onPress={() => navigation.navigate('SignUp')}
                 />
               </View>
             </View>
@@ -113,22 +118,22 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-around",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   header: {
     marginTop: 50,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   signInView: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
-    width: "80%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    width: '80%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
     height: 45,
@@ -139,16 +144,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: "80%",
+    width: '80%',
   },
   footerButtonContainer: {
     marginVertical: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   forgotPasswordButtonText: {
     color: colors.black,
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 })
