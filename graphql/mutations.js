@@ -43,7 +43,7 @@ export const createUser = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const updateUser = /* GraphQL */ `
   mutation UpdateUser(
     $input: UpdateUserInput!
@@ -86,7 +86,7 @@ export const updateUser = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const deleteUser = /* GraphQL */ `
   mutation DeleteUser(
     $input: DeleteUserInput!
@@ -129,7 +129,7 @@ export const deleteUser = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const createPact = /* GraphQL */ `
   mutation CreatePact(
     $input: CreatePactInput!
@@ -152,7 +152,7 @@ export const createPact = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const updatePact = /* GraphQL */ `
   mutation UpdatePact(
     $input: UpdatePactInput!
@@ -175,7 +175,7 @@ export const updatePact = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
 export const deletePact = /* GraphQL */ `
   mutation DeletePact(
     $input: DeletePactInput!
@@ -198,4 +198,4 @@ export const deletePact = /* GraphQL */ `
       updatedAt
     }
   }
-`;
+`
