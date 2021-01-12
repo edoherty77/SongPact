@@ -1,16 +1,17 @@
-import React, { useContext, useEffect } from "react"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import { StyleSheet } from "react-native"
+import React, { useContext, useEffect } from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { StyleSheet } from 'react-native'
 
-import CreatePactStack from "./CreatePactStack"
+import CreatePactStack from './CreatePactStack'
+import ContactStack from './ContactStack'
 
-import Contacts from "../views/Main/ContactsScreen"
-import Dashboard from "../views/Main/DashboardScreen"
-import MenuScreen from "../views/Main/MenuScreen"
-import NotificationsScreen from "../views/Main/NotificationsScreen"
+import Contacts from '../views/Main/ContactsScreen'
+import Dashboard from '../views/Main/DashboardScreen'
+import MenuScreen from '../views/Main/MenuScreen'
+import NotificationsScreen from '../views/Main/NotificationsScreen'
 
-import colors from "../config/colors"
+import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()
 
@@ -24,17 +25,17 @@ export default function BottomTabs({ updateAuthState }) {
           // marginBottom: 60,
           height: 90,
           marginTop: 0,
-          borderTopColor: "black",
-          display: "flex",
+          borderTopColor: 'black',
+          display: 'flex',
         },
         activeTintColor: colors.red,
         inactiveTintColor: colors.black,
         labelStyle: {
-          display: "flex",
+          display: 'flex',
           fontSize: 10,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           paddingBottom: 45,
-          fontFamily: "Futura",
+          fontFamily: 'Futura',
         },
         tabStyle: {
           height: 90,
@@ -69,7 +70,7 @@ export default function BottomTabs({ updateAuthState }) {
           // tabBarLabel: 'Contacts',
         }}
         name="Contacts"
-        component={Contacts}
+        component={ContactStack}
       />
       <Tab.Screen
         options={{
@@ -120,6 +121,6 @@ export default function BottomTabs({ updateAuthState }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#30BCED",
+    backgroundColor: '#30BCED',
   },
 })

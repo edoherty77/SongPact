@@ -10,7 +10,7 @@ import { getUser, listUsers } from '../../../graphql/queries'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
-function Contacts({ navigation }) {
+function FindArtist({ navigation }) {
   const [firstName, setFirstName] = useState('')
 
   const findUsers = async () => {
@@ -28,7 +28,7 @@ function Contacts({ navigation }) {
 
   return (
     <Screen>
-      <Head title="Contacts" />
+      <Head title="Find an Artist" />
       {/* <Separator /> */}
       {/* <View style={styles.inputView}>
         <AppTextInput
@@ -57,7 +57,7 @@ function Contacts({ navigation }) {
       </Header>
 
       <View>
-        <ContactButton
+        {/* <ContactButton
           name={'Christopher Dibona'}
           onPress={() => console.log('go fuck yourself')}
         />
@@ -67,11 +67,11 @@ function Contacts({ navigation }) {
         <ContactButton name={'Ryan Kleshefsky'} />
         <ContactButton name={'Seth Johnson'} />
         <ContactButton name={'Stephan Nale'} />
-        <ContactButton name={'Zack Fye'} />
+        <ContactButton name={'Zack Fye'} /> */}
       </View>
       <AppButton
-        title="Find an artist"
-        onPress={() => navigation.navigate('Find')}
+        title="Your Contacts"
+        onPress={() => navigation.navigate('Contacts')}
       />
     </Screen>
   )
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Contacts
+export default FindArtist
