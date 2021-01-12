@@ -6,6 +6,10 @@ class UserStore {
   lastName = ""
   artistName = ""
   companyName = ""
+  address = ""
+  city = ""
+  zipCode = ""
+  state = ""
   email = ""
   pacts = []
   contacts = []

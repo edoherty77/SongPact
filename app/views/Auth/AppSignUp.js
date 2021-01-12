@@ -27,6 +27,11 @@ const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
   lastName: Yup.string().required().label("Last name"),
   artistName: Yup.string().required().label("Artist name"),
+  address: Yup.string().required().label("Address 1"),
+  city: Yup.string().required().label("City"),
+  state: Yup.string().required().label("State"),
+  zipCode: Yup.number().required().label("Zip Code"),
+  country: Yup.string().required().label("Country"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().label("Password"),
   password2: Yup.string().oneOf(
@@ -102,7 +107,10 @@ export default function signUp({ navigation }) {
         <Header title="Sign Up" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainView}>
-            <ScrollView contentContainerStyle={styles.registerView}>
+            <ScrollView
+              contentContainerStyle={styles.registerView}
+              contentOffset={{ x: 0, y: -100 }}
+            >
               <AppForm
                 initialValues={{
                   firstName: "",
@@ -141,6 +149,45 @@ export default function signUp({ navigation }) {
                   name="companyName"
                   placeholder="Company Name"
                   autoCorrect={false}
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="address"
+                  placeholder="Street Address"
+                  autoCorrect={false}
+                  textContentType="fullStreetAddress"
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="city"
+                  placeholder="City"
+                  autoCorrect={false}
+                  // width={"120%"}
+                  textContentType="addressCity"
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="state"
+                  placeholder="State"
+                  autoCorrect={false}
+                  // width={"90%"}
+                  textContentType="addressState"
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  autoCorrect={false}
+                  // width={"70%"}
+                  textContentType="postalCode"
+                  keyboardType="number-pad"
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="country"
+                  placeholder="Country"
+                  autoCorrect={false}
+                  textContentType="countryName"
                 />
                 <AppFormField
                   style={styles.input}
@@ -206,8 +253,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: "100%",
-    height: "100%",
     justifyContent: "center",
+    // paddingTop: "70%",
+  },
+  addressCity: {
+    flexDirection: "row",
+    width: "44.5%",
+    marginLeft: "10%",
+    // backgroundColor: "red",
+  },
+  stateZip: {
+    flexDirection: "row",
+    width: "50%",
+    // backgroundColor: "red",
   },
   input: {
     width: "80%",
@@ -220,9 +278,10 @@ const styles = StyleSheet.create({
   signUpButton: {
     marginTop: 20,
     borderRadius: 50,
-    height: 50,
+    height: 40,
     backgroundColor: colors.red,
-    width: "80%",
+    paddingHorizontal: "15%",
+    // width: 200,
   },
   loginView: {
     display: "flex",
