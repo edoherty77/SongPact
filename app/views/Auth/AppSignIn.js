@@ -87,7 +87,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                   placeholder="Email"
                   autoCapitalize="none"
                   keyboardType="email-address"
-                  textContentType="emailAddress"
+                  textContentType="username"
                   autoCorrect={false}
                 />
                 <AppTextInput

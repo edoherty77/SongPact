@@ -41,15 +41,6 @@ const App = observer(() => {
       const user = await Auth.currentAuthenticatedUser()
       console.log('✅ User is signed in')
       console.log(user.username)
-      // const userFromAPI = query API for user profile with ID === user.attributes.sub
-      if (store.id) {
-        const currentUser = await API.graphql(
-          graphqlOperation(getUser, store.id),
-        )
-        console.log('////current user////')
-        console.log(currentUser)
-        // store.setUser(userFromAPI)
-      }
       setUserLoggedIn('loggedIn')
     } catch (error) {
       console.log('❌ User is not signed in')
