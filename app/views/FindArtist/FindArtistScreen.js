@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import { Header, Item, Input, Icon } from 'native-base'
 import Head from '../../components/Header'
 import Screen from '../../components/Screen'
@@ -10,13 +10,17 @@ import { getUser, listUsers } from '../../../graphql/queries'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
-function FindArtist({ navigation }) {
-  const [firstName, setFirstName] = useState('')
+import store from '../../stores/UserStore'
+import { observer } from 'mobx-react'
+
+const FindArtist = observer(({ navigation }) => {
+  const [users, setUsers] = useState('')
 
   const findUsers = async () => {
     try {
-      const allUsers = await API.graphql(graphqlOperation(listUsers))
-      console.log(allUsers)
+      const getUsers = await API.graphql(graphqlOperation(listUsers))
+      // console.log('Data: ', getUsers.data.listUsers.items)
+      setUsers(getUsers.data.listUsers.items)
     } catch (error) {
       console.log(error)
     }
@@ -26,18 +30,21 @@ function FindArtist({ navigation }) {
     findUsers()
   }, [])
 
+  const addFriend = async (friend) => {
+    //get current user from API
+    const currentUserAPI = await API.graphql(
+      graphqlOperation(getUser, { id: store.id }),
+    )
+    console.log('Current: ', currentUserAPI.data.getUser)
+    // console.log(contactList)
+    console.log('Friend: ', friend)
+
+    //INSTEAD OF ABOVE, use some sort of add friend mutation OR use the updateUser mutation
+  }
+
   return (
     <Screen>
       <Head title="Find an Artist" />
-      {/* <Separator /> */}
-      {/* <View style={styles.inputView}>
-        <AppTextInput
-          width="90%"
-          placeholder={"Search"}
-          icon={"account-search"}
-          style={styles.input}
-        />
-      </View> */}
       <Header
         transparent={true}
         searchBar
@@ -51,23 +58,21 @@ function FindArtist({ navigation }) {
           <Input placeholder="Search" />
           <Icon name="ios-people" />
         </Item>
-        {/* <Button transparent>
-          <Text>Search</Text>
-        </Button> */}
       </Header>
 
       <View>
-        {/* <ContactButton
-          name={'Christopher Dibona'}
-          onPress={() => console.log('go fuck yourself')}
+        <FlatList
+          data={users}
+          keyExtractor={(user) => user.id}
+          renderItem={({ item, index }) => (
+            <ContactButton
+              name={item.firstName + ' ' + item.lastName}
+              onPress={() => {
+                addFriend(item)
+              }}
+            />
+          )}
         />
-        <ContactButton name={'Evan Doherty'} />
-        <ContactButton name={'Michael Giannone'} />
-        <ContactButton name={'Pat Doherty'} />
-        <ContactButton name={'Ryan Kleshefsky'} />
-        <ContactButton name={'Seth Johnson'} />
-        <ContactButton name={'Stephan Nale'} />
-        <ContactButton name={'Zack Fye'} /> */}
       </View>
       <AppButton
         title="Your Contacts"
@@ -75,7 +80,7 @@ function FindArtist({ navigation }) {
       />
     </Screen>
   )
-}
+})
 
 const styles = StyleSheet.create({
   inputView: {

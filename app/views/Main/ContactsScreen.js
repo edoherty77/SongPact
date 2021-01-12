@@ -13,18 +13,18 @@ import AppButton from '../../components/AppButton'
 function Contacts({ navigation }) {
   const [firstName, setFirstName] = useState('')
 
-  const findUsers = async () => {
-    try {
-      const allUsers = await API.graphql(graphqlOperation(listUsers))
-      console.log(allUsers)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const findUsers = async () => {
+  //   try {
+  //     const allUsers = await API.graphql(graphqlOperation(listUsers))
+  //     console.log(allUsers)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  useEffect(() => {
-    findUsers()
-  }, [])
+  // useEffect(() => {
+  //   findUsers()
+  // }, [])
 
   return (
     <Screen>
