@@ -17,9 +17,11 @@ import Header from "../../components/Header"
 import Screen from "../../components/Screen"
 import colors from "../../config/colors"
 
-import { createUser, listUsers } from "../../src/graphql/Queries"
+import { createUser } from "../../../graphql/mutations"
+import { listUsers } from "../../../graphql/queries"
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/UserStore" // TODO remove
+import { ScrollView } from "react-native"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -42,7 +44,7 @@ const initialState = {
   email: "",
 }
 
-export default function SignUp({ navigation }) {
+export default function signUp({ navigation }) {
   const [formState, setFormState] = useState(initialState)
   const [user, setUser] = useState("")
 
@@ -58,23 +60,7 @@ export default function SignUp({ navigation }) {
       })
       console.log("✅ Sign-up Confirmed")
 
-      // create userObj
-      const userObj = {
-        id: data.userSub,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        artistName: values.artistName,
-        companyName: values.companyName,
-        email: values.email,
-      }
-
-      // create user in db with userObj
-      await API.graphql(graphqlOperation(createUser, userObj))
-      console.log("user successfully created")
-
-      // call listUsers to confirm new user created
-      const allUsers = await API.graphql(graphqlOperation(listUsers))
-      console.log(allUsers)
+      addUserToAPI(data.userSub, values)
 
       // go to confirmation screen
       navigation.navigate("ConfirmSignUp")
@@ -83,8 +69,9 @@ export default function SignUp({ navigation }) {
     }
   }
 
-  const addUser = async (id, values) => {
+  const addUserToAPI = async (id, values) => {
     try {
+      // create userObj
       const userObj = {
         id: id,
         firstName: values.firstName,
@@ -93,8 +80,12 @@ export default function SignUp({ navigation }) {
         companyName: values.companyName,
         email: values.email,
       }
-      // await API.graphql(graphqlOperation(createUser, userObj))
-      // console.log("user successfully created")
+
+      // create user in db with userObj
+      await API.graphql(graphqlOperation(createUser, { input: userObj }))
+      console.log("user successfully created")
+
+      // call listUsers to confirm new user created
       const allUsers = await API.graphql(graphqlOperation(listUsers))
       console.log(allUsers)
     } catch (error) {
@@ -111,7 +102,7 @@ export default function SignUp({ navigation }) {
         <Header title="Sign Up" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainView}>
-            <View style={styles.registerView}>
+            <ScrollView contentContainerStyle={styles.registerView}>
               <AppForm
                 initialValues={{
                   firstName: "",
@@ -185,7 +176,7 @@ export default function SignUp({ navigation }) {
                   dismissKey={Keyboard.dismiss}
                 />
               </AppForm>
-            </View>
+            </ScrollView>
             <View style={styles.loginView}>
               <AppText>Already have an account?</AppText>
               <AppButton

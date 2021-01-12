@@ -13,6 +13,7 @@ const NotificationsScreen = observer(() => {
     <View style={styles.notifications}>
       <Header title="Notifications" />
       <View style={styles.stateDisplay}>
+        <AppText>ID: {store.id}</AppText>
         <AppText>First: {store.firstName}</AppText>
         <AppText>Last: {store.lastName}</AppText>
         <AppText>Artist: {store.artistName}</AppText>

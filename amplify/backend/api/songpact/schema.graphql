@@ -1,24 +1,311 @@
-type User @model @auth(rules: [{ allow: public }]) {
-  id: String!
+﻿schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type ModelPactConnection @aws_api_key @aws_iam {
+  items: [Pact]
+  nextToken: String
+}
+
+type ModelUserConnection @aws_api_key @aws_iam {
+  items: [User]
+  nextToken: String
+}
+
+type Mutation {
+  createPact(condition: ModelPactConditionInput, input: CreatePactInput!): Pact
+    @aws_api_key
+    @aws_iam
+  createUser(condition: ModelUserConditionInput, input: CreateUserInput!): User
+    @aws_api_key
+    @aws_iam
+  deletePact(condition: ModelPactConditionInput, input: DeletePactInput!): Pact
+    @aws_api_key
+    @aws_iam
+  deleteUser(condition: ModelUserConditionInput, input: DeleteUserInput!): User
+    @aws_api_key
+    @aws_iam
+  updatePact(condition: ModelPactConditionInput, input: UpdatePactInput!): Pact
+    @aws_api_key
+    @aws_iam
+  updateUser(condition: ModelUserConditionInput, input: UpdateUserInput!): User
+    @aws_api_key
+    @aws_iam
+}
+
+type Pact @aws_api_key @aws_iam {
+  contributors: String
+  createdAt: AWSDateTime!
+  id: ID!
+  initBy: String
+  perfPublish: Int
+  prodAdvance: Int
+  prodCredit: String
+  prodPublish: Int
+  prodRoyalty: Int
+  recordTitle: String!
+  role: String
+  status: Boolean
+  type: String!
+  updatedAt: AWSDateTime!
+}
+
+type Query {
+  getPact(id: ID!): Pact @aws_api_key @aws_iam
+  getUser(id: ID!): User @aws_api_key @aws_iam
+  listPacts(
+    filter: ModelPactFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelPactConnection @aws_api_key @aws_iam
+  listUsers(
+    filter: ModelUserFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelUserConnection @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreatePact: Pact
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["createPact"])
+  onCreateUser: User
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["createUser"])
+  onDeletePact: Pact
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["deletePact"])
+  onDeleteUser: User
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["deleteUser"])
+  onUpdatePact: Pact
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["updatePact"])
+  onUpdateUser: User
+    @aws_api_key
+    @aws_iam
+    @aws_subscribe(mutations: ["updateUser"])
+}
+
+type User @aws_api_key @aws_iam {
+  artistName: String!
+  companyName: String!
+  contacts: [User]
+  createdAt: AWSDateTime!
+  email: String!
   firstName: String!
+  id: String!
   lastName: String!
+  pacts: [Pact]
+  updatedAt: AWSDateTime!
+}
+
+enum ModelAttributeTypes {
+  _null
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+input CreatePactInput {
+  contributors: String
+  id: ID
+  initBy: String
+  perfPublish: Int
+  prodAdvance: Int
+  prodCredit: String
+  prodPublish: Int
+  prodRoyalty: Int
+  recordTitle: String!
+  role: String
+  status: Boolean
+  type: String!
+}
+
+input CreateUserInput {
   artistName: String!
   companyName: String!
   email: String!
-  contacts: [User]
-  pacts: [Pact]
+  firstName: String!
+  id: String!
+  lastName: String!
 }
 
-type Pact @model @auth(rules: [{ allow: public }]) {
-  type: String!
-  recordTitle: String!
-  role: String
-  initBy: String
+input DeletePactInput {
+  id: ID
+}
+
+input DeleteUserInput {
+  id: ID
+}
+
+input ModelBooleanInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  eq: Boolean
+  ne: Boolean
+}
+
+input ModelFloatInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input ModelIDInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelPactConditionInput {
+  and: [ModelPactConditionInput]
+  contributors: ModelStringInput
+  initBy: ModelStringInput
+  not: ModelPactConditionInput
+  or: [ModelPactConditionInput]
+  perfPublish: ModelIntInput
+  prodAdvance: ModelIntInput
+  prodCredit: ModelStringInput
+  prodPublish: ModelIntInput
+  prodRoyalty: ModelIntInput
+  recordTitle: ModelStringInput
+  role: ModelStringInput
+  status: ModelBooleanInput
+  type: ModelStringInput
+}
+
+input ModelPactFilterInput {
+  and: [ModelPactFilterInput]
+  contributors: ModelStringInput
+  initBy: ModelStringInput
+  not: ModelPactFilterInput
+  or: [ModelPactFilterInput]
+  perfPublish: ModelIntInput
+  prodAdvance: ModelIntInput
+  prodCredit: ModelStringInput
+  prodPublish: ModelIntInput
+  prodRoyalty: ModelIntInput
+  recordTitle: ModelStringInput
+  role: ModelStringInput
+  status: ModelBooleanInput
+  type: ModelStringInput
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelStringInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input ModelUserConditionInput {
+  and: [ModelUserConditionInput]
+  artistName: ModelStringInput
+  companyName: ModelStringInput
+  email: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  not: ModelUserConditionInput
+  or: [ModelUserConditionInput]
+}
+
+input ModelUserFilterInput {
+  and: [ModelUserFilterInput]
+  artistName: ModelStringInput
+  companyName: ModelStringInput
+  email: ModelStringInput
+  firstName: ModelStringInput
+  id: ModelStringInput
+  lastName: ModelStringInput
+  not: ModelUserFilterInput
+  or: [ModelUserFilterInput]
+}
+
+input UpdatePactInput {
   contributors: String
+  initBy: String
   perfPublish: Int
   prodAdvance: Int
+  prodCredit: String
   prodPublish: Int
   prodRoyalty: Int
-  prodCredit: String
+  recordTitle: String
+  role: String
   status: Boolean
+  type: String
+}
+
+input UpdateUserInput {
+  artistName: String
+  companyName: String
+  email: String
+  firstName: String
+  id: String!
+  lastName: String
 }

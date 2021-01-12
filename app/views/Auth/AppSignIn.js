@@ -9,15 +9,18 @@ import {
   Keyboard,
 } from 'react-native'
 
-import { Auth, API, graphqlOperation } from 'aws-amplify'
-import { getUser, listUsers } from '../../src/graphql/Queries'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
+
 import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import AppButton from '../../components/AppButton'
 import AppText from '../../components/AppText'
 import colors from '../../config/colors'
+import { getUser, listUsers } from '../../../graphql/queries'
+import store from '../../stores/UserStore'
+import { observer } from 'mobx-react'
 
-export default function AppSignIn({ navigation, updateAuthState }) {
+const AppSignIn = observer(({ navigation, updateAuthState }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,12 +28,18 @@ export default function AppSignIn({ navigation, updateAuthState }) {
     try {
       const data = await Auth.signIn(username, password)
       console.log('Success - Signed In!')
-      updateAuthState('loggedIn')
-
+      console.log(data.username)
+      store.setID(data.username)
+      console.log(store.id)
       const currentUser = await API.graphql(
-        graphqlOperation(getUser, data.attributes.sub),
+        graphqlOperation(getUser, { id: data.username }),
       )
-      console.log('current User:', currentUser)
+      console.log('////current user////')
+      console.log(currentUser.data.getUser.artistName)
+
+      store.setUser(currentUser.data.getUser)
+
+      updateAuthState('loggedIn')
     } catch (err) {
       console.log('Error signing in...', err)
     }
@@ -79,6 +88,7 @@ export default function AppSignIn({ navigation, updateAuthState }) {
                   autoCapitalize="none"
                   keyboardType="email-address"
                   textContentType="emailAddress"
+                  autoCorrect={false}
                 />
                 <AppTextInput
                   style={styles.input}
@@ -110,7 +120,9 @@ export default function AppSignIn({ navigation, updateAuthState }) {
       </ImageBackground>
     </Screen>
   )
-}
+})
+
+export default AppSignIn
 
 const styles = StyleSheet.create({
   container: {

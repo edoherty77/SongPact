@@ -4,10 +4,10 @@ import { ActivityIndicator, View } from 'react-native'
 import { FormProvider } from './app/context/form-context'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { getUser, listUsers } from './app/src/graphql/Queries'
+// import { getUser, listUsers } from './app/src/graphql/Queries'
 
 // AMPLIFY & AUTH
-import Amplify, { Auth } from 'aws-amplify'
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import awsconfig from './aws-exports'
 Amplify.configure({
   ...awsconfig,
@@ -23,6 +23,7 @@ import Main from './app/navigation/main'
 // DATA FLOW
 import store from './app/stores/UserStore'
 import { observer } from 'mobx-react'
+import { getUser } from './app/src/graphql/Queries'
 
 const Initializing = () => {
   return (
@@ -39,19 +40,20 @@ const App = observer(() => {
     try {
       const user = await Auth.currentAuthenticatedUser()
       console.log('✅ User is signed in')
+      console.log(user.username)
+      // const userFromAPI = query API for user profile with ID === user.attributes.sub
+      // if (store.id) {
+      //   const currentUser = await API.graphql(
+      //     graphqlOperation(getUser, store.id)
+      //   )
+      //   console.log("////current user////")
+      //   console.log(currentUser)
+      //   // store.setUser(userFromAPI)
+      // }
       setUserLoggedIn('loggedIn')
-      console.log('user attributes', user.attributes)
-      // call listUsers to confirm new user created
-      // const allUsers = await API.graphql(graphqlOperation(listUsers))
-      // console.log(allUsers)
-      const currentUser = await API.graphql(
-        graphqlOperation(getUser, user.attributes.sub),
-      )
-      console.log('current User:', currentUser)
-      // store.setUser(user)
     } catch (error) {
       console.log('❌ User is not signed in')
-      store.resetUser()
+      // store.resetUser()
       setUserLoggedIn('loggedOut')
     }
   }
