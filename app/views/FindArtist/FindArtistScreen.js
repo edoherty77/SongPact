@@ -7,6 +7,7 @@ import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
 
 import { getUser, listUsers } from '../../../graphql/queries'
+import { updateUser } from '../../../graphql/mutations'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
