@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
-import { Header, Item, Icon, Input } from 'native-base'
-import Head from '../../components/Header'
-import Screen from '../../components/Screen'
-import colors from '../../config/colors'
-import AppButton from '../../components/AppButton'
-import ContactCheckBox from '../../components/ContactCheckBox'
-import UserIcon from '../../components/UserIcon'
-import Separator from '../../components/Separator'
-import { SubmitButton } from '../../components/forms'
-import ButtonIcon from '../../components/ButtonIcon'
-import { Formik, FieldArray } from 'formik'
-import { useFormState, useFormDispatch } from '../../context/form-context'
-import ConfirmModal from '../../components/ConfirmModal'
+import React, { useState } from "react"
+import { View, StyleSheet, FlatList } from "react-native"
+import { Header, Item, Icon, Input } from "native-base"
+import Head from "../../components/Header"
+import Screen from "../../components/Screen"
+import colors from "../../config/colors"
+import AppButton from "../../components/AppButton"
+import ContactCheckBox from "../../components/ContactCheckBox"
+import UserIcon from "../../components/UserIcon"
+import Separator from "../../components/Separator"
+import { SubmitButton } from "../../components/forms"
+import ButtonIcon from "../../components/ButtonIcon"
+import { Formik, FieldArray } from "formik"
+import { useFormState, useFormDispatch } from "../../context/form-context"
+import ConfirmModal from "../../components/ConfirmModal"
 const contacts = [
-  { first: 'Chris', last: 'Dibona', id: 1 },
-  { first: 'Andrew', last: 'Leinbach', id: 2 },
-  { first: 'Steve', last: 'Perry', id: 3 },
-  { first: 'Andrew', last: 'Jackson', id: 4 },
+  { first: "Chris", last: "Dibona", id: 1 },
+  { first: "Andrew", last: "Leinbach", id: 2 },
+  { first: "Steve", last: "Perry", id: 3 },
+  { first: "Andrew", last: "Jackson", id: 4 },
   // { first: 'Matt', last: 'O', id: 5 },
   // { first: 'Tom', last: 'Johnson', id: 6 },
   // { first: 'Kyle', last: 'Mooney', id: 7 },
@@ -28,16 +28,16 @@ const contacts = [
 function Second({ navigation }) {
   const form = React.useRef()
   const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
+  const { values: formValues, errors: formErrors } = useFormState("customer")
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (form.current) {
         const { values, errors } = form.current
         dispatch({
-          type: 'UPDATE_FORM',
+          type: "UPDATE_FORM",
           payload: {
-            id: 'customer',
+            id: "customer",
             data: { values, errors },
           },
         })
@@ -72,7 +72,7 @@ function Second({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-    navigation.navigate('New')
+    navigation.navigate("New")
   }
 
   return (
@@ -80,7 +80,7 @@ function Second({ navigation }) {
       <Head
         title="Pick Peeps"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('First')}
+        back={() => navigation.navigate("First")}
       />
       <View style={styles.mainView}>
         <Formik
@@ -113,10 +113,10 @@ function Second({ navigation }) {
                     <FlatList
                       horizontal={true}
                       contentContainerStyle={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                         // backgroundColor: 'blue',
-                        width: '100%',
+                        width: "100%",
                       }}
                       style={styles.addedCollabsList}
                       data={values.collabs}
@@ -161,7 +161,7 @@ function Second({ navigation }) {
                   style={styles.nextButton}
                   title="Next"
                   onPress={() => {
-                    navigation.push('Third')
+                    navigation.push("Third")
                   }}
                 />
                 <View style={styles.iconView}>
@@ -191,7 +191,7 @@ function Second({ navigation }) {
 const styles = StyleSheet.create({
   mainView: {
     // backgroundColor: 'yellow',
-    display: 'flex',
+    display: "flex",
     flex: 1,
   },
   formView: {
@@ -199,8 +199,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   addedCollabView: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     height: 70,
     // flex: 1,
   },
@@ -208,10 +208,10 @@ const styles = StyleSheet.create({
     // flexWrap: 'wrap',
   },
   inputView: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
     // marginBottom: 5,
     height: 50,
     marginTop: 5,
@@ -222,16 +222,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   footer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
     // backgroundColor: 'pink',
     // alignSelf: 'flex-end',
     // justifyContent: 'space-between',
   },
   iconView: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
   },
   nextButton: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: '50%',
+    width: "50%",
   },
 })
 
