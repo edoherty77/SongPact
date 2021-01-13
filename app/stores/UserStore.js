@@ -8,8 +8,8 @@ class UserStore {
   companyName = ""
   address = ""
   city = ""
-  zipCode = ""
   state = ""
+  zipCode = ""
   email = ""
   pacts = []
   contacts = []
