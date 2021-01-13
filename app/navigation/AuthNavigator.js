@@ -2,7 +2,7 @@ import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
 import AppSignIn from "../views/Auth/AppSignIn"
-import AppSignUp from "../views/Auth/AppSignUp"
+import AppSignUp1 from "../views/Auth/AppSignUp1"
 import ConfirmSignUp from "../views/Auth/ConfirmSignUp"
 import { NavigationContainer } from "@react-navigation/native"
 
@@ -20,7 +20,7 @@ const AuthNavigator = (props) => {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name="SignUp" component={AppSignUp} />
+        <Stack.Screen name="SignUp" component={AppSignUp1} />
         <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
       </Stack.Navigator>
     </NavigationContainer>

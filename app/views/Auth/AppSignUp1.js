@@ -20,7 +20,7 @@ import colors from "../../config/colors"
 import { createUser } from "../../../graphql/mutations"
 import { listUsers } from "../../../graphql/queries"
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
-import store from "../../stores/UserStore" // TODO remove
+import store from "../../stores/SignUpStore"
 import { ScrollView } from "react-native"
 
 const validationSchema = Yup.object().shape({
@@ -49,7 +49,7 @@ const initialState = {
   email: "",
 }
 
-export default function signUp({ navigation }) {
+export default function AppSignUp({ navigation }) {
   const [formState, setFormState] = useState(initialState)
   const [user, setUser] = useState("")
 
