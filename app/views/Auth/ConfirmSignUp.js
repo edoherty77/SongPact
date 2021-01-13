@@ -46,7 +46,7 @@ export default function ConfirmSignUp({ navigation }) {
                 style={styles.input}
                 value={username}
                 onChangeText={(text) => setUsername(text)}
-                leftIcon="account"
+                // icon="account"
                 placeholder="Enter username"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -56,7 +56,7 @@ export default function ConfirmSignUp({ navigation }) {
                 style={styles.input}
                 value={authCode}
                 onChangeText={(text) => setAuthCode(text)}
-                leftIcon="numeric"
+                // icon="numeric"
                 placeholder="Enter verification code"
                 keyboardType="numeric"
               />
