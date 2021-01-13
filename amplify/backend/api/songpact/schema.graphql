@@ -1,4 +1,4 @@
-type User @model @auth(rules: [{ allow: public }]) {
+type User @auth(rules: [{ allow: public }]) {
   id: String!
   firstName: String!
   lastName: String!

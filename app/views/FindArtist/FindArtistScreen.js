@@ -7,7 +7,8 @@ import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
 
 import { getUser, listUsers } from '../../../graphql/queries'
-import { updateUser } from '../../../graphql/mutations'
+import { updateUser, createUser } from '../../../graphql/mutations'
+import { createContact } from '../../src/graphql/Queries'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
@@ -36,8 +37,7 @@ const FindArtist = observer(({ navigation }) => {
     const currentUserAPI = await API.graphql(
       graphqlOperation(getUser, { id: store.id }),
     )
-    console.log('Current: ', currentUserAPI.data.getUser)
-    // console.log(contactList)
+
     console.log('Friend: ', friend)
 
     //INSTEAD OF ABOVE, use some sort of add friend mutation OR use the updateUser mutation

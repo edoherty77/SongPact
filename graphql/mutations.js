@@ -87,6 +87,7 @@ export const updateUser = /* GraphQL */ `
     }
   }
 `
+
 export const deleteUser = /* GraphQL */ `
   mutation DeleteUser(
     $input: DeleteUserInput!

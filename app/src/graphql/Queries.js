@@ -82,6 +82,15 @@ export const createUser = gql`
   }
 `
 
+export const createContact = gql`
+  mutation($userID: String!, $contactID: String!) {
+    createContact(input: { userID: $userID, contactID: $contactID }) {
+      userID
+      contactID
+    }
+  }
+`
+
 //PACT MUTATIONS
 
 export const createPact = gql`
