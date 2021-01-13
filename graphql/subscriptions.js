@@ -9,10 +9,6 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -20,14 +16,7 @@ export const onCreateUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -44,15 +33,9 @@ export const onCreateUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -66,10 +49,6 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -77,14 +56,7 @@ export const onUpdateUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -101,15 +73,9 @@ export const onUpdateUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -123,10 +89,6 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -134,14 +96,7 @@ export const onDeleteUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -158,15 +113,9 @@ export const onDeleteUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -187,9 +136,6 @@ export const onCreatePact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -210,9 +156,6 @@ export const onUpdatePact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -233,9 +176,6 @@ export const onDeletePact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }

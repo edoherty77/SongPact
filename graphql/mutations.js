@@ -12,10 +12,6 @@ export const createUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -23,14 +19,7 @@ export const createUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -47,20 +36,14 @@ export const createUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
+`;
 export const updateUser = /* GraphQL */ `
   mutation UpdateUser(
     $input: UpdateUserInput!
@@ -72,10 +55,6 @@ export const updateUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -83,14 +62,7 @@ export const updateUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -107,21 +79,14 @@ export const updateUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
-
+`;
 export const deleteUser = /* GraphQL */ `
   mutation DeleteUser(
     $input: DeleteUserInput!
@@ -133,10 +98,6 @@ export const deleteUser = /* GraphQL */ `
       lastName
       artistName
       companyName
-      address
-      city
-      state
-      zipCode
       email
       contacts {
         id
@@ -144,14 +105,7 @@ export const deleteUser = /* GraphQL */ `
         lastName
         artistName
         companyName
-        address
-        city
-        state
-        zipCode
         email
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -168,20 +122,14 @@ export const deleteUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
+`;
 export const createPact = /* GraphQL */ `
   mutation CreatePact(
     $input: CreatePactInput!
@@ -200,14 +148,11 @@ export const createPact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
+`;
 export const updatePact = /* GraphQL */ `
   mutation UpdatePact(
     $input: UpdatePactInput!
@@ -226,14 +171,11 @@ export const updatePact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
+`;
 export const deletePact = /* GraphQL */ `
   mutation DeletePact(
     $input: DeletePactInput!
@@ -252,11 +194,8 @@ export const deletePact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
-`
+`;

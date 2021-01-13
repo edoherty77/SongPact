@@ -11,25 +11,14 @@ import {
 
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 
-<<<<<<< HEAD
 import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import AppButton from '../../components/AppButton'
 import AppText from '../../components/AppText'
 import colors from '../../config/colors'
-import { getUser, listUsers } from '../../../graphql/queries'
+import { getUser } from '../../../graphql/queries'
 import store from '../../stores/UserStore'
 import { observer } from 'mobx-react'
-=======
-import Screen from "../../components/Screen"
-import AppTextInput from "../../components/AppTextInput"
-import AppButton from "../../components/AppButton"
-import AppText from "../../components/AppText"
-import colors from "../../config/colors"
-import { getUser } from "../../../graphql/queries"
-import store from "../../stores/UserStore"
-import { observer } from "mobx-react"
->>>>>>> submaster
 
 const AppSignIn = observer(({ navigation, updateAuthState }) => {
   const [username, setUsername] = useState('')
@@ -122,11 +111,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                 <AppText>Don't have an account?</AppText>
                 <AppButton
                   title="Sign Up"
-<<<<<<< HEAD
-                  onPress={() => navigation.navigate('SignUp')}
-=======
-                  onPress={() => navigation.navigate("SignUp1")}
->>>>>>> submaster
+                  onPress={() => navigation.navigate('SignUp1')}
                 />
               </View>
             </View>
