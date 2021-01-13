@@ -113,7 +113,7 @@ const AppSignUp3 = observer(({ navigation }) => {
                 />
                 <SubmitButton
                   style={styles.signUpButton}
-                  title="Submit"
+                  title="Get Confirmation Code"
                   color={colors.confirm}
                   dismissKey={Keyboard.dismiss}
                 />
