@@ -8,8 +8,8 @@ class UserStore {
   companyName = ""
   address = ""
   city = ""
-  zipCode = ""
   state = ""
+  zipCode = ""
   email = ""
   pacts = []
   contacts = []
@@ -26,10 +26,14 @@ class UserStore {
     this.lastName = values.lastName
     this.artistName = values.artistName
     this.companyName = values.companyName
+    this.address = values.address
+    this.city = values.city
+    this.state = values.state
+    this.zipCode = values.zipCode
     this.email = values.email
     this.pacts = values.pacts
     this.contacts = values.contacts
-    console.log(this.firstName, this.lastName, " set")
+    console.log(this.firstName, this.lastName, "set")
   }
 
   resetUser() {
@@ -39,6 +43,10 @@ class UserStore {
     this.lastName = ""
     this.artistName = ""
     this.companyName = ""
+    this.address = ""
+    this.city = ""
+    this.state = ""
+    this.zipCode = ""
     this.email = ""
     this.pacts = []
     this.contacts = []

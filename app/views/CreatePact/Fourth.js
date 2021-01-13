@@ -1,39 +1,39 @@
-import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useState } from "react"
+import { StyleSheet, View } from "react-native"
 import {
   AppForm,
   AppFormField,
   SubmitButton,
   AppFormPercent,
-} from '../../components/forms'
-import * as Yup from 'yup'
-import Screen from '../../components/Screen'
-import Header from '../../components/Header'
-import AppText from '../../components/AppText'
-import ConfirmModal from '../../components/ConfirmModal'
-import { useFormState, useFormDispatch } from '../../context/form-context'
-import { Formik, FieldArray } from 'formik'
-import colors from '../../config/colors'
-import ButtonIcon from '../../components/ButtonIcon'
-import { Button, Card, Text } from 'react-native-paper'
+} from "../../components/forms"
+import * as Yup from "yup"
+import Screen from "../../components/Screen"
+import Header from "../../components/Header"
+import AppText from "../../components/AppText"
+import ConfirmModal from "../../components/ConfirmModal"
+import { useFormState, useFormDispatch } from "../../context/form-context"
+import { Formik, FieldArray } from "formik"
+import colors from "../../config/colors"
+import ButtonIcon from "../../components/ButtonIcon"
+import { Button, Card, Text } from "react-native-paper"
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().min(4).label('Password'),
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
 })
 
 export default function Fourth({ navigation }) {
   const form = React.useRef()
   const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
+  const { values: formValues, errors: formErrors } = useFormState("customer")
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (form.current) {
         const { values, errors } = form.current
         dispatch({
-          type: 'UPDATE_FORM',
+          type: "UPDATE_FORM",
           payload: {
-            id: 'customer',
+            id: "customer",
             data: { values, errors },
           },
         })
@@ -53,7 +53,7 @@ export default function Fourth({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-    navigation.navigate('New')
+    navigation.navigate("New")
   }
   function test(values) {
     console.log(values)
@@ -63,7 +63,7 @@ export default function Fourth({ navigation }) {
       <Header
         title="Numbers"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('Third')}
+        back={() => navigation.navigate("Third")}
       />
       <Formik
         innerRef={form}
@@ -104,7 +104,7 @@ export default function Fourth({ navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  navigation.push('Last')
+                  navigation.push("Last")
                 }}
               />
               <View style={styles.iconView}>
@@ -133,30 +133,30 @@ export default function Fourth({ navigation }) {
 const styles = StyleSheet.create({
   mainView: {
     // backgroundColor: 'green',
-    display: 'flex',
+    display: "flex",
     flex: 1,
   },
   formView: {
     margin: 40,
-    backgroundColor: 'gray',
-    justifyContent: 'space-between',
+    backgroundColor: "gray",
+    justifyContent: "space-between",
     padding: 10,
     flex: 1,
   },
   top: {
     paddingLeft: 7,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   textInput: {
-    width: '90%',
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    width: "90%",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
     paddingLeft: 20,
     height: 45,
     borderRadius: 25,
   },
   btnView: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
   },
   reviewButton: {
@@ -164,16 +164,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: '80%',
+    width: "80%",
   },
   footer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
   },
   iconView: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
     bottom: 10,
   },
@@ -182,6 +182,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: '50%',
+    width: "50%",
   },
 })

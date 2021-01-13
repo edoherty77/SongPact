@@ -9,6 +9,10 @@ export const getUser = /* GraphQL */ `
       lastName
       artistName
       companyName
+      address
+      city
+      state
+      zipCode
       email
       contacts {
         id
@@ -16,7 +20,14 @@ export const getUser = /* GraphQL */ `
         lastName
         artistName
         companyName
+        address
+        city
+        state
+        zipCode
         email
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -33,9 +44,15 @@ export const getUser = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -54,11 +71,54 @@ export const listUsers = /* GraphQL */ `
         lastName
         artistName
         companyName
+        address
+        city
+        state
+        zipCode
         email
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -77,6 +137,9 @@ export const getPact = /* GraphQL */ `
       prodRoyalty
       prodCredit
       status
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -102,10 +165,51 @@ export const listPacts = /* GraphQL */ `
         prodRoyalty
         prodCredit
         status
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncPacts = /* GraphQL */ `
+  query SyncPacts(
+    $filter: ModelPactFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncPacts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        type
+        recordTitle
+        role
+        initBy
+        contributors
+        perfPublish
+        prodAdvance
+        prodPublish
+        prodRoyalty
+        prodCredit
+        status
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
