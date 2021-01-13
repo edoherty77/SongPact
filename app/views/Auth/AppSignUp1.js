@@ -22,6 +22,7 @@ import { listUsers } from "../../../graphql/queries"
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/SignUpStore"
 import { ScrollView } from "react-native"
+import { observer } from "mobx-react"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -40,18 +41,18 @@ const validationSchema = Yup.object().shape({
   ),
 })
 
-const initialState = {
-  id: "",
-  firstName: "",
-  lastName: "",
-  artistName: "",
-  companyName: "",
-  email: "",
-}
+// const initialState = {
+//   id: "",
+//   firstName: "",
+//   lastName: "",
+//   artistName: "",
+//   companyName: "",
+//   email: "",
+// }
 
-export default function AppSignUp({ navigation }) {
-  const [formState, setFormState] = useState(initialState)
-  const [user, setUser] = useState("")
+const AppSignUp1 = observer(({ navigation }) => {
+  // const [formState, setFormState] = useState(initialState)
+  // const [user, setUser] = useState("")
 
   async function signUp(values) {
     try {
@@ -98,6 +99,11 @@ export default function AppSignUp({ navigation }) {
     }
   }
 
+  const nextSignUpScreen = (values) => {
+    store.setScreen1(values)
+    navigation.navigate("SignUp2")
+  }
+
   return (
     <Screen>
       <KeyboardAvoidingView
@@ -107,21 +113,16 @@ export default function AppSignUp({ navigation }) {
         <Header title="Sign Up" noIcon />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainView}>
-            <ScrollView
-              contentContainerStyle={styles.registerView}
-              contentOffset={{ x: 0, y: -100 }}
-            >
+            <View style={styles.registerView}>
               <AppForm
                 initialValues={{
                   firstName: "",
                   lastName: "",
-                  artistName: "",
-                  companyName: "",
                   email: "",
                   password: "",
                   password2: "",
                 }}
-                onSubmit={(values) => signUp(values)}
+                onSubmit={(values) => nextSignUpScreen(values)}
                 validationSchema={validationSchema}
               >
                 <AppFormField
@@ -139,6 +140,99 @@ export default function AppSignUp({ navigation }) {
                   textContentType="familyName"
                 />
                 <AppFormField
+                  style={styles.input}
+                  name="email"
+                  placeholder="Email*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="emailAddress"
+                  keyboardType="email-address"
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="password"
+                  placeholder="Password*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  // textContentType="password" // TODO uncomment!!!
+                  // secureTextEntry // TODO uncomment!!!
+                />
+                <AppFormField
+                  style={styles.input}
+                  name="password2"
+                  placeholder="Confirm Password*"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  // textContentType="password" // TODO uncomment!!!
+                  // secureTextEntry // TODO uncomment!!!
+                />
+                <SubmitButton
+                  style={styles.signUpButton}
+                  title="Next"
+                  color={colors.confirm}
+                  dismissKey={Keyboard.dismiss}
+                />
+              </AppForm>
+            </View>
+            <View style={styles.loginView}>
+              <AppText>Already have an account?</AppText>
+              <AppButton
+                title="Sign In"
+                onPress={() => navigation.navigate("SignIn")}
+              />
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </Screen>
+  )
+})
+
+export default AppSignUp1
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.lttan,
+  },
+  mainView: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  registerView: {
+    // flex: 1,
+    alignItems: "center",
+    // width: "100%",
+    justifyContent: "center",
+    // paddingTop: "70%",
+  },
+  input: {
+    width: "80%",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    fontSize: 18,
+    paddingLeft: 20,
+    height: 35,
+    borderRadius: 15,
+  },
+  signUpButton: {
+    marginTop: 20,
+    borderRadius: 50,
+    height: 40,
+    backgroundColor: colors.red,
+    paddingHorizontal: "15%",
+    // width: 200,
+  },
+  loginView: {
+    display: "flex",
+    alignItems: "center",
+    marginVertical: 50,
+  },
+})
+
+{
+  /* <AppFormField
                   style={styles.input}
                   name="artistName"
                   placeholder="Artist Name*"
@@ -188,104 +282,5 @@ export default function AppSignUp({ navigation }) {
                   placeholder="Country"
                   autoCorrect={false}
                   textContentType="countryName"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="email"
-                  placeholder="Email*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="password"
-                  placeholder="Password*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="password2"
-                  placeholder="Confirm Password*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
-                />
-                <SubmitButton
-                  style={styles.signUpButton}
-                  title="Sign Up"
-                  color={colors.confirm}
-                  dismissKey={Keyboard.dismiss}
-                />
-              </AppForm>
-            </ScrollView>
-            <View style={styles.loginView}>
-              <AppText>Already have an account?</AppText>
-              <AppButton
-                title="Sign In"
-                onPress={() => navigation.navigate("SignIn")}
-              />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </Screen>
-  )
+                /> */
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.lttan,
-  },
-  mainView: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  registerView: {
-    flex: 1,
-    alignItems: "center",
-    width: "100%",
-    justifyContent: "center",
-    // paddingTop: "70%",
-  },
-  addressCity: {
-    flexDirection: "row",
-    width: "44.5%",
-    marginLeft: "10%",
-    // backgroundColor: "red",
-  },
-  stateZip: {
-    flexDirection: "row",
-    width: "50%",
-    // backgroundColor: "red",
-  },
-  input: {
-    width: "80%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
-    fontSize: 18,
-    paddingLeft: 20,
-    height: 35,
-    borderRadius: 15,
-  },
-  signUpButton: {
-    marginTop: 20,
-    borderRadius: 50,
-    height: 40,
-    backgroundColor: colors.red,
-    paddingHorizontal: "15%",
-    // width: 200,
-  },
-  loginView: {
-    display: "flex",
-    alignItems: "center",
-    marginVertical: 50,
-  },
-})

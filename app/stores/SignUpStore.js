@@ -50,3 +50,6 @@ class SignUpStore {
     this.companyName = ""
   }
 }
+
+const store = new SignUpStore()
+export default store
