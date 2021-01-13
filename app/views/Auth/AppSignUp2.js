@@ -25,20 +25,63 @@ import { ScrollView } from "react-native"
 import { observer } from "mobx-react"
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label("First name"),
-  lastName: Yup.string().required().label("Last name"),
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().label("Password"),
-  password2: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Passwords must match"
-  ),
+  artistName: Yup.string().required().label("Artist name"),
+  address: Yup.string().required().label("Address 1"),
+  city: Yup.string().required().label("City"),
+  state: Yup.string().required().label("State"),
+  zipCode: Yup.number().required().label("Zip Code"),
+  country: Yup.string().required().label("Country"),
 })
 
-const AppSignUp1 = observer(({ navigation }) => {
+const AppSignUp2 = observer(({ navigation }) => {
+  async function signUp(values) {
+    try {
+      // sign up with Amplify
+      const data = await Auth.signUp({
+        username: values.email,
+        password: values.password,
+        attributes: {
+          email: values.email,
+        },
+      })
+      console.log("✅ Sign-up Confirmed")
+
+      addUserToAPI(data.userSub, values)
+
+      // go to confirmation screen
+      navigation.navigate("ConfirmSignUp")
+    } catch (error) {
+      console.log("❌ Error signing up...", error)
+    }
+  }
+
+  const addUserToAPI = async (id, values) => {
+    try {
+      // create userObj
+      const userObj = {
+        id: id,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        artistName: values.artistName,
+        companyName: values.companyName,
+        email: values.email,
+      }
+
+      // create user in db with userObj
+      await API.graphql(graphqlOperation(createUser, { input: userObj }))
+      console.log("user successfully created")
+
+      // call listUsers to confirm new user created
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log(allUsers)
+    } catch (error) {
+      console.log("Error adding user: ", error)
+    }
+  }
+
   const nextSignUpScreen = (values) => {
-    store.setUserInfo(values)
-    navigation.navigate("SignUp2")
+    store.setAddress(values)
+    navigation.navigate("SignUp3")
   }
 
   return (
@@ -53,55 +96,45 @@ const AppSignUp1 = observer(({ navigation }) => {
             <View style={styles.registerView}>
               <AppForm
                 initialValues={{
-                  firstName: "",
-                  lastName: "",
-                  email: "",
-                  password: "",
-                  password2: "",
+                  address: "",
+                  city: "",
+                  state: "",
+                  zipCode: "",
                 }}
                 onSubmit={(values) => nextSignUpScreen(values)}
                 validationSchema={validationSchema}
               >
                 <AppFormField
                   style={styles.input}
-                  name="firstName"
-                  placeholder="First Name*"
+                  name="address"
+                  placeholder="Street Address"
                   autoCorrect={false}
-                  textContentType="givenName"
+                  textContentType="fullStreetAddress"
                 />
                 <AppFormField
                   style={styles.input}
-                  name="lastName"
-                  placeholder="Last Name*"
+                  name="city"
+                  placeholder="City"
                   autoCorrect={false}
-                  textContentType="familyName"
+                  // width={"120%"}
+                  textContentType="addressCity"
                 />
                 <AppFormField
                   style={styles.input}
-                  name="email"
-                  placeholder="Email*"
-                  autoCapitalize="none"
+                  name="state"
+                  placeholder="State"
                   autoCorrect={false}
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
+                  // width={"90%"}
+                  textContentType="addressState"
                 />
                 <AppFormField
                   style={styles.input}
-                  name="password"
-                  placeholder="Password*"
-                  autoCapitalize="none"
+                  name="zipCode"
+                  placeholder="Zip Code"
                   autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="password2"
-                  placeholder="Confirm Password*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
+                  // width={"70%"}
+                  textContentType="postalCode"
+                  keyboardType="number-pad"
                 />
                 <SubmitButton
                   style={styles.signUpButton}
@@ -125,7 +158,7 @@ const AppSignUp1 = observer(({ navigation }) => {
   )
 })
 
-export default AppSignUp1
+export default AppSignUp2
 
 const styles = StyleSheet.create({
   container: {
@@ -180,38 +213,6 @@ const styles = StyleSheet.create({
                   name="companyName"
                   placeholder="Company Name"
                   autoCorrect={false}
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="address"
-                  placeholder="Street Address"
-                  autoCorrect={false}
-                  textContentType="fullStreetAddress"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="city"
-                  placeholder="City"
-                  autoCorrect={false}
-                  // width={"120%"}
-                  textContentType="addressCity"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="state"
-                  placeholder="State"
-                  autoCorrect={false}
-                  // width={"90%"}
-                  textContentType="addressState"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="zipCode"
-                  placeholder="Zip Code"
-                  autoCorrect={false}
-                  // width={"70%"}
-                  textContentType="postalCode"
-                  keyboardType="number-pad"
                 />
                 <AppFormField
                   style={styles.input}
