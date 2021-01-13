@@ -12,6 +12,8 @@ import { KeyboardAvoidingView } from "react-native"
 import { Platform } from "react-native"
 import Header from "../../components/Header"
 import colors from "../../config/colors"
+import { TouchableWithoutFeedback } from "react-native"
+import { Keyboard } from "react-native"
 
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("")
@@ -31,45 +33,49 @@ export default function ConfirmSignUp({ navigation }) {
   }
   return (
     <Screen>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <Header title="Sign Up" noIcon />
-        <View style={styles.mainView}>
-          <AppText style={styles.title}>Confirm Sign Up</AppText>
-          <AppTextInput
-            style={styles.input}
-            value={username}
-            onChangeText={(text) => setUsername(text)}
-            leftIcon="account"
-            placeholder="Enter username"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-          />
-          <AppTextInput
-            style={styles.input}
-            value={authCode}
-            onChangeText={(text) => setAuthCode(text)}
-            leftIcon="numeric"
-            placeholder="Enter verification code"
-            keyboardType="numeric"
-          />
-          <AppButton
-            style={styles.signUpButton}
-            title="Confirm Sign Up"
-            onPress={confirmSignUp}
-          />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <Header title="Sign Up" noIcon />
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.mainView}
+          >
+            <View style={styles.confirmation}>
+              <AppText style={styles.title}>Confirm Sign Up</AppText>
+              <AppTextInput
+                style={styles.input}
+                value={username}
+                onChangeText={(text) => setUsername(text)}
+                leftIcon="account"
+                placeholder="Enter username"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+              />
+              <AppTextInput
+                style={styles.input}
+                value={authCode}
+                onChangeText={(text) => setAuthCode(text)}
+                leftIcon="numeric"
+                placeholder="Enter verification code"
+                keyboardType="numeric"
+              />
+              <AppButton
+                style={styles.signUpButton}
+                title="Confirm Sign Up"
+                onPress={confirmSignUp}
+              />
+            </View>
+          </KeyboardAvoidingView>
+          <View style={styles.loginView}>
+            <AppText>Already have an account?</AppText>
+            <AppButton
+              title="Sign In"
+              onPress={() => navigation.navigate("SignIn")}
+            />
+          </View>
         </View>
-      </KeyboardAvoidingView>
-      <View style={styles.loginView}>
-        <AppText>Already have an account?</AppText>
-        <AppButton
-          title="Sign In"
-          onPress={() => navigation.navigate("SignIn")}
-        />
-      </View>
+      </TouchableWithoutFeedback>
     </Screen>
   )
 }
@@ -77,17 +83,23 @@ export default function ConfirmSignUp({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.lttan,
   },
   mainView: {
     flex: 1,
     width: "100%",
     alignItems: "center",
+    justifyContent: "space-around",
   },
   title: {
     fontSize: 20,
     color: "#202020",
     fontWeight: "500",
     marginVertical: 15,
+  },
+  confirmation: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   input: {
     width: "80%",
@@ -100,9 +112,9 @@ const styles = StyleSheet.create({
   signUpButton: {
     marginTop: 20,
     borderRadius: 50,
-    width: "50%",
     height: 40,
     backgroundColor: colors.red,
+    paddingHorizontal: "15%",
   },
   loginView: {
     display: "flex",
