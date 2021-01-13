@@ -16,7 +16,7 @@ import AppTextInput from "../../components/AppTextInput"
 import AppButton from "../../components/AppButton"
 import AppText from "../../components/AppText"
 import colors from "../../config/colors"
-import { getUser, listUsers } from "../../../graphql/queries"
+import { getUser } from "../../../graphql/queries"
 import store from "../../stores/UserStore"
 import { observer } from "mobx-react"
 

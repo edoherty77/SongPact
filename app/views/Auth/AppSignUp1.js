@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   View,
   StyleSheet,
@@ -9,20 +9,16 @@ import {
 } from "react-native"
 
 import * as Yup from "yup"
+import { observer } from "mobx-react"
 
 import AppButton from "../../components/AppButton"
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
 import AppText from "../../components/AppText"
 import Header from "../../components/Header"
 import Screen from "../../components/Screen"
-import colors from "../../config/colors"
 
-import { createUser } from "../../../graphql/mutations"
-import { listUsers } from "../../../graphql/queries"
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/SignUpStore"
-import { ScrollView } from "react-native"
-import { observer } from "mobx-react"
+import colors from "../../config/colors"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),

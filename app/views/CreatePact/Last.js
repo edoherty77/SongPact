@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from "react"
+import { StyleSheet, Text, View } from "react-native"
 
-import colors from '../../config/colors'
-import Screen from '../../components/Screen'
-import AppText from '../../components/AppText'
-import Header from '../../components/Header'
-import { Formik, FieldArray } from 'formik'
-import ButtonIcon from '../../components/ButtonIcon'
-import ConfirmModal from '../../components/ConfirmModal'
-import { useFormState, useFormDispatch } from '../../context/form-context'
-import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import config from '../../../aws-exports'
+import colors from "../../config/colors"
+import Screen from "../../components/Screen"
+import AppText from "../../components/AppText"
+import Header from "../../components/Header"
+import { Formik, FieldArray } from "formik"
+import ButtonIcon from "../../components/ButtonIcon"
+import ConfirmModal from "../../components/ConfirmModal"
+import { useFormState, useFormDispatch } from "../../context/form-context"
+import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
+import config from "../../../aws-exports"
 Amplify.configure(config)
 
 import {
@@ -18,12 +18,12 @@ import {
   AppFormField,
   SubmitButton,
   AppFormSwitch,
-} from '../../components/forms'
-import * as Yup from 'yup'
+} from "../../components/forms"
+import * as Yup from "yup"
 
 const validationSchema = Yup.object().shape({
-  recordTitle: Yup.string().required().label('Record Title'),
-  role: Yup.string().required().label('role'),
+  recordTitle: Yup.string().required().label("Record Title"),
+  role: Yup.string().required().label("role"),
   // .test(
   //   'is-true',
   //   'Must agree to terms to continue',
@@ -34,16 +34,16 @@ const validationSchema = Yup.object().shape({
 export default function Last({ navigation }) {
   const form = React.useRef()
   const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
+  const { values: formValues, errors: formErrors } = useFormState("customer")
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (form.current) {
         const { values, errors } = form.current
         dispatch({
-          type: 'UPDATE_FORM',
+          type: "UPDATE_FORM",
           payload: {
-            id: 'customer',
+            id: "customer",
             data: { values, errors },
           },
         })
@@ -66,7 +66,7 @@ export default function Last({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-    navigation.navigate('New')
+    navigation.navigate("New")
   }
 
   const toggleInput = () => {
@@ -76,7 +76,7 @@ export default function Last({ navigation }) {
   return (
     <Screen>
       <Header
-        back={() => navigation.navigate('Fourth')}
+        back={() => navigation.navigate("Fourth")}
         icon="arrow-left-bold"
       />
       <Formik
@@ -123,7 +123,7 @@ export default function Last({ navigation }) {
                 title="Review"
                 style={styles.nextButton}
                 onPress={() => {
-                  navigation.push('ReviewAndSign'), console.log(values)
+                  navigation.push("ReviewAndSign"), console.log(values)
                 }}
               />
               <View style={styles.iconView}>
@@ -161,39 +161,39 @@ const styles = StyleSheet.create({
     // padding: 20,
   },
   switchView: {
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     flex: 2,
     paddingTop: 20,
     paddingRight: 20,
     paddingLeft: 20,
-    backgroundColor: 'lightgray',
+    backgroundColor: "lightgray",
   },
   labelView: {
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: 'lightgray',
-    justifyContent: 'flex-start',
+    backgroundColor: "lightgray",
+    justifyContent: "flex-start",
   },
   noLabelView: {
     flex: 1,
   },
   input: {
-    width: '90%',
-    backgroundColor: 'rgba(250, 250, 250, 0.8)',
+    width: "90%",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     fontSize: 18,
     paddingLeft: 20,
     height: 45,
     borderRadius: 25,
   },
   footer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
   },
   iconView: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
     bottom: 10,
   },
@@ -202,6 +202,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: '50%',
+    width: "50%",
   },
 })

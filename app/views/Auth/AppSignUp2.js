@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   View,
   StyleSheet,
@@ -9,19 +9,16 @@ import {
 } from "react-native"
 
 import * as Yup from "yup"
+import { observer } from "mobx-react"
 
 import AppButton from "../../components/AppButton"
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
 import AppText from "../../components/AppText"
 import Header from "../../components/Header"
 import Screen from "../../components/Screen"
-import colors from "../../config/colors"
 
-import { createUser } from "../../../graphql/mutations"
-import { listUsers } from "../../../graphql/queries"
-import { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/SignUpStore"
-import { observer } from "mobx-react"
+import colors from "../../config/colors"
 
 const validationSchema = Yup.object().shape({
   address: Yup.string().required().label("Address"),
@@ -152,25 +149,3 @@ const styles = StyleSheet.create({
     marginVertical: 50,
   },
 })
-
-{
-  /* <AppFormField
-                  style={styles.input}
-                  name="artistName"
-                  placeholder="Artist Name*"
-                  autoCorrect={false}
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="companyName"
-                  placeholder="Company Name"
-                  autoCorrect={false}
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="country"
-                  placeholder="Country"
-                  autoCorrect={false}
-                  textContentType="countryName"
-                /> */
-}
