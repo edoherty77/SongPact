@@ -19,6 +19,10 @@ const NotificationsScreen = observer(() => {
         <AppText>Artist: {store.artistName}</AppText>
         <AppText>Company: {store.companyName}</AppText>
         <AppText>Email: {store.email}</AppText>
+        <AppText>Address: {store.address}</AppText>
+        <AppText>City: {store.city}</AppText>
+        <AppText>State: {store.state}</AppText>
+        <AppText>Zip: {store.zipCode}</AppText>
       </View>
     </View>
   )
