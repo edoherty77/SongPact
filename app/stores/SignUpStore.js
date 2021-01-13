@@ -13,7 +13,7 @@ class SignUpStore {
   companyName = ""
 
   setUserInfo(values) {
-    console.log("storing first SignUp screen")
+    console.log("storing User sign in data")
     console.log(values)
     this.firstName = values.firstName
     this.lastName = values.lastName
@@ -22,7 +22,7 @@ class SignUpStore {
   }
 
   setAddress(values) {
-    console.log("storing second SignUp screen")
+    console.log("storing address data")
     console.log(values)
     this.address = values.address
     this.city = values.city
@@ -31,7 +31,7 @@ class SignUpStore {
   }
 
   setArtistCompany(values) {
-    console.log("storing last SignUp screen")
+    console.log("storing artist/company data")
     console.log(values)
     this.artistName = values.artistName
     this.companyName = values.companyName

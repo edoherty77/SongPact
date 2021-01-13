@@ -19,26 +19,65 @@ import colors from "../../config/colors"
 
 import { createUser } from "../../../graphql/mutations"
 import { listUsers } from "../../../graphql/queries"
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
+import { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/SignUpStore"
-import { ScrollView } from "react-native"
 import { observer } from "mobx-react"
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label("First name"),
-  lastName: Yup.string().required().label("Last name"),
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().label("Password"),
-  password2: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Passwords must match"
-  ),
+  artistName: Yup.string().required().label("Artist name"),
 })
 
-const AppSignUp1 = observer(({ navigation }) => {
-  const nextSignUpScreen = (values) => {
-    store.setUserInfo(values)
-    navigation.navigate("SignUp2")
+const AppSignUp3 = observer(({ navigation }) => {
+  async function finishSignUp(values) {
+    store.setArtistCompany(values)
+
+    try {
+      // sign up with Amplify
+      const data = await Auth.signUp({
+        username: store.email,
+        password: store.password,
+        attributes: {
+          email: store.email,
+        },
+      })
+      console.log("✅ Sign-up Confirmed")
+
+      await addUserToAPIByID(data.userSub)
+
+      // go to confirmation screen
+      navigation.navigate("ConfirmSignUp")
+    } catch (error) {
+      console.log("❌ Error signing up...", error)
+    }
+  }
+
+  const addUserToAPIByID = async (id) => {
+    try {
+      // create userObj
+      const userObj = {
+        id: id,
+        firstName: store.firstName,
+        lastName: store.lastName,
+        artistName: store.artistName,
+        companyName: store.companyName,
+        email: store.email,
+        address: store.address,
+        city: store.city,
+        state: store.state,
+        zipCode: store.zipCode,
+      }
+
+      // create user in db with userObj
+      await API.graphql(graphqlOperation(createUser, { input: userObj }))
+      console.log("user successfully created")
+
+      // call listUsers to confirm new user created
+      const allUsers = await API.graphql(graphqlOperation(listUsers))
+      console.log("////ALL USERS////")
+      console.log(allUsers)
+    } catch (error) {
+      console.log("Error adding user: ", error)
+    }
   }
 
   return (
@@ -53,59 +92,27 @@ const AppSignUp1 = observer(({ navigation }) => {
             <View style={styles.registerView}>
               <AppForm
                 initialValues={{
-                  firstName: "",
-                  lastName: "",
-                  email: "",
-                  password: "",
-                  password2: "",
+                  artistName: "",
+                  companyName: "",
                 }}
-                onSubmit={(values) => nextSignUpScreen(values)}
+                onSubmit={(values) => finishSignUp(values)}
                 validationSchema={validationSchema}
               >
                 <AppFormField
                   style={styles.input}
-                  name="firstName"
-                  placeholder="First Name*"
+                  name="artistName"
+                  placeholder="Artist Name*"
                   autoCorrect={false}
-                  textContentType="givenName"
                 />
                 <AppFormField
                   style={styles.input}
-                  name="lastName"
-                  placeholder="Last Name*"
+                  name="companyName"
+                  placeholder="Company Name"
                   autoCorrect={false}
-                  textContentType="familyName"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="email"
-                  placeholder="Email*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="password"
-                  placeholder="Password*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
-                />
-                <AppFormField
-                  style={styles.input}
-                  name="password2"
-                  placeholder="Confirm Password*"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  // textContentType="password" // TODO uncomment!!!
-                  // secureTextEntry // TODO uncomment!!!
                 />
                 <SubmitButton
                   style={styles.signUpButton}
-                  title="Next"
+                  title="Submit"
                   color={colors.confirm}
                   dismissKey={Keyboard.dismiss}
                 />
@@ -125,7 +132,7 @@ const AppSignUp1 = observer(({ navigation }) => {
   )
 })
 
-export default AppSignUp1
+export default AppSignUp3
 
 const styles = StyleSheet.create({
   container: {

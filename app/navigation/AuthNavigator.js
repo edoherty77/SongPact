@@ -3,10 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 import AppSignIn from "../views/Auth/AppSignIn"
 import AppSignUp1 from "../views/Auth/AppSignUp1"
-import ConfirmSignUp from "../views/Auth/ConfirmSignUp"
-import { NavigationContainer } from "@react-navigation/native"
 import AppSignUp2 from "../views/Auth/AppSignUp2"
 import AppSignUp3 from "../views/Auth/AppSignUp3"
+import ConfirmSignUp from "../views/Auth/ConfirmSignUp"
+import { NavigationContainer } from "@react-navigation/native"
 
 const Stack = createStackNavigator()
 

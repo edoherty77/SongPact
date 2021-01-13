@@ -19,66 +19,18 @@ import colors from "../../config/colors"
 
 import { createUser } from "../../../graphql/mutations"
 import { listUsers } from "../../../graphql/queries"
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
+import { API, Auth, graphqlOperation } from "aws-amplify"
 import store from "../../stores/SignUpStore"
-import { ScrollView } from "react-native"
 import { observer } from "mobx-react"
 
 const validationSchema = Yup.object().shape({
-  artistName: Yup.string().required().label("Artist name"),
-  address: Yup.string().required().label("Address 1"),
+  address: Yup.string().required().label("Address"),
   city: Yup.string().required().label("City"),
   state: Yup.string().required().label("State"),
   zipCode: Yup.number().required().label("Zip Code"),
-  country: Yup.string().required().label("Country"),
 })
 
 const AppSignUp2 = observer(({ navigation }) => {
-  async function signUp(values) {
-    try {
-      // sign up with Amplify
-      const data = await Auth.signUp({
-        username: values.email,
-        password: values.password,
-        attributes: {
-          email: values.email,
-        },
-      })
-      console.log("✅ Sign-up Confirmed")
-
-      addUserToAPI(data.userSub, values)
-
-      // go to confirmation screen
-      navigation.navigate("ConfirmSignUp")
-    } catch (error) {
-      console.log("❌ Error signing up...", error)
-    }
-  }
-
-  const addUserToAPI = async (id, values) => {
-    try {
-      // create userObj
-      const userObj = {
-        id: id,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        artistName: values.artistName,
-        companyName: values.companyName,
-        email: values.email,
-      }
-
-      // create user in db with userObj
-      await API.graphql(graphqlOperation(createUser, { input: userObj }))
-      console.log("user successfully created")
-
-      // call listUsers to confirm new user created
-      const allUsers = await API.graphql(graphqlOperation(listUsers))
-      console.log(allUsers)
-    } catch (error) {
-      console.log("Error adding user: ", error)
-    }
-  }
-
   const nextSignUpScreen = (values) => {
     store.setAddress(values)
     navigation.navigate("SignUp3")
@@ -107,14 +59,14 @@ const AppSignUp2 = observer(({ navigation }) => {
                 <AppFormField
                   style={styles.input}
                   name="address"
-                  placeholder="Street Address"
+                  placeholder="Street Address*"
                   autoCorrect={false}
                   textContentType="fullStreetAddress"
                 />
                 <AppFormField
                   style={styles.input}
                   name="city"
-                  placeholder="City"
+                  placeholder="City*"
                   autoCorrect={false}
                   // width={"120%"}
                   textContentType="addressCity"
@@ -122,7 +74,7 @@ const AppSignUp2 = observer(({ navigation }) => {
                 <AppFormField
                   style={styles.input}
                   name="state"
-                  placeholder="State"
+                  placeholder="State*"
                   autoCorrect={false}
                   // width={"90%"}
                   textContentType="addressState"
@@ -130,7 +82,7 @@ const AppSignUp2 = observer(({ navigation }) => {
                 <AppFormField
                   style={styles.input}
                   name="zipCode"
-                  placeholder="Zip Code"
+                  placeholder="Zip Code*"
                   autoCorrect={false}
                   // width={"70%"}
                   textContentType="postalCode"
