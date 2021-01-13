@@ -111,7 +111,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                 <AppText>Don't have an account?</AppText>
                 <AppButton
                   title="Sign Up"
-                  onPress={() => navigation.navigate("SignUp")}
+                  onPress={() => navigation.navigate("SignUp1")}
                 />
               </View>
             </View>

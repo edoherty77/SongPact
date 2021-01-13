@@ -20,7 +20,9 @@ const AuthNavigator = (props) => {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name="SignUp" component={AppSignUp1} />
+        <Stack.Screen name="SignUp1" component={AppSignUp1} />
+        {/* <Stack.Screen name="SignUp2" component={AppSignUp2} />
+        <Stack.Screen name="SignUp3" component={AppSignUp3} /> */}
         <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
       </Stack.Navigator>
     </NavigationContainer>
