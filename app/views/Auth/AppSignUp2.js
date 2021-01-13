@@ -35,13 +35,13 @@ const AppSignUp2 = observer(({ navigation }) => {
 
   return (
     <Screen>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <Header title="Sign Up" noIcon />
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.mainView}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <Header title="Sign Up" noIcon />
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.mainView}
+          >
             <View style={styles.registerView}>
               <AppForm
                 initialValues={{
@@ -93,16 +93,16 @@ const AppSignUp2 = observer(({ navigation }) => {
                 />
               </AppForm>
             </View>
-            <View style={styles.loginView}>
-              <AppText>Already have an account?</AppText>
-              <AppButton
-                title="Sign In"
-                onPress={() => navigation.navigate("SignIn")}
-              />
-            </View>
+          </KeyboardAvoidingView>
+          <View style={styles.loginView}>
+            <AppText>Already have an account?</AppText>
+            <AppButton
+              title="Sign In"
+              onPress={() => navigation.navigate("SignIn")}
+            />
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+        </View>
+      </TouchableWithoutFeedback>
     </Screen>
   )
 })

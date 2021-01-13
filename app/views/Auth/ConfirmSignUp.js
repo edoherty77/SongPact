@@ -63,6 +63,13 @@ export default function ConfirmSignUp({ navigation }) {
           />
         </View>
       </KeyboardAvoidingView>
+      <View style={styles.loginView}>
+        <AppText>Already have an account?</AppText>
+        <AppButton
+          title="Sign In"
+          onPress={() => navigation.navigate("SignIn")}
+        />
+      </View>
     </Screen>
   )
 }
@@ -96,5 +103,10 @@ const styles = StyleSheet.create({
     width: "50%",
     height: 40,
     backgroundColor: colors.red,
+  },
+  loginView: {
+    display: "flex",
+    alignItems: "center",
+    marginVertical: 50,
   },
 })
