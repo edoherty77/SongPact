@@ -114,10 +114,6 @@ const AppSignUp1 = observer(({ navigation }) => {
               title="Sign In"
               onPress={() => navigation.navigate("SignIn")}
             />
-            <AppButton
-              title="Confirm Screen"
-              onPress={() => navigation.navigate("ConfirmSignUp")}
-            />
           </View>
         </View>
       </TouchableWithoutFeedback>
