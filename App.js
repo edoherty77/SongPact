@@ -21,7 +21,7 @@ import Main from "./app/navigation/main"
 // DATA FLOW
 import store from "./app/stores/UserStore"
 import { observer } from "mobx-react"
-import { getUser } from "./app/src/graphql/Queries"
+import { getUser } from "./graphql/queries"
 
 const Initializing = () => {
   return (
@@ -39,6 +39,11 @@ const App = observer(() => {
       const user = await Auth.currentAuthenticatedUser()
       console.log("✅ User is signed in")
       console.log(user.username)
+      store.setID(user.username)
+      const currentUser = await API.graphql(
+        graphqlOperation(getUser, { id: user.username })
+      )
+      store.setUser(currentUser.data.getUser)
       setUserLoggedIn("loggedIn")
     } catch (error) {
       console.log("❌ User is not signed in")

@@ -17,6 +17,7 @@ class UserStore {
   setID(id) {
     console.log("storing authenticated user ID")
     this.id = id
+    console.log("ID", id, "stored!")
   }
 
   setUser(values) {
