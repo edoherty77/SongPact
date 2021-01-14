@@ -1,8 +1,10 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import AppText from "../../components/AppText"
+import ButtonIcon from "../../components/ButtonIcon"
 import Header from "../../components/Header"
 import Screen from "../../components/Screen"
+import ButtonText from "../../components/ButtonText"
 
 import store from "../../stores/UserStore"
 
@@ -25,6 +27,11 @@ const Profile = () => {
         <AppText>{store.zipCode}</AppText>
         <AppText></AppText>
         <AppText>Email: {store.email}</AppText>
+        <ButtonText
+          style={styles.editBtn}
+          title="Edit Info"
+          onPress={() => console.log("edit pressed")}
+        />
       </View>
     </Screen>
   )
@@ -47,5 +54,8 @@ const styles = StyleSheet.create({
     color: "#202020",
     fontWeight: "500",
     marginVertical: 15,
+  },
+  editBtn: {
+    marginVertical: 20,
   },
 })
