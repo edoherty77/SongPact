@@ -11,16 +11,20 @@ const Profile = () => {
     <Screen>
       <Header title="My Info" noIcon />
       <View style={styles.stateDisplay}>
-        <AppText>ID: {store.id}</AppText>
-        <AppText>First: {store.firstName}</AppText>
-        <AppText>Last: {store.lastName}</AppText>
-        <AppText>Artist: {store.artistName}</AppText>
-        <AppText>Company: {store.companyName}</AppText>
+        <AppText>Now presenting...</AppText>
+        <AppText>
+          {store.firstName} {store.lastName}, aka {store.artistName}
+        </AppText>
+        {store.companyName && <AppText>of {store.companyName}</AppText>}
+        <AppText></AppText>
+        <AppText>Address:</AppText>
+        <AppText>{store.address}</AppText>
+        <AppText>
+          {store.city}, {store.state}
+        </AppText>
+        <AppText>{store.zipCode}</AppText>
+        <AppText></AppText>
         <AppText>Email: {store.email}</AppText>
-        <AppText>Address: {store.address}</AppText>
-        <AppText>City: {store.city}</AppText>
-        <AppText>State: {store.state}</AppText>
-        <AppText>Zip: {store.zipCode}</AppText>
       </View>
     </Screen>
   )
