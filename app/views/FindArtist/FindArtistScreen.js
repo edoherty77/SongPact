@@ -34,9 +34,9 @@ const FindArtist = observer(({ navigation }) => {
 
   const addFriend = async (friend) => {
     //get current user from API
-    const currentUserAPI = await API.graphql(
-      graphqlOperation(getUser, { id: store.id }),
-    )
+    // const currentUserAPI = await API.graphql(
+    //   graphqlOperation(getUser, { id: store.id }),
+    // )
 
     console.log('Friend: ', friend)
 
