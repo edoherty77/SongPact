@@ -2,12 +2,14 @@ import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
 import New from "../views/Main/NewSongPactScreen"
-import First from "../views/CreatePact/First"
-import Third from "../views/CreatePact/Third"
-import Fourth from "../views/CreatePact/Fourth"
-import Second from "../views/CreatePact/Second"
-import Last from "../views/CreatePact/Last"
-import ReviewAndSign from "../views/CreatePact/ReviewAndSign"
+import {
+  First,
+  Second,
+  Third,
+  Fourth,
+  Last,
+  ReviewAndSign,
+} from "../views/CreatePact/index"
 
 const Stack = createStackNavigator()
 
