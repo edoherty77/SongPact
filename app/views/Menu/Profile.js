@@ -8,10 +8,10 @@ import store from "../../stores/UserStore"
 
 const Profile = () => {
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <Header title="My Info" noIcon />
-      <View style={styles.stateDisplay}>
-        <AppText>Now presenting...</AppText>
+      <View style={styles.main}>
+        <AppText style={styles.title}>Now presenting...</AppText>
         <AppText>
           {store.firstName} {store.lastName}, aka {store.artistName}
         </AppText>
@@ -32,4 +32,20 @@ const Profile = () => {
 
 export default Profile
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // alignItems: "center",
+  },
+  main: {
+    flex: 1,
+    width: "80%",
+    alignSelf: "center",
+  },
+  title: {
+    fontSize: 20,
+    color: "#202020",
+    fontWeight: "500",
+    marginVertical: 15,
+  },
+})
