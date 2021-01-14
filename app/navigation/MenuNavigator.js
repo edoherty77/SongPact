@@ -11,10 +11,14 @@ import {
 
 const Stack = createStackNavigator()
 
-const MenuNavigator = () => {
+const MenuNavigator = (props) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} headerMode="screen">
-      <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen name="Main">
+        {(screenprops) => (
+          <Main {...screenprops} updateAuthState={props.updateAuthState} />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="HowItWorks" component={HowItWorks} />
       <Stack.Screen name="Help" component={Help} />
