@@ -6,7 +6,7 @@ import Header from "../../components/Header"
 import Screen from "../../components/Screen"
 import store from "../../stores/UserStore"
 
-export default function MenuScreen({ updateAuthState }) {
+export default function Main({ updateAuthState, navigation }) {
   const signOut = async () => {
     try {
       await Auth.signOut()
@@ -21,10 +21,30 @@ export default function MenuScreen({ updateAuthState }) {
     <Screen>
       <Header title="Menu" />
       <View style={styles.menuContainer}>
-        <AppText style={styles.menuItem}>My Info</AppText>
-        <AppText style={styles.menuItem}>How It Works</AppText>
-        <AppText style={styles.menuItem}>Help</AppText>
-        <AppText style={styles.menuItem}>Prefs</AppText>
+        <AppText
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("Profile")}
+        >
+          My Info
+        </AppText>
+        <AppText
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("HowItWorks")}
+        >
+          How It Works
+        </AppText>
+        <AppText
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("Help")}
+        >
+          Help
+        </AppText>
+        <AppText
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("Preferences")}
+        >
+          Prefs
+        </AppText>
         <AppText style={styles.menuItem} onPress={signOut}>
           Sign Out
         </AppText>

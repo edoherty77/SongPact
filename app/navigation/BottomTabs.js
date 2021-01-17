@@ -7,10 +7,10 @@ import CreatePactStack from "./CreatePactStack"
 
 import Contacts from "../views/Main/ContactsScreen"
 import Dashboard from "../views/Main/DashboardScreen"
-import MenuScreen from "../views/Main/MenuScreen"
 import NotificationsScreen from "../views/Main/NotificationsScreen"
 
 import colors from "../config/colors"
+import MenuNavigator from "./MenuNavigator"
 
 const Tab = createBottomTabNavigator()
 
@@ -110,7 +110,7 @@ export default function BottomTabs({ updateAuthState }) {
         name="Menu"
       >
         {(screenProps) => (
-          <MenuScreen {...screenProps} updateAuthState={updateAuthState} />
+          <MenuNavigator {...screenProps} updateAuthState={updateAuthState} />
         )}
       </Tab.Screen>
     </Tab.Navigator>

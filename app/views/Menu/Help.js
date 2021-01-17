@@ -1,15 +1,14 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import Screen from "../components/Screen"
+import Header from "../../components/Header"
+import Screen from "../../components/Screen"
 
-const Profile = () => {
+export default function Help() {
   return (
     <Screen>
-      <Text></Text>
+      <Header title="Help" noIcon />
     </Screen>
   )
 }
-
-export default Profile
 
 const styles = StyleSheet.create({})
