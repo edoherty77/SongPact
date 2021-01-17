@@ -1,32 +1,32 @@
-import React, { useState } from "react"
-import { StyleSheet, View } from "react-native"
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import colors from "../../config/colors"
-import Screen from "../../components/Screen"
-import AppText from "../../components/AppText"
-import Header from "../../components/Header"
+import colors from '../../config/colors'
+import Screen from '../../components/Screen'
+import AppText from '../../components/AppText'
+import Header from '../../components/Header'
 
-import ButtonIcon from "../../components/ButtonIcon"
-import ConfirmModal from "../../components/ConfirmModal"
+import ButtonIcon from '../../components/ButtonIcon'
+import ConfirmModal from '../../components/ConfirmModal'
 
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
-import config from "../../../aws-exports"
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import config from '../../../src/aws-exports'
 Amplify.configure(config)
-import { createPact } from "../../src/graphql/Queries"
-import { Formik } from "formik"
-import { useFormState, useFormDispatch } from "../../context/form-context"
+import { createPact } from '../../src/graphql/Queries'
+import { Formik } from 'formik'
+import { useFormState, useFormDispatch } from '../../context/form-context'
 
 import {
   AppForm,
   AppFormField,
   SubmitButton,
   AppFormRadio,
-} from "../../components/forms"
-import * as Yup from "yup"
+} from '../../components/forms'
+import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({
-  recordTitle: Yup.string().required().label("Record Title"),
-  role: Yup.string().required().label("role"),
+  recordTitle: Yup.string().required().label('Record Title'),
+  role: Yup.string().required().label('role'),
   // .test(
   //   'is-true',
   //   'Must agree to terms to continue',
@@ -37,16 +37,16 @@ const validationSchema = Yup.object().shape({
 export default function First({ route, navigation }) {
   const form = React.useRef()
   const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState("customer")
+  const { values: formValues, errors: formErrors } = useFormState('customer')
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener('blur', () => {
       if (form.current) {
         const { values, errors } = form.current
         dispatch({
-          type: "UPDATE_FORM",
+          type: 'UPDATE_FORM',
           payload: {
-            id: "customer",
+            id: 'customer',
             data: { values, errors },
           },
         })
@@ -81,7 +81,7 @@ export default function First({ route, navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-    navigation.navigate("New")
+    navigation.navigate('New')
     const parent = navigation.dangerouslyGetParent()
     parent.setOptions({
       tabBarVisible: true,
@@ -94,7 +94,7 @@ export default function First({ route, navigation }) {
 
   return (
     <Screen>
-      <Header icon={"information"} title={type} />
+      <Header icon={'information'} title={type} />
       <Formik
         innerRef={form}
         enableReinitialize
@@ -134,7 +134,7 @@ export default function First({ route, navigation }) {
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  navigation.push("Second")
+                  navigation.push('Second')
                 }}
               />
               <View style={styles.iconView}>
@@ -162,32 +162,32 @@ export default function First({ route, navigation }) {
 
 const styles = StyleSheet.create({
   mainView: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 10,
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   formView: {
     backgroundColor: colors.gray,
-    width: "85%",
-    height: "60%",
+    width: '85%',
+    height: '60%',
     paddingLeft: 10,
   },
   titleView: {
     // backgroundColor: 'green',
-    justifyContent: "center",
+    justifyContent: 'center',
     flex: 1,
   },
   sectionText: {
     paddingLeft: 5,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   roleView: {
     // backgroundColor: 'blue',
-    justifyContent: "space-evenly",
+    justifyContent: 'space-evenly',
     flex: 1,
   },
   collabView: {
@@ -203,21 +203,21 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     // backgroundColor: 'pink',
     // alignSelf: 'flex-end',
     // justifyContent: 'space-between',
   },
   iconView: {
-    position: "absolute",
+    position: 'absolute',
     right: 10,
   },
   input: {
-    width: "90%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    width: '90%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
     height: 45,
@@ -228,6 +228,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: "50%",
+    width: '50%',
   },
 })

@@ -1,0 +1,28 @@
+type User @model @auth(rules: [{ allow: public }]) {
+  id: String!
+  firstName: String!
+  lastName: String!
+  artistName: String!
+  companyName: String!
+  address: String!
+  city: String!
+  state: String!
+  zipCode: Int!
+  email: String!
+  contacts: [User]
+  pacts: [Pact]
+}
+
+type Pact @model @auth(rules: [{ allow: public }]) {
+  type: String!
+  recordTitle: String!
+  role: String
+  initBy: String
+  contributors: String
+  perfPublish: Int
+  prodAdvance: Int
+  prodPublish: Int
+  prodRoyalty: Int
+  prodCredit: String
+  status: Boolean
+}

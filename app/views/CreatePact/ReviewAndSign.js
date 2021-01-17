@@ -1,36 +1,36 @@
-import React, { useState } from "react"
-import { StyleSheet, Text, View, FlatList } from "react-native"
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 
-import colors from "../../config/colors"
-import Screen from "../../components/Screen"
-import AppText from "../../components/AppText"
-import Header from "../../components/Header"
-import { Formik } from "formik"
-import ButtonIcon from "../../components/ButtonIcon"
-import ConfirmModal from "../../components/ConfirmModal"
-import { useFormState, useFormDispatch } from "../../context/form-context"
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
-import { createPact } from "../../src/graphql/Queries"
-import config from "../../../aws-exports"
+import colors from '../../config/colors'
+import Screen from '../../components/Screen'
+import AppText from '../../components/AppText'
+import Header from '../../components/Header'
+import { Formik } from 'formik'
+import ButtonIcon from '../../components/ButtonIcon'
+import ConfirmModal from '../../components/ConfirmModal'
+import { useFormState, useFormDispatch } from '../../context/form-context'
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import { createPact } from '../../src/graphql/Queries'
+import config from '../../../src/aws-exports'
 Amplify.configure(config)
 
-import { SubmitButton } from "../../components/forms"
-import * as Yup from "yup"
+import { SubmitButton } from '../../components/forms'
+import * as Yup from 'yup'
 
 export default function ReviewAndSign({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const form = React.useRef()
   const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState("customer")
+  const { values: formValues, errors: formErrors } = useFormState('customer')
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener('blur', () => {
       if (form.current) {
         const { values, errors } = form.current
         dispatch({
-          type: "UPDATE_FORM",
+          type: 'UPDATE_FORM',
           payload: {
-            id: "customer",
+            id: 'customer',
             data: { values, errors },
           },
         })
@@ -50,21 +50,21 @@ export default function ReviewAndSign({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-    navigation.navigate("New")
+    navigation.navigate('New')
   }
 
   async function addPact(values) {
     try {
       await API.graphql(graphqlOperation(createPact, values))
-      console.log("pact successfully created.")
+      console.log('pact successfully created.')
     } catch (err) {
-      console.log("error creating pact...", err)
+      console.log('error creating pact...', err)
     }
   }
 
   return (
     <Screen>
-      <Header back={() => navigation.navigate("Last")} icon="arrow-left-bold" />
+      <Header back={() => navigation.navigate('Last')} icon="arrow-left-bold" />
       <Formik
         innerRef={form}
         initialValues={formValues}
@@ -85,9 +85,9 @@ export default function ReviewAndSign({ navigation }) {
                 style={styles.nextButton}
                 onPress={() => {
                   dispatch({
-                    type: "UPDATE_FORM",
+                    type: 'UPDATE_FORM',
                     payload: {
-                      id: "customer",
+                      id: 'customer',
                       data: { values, errors },
                     },
                   })
@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
     // backgroundColor: 'orange',
   },
   footer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   iconView: {
-    position: "absolute",
+    position: 'absolute',
     right: 10,
     bottom: 10,
   },
@@ -138,6 +138,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: "50%",
+    width: '50%',
   },
 })

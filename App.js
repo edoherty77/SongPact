@@ -8,7 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 // AMPLIFY & AUTH
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import awsconfig from './aws-exports'
+import awsconfig from './src/aws-exports'
 Amplify.configure({
   ...awsconfig,
   Analytics: {
@@ -21,15 +21,9 @@ import AuthNavigator from './app/navigation/AuthNavigator'
 import Main from './app/navigation/main'
 
 // DATA FLOW
-<<<<<<< HEAD
 import store from './app/stores/UserStore'
 import { observer } from 'mobx-react'
-import { getUser } from './app/src/graphql/Queries'
-=======
-import store from "./app/stores/UserStore"
-import { observer } from "mobx-react"
-import { getUser } from "./graphql/queries"
->>>>>>> submaster
+import { getUser } from './graphql/queries'
 
 const Initializing = () => {
   return (
@@ -47,16 +41,7 @@ const App = observer(() => {
       const user = await Auth.currentAuthenticatedUser()
       console.log('✅ User is signed in')
       console.log(user.username)
-<<<<<<< HEAD
       setUserLoggedIn('loggedIn')
-=======
-      store.setID(user.username)
-      const currentUser = await API.graphql(
-        graphqlOperation(getUser, { id: user.username })
-      )
-      store.setUser(currentUser.data.getUser)
-      setUserLoggedIn("loggedIn")
->>>>>>> submaster
     } catch (error) {
       console.log('❌ User is not signed in')
       // store.resetUser()
