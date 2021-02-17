@@ -1,15 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-import user from './UserStore'
-
 class CreatePactStore {
-  currentUser = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    userId: user.id,
-    artistName: user.artistName,
-  }
-
   type = 'Producer'
   collaborators = []
   recordTitle = ''
@@ -27,25 +18,24 @@ class CreatePactStore {
   }
 
   setCollabInfo(values) {
-    console.log('current', currentUser)
-    console.log('collab array', values)
+    console.log('vals', values)
+
     const collabsArr = values.collabs
     for (let i = 0; i < collabsArr.length; i++) {
       this.collaborators.push(collabsArr[i])
     }
-    // this.collaborators.push(this.currentUser)
+    console.log('collabs', this.collaborators)
   }
 
   setProducer(values) {
-    console.log(values)
-    // this.producer.userId = values.producer
-    //   let producerIndex = this.collaborators
-    //     .map((item) => item.userId)
-    //     .indexOf(values.producer)
+    let foundProducer = this.collaborators.find(
+      (x) => x.userId === values.producer,
+    )
 
-    //   let newProducer =
-    //     ~producerIndex && this.collaborators.splice(producerIndex, 1)
-    //   console.log(newProducer)
+    this.producer.userId = foundProducer.userId
+    this.producer.artistName = foundProducer.artistName
+    this.producer.firstName = foundProducer.firstName
+    this.producer.lasttName = foundProducer.lastName
   }
 
   setProducerInfo(values) {
@@ -53,15 +43,8 @@ class CreatePactStore {
     this.producer.royaltyPercent = parseInt(values.royaltyPercent)
     this.producer.publisherPercent = parseInt(values.publisherPercent)
     this.producer.credit = values.credit
-    // console.log(this.producer)
+    console.log(this.producer)
   }
-
-  // setArtistCompany(values) {
-  //   console.log('storing artist/company data')
-  //   console.log(values)
-  //   this.artistName = values.artistName
-  //   this.companyName = values.companyName
-  // }
 
   resetPact() {
     this.recordTitle = ''

@@ -15,7 +15,6 @@ import config from '../../../src/aws-exports'
 Amplify.configure(config)
 import { Formik, FieldArray } from 'formik'
 import store from '../../stores/CreatePactStore'
-import user from '../../stores/UserStore'
 
 import {
   AppForm,
@@ -42,7 +41,6 @@ export default function ChooseProducer({ navigation }) {
 
   useEffect(() => {
     setStoreData()
-    // console.log(data)
   }, [])
 
   function nextScreen(values) {
@@ -88,14 +86,6 @@ export default function ChooseProducer({ navigation }) {
                       }}
                       value={value}
                     >
-                      {/* <>
-                        <AppText>Me</AppText>
-                        <RadioButton
-                          name="producer"
-                          status="unchecked"
-                          value={`${user.id}`}
-                        />
-                      </> */}
                       <FlatList
                         // contentContainerStyle={{
                         //   alignItems: 'center',

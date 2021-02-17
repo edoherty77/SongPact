@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import { Header, Item, Icon, Input } from 'native-base'
 import Head from '../../components/Header'
@@ -14,19 +14,30 @@ import { Formik, FieldArray } from 'formik'
 
 import ConfirmModal from '../../components/ConfirmModal'
 import store from '../../stores/CreatePactStore'
+import user from '../../stores/UserStore'
 const contacts = [
-  { firstName: 'Chris', lastName: 'Dibona', userId: 1, artistName: 'Bukkake' },
+  {
+    firstName: 'Chris',
+    lastName: 'Dibona',
+    userId: '1',
+    artistName: 'Bukkake',
+  },
   {
     firstName: 'Andrew',
     lastName: 'Leinbach',
-    userId: 2,
+    userId: '2',
     artistName: 'Fucktard',
   },
-  { firstName: 'Steve', lastName: 'Perry', userId: 3, artistName: 'Hippy' },
-  { firstName: 'Andrew', lastName: 'Jackson', userId: 4, artistName: 'Boner' },
-  { firstName: 'Matt', lastName: 'O', userId: 5, artistName: 'Tits' },
-  { firstName: 'Tom', lastName: 'Johnson', userId: 6, artistName: 'Asshole' },
-  { firstName: 'Kyle', lastName: 'Mooney', userId: 7, artistName: 'Shit' },
+  { firstName: 'Steve', lastName: 'Perry', userId: '3', artistName: 'Hippy' },
+  {
+    firstName: 'Andrew',
+    lastName: 'Jackson',
+    userId: '4',
+    artistName: 'Boner',
+  },
+  { firstName: 'Matt', lastName: 'O', userId: '5', artistName: 'Tits' },
+  { firstName: 'Tom', lastName: 'Johnson', userId: '6', artistName: 'Asshole' },
+  { firstName: 'Kyle', lastName: 'Mooney', userId: '7', artistName: 'Shit' },
   {
     firstName: 'Michael',
     lastName: 'Bradcliff',
@@ -37,7 +48,29 @@ const contacts = [
 ]
 
 function ChooseCollabs({ navigation }) {
+  const [foundUser, setFoundUser] = useState('')
+
+  function setStoreUser() {
+    let currentUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userId: user.id,
+      artistName: user.artistName,
+    }
+    setFoundUser(currentUser)
+  }
+
+  useEffect(() => {
+    setStoreUser()
+    // console.log(data)
+  }, [])
+
   const nextScreen = (values) => {
+    try {
+      values.collabs.push(foundUser)
+    } catch (err) {
+      console.log(err)
+    }
     store.setCollabInfo(values)
     navigation.navigate('Producer')
   }
