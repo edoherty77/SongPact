@@ -37,11 +37,11 @@ export default function BottomTabs({ updateAuthState }) {
           paddingBottom: 45,
           fontFamily: 'Futura',
         },
-        tabStyle: {
-          height: 90,
-          backgroundColor: colors.gray,
-          paddingBottom: 10,
-        },
+        // tabStyle: {
+        //   height: 90,
+        //   backgroundColor: colors.gray,
+        //   paddingBottom: 10,
+        // },
       }}
     >
       <Tab.Screen

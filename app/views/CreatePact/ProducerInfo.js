@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import {
   AppForm,
@@ -17,6 +17,7 @@ import colors from '../../config/colors'
 import ButtonIcon from '../../components/ButtonIcon'
 import AppButton from '../../components/AppButton'
 import { Button, Card, Text } from 'react-native-paper'
+import store from '../../stores/CreatePactStore'
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(4).label('Password'),
@@ -24,6 +25,23 @@ const validationSchema = Yup.object().shape({
 
 export default function ProducerInfo({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
+  const [producer, setProducer] = useState('')
+
+  const getProducer = () => {
+    // console.log(store.producer)
+    setProducer(store.producer.userId)
+  }
+
+  useEffect(() => {
+    getProducer()
+    // console.log(producer)
+  }, [])
+
+  function nextScreen(values) {
+    store.setProducerInfo(values)
+    // navigation.navigate('ProducerInfo')
+  }
+
   function trash() {
     setModalVisible(true)
   }
@@ -34,6 +52,7 @@ export default function ProducerInfo({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
+    store.resetPact()
     navigation.navigate('New')
   }
   function test(values) {
@@ -46,14 +65,25 @@ export default function ProducerInfo({ navigation }) {
         icon="arrow-left-bold"
         back={() => navigation.navigate('Producer')}
       />
-      <Formik initialValues="">
+      <Formik
+        initialValues={{
+          advancePercent: '',
+          publisherPercent: '',
+          credit: '',
+          royaltyPercent: '',
+        }}
+        onSubmit={(values) => nextScreen(values)}
+      >
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
-              <AppFormPercent name="prodAdvance" title="Producer Advance" />
-              <AppFormPercent name="prodRoyalty" title="Producer Royalty" />
-              <AppFormPercent name="prodPublish" title="Producer Publish" />
-              <AppFormPercent name="perfPublish" title="Performer Publish" />
+              <AppFormPercent name="advancePercent" title="Producer Advance" />
+              <AppFormPercent name="royaltyPercent" title="Producer Royalty" />
+              <AppFormPercent
+                name="publisherPercent"
+                title="Producer Publish"
+              />
+              {/* <AppFormPercent name="perfPublish" title="Performer Publish" /> */}
               <View style={styles.prodCredView}>
                 <View style={styles.top}>
                   <AppText fontSize={25}>Producer Credit:</AppText>
@@ -62,11 +92,11 @@ export default function ProducerInfo({ navigation }) {
                     backgroundColor="transparent"
                     size={35}
                     iconColor="#42C1FC"
-                    onPress={() => handleInfoPress()}
+                    // onPress={() => handleInfoPress()}
                   />
                 </View>
                 <AppFormField
-                  name="prodCredit"
+                  name="credit"
                   style={styles.textInput}
                   placeholder="Producer Credit"
                   autoCapitalize="none"

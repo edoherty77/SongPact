@@ -15,15 +15,25 @@ import { Formik, FieldArray } from 'formik'
 import ConfirmModal from '../../components/ConfirmModal'
 import store from '../../stores/CreatePactStore'
 const contacts = [
-  { first: 'Chris', last: 'Dibona', userId: 1, artistName: 'Bukkake' },
-  { first: 'Andrew', last: 'Leinbach', userId: 2, artistName: 'Fucktard' },
-  { first: 'Steve', last: 'Perry', userId: 3, artistName: 'Hippy' },
-  { first: 'Andrew', last: 'Jackson', userId: 4, artistName: 'Boner' },
-  { first: 'Matt', last: 'O', userId: 5, artistName: 'Tits' },
-  { first: 'Tom', last: 'Johnson', userId: 6, artistName: 'Asshole' },
-  { first: 'Kyle', last: 'Mooney', userId: 7, artistName: 'Shit' },
-  { first: 'Michael', last: 'Bradcliff', userId: 8, artistName: 'AppleBees' },
-  { first: 'Steve', last: 'Pearn', userId: 9, artistName: 'Tacos' },
+  { firstName: 'Chris', lastName: 'Dibona', userId: 1, artistName: 'Bukkake' },
+  {
+    firstName: 'Andrew',
+    lastName: 'Leinbach',
+    userId: 2,
+    artistName: 'Fucktard',
+  },
+  { firstName: 'Steve', lastName: 'Perry', userId: 3, artistName: 'Hippy' },
+  { firstName: 'Andrew', lastName: 'Jackson', userId: 4, artistName: 'Boner' },
+  { firstName: 'Matt', lastName: 'O', userId: 5, artistName: 'Tits' },
+  { firstName: 'Tom', lastName: 'Johnson', userId: 6, artistName: 'Asshole' },
+  { firstName: 'Kyle', lastName: 'Mooney', userId: 7, artistName: 'Shit' },
+  {
+    firstName: 'Michael',
+    lastName: 'Bradcliff',
+    userId: 8,
+    artistName: 'AppleBees',
+  },
+  { firstName: 'Steve', lastName: 'Pearn', userId: 9, artistName: 'Tacos' },
 ]
 
 function ChooseCollabs({ navigation }) {
@@ -65,8 +75,8 @@ function ChooseCollabs({ navigation }) {
     <Screen>
       <Head
         title="Collaborators"
-        icon="arrow-left-bold"
-        back={() => navigation.navigate('First')}
+        // icon="arrow-left-bold"
+        // back={() => navigation.navigate('First')}
       />
       <View style={styles.mainView}>
         <Formik
@@ -108,7 +118,7 @@ function ChooseCollabs({ navigation }) {
                       renderItem={({ item, index }) => (
                         <UserIcon
                           name={`collabs.${index}`}
-                          title={`${item.first} ${item.last}`}
+                          title={`${item.firstName} ${item.lastName}`}
                           onPress={() => {
                             push(item), chooseCollab(item)
                           }}
@@ -130,7 +140,7 @@ function ChooseCollabs({ navigation }) {
                       renderItem={({ item, index }) => (
                         <ContactCheckBox
                           name={`collabs.${index}`}
-                          title={`${item.first} ${item.last}`}
+                          title={`${item.firstName} ${item.lastName}`}
                           onPress={() => {
                             push(item), chooseCollab({ item })
                           }}

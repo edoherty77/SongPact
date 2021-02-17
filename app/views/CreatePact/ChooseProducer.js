@@ -34,14 +34,15 @@ import * as Yup from 'yup'
 export default function ChooseProducer({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
+  const [value, setValue] = React.useState('')
 
   function setStoreData() {
-    setData(store.collorators)
+    setData(store.collaborators)
   }
 
   useEffect(() => {
     setStoreData()
-    // console.log(user)
+    // console.log(data)
   }, [])
 
   function nextScreen(values) {
@@ -62,13 +63,12 @@ export default function ChooseProducer({ navigation }) {
     store.resetPact()
     navigation.navigate('New')
   }
-  const [value, setValue] = React.useState('')
   return (
     <Screen>
       <Header
         title="Producer?"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('Collab')}
+        back={() => navigation.navigate('Collabs')}
       />
       <Formik
         initialValues={{ producer: '' }}
@@ -88,14 +88,14 @@ export default function ChooseProducer({ navigation }) {
                       }}
                       value={value}
                     >
-                      <>
+                      {/* <>
                         <AppText>Me</AppText>
                         <RadioButton
                           name="producer"
                           status="unchecked"
                           value={`${user.id}`}
                         />
-                      </>
+                      </> */}
                       <FlatList
                         // contentContainerStyle={{
                         //   alignItems: 'center',
@@ -108,7 +108,7 @@ export default function ChooseProducer({ navigation }) {
                         keyExtractor={(data) => data.userId}
                         renderItem={({ item, index }) => (
                           <>
-                            <AppText>{`${item.first} ${item.last}`}</AppText>
+                            <AppText>{`${item.firstName} ${item.lastName}`}</AppText>
                             <RadioButton
                               name="producer"
                               value={`${item.userId}`}
