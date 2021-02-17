@@ -9,24 +9,25 @@ const AppFormRadio = ({
   name,
   formikKey,
   value1,
-  value2,
+
   width,
   user,
   ...otherProps
 }) => {
   const { setFieldValue, handleChange, errors, touched } = useFormikContext()
   const [value, setValue] = useState('first')
-
+  const dick = { user }
+  console.log(value)
   return (
     <View>
       <RadioButton.Group
         onValueChange={(value) => {
-          setFieldValue(formikKey, value), setValue(value)
+          setFieldValue(formikKey, value), setValue(value1)
         }}
         value={value}
         {...otherProps}
       >
-        <View>
+        {/* <View>
           <AppText fontSize={30}>{user}</AppText>
         </View>
         <View style={styles.optionView}>
@@ -36,13 +37,13 @@ const AppFormRadio = ({
           <View style={styles.radioBtnView}>
             <RadioButton color="#42C1FC" value={value1} />
           </View>
-        </View>
+        </View> */}
         <View style={styles.optionView}>
           <View style={styles.textView}>
-            <AppText fontSize={23}>{value2}:</AppText>
+            <AppText fontSize={23}>{user}:</AppText>
           </View>
           <View style={styles.radioBtnView}>
-            <RadioButton color="#42C1FC" value={value2} />
+            <RadioButton color="#42C1FC" value={value1} />
           </View>
         </View>
       </RadioButton.Group>

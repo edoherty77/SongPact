@@ -22,27 +22,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label('Password'),
 })
 
-export default function Fourth({ navigation }) {
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
-
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: 'UPDATE_FORM',
-          payload: {
-            id: 'customer',
-            data: { values, errors },
-          },
-        })
-      }
-    })
-
-    return unsubscribe
-  }, [navigation])
+export default function ProducerInfo({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   function trash() {
     setModalVisible(true)
@@ -64,14 +44,9 @@ export default function Fourth({ navigation }) {
       <Header
         title="Numbers"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('Third')}
+        back={() => navigation.navigate('Producer')}
       />
-      <Formik
-        innerRef={form}
-        initialValues={formValues}
-        initialErrors={formErrors}
-        enableReinitialize
-      >
+      <Formik initialValues="">
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
@@ -101,12 +76,12 @@ export default function Fourth({ navigation }) {
               </View>
             </View>
             <View style={styles.footer}>
-              <AppButton
+              <SubmitButton
                 style={styles.nextButton}
                 title="Next"
-                onPress={() => {
-                  navigation.push('Last')
-                }}
+                // onPress={() => {
+                //   navigation.push('Last')
+                // }}
               />
               <View style={styles.iconView}>
                 <ButtonIcon

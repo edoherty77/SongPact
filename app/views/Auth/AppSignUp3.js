@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   View,
   StyleSheet,
@@ -6,26 +6,26 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-} from "react-native"
+} from 'react-native'
 
-import * as Yup from "yup"
-import { observer } from "mobx-react"
-import { API, Auth, graphqlOperation } from "aws-amplify"
+import * as Yup from 'yup'
+import { observer } from 'mobx-react'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
 
-import AppButton from "../../components/AppButton"
-import { AppForm, AppFormField, SubmitButton } from "../../components/forms"
-import AppText from "../../components/AppText"
-import Header from "../../components/Header"
-import Screen from "../../components/Screen"
+import AppButton from '../../components/AppButton'
+import { AppForm, AppFormField, SubmitButton } from '../../components/forms'
+import AppText from '../../components/AppText'
+import Header from '../../components/Header'
+import Screen from '../../components/Screen'
 
-import { createUser } from "../../../graphql/mutations"
-import { listUsers } from "../../../graphql/queries"
+import { createUser } from '../../../src/graphql/mutations'
+import { listUsers } from '../../../src/graphql/queries'
 
-import store from "../../stores/SignUpStore"
-import colors from "../../config/colors"
+import store from '../../stores/SignUpStore'
+import colors from '../../config/colors'
 
 const validationSchema = Yup.object().shape({
-  artistName: Yup.string().required().label("Artist name"),
+  artistName: Yup.string().required().label('Artist name'),
 })
 
 const AppSignUp3 = observer(({ navigation }) => {
@@ -41,14 +41,14 @@ const AppSignUp3 = observer(({ navigation }) => {
           email: store.email,
         },
       })
-      console.log("✅ Sign-up Confirmed")
+      console.log('✅ Sign-up Confirmed')
 
       await addUserToAPIByID(data.userSub)
 
       // go to confirmation screen
-      navigation.navigate("ConfirmSignUp")
+      navigation.navigate('ConfirmSignUp')
     } catch (error) {
-      console.log("❌ Error signing up...", error)
+      console.log('❌ Error signing up...', error)
     }
   }
 
@@ -70,14 +70,14 @@ const AppSignUp3 = observer(({ navigation }) => {
 
       // create user in db with userObj
       await API.graphql(graphqlOperation(createUser, { input: userObj }))
-      console.log("user successfully created")
+      console.log('user successfully created')
 
       // call listUsers to confirm new user created
       const allUsers = await API.graphql(graphqlOperation(listUsers))
-      console.log("////ALL USERS////")
+      console.log('////ALL USERS////')
       console.log(allUsers)
     } catch (error) {
-      console.log("Error adding user: ", error)
+      console.log('Error adding user: ', error)
     }
   }
 
@@ -87,14 +87,14 @@ const AppSignUp3 = observer(({ navigation }) => {
         <View style={styles.container}>
           <Header title="Sign Up" noIcon />
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={styles.mainView}
           >
             <View style={styles.registerView}>
               <AppForm
                 initialValues={{
-                  artistName: "",
-                  companyName: "",
+                  artistName: '',
+                  companyName: '',
                 }}
                 onSubmit={(values) => finishSignUp(values)}
                 validationSchema={validationSchema}
@@ -124,7 +124,7 @@ const AppSignUp3 = observer(({ navigation }) => {
             <AppText>Already have an account?</AppText>
             <AppButton
               title="Sign In"
-              onPress={() => navigation.navigate("SignIn")}
+              onPress={() => navigation.navigate('SignIn')}
             />
           </View>
         </View>
@@ -142,20 +142,20 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-around",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   registerView: {
     // flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     // width: "100%",
-    justifyContent: "center",
+    justifyContent: 'center',
     // paddingTop: "70%",
   },
   input: {
-    width: "80%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    width: '80%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
     height: 35,
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 40,
     backgroundColor: colors.red,
-    paddingHorizontal: "15%",
+    paddingHorizontal: '15%',
     // width: 200,
   },
   loginView: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     marginVertical: 50,
   },
 })

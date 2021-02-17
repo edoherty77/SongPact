@@ -23,7 +23,7 @@ import Main from './app/navigation/main'
 // DATA FLOW
 import store from './app/stores/UserStore'
 import { observer } from 'mobx-react'
-import { getUser } from './graphql/queries'
+import { getUser } from './src/graphql/queries'
 
 const Initializing = () => {
   return (

@@ -7,6 +7,7 @@ import AppText from '../../components/AppText'
 import Header from '../../components/Header'
 
 import ButtonIcon from '../../components/ButtonIcon'
+import AppButton from '../../components/AppButton'
 import ConfirmModal from '../../components/ConfirmModal'
 
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
@@ -130,11 +131,11 @@ export default function First({ route, navigation }) {
               </View>
             </View>
             <View style={styles.footer}>
-              <SubmitButton
+              <AppButton
                 style={styles.nextButton}
                 title="Next"
                 onPress={() => {
-                  navigation.push('Second')
+                  navigation.push('Collabs')
                 }}
               />
               <View style={styles.iconView}>

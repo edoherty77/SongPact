@@ -6,7 +6,7 @@ import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
 
-import { getUser, listUsers } from '../../../graphql/queries'
+import { getUser, listUsers } from '../../../src/graphql/queries'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 

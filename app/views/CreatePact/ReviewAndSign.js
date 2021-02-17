@@ -6,6 +6,7 @@ import Screen from '../../components/Screen'
 import AppText from '../../components/AppText'
 import Header from '../../components/Header'
 import { Formik } from 'formik'
+import AppButton from '../../components/AppButton'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import { useFormState, useFormDispatch } from '../../context/form-context'
@@ -80,7 +81,7 @@ export default function ReviewAndSign({ navigation }) {
               /> */}
             </View>
             <View style={styles.footer}>
-              <SubmitButton
+              <AppButton
                 title="Sign and Send"
                 style={styles.nextButton}
                 onPress={() => {

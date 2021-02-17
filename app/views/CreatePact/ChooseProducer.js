@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 
 import colors from '../../config/colors'
@@ -9,12 +9,13 @@ import Header from '../../components/Header'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import AppButton from '../../components/AppButton'
-
+import { RadioButton } from 'react-native-paper'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import config from '../../../src/aws-exports'
 Amplify.configure(config)
 import { Formik, FieldArray } from 'formik'
-import { useFormState, useFormDispatch } from '../../context/form-context'
+import store from '../../stores/CreatePactStore'
+import user from '../../stores/UserStore'
 
 import {
   AppForm,
@@ -24,41 +25,29 @@ import {
 } from '../../components/forms'
 import * as Yup from 'yup'
 
-const validationSchema = Yup.object().shape({
-  recordTitle: Yup.string().required().label('Record Title'),
-  role: Yup.string().required().label('role'),
-  // .test(
-  //   'is-true',
-  //   'Must agree to terms to continue',
-  //   (value) => value === true,
-  // ),
-})
+// const validationSchema = Yup.object().shape({
+//   recordTitle: Yup.string().required().label('Record Title'),
+//   role: Yup.string().required().label('role'),
 
-export default function Third({ navigation }) {
-  const Lest = { AppForm }
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
+// })
 
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: 'UPDATE_FORM',
-          payload: {
-            id: 'customer',
-            data: { values, errors },
-          },
-        })
-      }
-    })
-
-    return unsubscribe
-  }, [navigation])
-
+export default function ChooseProducer({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
+
+  function setStoreData() {
+    setData(store.collorators)
+  }
+
+  useEffect(() => {
+    setStoreData()
+    // console.log(user)
+  }, [])
+
+  function nextScreen(values) {
+    store.setProducer(values)
+    navigation.navigate('ProducerInfo')
+  }
 
   function trash() {
     setModalVisible(true)
@@ -70,60 +59,75 @@ export default function Third({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
+    store.resetPact()
     navigation.navigate('New')
   }
-
+  const [value, setValue] = React.useState('')
   return (
     <Screen>
       <Header
-        title="Roles"
+        title="Producer?"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('Second')}
+        back={() => navigation.navigate('Collab')}
       />
       <Formik
-        innerRef={form}
-        enableReinitialize
-        initialValues={formValues}
-        initialErrors={formErrors}
-        validationSchema={validationSchema}
+        initialValues={{ producer: '' }}
+        onSubmit={(values) => nextScreen(values)}
+        // validationSchema={validationSchema}
       >
-        {({ values, errors, handleSubmit }) => (
+        {({ values, errors, handleSubmit, setFieldValue }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
               <View style={styles.roleView}>
-                <FieldArray name="collabs">
+                <FieldArray name="producer">
                   {({ push, remove }) => (
-                    <FlatList
-                      // contentContainerStyle={{
-                      //   alignItems: 'center',
-                      //   justifyContent: 'center',
-                      //   // backgroundColor: 'blue',
-                      //   width: '100%',
-                      // }}
-                      style={styles.addedCollabsList}
-                      data={values.collabs}
-                      keyExtractor={(collab) => collab.id}
-                      renderItem={({ item, index }) => (
-                        <AppFormRadio
-                          name={`collabs.${index}`}
-                          value1="Producer"
-                          value2="Purchaser"
-                          formikKey={`collabs.${index}.role`}
-                          user={`${item.first} ${item.last}`}
+                    <RadioButton.Group
+                      name="producer"
+                      onValueChange={(value) => {
+                        setFieldValue('producer', value), setValue(value)
+                      }}
+                      value={value}
+                    >
+                      <>
+                        <AppText>Me</AppText>
+                        <RadioButton
+                          name="producer"
+                          status="unchecked"
+                          value={`${user.id}`}
                         />
-                      )}
-                    />
+                      </>
+                      <FlatList
+                        // contentContainerStyle={{
+                        //   alignItems: 'center',
+                        //   justifyContent: 'center',
+                        //   // backgroundColor: 'blue',
+                        //   width: '100%',
+                        // }}
+                        style={styles.addedCollabsList}
+                        data={data}
+                        keyExtractor={(data) => data.userId}
+                        renderItem={({ item, index }) => (
+                          <>
+                            <AppText>{`${item.first} ${item.last}`}</AppText>
+                            <RadioButton
+                              name="producer"
+                              value={`${item.userId}`}
+                            />
+                          </>
+                        )}
+                      />
+                    </RadioButton.Group>
                   )}
                 </FieldArray>
               </View>
             </View>
             <View style={styles.footer}>
-              <AppButton
+              <SubmitButton
                 style={styles.nextButton}
                 title="Next"
-                onPress={() => {
-                  navigation.push('Fourth')
-                }}
+                // onPress={() => {
+                //   navigation.push('Fourth')
+                // }}
               />
               <View style={styles.iconView}>
                 <ButtonIcon

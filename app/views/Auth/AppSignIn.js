@@ -16,7 +16,7 @@ import AppTextInput from '../../components/AppTextInput'
 import AppButton from '../../components/AppButton'
 import AppText from '../../components/AppText'
 import colors from '../../config/colors'
-import { getUser } from '../../../graphql/queries'
+import { getUser } from '../../../src/graphql/queries'
 import store from '../../stores/UserStore'
 import { observer } from 'mobx-react'
 
@@ -28,14 +28,14 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
     try {
       const data = await Auth.signIn(username, password)
       console.log('Success - Signed In!')
-      console.log(data.username)
+      console.log('auth username', data.username)
       store.setID(data.username)
-      console.log(store.id)
+      console.log('store id', store.id)
       const currentUser = await API.graphql(
         graphqlOperation(getUser, { id: data.username }),
       )
-      console.log('////current user////')
-      console.log(currentUser.data.getUser.artistName)
+
+      console.log('current user', currentUser.data.getUser.artistName)
 
       store.setUser(currentUser.data.getUser)
 

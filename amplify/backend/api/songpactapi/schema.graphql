@@ -1,0 +1,50 @@
+type User @model {
+  id: ID!
+  cognitoID: String
+  firstName: String!
+  lastName: String!
+  artistName: String
+  companyName: String
+  address: String
+  city: String
+  state: String
+  zipCode: Int
+  email: String!
+  contacts: [String]
+  # performed: [Performer] @connection(name: "PerformerTableJoin")
+  # produced: [Producer] @connection(name: "ProducerTableJoin")
+}
+
+type Pact @model {
+  id: ID!
+  type: String!
+  recordTitle: String!
+  role: String
+  initBy: String
+  performers: [Performer!]! @connection(name: "PactPerformers")
+  producer: Producer! @connection(name: "PactProducer")
+  status: Boolean
+}
+
+type Performer @model {
+  id: ID!
+  # user: User @connection(name: "PerformerTableJoin")
+  pactID: String!
+  userId: String!
+  userName: String
+  publisherPercent: Int!
+  pact: Pact @connection(name: "PactPerformers")
+}
+
+type Producer @model {
+  id: ID!
+  # user: User @connection(name: "ProducerTableJoin")
+  pactID: String!
+  userId: String!
+  userName: String
+  advancePercent: Int!
+  publisherPercent: Int!
+  royaltyPercent: Int!
+  credit: String
+  pact: Pact @connection(name: "PactProducer")
+}

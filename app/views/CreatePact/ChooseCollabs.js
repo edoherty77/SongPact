@@ -11,42 +11,26 @@ import Separator from '../../components/Separator'
 import { SubmitButton } from '../../components/forms'
 import ButtonIcon from '../../components/ButtonIcon'
 import { Formik, FieldArray } from 'formik'
-import { useFormState, useFormDispatch } from '../../context/form-context'
+
 import ConfirmModal from '../../components/ConfirmModal'
-import { values } from 'mobx'
+import store from '../../stores/CreatePactStore'
 const contacts = [
-  { first: 'Chris', last: 'Dibona', id: 1 },
-  { first: 'Andrew', last: 'Leinbach', id: 2 },
-  { first: 'Steve', last: 'Perry', id: 3 },
-  { first: 'Andrew', last: 'Jackson', id: 4 },
-  { first: 'Matt', last: 'O', id: 5 },
-  { first: 'Tom', last: 'Johnson', id: 6 },
-  { first: 'Kyle', last: 'Mooney', id: 7 },
-  { first: 'Michael', last: 'Bradcliff', id: 8 },
-  { first: 'Steve', last: 'Pearn', id: 9 },
+  { first: 'Chris', last: 'Dibona', userId: 1, artistName: 'Bukkake' },
+  { first: 'Andrew', last: 'Leinbach', userId: 2, artistName: 'Fucktard' },
+  { first: 'Steve', last: 'Perry', userId: 3, artistName: 'Hippy' },
+  { first: 'Andrew', last: 'Jackson', userId: 4, artistName: 'Boner' },
+  { first: 'Matt', last: 'O', userId: 5, artistName: 'Tits' },
+  { first: 'Tom', last: 'Johnson', userId: 6, artistName: 'Asshole' },
+  { first: 'Kyle', last: 'Mooney', userId: 7, artistName: 'Shit' },
+  { first: 'Michael', last: 'Bradcliff', userId: 8, artistName: 'AppleBees' },
+  { first: 'Steve', last: 'Pearn', userId: 9, artistName: 'Tacos' },
 ]
 
-function Second({ navigation }) {
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
-
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: 'UPDATE_FORM',
-          payload: {
-            id: 'customer',
-            data: { values, errors },
-          },
-        })
-      }
-    })
-
-    return unsubscribe
-  }, [navigation])
+function ChooseCollabs({ navigation }) {
+  const nextScreen = (values) => {
+    store.setCollabInfo(values)
+    navigation.navigate('Producer')
+  }
   const [people, setPeople] = useState([])
   // const [isChecked, setIsChecked] = useState(false)
 
@@ -73,23 +57,21 @@ function Second({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
-
+    store.resetPact()
     navigation.navigate('New')
   }
 
   return (
     <Screen>
       <Head
-        title="Performers"
+        title="Collaborators"
         icon="arrow-left-bold"
         back={() => navigation.navigate('First')}
       />
       <View style={styles.mainView}>
         <Formik
-          innerRef={form}
-          initialValues={formValues}
-          initialErrors={formErrors}
-          enableReinitialize
+          initialValues={{ collabs: [] }}
+          onSubmit={(values) => nextScreen(values)}
         >
           {({ values, errors, handleSubmit }) => (
             <View style={styles.formView}>
@@ -144,7 +126,7 @@ function Second({ navigation }) {
                       style={styles.contactsList}
                       contentContainerStyle={{ flexGrow: 1 }}
                       data={contacts}
-                      keyExtractor={(contact) => contact.id}
+                      keyExtractor={(item) => item.userId}
                       renderItem={({ item, index }) => (
                         <ContactCheckBox
                           name={`collabs.${index}`}
@@ -159,12 +141,12 @@ function Second({ navigation }) {
                 </FieldArray>
               </View>
               <View style={styles.footer}>
-                <AppButton
+                <SubmitButton
                   style={styles.nextButton}
                   title="Next"
-                  onPress={() => {
-                    navigation.push('Third')
-                  }}
+                  // onPress={() => {
+                  //   navigation.push('Third')
+                  // }}
                 />
                 <View style={styles.iconView}>
                   <ButtonIcon
@@ -245,4 +227,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Second
+export default ChooseCollabs

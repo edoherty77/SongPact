@@ -8,6 +8,7 @@ import Header from '../../components/Header'
 import { Formik, FieldArray } from 'formik'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
+import AppButton from '../../components/AppButton'
 import { useFormState, useFormDispatch } from '../../context/form-context'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import config from '../../../src/aws-exports'
@@ -119,7 +120,7 @@ export default function Last({ navigation }) {
               )}
             </View>
             <View style={styles.footer}>
-              <SubmitButton
+              <AppButton
                 title="Review"
                 style={styles.nextButton}
                 onPress={() => {
