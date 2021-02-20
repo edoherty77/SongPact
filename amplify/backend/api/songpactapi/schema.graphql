@@ -11,37 +11,42 @@ type User @model {
   zipCode: Int
   email: String!
   contacts: [String]
-  # performed: [Performer] @connection(name: "PerformerTableJoin")
-  # produced: [Producer] @connection(name: "ProducerTableJoin")
+  # performed: [Performer] @connection(name: "UserPerformer")
+  # produced: [Producer] @connection(name: "UserProducer")
 }
 
 type Pact @model {
   id: ID!
   type: String!
   recordTitle: String!
-  role: String
   initBy: String
-  performers: [Performer!]! @connection(name: "PactPerformers")
-  producer: Producer! @connection(name: "PactProducer")
+  sample: Boolean
+  recordLabel: Boolean
+  labelName: String
+  # collaborators: [User]
+  performers: [Performer] @connection(name: "PactPerformers")
+  producer: Producer @connection(name: "PactProducer")
+  createdAt: String
   status: Boolean
 }
 
 type Performer @model {
   id: ID!
-  # user: User @connection(name: "PerformerTableJoin")
-  pactID: String!
+  # user: User @connection(name: "UserPerformer")
+  pactID: String
   userId: String!
-  userName: String
+  artistName: String
+  firstName: String
+  lastName: String
   publisherPercent: Int!
   pact: Pact @connection(name: "PactPerformers")
 }
 
 type Producer @model {
   id: ID!
-  # user: User @connection(name: "ProducerTableJoin")
-  pactID: String!
+  # user: User @connection(name: "UserProducer")
+  pactID: String
   userId: String!
-  userName: String
   advancePercent: Int!
   publisherPercent: Int!
   royaltyPercent: Int!

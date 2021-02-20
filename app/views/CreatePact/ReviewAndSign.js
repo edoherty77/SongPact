@@ -11,7 +11,11 @@ import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import { useFormState, useFormDispatch } from '../../context/form-context'
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import { createPact } from '../../src/graphql/Queries'
+import {
+  createPact,
+  createProducer,
+  createPerformer,
+} from '../../../src/graphql/mutations'
 import config from '../../../src/aws-exports'
 Amplify.configure(config)
 import store from '../../stores/CreatePactStore'
@@ -29,8 +33,42 @@ export default function ReviewAndSign({ navigation }) {
 
   useEffect(() => {
     getStoreInfo()
-    console.log('STORE INFO', info)
+    // console.log('STORE INFO', info)
   }, [])
+
+  const handleAddPact = async () => {
+    console.log('PACT INFO', info)
+
+    const pactInfo = {
+      type: info.type,
+      recordTitle: info.recordTitle,
+      initBy: info.initBy,
+      sample: info.sample,
+      labelName: info.labelName,
+      recordLabel: info.recordLabel,
+      createdAt: new Date().toISOString(),
+      producer: {
+        userId: info.producer.userId,
+        advancePercent: info.producer.advancePercent,
+        royaltyPercent: info.producer.royaltyPercent,
+        publisherPercent: info.producer.publisherPercent,
+        credit: info.producer.credit,
+      },
+      performers: [],
+    }
+
+    for (let i = 0; i < info.performers.length; i++) {
+      pactInfo.performers.push(info.performers[i])
+      await API.graphql(
+        graphqlOperation(createPerformer, { input: info.performers[i] }),
+      )
+    }
+
+    await API.graphql(graphqlOperation(createPact, { input: pactInfo }))
+    await API.graphql(
+      graphqlOperation(createProducer, { input: pactInfo.producer }),
+    )
+  }
 
   function trash() {
     setModalVisible(true)
@@ -61,42 +99,23 @@ export default function ReviewAndSign({ navigation }) {
         back={() => navigation.navigate('RecordInfo')}
         icon="arrow-left-bold"
       />
-      <Formik initialValues={{}} enableReinitialize>
-        {({ values, errors }) => (
-          <View style={styles.mainView}>
-            <View style={styles.dataView}>
-              {/* <FlatList
-                data={Object.keys(values)}
-                renderItem={({ item }) => <AppText>{values[item]}</AppText>}
-              /> */}
-            </View>
-            <View style={styles.footer}>
-              <AppButton
-                title="Sign and Send"
-                style={styles.nextButton}
-                // onPress={() => {
-                //   dispatch({
-                //     type: 'UPDATE_FORM',
-                //     payload: {
-                //       id: 'customer',
-                //       data: { values, errors },
-                //     },
-                //   })
-                //   addPact(values)
-                // }}
-              />
-              <View style={styles.iconView}>
-                <ButtonIcon
-                  onPress={trash}
-                  name="delete"
-                  backgroundColor="transparent"
-                  iconColor={colors.red}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-      </Formik>
+
+      <View style={styles.footer}>
+        <AppButton
+          title="Sign and Send"
+          style={styles.nextButton}
+          onPress={handleAddPact}
+        />
+        <View style={styles.iconView}>
+          <ButtonIcon
+            onPress={trash}
+            name="delete"
+            backgroundColor="transparent"
+            iconColor={colors.red}
+          />
+        </View>
+      </View>
+
       <ConfirmModal
         text="Are you sure you'd like to delete?"
         onBackdropPress={() => setModalVisible(false)}

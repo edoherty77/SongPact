@@ -82,7 +82,7 @@ export default function PerformerInfo({ navigation }) {
                       keyExtractor={(performer) => performer.id}
                       renderItem={({ item, index }) => (
                         <AppFormPercent
-                          name={`${index}.performerPercent`}
+                          name={`${index}.publisherPercent`}
                           title={item.firstName + ' ' + item.lastName}
                         />
                       )}

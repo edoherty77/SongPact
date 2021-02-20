@@ -67,14 +67,18 @@ export const onCreatePact = /* GraphQL */ `
       id
       type
       recordTitle
-      role
       initBy
+      sample
+      recordLabel
+      labelName
       performers {
         items {
           id
           pactID
           userId
-          userName
+          artistName
+          firstName
+          lastName
           publisherPercent
           createdAt
           updatedAt
@@ -85,7 +89,6 @@ export const onCreatePact = /* GraphQL */ `
         id
         pactID
         userId
-        userName
         advancePercent
         publisherPercent
         royaltyPercent
@@ -94,17 +97,19 @@ export const onCreatePact = /* GraphQL */ `
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
         updatedAt
       }
-      status
       createdAt
+      status
       updatedAt
     }
   }
@@ -115,14 +120,18 @@ export const onUpdatePact = /* GraphQL */ `
       id
       type
       recordTitle
-      role
       initBy
+      sample
+      recordLabel
+      labelName
       performers {
         items {
           id
           pactID
           userId
-          userName
+          artistName
+          firstName
+          lastName
           publisherPercent
           createdAt
           updatedAt
@@ -133,7 +142,6 @@ export const onUpdatePact = /* GraphQL */ `
         id
         pactID
         userId
-        userName
         advancePercent
         publisherPercent
         royaltyPercent
@@ -142,17 +150,19 @@ export const onUpdatePact = /* GraphQL */ `
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
         updatedAt
       }
-      status
       createdAt
+      status
       updatedAt
     }
   }
@@ -163,14 +173,18 @@ export const onDeletePact = /* GraphQL */ `
       id
       type
       recordTitle
-      role
       initBy
+      sample
+      recordLabel
+      labelName
       performers {
         items {
           id
           pactID
           userId
-          userName
+          artistName
+          firstName
+          lastName
           publisherPercent
           createdAt
           updatedAt
@@ -181,7 +195,6 @@ export const onDeletePact = /* GraphQL */ `
         id
         pactID
         userId
-        userName
         advancePercent
         publisherPercent
         royaltyPercent
@@ -190,17 +203,19 @@ export const onDeletePact = /* GraphQL */ `
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
         updatedAt
       }
-      status
       createdAt
+      status
       updatedAt
     }
   }
@@ -211,14 +226,18 @@ export const onCreatePerformer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
+      artistName
+      firstName
+      lastName
       publisherPercent
       pact {
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -226,7 +245,6 @@ export const onCreatePerformer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -234,8 +252,8 @@ export const onCreatePerformer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -249,14 +267,18 @@ export const onUpdatePerformer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
+      artistName
+      firstName
+      lastName
       publisherPercent
       pact {
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -264,7 +286,6 @@ export const onUpdatePerformer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -272,8 +293,8 @@ export const onUpdatePerformer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -287,14 +308,18 @@ export const onDeletePerformer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
+      artistName
+      firstName
+      lastName
       publisherPercent
       pact {
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -302,7 +327,6 @@ export const onDeletePerformer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -310,8 +334,8 @@ export const onDeletePerformer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -325,7 +349,6 @@ export const onCreateProducer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
       advancePercent
       publisherPercent
       royaltyPercent
@@ -334,8 +357,10 @@ export const onCreateProducer = /* GraphQL */ `
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -343,7 +368,6 @@ export const onCreateProducer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -351,8 +375,8 @@ export const onCreateProducer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -366,7 +390,6 @@ export const onUpdateProducer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
       advancePercent
       publisherPercent
       royaltyPercent
@@ -375,8 +398,10 @@ export const onUpdateProducer = /* GraphQL */ `
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -384,7 +409,6 @@ export const onUpdateProducer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -392,8 +416,8 @@ export const onUpdateProducer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -407,7 +431,6 @@ export const onDeleteProducer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
       advancePercent
       publisherPercent
       royaltyPercent
@@ -416,8 +439,10 @@ export const onDeleteProducer = /* GraphQL */ `
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -425,7 +450,6 @@ export const onDeleteProducer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -433,8 +457,8 @@ export const onDeleteProducer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt

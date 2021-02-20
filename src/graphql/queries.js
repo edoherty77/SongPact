@@ -54,14 +54,18 @@ export const getPact = /* GraphQL */ `
       id
       type
       recordTitle
-      role
       initBy
+      sample
+      recordLabel
+      labelName
       performers {
         items {
           id
           pactID
           userId
-          userName
+          artistName
+          firstName
+          lastName
           publisherPercent
           createdAt
           updatedAt
@@ -72,7 +76,6 @@ export const getPact = /* GraphQL */ `
         id
         pactID
         userId
-        userName
         advancePercent
         publisherPercent
         royaltyPercent
@@ -81,17 +84,19 @@ export const getPact = /* GraphQL */ `
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
         updatedAt
       }
-      status
       createdAt
+      status
       updatedAt
     }
   }
@@ -107,8 +112,10 @@ export const listPacts = /* GraphQL */ `
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -116,7 +123,6 @@ export const listPacts = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -124,8 +130,8 @@ export const listPacts = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       nextToken
@@ -138,14 +144,18 @@ export const getPerformer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
+      artistName
+      firstName
+      lastName
       publisherPercent
       pact {
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -153,7 +163,6 @@ export const getPerformer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -161,8 +170,8 @@ export const getPerformer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -181,16 +190,20 @@ export const listPerformers = /* GraphQL */ `
         id
         pactID
         userId
-        userName
+        artistName
+        firstName
+        lastName
         publisherPercent
         pact {
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
@@ -206,7 +219,6 @@ export const getProducer = /* GraphQL */ `
       id
       pactID
       userId
-      userName
       advancePercent
       publisherPercent
       royaltyPercent
@@ -215,8 +227,10 @@ export const getProducer = /* GraphQL */ `
         id
         type
         recordTitle
-        role
         initBy
+        sample
+        recordLabel
+        labelName
         performers {
           nextToken
         }
@@ -224,7 +238,6 @@ export const getProducer = /* GraphQL */ `
           id
           pactID
           userId
-          userName
           advancePercent
           publisherPercent
           royaltyPercent
@@ -232,8 +245,8 @@ export const getProducer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        status
         createdAt
+        status
         updatedAt
       }
       createdAt
@@ -252,7 +265,6 @@ export const listProducers = /* GraphQL */ `
         id
         pactID
         userId
-        userName
         advancePercent
         publisherPercent
         royaltyPercent
@@ -261,10 +273,12 @@ export const listProducers = /* GraphQL */ `
           id
           type
           recordTitle
-          role
           initBy
-          status
+          sample
+          recordLabel
+          labelName
           createdAt
+          status
           updatedAt
         }
         createdAt
