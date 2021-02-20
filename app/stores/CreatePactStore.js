@@ -2,10 +2,13 @@ import { makeAutoObservable } from 'mobx'
 
 class CreatePactStore {
   type = 'Producer'
+  sample = false
+  recordLabel = false
+  labelName = ''
   collaborators = []
   recordTitle = ''
   initBy = ''
-  performers = [{ publisherPercent: '', userId: '', artistName: '' }]
+  performers = []
   producer = {
     firstName: '',
     lastName: '',
@@ -17,25 +20,38 @@ class CreatePactStore {
     credit: '',
   }
 
-  setCollabInfo(values) {
-    console.log('vals', values)
+  setCollabInfo(values, foundUser) {
+    //Set initBy value with foundUser
+    this.initBy = foundUser.userId
+    // console.log(this.collaborators, this.initBy)
 
+    //Find everyone involved in aggreement and push in to collaborator array
     const collabsArr = values.collabs
     for (let i = 0; i < collabsArr.length; i++) {
       this.collaborators.push(collabsArr[i])
     }
-    console.log('collabs', this.collaborators)
   }
 
   setProducer(values) {
+    //Find the one producer and add to object
     let foundProducer = this.collaborators.find(
       (x) => x.userId === values.producer,
     )
-
     this.producer.userId = foundProducer.userId
     this.producer.artistName = foundProducer.artistName
     this.producer.firstName = foundProducer.firstName
-    this.producer.lasttName = foundProducer.lastName
+    this.producer.lastName = foundProducer.lastName
+
+    //The rest must be performers. find and push into array
+    let foundPerformers = this.collaborators.filter(function (x) {
+      return x !== foundProducer
+    })
+
+    for (let i = 0; i < foundPerformers.length; i++) {
+      this.performers.push(foundPerformers[i])
+    }
+    // console.log('performers', this.performers)
+    // console.log(this.producer)
   }
 
   setProducerInfo(values) {
@@ -43,14 +59,37 @@ class CreatePactStore {
     this.producer.royaltyPercent = parseInt(values.royaltyPercent)
     this.producer.publisherPercent = parseInt(values.publisherPercent)
     this.producer.credit = values.credit
-    console.log(this.producer)
+
+    // console.log('producers', this.producer)
+    // console.log('performers', this.performers)
+  }
+
+  setPerformerInfo(values) {
+    this.performers = []
+    // console.log('old', this.performers)
+
+    for (let i = 0; i < values.length; i++) {
+      this.performers.push(values[i])
+    }
+    // console.log('new', this.performers)
+  }
+
+  setRecordInfo(values) {
+    this.recordTitle = values.recordTitle
+    this.sample = values.sample
+    this.recordLabel = values.recordLabel
+    if (values.recordLabel == true) {
+      this.labelName = values.labelName
+    } else {
+      this.labelName = ''
+    }
   }
 
   resetPact() {
     this.recordTitle = ''
     this.initBy = ''
     this.collaborators = []
-    this.performers = [{ publisherPercent: '', userId: '', artistName: '' }]
+    this.performers = []
     this.producer = {
       userId: '',
       artistName: '',

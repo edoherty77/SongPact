@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
-import {
-  AppFormField,
-  SubmitButton,
-  AppFormPercent,
-} from '../../components/forms'
+import { StyleSheet, View, FlatList } from 'react-native'
+import { SubmitButton, AppFormPercent } from '../../components/forms'
 import * as Yup from 'yup'
 import Screen from '../../components/Screen'
 import Header from '../../components/Header'
-import AppText from '../../components/AppText'
+
 import ConfirmModal from '../../components/ConfirmModal'
 
 import { Formik, FieldArray } from 'formik'
@@ -22,22 +18,24 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label('Password'),
 })
 
-export default function ProducerInfo({ navigation }) {
+export default function PerformerInfo({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
-  const [producer, setProducer] = useState('')
+  const [performers, setPerformers] = useState('')
 
-  const getProducer = () => {
+  const getPerformers = () => {
     // console.log(store.producer)
-    setProducer(store.producer)
+    setPerformers(store.performers)
   }
 
   useEffect(() => {
-    getProducer()
+    getPerformers()
+    // console.log(performers)
   }, [])
 
   function nextScreen(values) {
-    store.setProducerInfo(values)
-    navigation.navigate('PerformerInfo')
+    // console.log(values)
+    store.setPerformerInfo(values)
+    navigation.navigate('RecordInfo')
   }
 
   function trash() {
@@ -57,49 +55,40 @@ export default function ProducerInfo({ navigation }) {
   return (
     <Screen>
       <Header
-        title={producer.artistName}
+        title="Performer Info"
         icon="arrow-left-bold"
-        back={() => navigation.navigate('Producer')}
+        back={() => navigation.navigate('ProducerInfo')}
       />
       <Formik
+        initialValues={performers}
         enableReinitialize
-        initialValues={{
-          advancePercent: '',
-          publisherPercent: '',
-          credit: '',
-          royaltyPercent: '',
-        }}
         onSubmit={(values) => nextScreen(values)}
       >
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
-              <AppFormPercent name="advancePercent" title="Producer Advance" />
-              <AppFormPercent name="royaltyPercent" title="Producer Royalty" />
-              <AppFormPercent
-                name="publisherPercent"
-                title="Producer Publish"
-              />
-              {/* <AppFormPercent name="perfPublish" title="Performer Publish" /> */}
-              <View style={styles.prodCredView}>
-                <View style={styles.top}>
-                  <AppText fontSize={25}>Producer Credit:</AppText>
-                  <ButtonIcon
-                    name="information"
-                    backgroundColor="transparent"
-                    size={35}
-                    iconColor="#42C1FC"
-                    // onPress={() => handleInfoPress()}
-                  />
-                </View>
-                <AppFormField
-                  name="credit"
-                  style={styles.textInput}
-                  placeholder="Producer Credit"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholderTextColor={colors.black}
-                />
+              <View style={styles.roleView}>
+                <FieldArray name="performers">
+                  {({ push, remove }) => (
+                    <FlatList
+                      // contentContainerStyle={{
+                      //   alignItems: 'center',
+                      //   justifyContent: 'center',
+                      //   // backgroundColor: 'blue',
+                      //   width: '100%',
+                      // }}
+                      style={styles.addedCollabsList}
+                      data={values}
+                      keyExtractor={(performer) => performer.id}
+                      renderItem={({ item, index }) => (
+                        <AppFormPercent
+                          name={`${index}.performerPercent`}
+                          title={item.firstName + ' ' + item.lastName}
+                        />
+                      )}
+                    />
+                  )}
+                </FieldArray>
               </View>
             </View>
             <View style={styles.footer}>

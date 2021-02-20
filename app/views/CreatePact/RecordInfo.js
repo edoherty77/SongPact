@@ -5,17 +5,14 @@ import colors from '../../config/colors'
 import Screen from '../../components/Screen'
 import AppText from '../../components/AppText'
 import Header from '../../components/Header'
-import { Formik, FieldArray } from 'formik'
+import { Formik } from 'formik'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import AppButton from '../../components/AppButton'
-import { useFormState, useFormDispatch } from '../../context/form-context'
-import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import config from '../../../src/aws-exports'
-Amplify.configure(config)
+
+import store from '../../stores/CreatePactStore'
 
 import {
-  AppForm,
   AppFormField,
   SubmitButton,
   AppFormSwitch,
@@ -32,30 +29,14 @@ const validationSchema = Yup.object().shape({
   // ),
 })
 
-export default function Last({ navigation }) {
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
-
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: 'UPDATE_FORM',
-          payload: {
-            id: 'customer',
-            data: { values, errors },
-          },
-        })
-      }
-    })
-
-    return unsubscribe
-  }, [navigation])
-
+export default function RecordInfo({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [isInputVisible, setInputVisible] = useState(false)
+
+  function nextScreen(values) {
+    store.setRecordInfo(values)
+    navigation.navigate('ReviewAndSign')
+  }
 
   function trash() {
     setModalVisible(true)
@@ -67,6 +48,7 @@ export default function Last({ navigation }) {
 
   function trashConfirm() {
     setModalVisible(false)
+    store.resetPact()
     navigation.navigate('New')
   }
 
@@ -77,19 +59,35 @@ export default function Last({ navigation }) {
   return (
     <Screen>
       <Header
-        back={() => navigation.navigate('Fourth')}
+        back={() => navigation.navigate('PerformerInfo')}
         icon="arrow-left-bold"
       />
       <Formik
-        innerRef={form}
-        initialValues={formValues}
-        initialErrors={formErrors}
+        initialValues={{
+          recordTitle: '',
+          sample: false,
+          recordLabel: false,
+          labelName: '',
+        }}
         enableReinitialize
+        onSubmit={(values) => nextScreen(values)}
       >
         {({ values, errors, handleSubmit }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
               <View style={styles.switchView}>
+                <View style={styles.titleView}>
+                  <View style={styles.sectionText}>
+                    <AppText fontSize={30}>Record Title</AppText>
+                  </View>
+                  <AppFormField
+                    name="recordTitle"
+                    style={styles.input}
+                    placeholder="Record Title"
+                    autoCorrect={false}
+                    placeholderTextColor={colors.black}
+                  />
+                </View>
                 <AppFormSwitch
                   name="sample"
                   label="Sample?"
@@ -120,12 +118,12 @@ export default function Last({ navigation }) {
               )}
             </View>
             <View style={styles.footer}>
-              <AppButton
+              <SubmitButton
                 title="Review"
                 style={styles.nextButton}
-                onPress={() => {
-                  navigation.push('ReviewAndSign'), console.log(values)
-                }}
+                // onPress={() => {
+                //   navigation.push('ReviewAndSign'), console.log(values)
+                // }}
               />
               <View style={styles.iconView}>
                 <ButtonIcon

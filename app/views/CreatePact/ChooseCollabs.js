@@ -71,7 +71,8 @@ function ChooseCollabs({ navigation }) {
     } catch (err) {
       console.log(err)
     }
-    store.setCollabInfo(values)
+    // store.initBy(foundUser)
+    store.setCollabInfo(values, foundUser)
     navigation.navigate('Producer')
   }
   const [people, setPeople] = useState([])
@@ -113,6 +114,7 @@ function ChooseCollabs({ navigation }) {
       />
       <View style={styles.mainView}>
         <Formik
+          enableReinitialize
           initialValues={{ collabs: [] }}
           onSubmit={(values) => nextScreen(values)}
         >

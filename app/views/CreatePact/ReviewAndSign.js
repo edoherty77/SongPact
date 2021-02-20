@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 
 import colors from '../../config/colors'
@@ -14,32 +14,23 @@ import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
 import { createPact } from '../../src/graphql/Queries'
 import config from '../../../src/aws-exports'
 Amplify.configure(config)
+import store from '../../stores/CreatePactStore'
 
 import { SubmitButton } from '../../components/forms'
 import * as Yup from 'yup'
 
 export default function ReviewAndSign({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState('customer')
+  const [info, setInfo] = useState('')
 
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: 'UPDATE_FORM',
-          payload: {
-            id: 'customer',
-            data: { values, errors },
-          },
-        })
-      }
-    })
+  const getStoreInfo = () => {
+    setInfo(store)
+  }
 
-    return unsubscribe
-  }, [navigation])
+  useEffect(() => {
+    getStoreInfo()
+    console.log('STORE INFO', info)
+  }, [])
 
   function trash() {
     setModalVisible(true)
@@ -50,6 +41,7 @@ export default function ReviewAndSign({ navigation }) {
   }
 
   function trashConfirm() {
+    store.resetPact()
     setModalVisible(false)
     navigation.navigate('New')
   }
@@ -65,13 +57,11 @@ export default function ReviewAndSign({ navigation }) {
 
   return (
     <Screen>
-      <Header back={() => navigation.navigate('Last')} icon="arrow-left-bold" />
-      <Formik
-        innerRef={form}
-        initialValues={formValues}
-        initialErrors={formErrors}
-        enableReinitialize
-      >
+      <Header
+        back={() => navigation.navigate('RecordInfo')}
+        icon="arrow-left-bold"
+      />
+      <Formik initialValues={{}} enableReinitialize>
         {({ values, errors }) => (
           <View style={styles.mainView}>
             <View style={styles.dataView}>
@@ -84,16 +74,16 @@ export default function ReviewAndSign({ navigation }) {
               <AppButton
                 title="Sign and Send"
                 style={styles.nextButton}
-                onPress={() => {
-                  dispatch({
-                    type: 'UPDATE_FORM',
-                    payload: {
-                      id: 'customer',
-                      data: { values, errors },
-                    },
-                  })
-                  addPact(values)
-                }}
+                // onPress={() => {
+                //   dispatch({
+                //     type: 'UPDATE_FORM',
+                //     payload: {
+                //       id: 'customer',
+                //       data: { values, errors },
+                //     },
+                //   })
+                //   addPact(values)
+                // }}
               />
               <View style={styles.iconView}>
                 <ButtonIcon

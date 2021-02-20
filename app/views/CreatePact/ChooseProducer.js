@@ -10,18 +10,11 @@ import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import AppButton from '../../components/AppButton'
 import { RadioButton } from 'react-native-paper'
-import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
-import config from '../../../src/aws-exports'
-Amplify.configure(config)
+
 import { Formik, FieldArray } from 'formik'
 import store from '../../stores/CreatePactStore'
 
-import {
-  AppForm,
-  AppFormField,
-  SubmitButton,
-  AppFormRadio,
-} from '../../components/forms'
+import { SubmitButton } from '../../components/forms'
 import * as Yup from 'yup'
 
 // const validationSchema = Yup.object().shape({
@@ -69,16 +62,17 @@ export default function ChooseProducer({ navigation }) {
         back={() => navigation.navigate('Collabs')}
       />
       <Formik
+        enableReinitialize
         initialValues={{ producer: '' }}
         onSubmit={(values) => nextScreen(values)}
         // validationSchema={validationSchema}
       >
-        {({ values, errors, handleSubmit, setFieldValue }) => (
+        {({ setFieldValue }) => (
           <View style={styles.mainView}>
             <View style={styles.formView}>
               <View style={styles.roleView}>
                 <FieldArray name="producer">
-                  {({ push, remove }) => (
+                  {({}) => (
                     <RadioButton.Group
                       name="producer"
                       onValueChange={(value) => {
@@ -87,23 +81,20 @@ export default function ChooseProducer({ navigation }) {
                       value={value}
                     >
                       <FlatList
-                        // contentContainerStyle={{
-                        //   alignItems: 'center',
-                        //   justifyContent: 'center',
-                        //   // backgroundColor: 'blue',
-                        //   width: '100%',
-                        // }}
                         style={styles.addedCollabsList}
                         data={data}
                         keyExtractor={(data) => data.userId}
                         renderItem={({ item, index }) => (
-                          <>
-                            <AppText>{`${item.firstName} ${item.lastName}`}</AppText>
-                            <RadioButton
+                          <View style={styles.checkView}>
+                            <AppText
+                              style={styles.radioName}
+                            >{`${item.firstName} ${item.lastName}`}</AppText>
+                            <RadioButton.Item
+                              // color="pink"
                               name="producer"
                               value={`${item.userId}`}
                             />
-                          </>
+                          </View>
                         )}
                       />
                     </RadioButton.Group>
@@ -150,38 +141,39 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    // backgroundColor: 'red',
   },
   formView: {
     backgroundColor: colors.gray,
     width: '85%',
     height: '60%',
-    paddingLeft: 10,
-  },
-  titleView: {
-    // backgroundColor: 'green',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  sectionText: {
-    paddingLeft: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
+    // paddingLeft: 10,
   },
   roleView: {
-    // backgroundColor: 'blue',
     justifyContent: 'space-evenly',
     flex: 1,
   },
-  collabView: {
-    // backgroundColor: 'gray',
-    flex: 5,
-  },
-  collabListView: {
-    // backgroundColor: 'white',
+  addedCollabsList: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    // backgroundColor: 'blue',
     // flex: 1,
-    marginTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
+    height: '100%',
+  },
+  checkView: {
+    display: 'flex',
+    // flexDirection: 'row',
+    // position: 'relative',
+    // backgroundColor: 'green',
+    // height: '100%',
+    // width: '100%',
+  },
+  radioName: {
+    // backgroundColor: 'purple',
+  },
+  radio: {
+    // backgroundColor: 'pink',
   },
   input: {
     width: '90%',

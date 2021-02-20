@@ -74,6 +74,7 @@ export default function BottomTabs({ updateAuthState }) {
       />
       <Tab.Screen
         options={{
+          // tabBarVisible: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="plus-circle"
@@ -83,9 +84,6 @@ export default function BottomTabs({ updateAuthState }) {
           ),
           // tabBarLabel: '',
         }}
-        // options={({ route }) => ({
-        //   tabBarVisible: getTabBarVisibility(route),
-        // })}
         name="New"
         component={CreatePactStack}
       />
