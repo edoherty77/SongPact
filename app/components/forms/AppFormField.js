@@ -1,19 +1,27 @@
-import React from "react"
-import { useFormikContext } from "formik"
+import React, { useEffect } from 'react'
+import { StyleSheet, TextInput, View } from 'react-native'
+import { useFormikContext, useField } from 'formik'
 
-import AppTextInput from "../AppTextInput"
-import ErrorMessage from "./ErrorMessage"
+import AppTextInput from '../AppTextInput'
+import ErrorMessage from './ErrorMessage'
 
-const AppFormField = ({ name, width, ...otherProps }) => {
-  const { setFieldTouched, handleChange, errors, touched } = useFormikContext()
+const AppFormField = ({ name, width, ...props }) => {
+  const {
+    setFieldTouched,
+    handleChange,
+    setFieldValue,
+    errors,
+    touched,
+    values,
+  } = useFormikContext()
 
   return (
     <>
       <AppTextInput
-        onBlur={() => setFieldTouched(name)}
         onChangeText={handleChange(name)}
         width={width}
-        {...otherProps}
+        {...props}
+        onBlur={() => setFieldTouched(name)}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
     </>

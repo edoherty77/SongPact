@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import AppText from '../../components/AppText'
-import ButtonIcon from '../../components/ButtonIcon'
+import AppText from '../../../components/AppText'
+import ButtonIcon from '../../../components/ButtonIcon'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import Header from '../../components/Header'
-import Screen from '../../components/Screen'
-import ButtonText from '../../components/ButtonText'
-import colors from '../../config/colors'
-import Separator from '../../components/Separator'
-import store from '../../stores/UserStore'
+import Header from '../../../components/Header'
+import Screen from '../../../components/Screen'
+import ButtonText from '../../../components/ButtonText'
+import colors from '../../../config/colors'
+import Separator from '../../../components/Separator'
+import store from '../../../stores/UserStore'
 
 const Profile = ({ navigation }) => {
   return (
@@ -18,6 +18,7 @@ const Profile = ({ navigation }) => {
         icon="arrow-left-bold"
         back={() => navigation.navigate('Main')}
         name="comment-edit"
+        iconPress={() => navigation.navigate('Edit')}
       />
       <ScrollView>
         <View style={styles.main}>
