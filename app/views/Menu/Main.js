@@ -1,19 +1,20 @@
-import { Auth } from "aws-amplify"
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-import AppText from "../../components/AppText"
-import Header from "../../components/Header"
-import Screen from "../../components/Screen"
-import store from "../../stores/UserStore"
+import { Auth } from 'aws-amplify'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import AppText from '../../components/AppText'
+import Header from '../../components/Header'
+import Screen from '../../components/Screen'
+import store from '../../stores/UserStore'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export default function Main({ updateAuthState, navigation }) {
   const signOut = async () => {
     try {
       await Auth.signOut()
       store.resetUser()
-      updateAuthState("loggedOut")
+      updateAuthState('loggedOut')
     } catch (error) {
-      console.log("error signing out: ", error)
+      console.log('error signing out: ', error)
     }
   }
 
@@ -23,25 +24,25 @@ export default function Main({ updateAuthState, navigation }) {
       <View style={styles.menuContainer}>
         <AppText
           style={styles.menuItem}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => navigation.navigate('Profile')}
         >
-          My Info
+          Profile
         </AppText>
         <AppText
           style={styles.menuItem}
-          onPress={() => navigation.navigate("HowItWorks")}
+          onPress={() => navigation.navigate('HowItWorks')}
         >
           How It Works
         </AppText>
         <AppText
           style={styles.menuItem}
-          onPress={() => navigation.navigate("Help")}
+          onPress={() => navigation.navigate('Help')}
         >
           Help
         </AppText>
         <AppText
           style={styles.menuItem}
-          onPress={() => navigation.navigate("Preferences")}
+          onPress={() => navigation.navigate('Preferences')}
         >
           Prefs
         </AppText>

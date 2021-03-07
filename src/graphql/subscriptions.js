@@ -16,6 +16,34 @@ export const onCreateUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -36,6 +64,34 @@ export const onUpdateUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -56,6 +112,34 @@ export const onDeleteUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -71,6 +155,7 @@ export const onCreatePact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -87,6 +172,22 @@ export const onCreatePact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -101,6 +202,7 @@ export const onCreatePact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -124,6 +226,7 @@ export const onUpdatePact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -140,6 +243,22 @@ export const onUpdatePact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -154,6 +273,7 @@ export const onUpdatePact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -177,6 +297,7 @@ export const onDeletePact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -193,6 +314,22 @@ export const onDeletePact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -207,6 +344,7 @@ export const onDeletePact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -224,6 +362,28 @@ export const onCreatePerformer = /* GraphQL */ `
   subscription OnCreatePerformer {
     onCreatePerformer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -238,6 +398,7 @@ export const onCreatePerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -265,6 +426,28 @@ export const onUpdatePerformer = /* GraphQL */ `
   subscription OnUpdatePerformer {
     onUpdatePerformer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -279,6 +462,7 @@ export const onUpdatePerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -306,6 +490,28 @@ export const onDeletePerformer = /* GraphQL */ `
   subscription OnDeletePerformer {
     onDeletePerformer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -320,6 +526,7 @@ export const onDeletePerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -347,6 +554,28 @@ export const onCreateProducer = /* GraphQL */ `
   subscription OnCreateProducer {
     onCreateProducer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -361,6 +590,7 @@ export const onCreateProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -388,6 +618,28 @@ export const onUpdateProducer = /* GraphQL */ `
   subscription OnUpdateProducer {
     onUpdateProducer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -402,6 +654,7 @@ export const onUpdateProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -429,6 +682,28 @@ export const onDeleteProducer = /* GraphQL */ `
   subscription OnDeleteProducer {
     onDeleteProducer {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -443,6 +718,187 @@ export const onDeleteProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserPact = /* GraphQL */ `
+  subscription OnCreateUserPact {
+    onCreateUserPact {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserPact = /* GraphQL */ `
+  subscription OnUpdateUserPact {
+    onUpdateUserPact {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserPact = /* GraphQL */ `
+  subscription OnDeleteUserPact {
+    onDeleteUserPact {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
         performers {
           nextToken
         }

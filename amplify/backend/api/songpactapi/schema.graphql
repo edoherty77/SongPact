@@ -11,8 +11,9 @@ type User @model {
   zipCode: Int
   email: String!
   contacts: [String]
-  # performed: [Performer] @connection(name: "UserPerformer")
-  # produced: [Producer] @connection(name: "UserProducer")
+  performed: [Performer] @connection(name: "UserPerformer")
+  produced: [Producer] @connection(name: "UserProducer")
+  # pacts: [UserPact] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type Pact @model {
@@ -23,7 +24,8 @@ type Pact @model {
   sample: Boolean
   recordLabel: Boolean
   labelName: String
-  # collaborators: [User]
+  collaborators: [String]
+  # users: [UserPact] @connection(keyName: "byPact", fields: ["id"])
   performers: [Performer] @connection(name: "PactPerformers")
   producer: Producer @connection(name: "PactProducer")
   createdAt: String
@@ -32,7 +34,7 @@ type Pact @model {
 
 type Performer @model {
   id: ID!
-  # user: User @connection(name: "UserPerformer")
+  user: User @connection(name: "UserPerformer")
   pactID: String
   userId: String!
   artistName: String
@@ -44,7 +46,7 @@ type Performer @model {
 
 type Producer @model {
   id: ID!
-  # user: User @connection(name: "UserProducer")
+  user: User @connection(name: "UserProducer")
   pactID: String
   userId: String!
   advancePercent: Int!
@@ -52,4 +54,15 @@ type Producer @model {
   royaltyPercent: Int!
   credit: String
   pact: Pact @connection(name: "PactProducer")
+}
+
+type UserPact
+  @model(queries: null)
+  @key(name: "byUser", fields: ["userId", "pactId"])
+  @key(name: "byPact", fields: ["pactId", "userId"]) {
+  id: ID!
+  userId: ID!
+  pactId: ID!
+  user: User! @connection(fields: ["userId"])
+  pact: Pact! @connection(fields: ["pactId"])
 }

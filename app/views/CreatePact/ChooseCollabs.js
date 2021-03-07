@@ -11,8 +11,11 @@ import Separator from '../../components/Separator'
 import { SubmitButton } from '../../components/forms'
 import ButtonIcon from '../../components/ButtonIcon'
 import { Formik, FieldArray } from 'formik'
-
 import ConfirmModal from '../../components/ConfirmModal'
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import { listUsers } from '../../../src/graphql/queries'
+import config from '../../../src/aws-exports'
+Amplify.configure(config)
 import store from '../../stores/CreatePactStore'
 import user from '../../stores/UserStore'
 const contacts = [
@@ -48,9 +51,11 @@ const contacts = [
 ]
 
 function ChooseCollabs({ navigation }) {
+  const [isModalVisible, setModalVisible] = useState(false)
   const [foundUser, setFoundUser] = useState('')
+  const [otherUsers, setOtherUsers] = useState('')
 
-  function setStoreUser() {
+  const setStoreUser = () => {
     let currentUser = {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -62,10 +67,28 @@ function ChooseCollabs({ navigation }) {
 
   useEffect(() => {
     setStoreUser()
-    // console.log(data)
+  }, [])
+
+  const getUsers = async () => {
+    const result = await API.graphql(graphqlOperation(listUsers))
+
+    let foundUsers = result.data.listUsers.items
+
+    let others = foundUsers.filter(function (x) {
+      return x.id !== foundUser.userId
+    })
+
+    setOtherUsers(others)
+  }
+
+  useEffect(() => {
+    getUsers()
   }, [])
 
   const nextScreen = (values) => {
+    for (let i = 0; i < values.collabs.length; i++) {
+      values.collabs[i].userId = values.collabs[i].id
+    }
     try {
       values.collabs.push(foundUser)
     } catch (err) {
@@ -75,6 +98,7 @@ function ChooseCollabs({ navigation }) {
     store.setCollabInfo(values, foundUser)
     navigation.navigate('Producer')
   }
+
   const [people, setPeople] = useState([])
   // const [isChecked, setIsChecked] = useState(false)
 
@@ -88,8 +112,6 @@ function ChooseCollabs({ navigation }) {
       },
     ])
   }
-
-  const [isModalVisible, setModalVisible] = useState(false)
 
   function trash() {
     setModalVisible(true)
@@ -170,8 +192,8 @@ function ChooseCollabs({ navigation }) {
                     <FlatList
                       style={styles.contactsList}
                       contentContainerStyle={{ flexGrow: 1 }}
-                      data={contacts}
-                      keyExtractor={(item) => item.userId}
+                      data={otherUsers}
+                      keyExtractor={(item) => item.id}
                       renderItem={({ item, index }) => (
                         <ContactCheckBox
                           name={`collabs.${index}`}

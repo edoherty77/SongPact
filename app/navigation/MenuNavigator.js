@@ -1,5 +1,5 @@
-import React from "react"
-import { createStackNavigator } from "@react-navigation/stack"
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import {
   Main,
@@ -7,7 +7,7 @@ import {
   HowItWorks,
   Help,
   Preferences,
-} from "../views/Menu/index"
+} from '../views/Menu/index'
 
 const Stack = createStackNavigator()
 

@@ -16,6 +16,34 @@ export const getUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -41,6 +69,12 @@ export const listUsers = /* GraphQL */ `
         zipCode
         email
         contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -58,6 +92,7 @@ export const getPact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -74,6 +109,22 @@ export const getPact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -88,6 +139,7 @@ export const getPact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -116,6 +168,7 @@ export const listPacts = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -142,6 +195,28 @@ export const getPerformer = /* GraphQL */ `
   query GetPerformer($id: ID!) {
     getPerformer(id: $id) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -156,6 +231,7 @@ export const getPerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -188,6 +264,22 @@ export const listPerformers = /* GraphQL */ `
     listPerformers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         artistName
@@ -202,6 +294,7 @@ export const listPerformers = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -217,6 +310,28 @@ export const getProducer = /* GraphQL */ `
   query GetProducer($id: ID!) {
     getProducer(id: $id) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -231,6 +346,7 @@ export const getProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -263,6 +379,22 @@ export const listProducers = /* GraphQL */ `
     listProducers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -277,6 +409,7 @@ export const listProducers = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt

@@ -1,38 +1,102 @@
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-import AppText from "../../components/AppText"
-import ButtonIcon from "../../components/ButtonIcon"
-import Header from "../../components/Header"
-import Screen from "../../components/Screen"
-import ButtonText from "../../components/ButtonText"
+import React from 'react'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import AppText from '../../components/AppText'
+import ButtonIcon from '../../components/ButtonIcon'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import Header from '../../components/Header'
+import Screen from '../../components/Screen'
+import ButtonText from '../../components/ButtonText'
+import colors from '../../config/colors'
+import Separator from '../../components/Separator'
+import store from '../../stores/UserStore'
 
-import store from "../../stores/UserStore"
-
-const Profile = () => {
+const Profile = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
-      <Header title="My Info" noIcon />
-      <View style={styles.main}>
-        <AppText style={styles.title}>Now presenting...</AppText>
-        <AppText>
-          {store.firstName} {store.lastName}, aka {store.artistName}
-        </AppText>
-        {store.companyName && <AppText>of {store.companyName}</AppText>}
-        <AppText></AppText>
-        <AppText>Address:</AppText>
-        <AppText>{store.address}</AppText>
-        <AppText>
-          {store.city}, {store.state}
-        </AppText>
-        <AppText>{store.zipCode}</AppText>
-        <AppText></AppText>
-        <AppText>Email: {store.email}</AppText>
-        <ButtonText
-          style={styles.editBtn}
-          title="Edit Info"
-          onPress={() => console.log("edit pressed")}
-        />
-      </View>
+      <Header
+        title="Profile"
+        icon="arrow-left-bold"
+        back={() => navigation.navigate('Main')}
+        name="comment-edit"
+      />
+      <ScrollView>
+        <View style={styles.main}>
+          <View style={styles.nameContainer}>
+            <View style={styles.circle}>
+              <AppText
+                // fontWeight="bold"
+                fontSize={100}
+                color={colors.red}
+              >
+                {store.firstName[0]}
+                {store.lastName[0]}
+              </AppText>
+            </View>
+            <AppText fontSize={30} style={styles.name}>
+              {store.firstName} {store.lastName}
+            </AppText>
+          </View>
+          <View style={styles.paymentContainer}>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Payment Setup</AppText>
+              <View style={styles.fieldEditContainer}>
+                <AppText style={styles.fieldInfo}>None</AppText>
+                <MaterialCommunityIcons
+                  // onPress={back}
+                  name="chevron-right"
+                  size={35}
+                  color="#42C1FC"
+                />
+              </View>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Subscription</AppText>
+              <View style={styles.fieldEditContainer}>
+                <AppText style={styles.fieldInfo}>None</AppText>
+                <MaterialCommunityIcons
+                  // onPress={back}
+                  name="chevron-right"
+                  size={35}
+                  color="#42C1FC"
+                />
+              </View>
+            </View>
+          </View>
+          {/* <Separator /> */}
+          <View style={styles.userInfoContainer}>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Email</AppText>
+              <AppText style={styles.fieldInfo}>{store.email}</AppText>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Artist Name</AppText>
+              <AppText style={styles.fieldInfo}>{store.artistName}</AppText>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Company Name</AppText>
+              <AppText style={styles.fieldInfo}>{store.companyName}</AppText>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Address</AppText>
+              <AppText style={styles.fieldInfo}>{store.address}</AppText>
+            </View>
+            <View style={styles.addressContainer}>
+              <View style={styles.fieldContainer}>
+                <AppText style={styles.fieldHeader}>City</AppText>
+                <AppText style={styles.fieldInfo}>{store.city}</AppText>
+              </View>
+              <View style={styles.fieldContainer}>
+                <AppText style={styles.fieldHeader}>State</AppText>
+                <AppText style={styles.fieldInfo}>{store.state}</AppText>
+              </View>
+              <View style={styles.fieldContainer}>
+                <AppText style={styles.fieldHeader}>Zip</AppText>
+                <AppText style={styles.fieldInfo}>{store.zipCode}</AppText>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     </Screen>
   )
 }
@@ -41,18 +105,60 @@ export default Profile
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // alignItems: "center",
   },
   main: {
-    flex: 1,
-    width: "80%",
-    alignSelf: "center",
+    // flex: 1,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  nameContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  circle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.lttan,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginRight: 8,
+  },
+  name: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  paymentContainer: {
+    // backgroundColor: 'red',
+  },
+  fieldContainer: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  fieldHeader: {
+    fontSize: 15,
+  },
+  fieldEditContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  fieldInfo: {
+    fontSize: 20,
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
-    color: "#202020",
-    fontWeight: "500",
+    color: '#202020',
+    fontWeight: '500',
     marginVertical: 15,
   },
   editBtn: {

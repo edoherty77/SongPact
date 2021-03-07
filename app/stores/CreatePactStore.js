@@ -30,6 +30,8 @@ class CreatePactStore {
     for (let i = 0; i < collabsArr.length; i++) {
       this.collaborators.push(collabsArr[i])
     }
+
+    console.log('collabs', this.collaborators)
   }
 
   setProducer(values) {

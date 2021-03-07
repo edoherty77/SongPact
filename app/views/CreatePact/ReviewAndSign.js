@@ -33,7 +33,7 @@ export default function ReviewAndSign({ navigation }) {
 
   useEffect(() => {
     getStoreInfo()
-    // console.log('STORE INFO', info)
+    console.log('STORE INFO', info)
   }, [])
 
   const handleAddPact = async () => {
@@ -55,6 +55,11 @@ export default function ReviewAndSign({ navigation }) {
         credit: info.producer.credit,
       },
       performers: [],
+      collaborators: [],
+    }
+
+    for (let i = 0; i < info.collaborators.length; i++) {
+      pactInfo.collaborators.push(info.collaborators[i].userId)
     }
 
     for (let i = 0; i < info.performers.length; i++) {

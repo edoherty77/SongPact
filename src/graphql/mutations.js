@@ -19,6 +19,34 @@ export const createUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -42,6 +70,34 @@ export const updateUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -65,6 +121,34 @@ export const deleteUser = /* GraphQL */ `
       zipCode
       email
       contacts
+      performed {
+        items {
+          id
+          pactID
+          userId
+          artistName
+          firstName
+          lastName
+          publisherPercent
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      produced {
+        items {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -83,6 +167,7 @@ export const createPact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -99,6 +184,22 @@ export const createPact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -113,6 +214,7 @@ export const createPact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -139,6 +241,7 @@ export const updatePact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -155,6 +258,22 @@ export const updatePact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -169,6 +288,7 @@ export const updatePact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -195,6 +315,7 @@ export const deletePact = /* GraphQL */ `
       sample
       recordLabel
       labelName
+      collaborators
       performers {
         items {
           id
@@ -211,6 +332,22 @@ export const deletePact = /* GraphQL */ `
       }
       producer {
         id
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          contacts
+          createdAt
+          updatedAt
+        }
         pactID
         userId
         advancePercent
@@ -225,6 +362,7 @@ export const deletePact = /* GraphQL */ `
           sample
           recordLabel
           labelName
+          collaborators
           createdAt
           status
           updatedAt
@@ -245,6 +383,28 @@ export const createPerformer = /* GraphQL */ `
   ) {
     createPerformer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -259,6 +419,7 @@ export const createPerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -289,6 +450,28 @@ export const updatePerformer = /* GraphQL */ `
   ) {
     updatePerformer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -303,6 +486,7 @@ export const updatePerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -333,6 +517,28 @@ export const deletePerformer = /* GraphQL */ `
   ) {
     deletePerformer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       artistName
@@ -347,6 +553,7 @@ export const deletePerformer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -377,6 +584,28 @@ export const createProducer = /* GraphQL */ `
   ) {
     createProducer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -391,6 +620,7 @@ export const createProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -421,6 +651,28 @@ export const updateProducer = /* GraphQL */ `
   ) {
     updateProducer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -435,6 +687,7 @@ export const updateProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
         performers {
           nextToken
         }
@@ -465,6 +718,28 @@ export const deleteProducer = /* GraphQL */ `
   ) {
     deleteProducer(input: $input, condition: $condition) {
       id
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       pactID
       userId
       advancePercent
@@ -479,6 +754,196 @@ export const deleteProducer = /* GraphQL */ `
         sample
         recordLabel
         labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUserPact = /* GraphQL */ `
+  mutation CreateUserPact(
+    $input: CreateUserPactInput!
+    $condition: ModelUserPactConditionInput
+  ) {
+    createUserPact(input: $input, condition: $condition) {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserPact = /* GraphQL */ `
+  mutation UpdateUserPact(
+    $input: UpdateUserPactInput!
+    $condition: ModelUserPactConditionInput
+  ) {
+    updateUserPact(input: $input, condition: $condition) {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
+        performers {
+          nextToken
+        }
+        producer {
+          id
+          pactID
+          userId
+          advancePercent
+          publisherPercent
+          royaltyPercent
+          credit
+          createdAt
+          updatedAt
+        }
+        createdAt
+        status
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserPact = /* GraphQL */ `
+  mutation DeleteUserPact(
+    $input: DeleteUserPactInput!
+    $condition: ModelUserPactConditionInput
+  ) {
+    deleteUserPact(input: $input, condition: $condition) {
+      id
+      userId
+      pactId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        contacts
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      pact {
+        id
+        type
+        recordTitle
+        initBy
+        sample
+        recordLabel
+        labelName
+        collaborators
         performers {
           nextToken
         }

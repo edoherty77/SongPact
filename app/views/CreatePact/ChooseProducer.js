@@ -37,6 +37,7 @@ export default function ChooseProducer({ navigation }) {
   }, [])
 
   function nextScreen(values) {
+    console.log(values)
     store.setProducer(values)
     navigation.navigate('ProducerInfo')
   }
@@ -83,13 +84,14 @@ export default function ChooseProducer({ navigation }) {
                       <FlatList
                         style={styles.addedCollabsList}
                         data={data}
-                        keyExtractor={(data) => data.userId}
+                        keyExtractor={(data) => data.id}
                         renderItem={({ item, index }) => (
                           <View style={styles.checkView}>
-                            <AppText
+                            {/* <AppText
                               style={styles.radioName}
-                            >{`${item.firstName} ${item.lastName}`}</AppText>
+                            >{`${item.firstName} ${item.lastName}`}</AppText> */}
                             <RadioButton.Item
+                              label={`${item.firstName} ${item.lastName}`}
                               // color="pink"
                               name="producer"
                               value={`${item.userId}`}
