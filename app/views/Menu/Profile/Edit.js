@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from 'react-native'
 import AppText from '../../../components/AppText'
-import { API, Auth, graphqlOperation } from 'aws-amplify'
+import { API, graphqlOperation } from 'aws-amplify'
 
 import { updateUser } from '../../../../src/graphql/mutations'
 import * as Yup from 'yup'
@@ -33,10 +33,14 @@ const zip = store.zipCode.toString()
 const Edit = ({ navigation }) => {
   //Submit function to update item
   const handleEdit = async (values) => {
-    // parseInt(values.zipCode)
+    parseInt(values.zipCode)
     values.id = store.id
-    console.log(values)
+    values.firstName = store.firstName
+    values.lastName = store.lastName
+    values.email = store.email
+    store.setUser(values)
     await API.graphql(graphqlOperation(updateUser, { input: values }))
+    navigation.navigate('Profile')
   }
   return (
     <Screen>

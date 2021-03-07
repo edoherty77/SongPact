@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import AppText from '../../../components/AppText'
 import ButtonIcon from '../../../components/ButtonIcon'
@@ -9,8 +9,28 @@ import ButtonText from '../../../components/ButtonText'
 import colors from '../../../config/colors'
 import Separator from '../../../components/Separator'
 import store from '../../../stores/UserStore'
+import { API, graphqlOperation } from 'aws-amplify'
+import { getUser } from '../../../../src/graphql/queries'
+import { onUpdateUser } from '../../../../src/graphql/subscriptions'
 
 const Profile = ({ navigation }) => {
+  const [isUser, setUser] = useState('')
+
+  useEffect(() => {
+    const updateUserListener = API.graphql(
+      graphqlOperation(onUpdateUser),
+    ).subscribe({
+      next: (userData) => {
+        const updateUser = userData.value.data.onUpdateUser
+        setUser(updateUser)
+      },
+    })
+
+    return () => {
+      // Unsubscribe for the focus Listener
+      updateUserListener.unsubscribe()
+    }
+  }, [navigation])
   return (
     <Screen style={styles.container}>
       <Header
