@@ -1,0 +1,65 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-songpact-dev-131026-authRole",
+      "UnauthRoleArn": "arn:aws:iam::970816905424:role/amplify-songpact-dev-131026-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::970816905424:role/amplify-songpact-dev-131026-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-songpact-dev-131026-deployment",
+      "UnauthRoleName": "amplify-songpact-dev-131026-unauthRole",
+      "StackName": "amplify-songpact-dev-131026",
+      "StackId": "arn:aws:cloudformation:us-west-2:970816905424:stack/amplify-songpact-dev-131026/4294cec0-7082-11eb-ab13-02e80b0e3dd3",
+      "AmplifyAppId": "dgm53khkl08xj"
+    }
+  },
+  "api": {
+    "songpactapi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7,
+              "description": ""
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "76hvr5i7u5g3zgtn6fll3mn6ea",
+        "GraphQLAPIEndpointOutput": "https://wiuq77whuvcrpgwqcdhgkwzj4u.appsync-api.us-west-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-2e6wnkibr5bbtg237nan2fnnzq"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-songpact-dev-131026-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apisongpactapi"
+      },
+      "lastPushTimeStamp": "2021-03-14T06:47:29.887Z",
+      "lastPushDirHash": "ZRXFzXtiSgW/2IsMToE9QrtI+0c="
+    }
+  },
+  "auth": {
+    "songpact76c23a86": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-songpact-dev-131026-deployment/amplify-cfn-templates/auth/songpact76c23a86-cloudformation-template.yml",
+        "logicalId": "authsongpact76c23a86"
+      },
+      "lastPushTimeStamp": "2021-03-14T06:47:17.318Z",
+      "output": {
+        "AppClientSecret": "1oo4belvor4391lsemmjc8d5ln21dqpcam2cuf2frl1kjbkrqjpf",
+        "UserPoolId": "us-west-2_uOKey0q6U",
+        "AppClientIDWeb": "1bg1j8otff43niaefrscn1fde9",
+        "AppClientID": "l9ss0c4sqo4d7q8fi5q8bv6s0",
+        "IdentityPoolId": "us-west-2:ba0723e9-9d11-4085-ab7a-4df543ead429",
+        "IdentityPoolName": "songpact76c23a86_identitypool_76c23a86__dev",
+        "UserPoolName": "songpact76c23a86_userpool_76c23a86"
+      },
+      "lastPushDirHash": "u7Dc1CuMphbA2KI/VQ5xI9njSp8="
+    }
+  }
+}

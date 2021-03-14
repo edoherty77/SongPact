@@ -15,7 +15,15 @@ export const getUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -68,12 +76,80 @@ export const listUsers = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
         produced {
           nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getFriend = /* GraphQL */ `
+  query GetFriend($id: ID!) {
+    getFriend(id: $id) {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFriends = /* GraphQL */ `
+  query ListFriends(
+    $filter: ModelFriendFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        receiverId
+        user {
+          id
+          cognitoID
+          firstName
+          lastName
+          artistName
+          companyName
+          address
+          city
+          state
+          zipCode
+          email
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -121,7 +197,6 @@ export const getPact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -207,7 +282,9 @@ export const getPerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -276,7 +353,6 @@ export const listPerformers = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -322,7 +398,9 @@ export const getProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -391,7 +469,6 @@ export const listProducers = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }

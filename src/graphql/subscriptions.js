@@ -15,7 +15,15 @@ export const onCreateUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -63,7 +71,15 @@ export const onUpdateUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -111,7 +127,15 @@ export const onDeleteUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -139,6 +163,108 @@ export const onDeleteUser = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateFriend = /* GraphQL */ `
+  subscription OnCreateFriend {
+    onCreateFriend {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateFriend = /* GraphQL */ `
+  subscription OnUpdateFriend {
+    onUpdateFriend {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteFriend = /* GraphQL */ `
+  subscription OnDeleteFriend {
+    onDeleteFriend {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -184,7 +310,6 @@ export const onCreatePact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -255,7 +380,6 @@ export const onUpdatePact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -326,7 +450,6 @@ export const onDeletePact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -374,7 +497,9 @@ export const onCreatePerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -438,7 +563,9 @@ export const onUpdatePerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -502,7 +629,9 @@ export const onDeletePerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -566,7 +695,9 @@ export const onCreateProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -630,7 +761,9 @@ export const onUpdateProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -694,7 +827,9 @@ export const onDeleteProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -760,7 +895,9 @@ export const onCreateUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -820,7 +957,9 @@ export const onUpdateUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -880,7 +1019,9 @@ export const onDeleteUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }

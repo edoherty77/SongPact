@@ -1,27 +1,27 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 
 class UserStore {
-  id = ""
-  firstName = ""
-  lastName = ""
-  artistName = ""
-  companyName = ""
-  address = ""
-  city = ""
-  state = ""
-  zipCode = ""
-  email = ""
+  id = ''
+  firstName = ''
+  lastName = ''
+  artistName = ''
+  companyName = ''
+  address = ''
+  city = ''
+  state = ''
+  zipCode = ''
+  email = ''
   pacts = []
-  contacts = []
+  friends = []
 
   setID(id) {
-    console.log("storing authenticated user ID")
+    console.log('storing authenticated user ID')
     this.id = id
-    console.log("ID", id, "stored!")
+    console.log('ID', id, 'stored!')
   }
 
   setUser(values) {
-    console.log("setting User in UserStore...")
+    console.log('setting User in UserStore...')
     console.log(values)
     this.firstName = values.firstName
     this.lastName = values.lastName
@@ -33,25 +33,25 @@ class UserStore {
     this.zipCode = values.zipCode
     this.email = values.email
     this.pacts = values.pacts
-    this.contacts = values.contacts
-    console.log(this.firstName, this.lastName, "set")
+    this.friends = values.friends
+    // console.log(this.firstName, this.lastName, 'set')
   }
 
   resetUser() {
-    console.log("resetting User in UserStore...")
-    this.id = ""
-    this.firstName = ""
-    this.lastName = ""
-    this.artistName = ""
-    this.companyName = ""
-    this.address = ""
-    this.city = ""
-    this.state = ""
-    this.zipCode = ""
-    this.email = ""
+    console.log('resetting User in UserStore...')
+    this.id = ''
+    this.firstName = ''
+    this.lastName = ''
+    this.artistName = ''
+    this.companyName = ''
+    this.address = ''
+    this.city = ''
+    this.state = ''
+    this.zipCode = ''
+    this.email = ''
     this.pacts = []
-    this.contacts = []
-    console.log("User reset")
+    this.friends = []
+    // console.log('User reset')
   }
 
   constructor() {

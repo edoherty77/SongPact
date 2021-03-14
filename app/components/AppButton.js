@@ -8,11 +8,13 @@ export default function AppButton({
   textColor,
   style,
   fontSize,
+  disabled,
 }) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: color }, style]}
       onPress={onPress}
+      disabled={disabled}
     >
       <Text style={[styles.text, { fontSize: fontSize, color: textColor }]}>
         {title}

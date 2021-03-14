@@ -18,7 +18,15 @@ export const createUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -69,7 +77,15 @@ export const updateUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -120,7 +136,15 @@ export const deleteUser = /* GraphQL */ `
       state
       zipCode
       email
-      contacts
+      friends {
+        items {
+          id
+          receiverId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       performed {
         items {
           id
@@ -148,6 +172,117 @@ export const deleteUser = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createFriend = /* GraphQL */ `
+  mutation CreateFriend(
+    $input: CreateFriendInput!
+    $condition: ModelFriendConditionInput
+  ) {
+    createFriend(input: $input, condition: $condition) {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFriend = /* GraphQL */ `
+  mutation UpdateFriend(
+    $input: UpdateFriendInput!
+    $condition: ModelFriendConditionInput
+  ) {
+    updateFriend(input: $input, condition: $condition) {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFriend = /* GraphQL */ `
+  mutation DeleteFriend(
+    $input: DeleteFriendInput!
+    $condition: ModelFriendConditionInput
+  ) {
+    deleteFriend(input: $input, condition: $condition) {
+      id
+      receiverId
+      user {
+        id
+        cognitoID
+        firstName
+        lastName
+        artistName
+        companyName
+        address
+        city
+        state
+        zipCode
+        email
+        friends {
+          nextToken
+        }
+        performed {
+          nextToken
+        }
+        produced {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -196,7 +331,6 @@ export const createPact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -270,7 +404,6 @@ export const updatePact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -344,7 +477,6 @@ export const deletePact = /* GraphQL */ `
           state
           zipCode
           email
-          contacts
           createdAt
           updatedAt
         }
@@ -395,7 +527,9 @@ export const createPerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -462,7 +596,9 @@ export const updatePerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -529,7 +665,9 @@ export const deletePerformer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -596,7 +734,9 @@ export const createProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -663,7 +803,9 @@ export const updateProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -730,7 +872,9 @@ export const deleteProducer = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -799,7 +943,9 @@ export const createUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -862,7 +1008,9 @@ export const updateUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }
@@ -925,7 +1073,9 @@ export const deleteUserPact = /* GraphQL */ `
         state
         zipCode
         email
-        contacts
+        friends {
+          nextToken
+        }
         performed {
           nextToken
         }

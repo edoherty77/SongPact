@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import AppText from '../../../components/AppText'
-import ButtonIcon from '../../../components/ButtonIcon'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Header from '../../../components/Header'
 import Screen from '../../../components/Screen'
-import ButtonText from '../../../components/ButtonText'
 import colors from '../../../config/colors'
 import Separator from '../../../components/Separator'
 import store from '../../../stores/UserStore'
 import { API, graphqlOperation } from 'aws-amplify'
-import { getUser } from '../../../../src/graphql/queries'
 import { onUpdateUser } from '../../../../src/graphql/subscriptions'
 
 const Profile = ({ navigation }) => {
@@ -31,6 +28,7 @@ const Profile = ({ navigation }) => {
       updateUserListener.unsubscribe()
     }
   }, [navigation])
+
   return (
     <Screen style={styles.container}>
       <Header

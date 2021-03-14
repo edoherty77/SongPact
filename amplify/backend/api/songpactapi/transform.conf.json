@@ -64,6 +64,8 @@
         "DeleteUserPactResolver": "UserPact",
         "GetAttUserPactTableStreamArn": "UserPact",
         "GetAttUserPactDataSourceName": "UserPact",
-        "GetAttUserPactTableName": "UserPact"
+        "GetAttUserPactTableName": "UserPact",
+        "UsercontactsResolver": "ConnectionStack 5",
+        "FriendshipuserResolver": "ConnectionStack 5"
     }
 }

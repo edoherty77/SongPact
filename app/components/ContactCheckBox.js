@@ -14,7 +14,7 @@ const ContactCheckBox = ({ children, title, onPress, name }) => {
         backgroundColor="transparent"
         textStyle={styles.checkbox}
         onPress={onPress}
-        sortIconImageSource={'null'}
+        // sortIconImageSource={'null'}
         // onPress={(checked: boolean) => console.log('Checked: ', checked)}
       />
     </View>

@@ -16,7 +16,7 @@ import * as Yup from 'yup'
 import AppButton from '../../../components/AppButton'
 import { AppForm, AppFormField, SubmitButton } from '../../../components/forms'
 import ButtonIcon from '../../../components/ButtonIcon'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+
 import Header from '../../../components/Header'
 import Screen from '../../../components/Screen'
 import ButtonText from '../../../components/ButtonText'
@@ -69,14 +69,17 @@ const Edit = ({ navigation }) => {
                 onSubmit={(values) => handleEdit(values)}
                 validationSchema={validationSchema}
               >
+                <AppText style={styles.label}>Address</AppText>
                 <AppFormField
                   style={styles.input}
                   name="address"
+                  label="Address"
                   placeholder={store.address}
                   // data={store.address}
                   autoCorrect={false}
                   textContentType="fullStreetAddress"
                 />
+                <AppText style={styles.label}>City</AppText>
                 <AppFormField
                   style={styles.input}
                   name="city"
@@ -86,6 +89,7 @@ const Edit = ({ navigation }) => {
                   // width={"120%"}
                   textContentType="addressCity"
                 />
+                <AppText style={styles.label}>State</AppText>
                 <AppFormField
                   style={styles.input}
                   // data={store.state}
@@ -95,6 +99,7 @@ const Edit = ({ navigation }) => {
                   // width={"90%"}
                   textContentType="addressState"
                 />
+                <AppText style={styles.label}>Zip Code</AppText>
                 <AppFormField
                   style={styles.input}
                   name="zipCode"
@@ -104,6 +109,7 @@ const Edit = ({ navigation }) => {
                   // textContentType="postalCode"
                   keyboardType="number-pad"
                 />
+                <AppText style={styles.label}>Artist Name</AppText>
                 <AppFormField
                   style={styles.input}
                   name="artistName"
@@ -111,6 +117,7 @@ const Edit = ({ navigation }) => {
                   // data={store.artistName}
                   autoCorrect={false}
                 />
+                <AppText style={styles.label}>Company Name</AppText>
                 <AppFormField
                   style={styles.input}
                   name="companyName"
@@ -138,7 +145,7 @@ export default Edit
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.lttan,
+    // backgroundColor: colors.lttan,
   },
   mainView: {
     flex: 1,
@@ -160,6 +167,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     height: 35,
     borderRadius: 15,
+    marginBottom: 10,
+  },
+  label: {
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    fontSize: 18,
   },
   signUpButton: {
     marginTop: 20,

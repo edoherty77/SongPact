@@ -5,10 +5,9 @@ import Head from '../../components/Header'
 import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
-
+import ConfirmModal from '../../components/ConfirmModal'
 import { getUser, listUsers } from '../../../src/graphql/queries'
-import { updateUser, createUser } from '../../../src/graphql/mutations'
-import { createContact } from '../../src/graphql/Queries'
+import { createFriend } from '../../../src/graphql/mutations'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
@@ -17,12 +16,18 @@ import { observer } from 'mobx-react'
 
 const FindArtist = observer(({ navigation }) => {
   const [users, setUsers] = useState('')
+  const [friendInfo, setFriendInfo] = useState('')
+  const [isModalVisible, setModalVisible] = useState(false)
+  const currentUser = store
 
   const findUsers = async () => {
     try {
       const getUsers = await API.graphql(graphqlOperation(listUsers))
-      // console.log('Data: ', getUsers.data.listUsers.items)
-      setUsers(getUsers.data.listUsers.items)
+      const arr = getUsers.data.listUsers.items
+      const getOtherUsers = arr.filter(function (users) {
+        return users.id !== store.id
+      })
+      setUsers(getOtherUsers)
     } catch (error) {
       console.log(error)
     }
@@ -30,17 +35,30 @@ const FindArtist = observer(({ navigation }) => {
 
   useEffect(() => {
     findUsers()
+    console.log('STORE', store)
   }, [])
 
-  const addFriend = async (friend) => {
-    //get current user from API
-    // const currentUserAPI = await API.graphql(
-    //   graphqlOperation(getUser, { id: store.id }),
-    // )
+  function cancel() {
+    setModalVisible(false)
+    console.log(currentUser)
+  }
 
-    console.log('Friend: ', friend)
-
-    //INSTEAD OF ABOVE, use some sort of add friend mutation OR use the updateUser mutation
+  const addFriend = async () => {
+    const currentUserId = store.id
+    const friendId = friendInfo.id
+    await API.graphql(
+      graphqlOperation(createFriend, {
+        input: { friendUserId: currentUserId, receiverId: friendId },
+      }),
+    )
+    await API.graphql(
+      graphqlOperation(createFriend, {
+        input: { friendUserId: friendId, receiverId: currentUserId },
+      }),
+    )
+    console.log('FRIEND INFO', currentUserId)
+    console.log('CURRENT', friendId)
+    setModalVisible(false)
   }
 
   return (
@@ -69,7 +87,8 @@ const FindArtist = observer(({ navigation }) => {
             <ContactButton
               name={item.firstName + ' ' + item.lastName}
               onPress={() => {
-                addFriend(item)
+                setModalVisible(true)
+                setFriendInfo(item)
               }}
             />
           )}
@@ -78,6 +97,13 @@ const FindArtist = observer(({ navigation }) => {
       <AppButton
         title="Your Contacts"
         onPress={() => navigation.navigate('Contacts')}
+      />
+      <ConfirmModal
+        text="Add Friend?"
+        onBackdropPress={() => setModalVisible(false)}
+        isVisible={isModalVisible}
+        confirm={addFriend}
+        deny={cancel}
       />
     </Screen>
   )

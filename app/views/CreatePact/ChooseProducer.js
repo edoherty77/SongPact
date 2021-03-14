@@ -139,21 +139,25 @@ const styles = StyleSheet.create({
   mainView: {
     display: 'flex',
     flex: 1,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     padding: 10,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     // backgroundColor: 'red',
+    marginBottom: 30,
   },
   formView: {
-    backgroundColor: colors.gray,
+    // backgroundColor: colors.gray,
     width: '85%',
     height: '60%',
     // paddingLeft: 10,
+    // backgroundColor: 'green',
+    flex: 1,
   },
   roleView: {
     justifyContent: 'space-evenly',
     flex: 1,
+    // backgroundColor: 'green',
   },
   addedCollabsList: {
     position: 'relative',

@@ -18,37 +18,7 @@ import config from '../../../src/aws-exports'
 Amplify.configure(config)
 import store from '../../stores/CreatePactStore'
 import user from '../../stores/UserStore'
-const contacts = [
-  {
-    firstName: 'Chris',
-    lastName: 'Dibona',
-    userId: '1',
-    artistName: 'Bukkake',
-  },
-  {
-    firstName: 'Andrew',
-    lastName: 'Leinbach',
-    userId: '2',
-    artistName: 'Fucktard',
-  },
-  { firstName: 'Steve', lastName: 'Perry', userId: '3', artistName: 'Hippy' },
-  {
-    firstName: 'Andrew',
-    lastName: 'Jackson',
-    userId: '4',
-    artistName: 'Boner',
-  },
-  { firstName: 'Matt', lastName: 'O', userId: '5', artistName: 'Tits' },
-  { firstName: 'Tom', lastName: 'Johnson', userId: '6', artistName: 'Asshole' },
-  { firstName: 'Kyle', lastName: 'Mooney', userId: '7', artistName: 'Shit' },
-  {
-    firstName: 'Michael',
-    lastName: 'Bradcliff',
-    userId: 8,
-    artistName: 'AppleBees',
-  },
-  { firstName: 'Steve', lastName: 'Pearn', userId: 9, artistName: 'Tacos' },
-]
+import AppText from '../../components/AppText'
 
 function ChooseCollabs({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
@@ -83,7 +53,7 @@ function ChooseCollabs({ navigation }) {
 
   useEffect(() => {
     getUsers()
-  }, [])
+  }, [foundUser])
 
   const nextScreen = (values) => {
     for (let i = 0; i < values.collabs.length; i++) {
@@ -159,6 +129,13 @@ function ChooseCollabs({ navigation }) {
                 </Header>
               </View>
               <View style={styles.addedCollabView}>
+                {values.collabs.length === 0 ? (
+                  <View style={styles.emptyView}>
+                    <AppText style={styles.empty}>
+                      Add collabrators to the contract
+                    </AppText>
+                  </View>
+                ) : null}
                 <FieldArray name="collabs">
                   {({ push, remove }) => (
                     <FlatList
@@ -166,7 +143,7 @@ function ChooseCollabs({ navigation }) {
                       contentContainerStyle={{
                         alignItems: 'center',
                         justifyContent: 'center',
-                        // backgroundColor: 'blue',
+
                         width: '100%',
                       }}
                       style={styles.addedCollabsList}
@@ -191,7 +168,12 @@ function ChooseCollabs({ navigation }) {
                   {({ push, remove }) => (
                     <FlatList
                       style={styles.contactsList}
-                      contentContainerStyle={{ flexGrow: 1 }}
+                      contentContainerStyle={
+                        {
+                          // flexGrow: 1,
+                          // backgroundColor: 'blue',
+                        }
+                      }
                       data={otherUsers}
                       keyExtractor={(item) => item.id}
                       renderItem={({ item, index }) => (
@@ -209,11 +191,9 @@ function ChooseCollabs({ navigation }) {
               </View>
               <View style={styles.footer}>
                 <SubmitButton
+                  disabled={values.collabs.length === 0 ? true : false}
                   style={styles.nextButton}
                   title="Next"
-                  // onPress={() => {
-                  //   navigation.push('Third')
-                  // }}
                 />
                 <View style={styles.iconView}>
                   <ButtonIcon
@@ -244,16 +224,30 @@ const styles = StyleSheet.create({
     // backgroundColor: 'yellow',
     display: 'flex',
     flex: 1,
+    marginBottom: 30,
+    // marginHorizontal: 30,
   },
   formView: {
     // backgroundColor: 'gray',
     flex: 1,
   },
   addedCollabView: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     height: 70,
+    // backgroundColor: 'green',
+    alignItems: 'center',
     // flex: 1,
+  },
+  emptyView: {
+    display: 'flex',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  empty: {
+    fontSize: 20,
+    color: colors.gray,
   },
   addedCollabsList: {
     // flexWrap: 'wrap',
@@ -271,6 +265,7 @@ const styles = StyleSheet.create({
   contactsView: {
     // backgroundColor: 'orange',
     marginTop: 15,
+    flex: 1,
   },
   footer: {
     justifyContent: 'center',

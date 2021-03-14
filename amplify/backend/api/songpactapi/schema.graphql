@@ -10,10 +10,16 @@ type User @model {
   state: String
   zipCode: Int
   email: String!
-  contacts: [String]
+  friends: [Friend] @connection(name: "Friend")
   performed: [Performer] @connection(name: "UserPerformer")
   produced: [Producer] @connection(name: "UserProducer")
   # pacts: [UserPact] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Friend @model {
+  id: ID!
+  receiverId: String
+  user: User @connection(name: "Friend")
 }
 
 type Pact @model {
