@@ -13,21 +13,30 @@ import AppButton from '../../components/AppButton'
 
 import store from '../../stores/UserStore'
 import { observer } from 'mobx-react'
+import { get } from 'mobx'
 
 const FindArtist = observer(({ navigation }) => {
   const [users, setUsers] = useState('')
   const [friendInfo, setFriendInfo] = useState('')
   const [isModalVisible, setModalVisible] = useState(false)
-  const currentUser = store
+  const currentUserFriends = store.friends.items
 
   const findUsers = async () => {
     try {
       const getUsers = await API.graphql(graphqlOperation(listUsers))
+      // console.log('GETUSER', getUsers)
       const arr = getUsers.data.listUsers.items
-      const getOtherUsers = arr.filter(function (users) {
-        return users.id !== store.id
+      let notCurrentUser = arr.filter(function (user) {
+        return user.id !== store.id
       })
-      setUsers(getOtherUsers)
+      // console.log('NOT CURRENT', notCurrentUser)
+      // console.log('FRIENDS', currentUserFriends)
+      const allOtherUsers = notCurrentUser.filter(
+        (user) =>
+          !currentUserFriends.find(({ receiverId }) => user.id === receiverId),
+      )
+      // console.log('OTHER', allOtherUsers)
+      setUsers(allOtherUsers)
     } catch (error) {
       console.log(error)
     }
@@ -35,12 +44,12 @@ const FindArtist = observer(({ navigation }) => {
 
   useEffect(() => {
     findUsers()
-    console.log('STORE', store)
+    // console.log('FRIENDS', store.friends.items)
   }, [])
 
   function cancel() {
     setModalVisible(false)
-    console.log(currentUser)
+    // console.log('users', users)
   }
 
   const addFriend = async () => {

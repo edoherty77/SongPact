@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import { Header, Item, Input, Icon } from 'native-base'
 import Head from '../../components/Header'
 import Screen from '../../components/Screen'
@@ -7,24 +7,60 @@ import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
 
 import { getUser, listUsers } from '../../../src/graphql/queries'
+import { deleteFriend, updateUser } from '../../../src/graphql/mutations'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
+import store from '../../stores/UserStore'
 
 function Contacts({ navigation }) {
-  const [firstName, setFirstName] = useState('')
+  const currentUser = store
+  const friendsArr = store.friends.items
+  const [friends, setFriends] = useState([])
+  let arr = []
 
-  // const findUsers = async () => {
-  //   try {
-  //     const allUsers = await API.graphql(graphqlOperation(listUsers))
-  //     console.log(allUsers)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const findFriends = async () => {
+    try {
+      for (let i = 0; i < friendsArr.length; i++) {
+        const foundUser = await API.graphql(
+          graphqlOperation(getUser, { id: friendsArr[i].receiverId }),
+        )
+        arr.push(foundUser.data.getUser)
+      }
+      setFriends(...friends, arr)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  // useEffect(() => {
-  //   findUsers()
-  // }, [])
+  useEffect(() => {
+    findFriends()
+    // console.log('FRIENDS', friends)
+    console.log('CURRENTUSER', currentUser)
+  }, [])
+
+  const onMenuPress = async (person) => {
+    const receiverFriendshipId = person.friends.items.find((item) => {
+      return (item = currentUser.id)
+    })
+    const currentUserFriendshipId = currentUser.friends.items.find((item) => {
+      return (item = person.id)
+    })
+
+    await API.graphql(
+      graphqlOperation(deleteFriend, {
+        input: { id: receiverFriendshipId.id },
+      }),
+    )
+    await API.graphql(
+      graphqlOperation(deleteFriend, {
+        input: { id: currentUserFriendshipId.id },
+      }),
+    )
+
+    // console.log('RECEIVER', receiverFriendshipId.id)
+    // console.log('CURRENT', currentUserFriendshipId.id)
+    // // console.log('MENUPRESS', person)
+  }
 
   return (
     <Screen>
@@ -57,17 +93,20 @@ function Contacts({ navigation }) {
       </Header>
 
       <View>
-        <ContactButton
-          name={'Christopher Dibona'}
-          onPress={() => console.log('go fuck yourself')}
+        <FlatList
+          data={friends}
+          keyExtractor={(user) => user.id}
+          renderItem={({ item, index }) => (
+            <ContactButton
+              name={item.firstName + ' ' + item.lastName}
+              menuPress={() => onMenuPress(item)}
+              onPress={() => {
+                // setModalVisible(true)
+                // setFriendInfo(item)
+              }}
+            />
+          )}
         />
-        <ContactButton name={'Evan Doherty'} />
-        <ContactButton name={'Michael Giannone'} />
-        <ContactButton name={'Pat Doherty'} />
-        <ContactButton name={'Ryan Kleshefsky'} />
-        <ContactButton name={'Seth Johnson'} />
-        <ContactButton name={'Stephan Nale'} />
-        <ContactButton name={'Zack Fye'} />
       </View>
       <AppButton
         title="Find an artist"

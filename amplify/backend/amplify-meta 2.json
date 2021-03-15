@@ -35,8 +35,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-songpact-dev-131026-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apisongpactapi"
       },
-      "lastPushTimeStamp": "2021-03-14T06:47:29.887Z",
-      "lastPushDirHash": "ZRXFzXtiSgW/2IsMToE9QrtI+0c="
+      "lastPushTimeStamp": "2021-03-14T06:35:42.321Z",
+      "lastPushDirHash": "jP42NfORtZDm5l8JIwUThak1kyY="
     }
   },
   "auth": {
@@ -49,7 +49,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-songpact-dev-131026-deployment/amplify-cfn-templates/auth/songpact76c23a86-cloudformation-template.yml",
         "logicalId": "authsongpact76c23a86"
       },
-      "lastPushTimeStamp": "2021-03-14T06:47:17.318Z",
+      "lastPushTimeStamp": "2021-03-14T06:35:42.321Z",
       "output": {
         "AppClientSecret": "1oo4belvor4391lsemmjc8d5ln21dqpcam2cuf2frl1kjbkrqjpf",
         "UserPoolId": "us-west-2_uOKey0q6U",
