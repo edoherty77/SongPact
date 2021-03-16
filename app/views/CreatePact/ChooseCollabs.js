@@ -39,22 +39,6 @@ function ChooseCollabs({ navigation }) {
     setStoreUser()
   }, [])
 
-  const getUsers = async () => {
-    const result = await API.graphql(graphqlOperation(listUsers))
-
-    let foundUsers = result.data.listUsers.items
-
-    let others = foundUsers.filter(function (x) {
-      return x.id !== foundUser.userId
-    })
-
-    setOtherUsers(others)
-  }
-
-  useEffect(() => {
-    getUsers()
-  }, [foundUser])
-
   const nextScreen = (values) => {
     for (let i = 0; i < values.collabs.length; i++) {
       values.collabs[i].userId = values.collabs[i].id
@@ -174,7 +158,7 @@ function ChooseCollabs({ navigation }) {
                           // backgroundColor: 'blue',
                         }
                       }
-                      data={otherUsers}
+                      data={user.friends.items}
                       keyExtractor={(item) => item.id}
                       renderItem={({ item, index }) => (
                         <ContactCheckBox

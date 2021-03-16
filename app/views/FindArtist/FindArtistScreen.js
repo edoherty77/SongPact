@@ -32,8 +32,7 @@ const FindArtist = observer(({ navigation }) => {
       // console.log('NOT CURRENT', notCurrentUser)
       // console.log('FRIENDS', currentUserFriends)
       const allOtherUsers = notCurrentUser.filter(
-        (user) =>
-          !currentUserFriends.find(({ receiverId }) => user.id === receiverId),
+        (user) => !currentUserFriends.find(({ userId }) => user.id === userId),
       )
       // console.log('OTHER', allOtherUsers)
       setUsers(allOtherUsers)
@@ -53,20 +52,29 @@ const FindArtist = observer(({ navigation }) => {
   }
 
   const addFriend = async () => {
-    const currentUserId = store.id
-    const friendId = friendInfo.id
     await API.graphql(
       graphqlOperation(createFriend, {
-        input: { friendUserId: currentUserId, receiverId: friendId },
+        input: {
+          friendUserId: store.id,
+          userId: friendInfo.id,
+          firstName: friendInfo.firstName,
+          lastName: friendInfo.lastName,
+          artistName: friendInfo.artistName,
+        },
       }),
     )
     await API.graphql(
       graphqlOperation(createFriend, {
-        input: { friendUserId: friendId, receiverId: currentUserId },
+        input: {
+          friendUserId: friendInfo.id,
+          userId: store.id,
+          firstName: store.firstName,
+          lastName: store.lastName,
+          artistName: store.artistName,
+        },
       }),
     )
-    console.log('FRIEND INFO', currentUserId)
-    console.log('CURRENT', friendId)
+
     setModalVisible(false)
   }
 

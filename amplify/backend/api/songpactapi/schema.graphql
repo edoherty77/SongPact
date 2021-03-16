@@ -18,8 +18,11 @@ type User @model {
 
 type Friend @model {
   id: ID!
-  receiverId: String
   user: User @connection(name: "Friend")
+  artistName: String
+  userId: String
+  firstName: String
+  lastName: String
 }
 
 type Pact @model {

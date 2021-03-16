@@ -13,42 +13,24 @@ import AppButton from '../../components/AppButton'
 import store from '../../stores/UserStore'
 
 function Contacts({ navigation }) {
-  const currentUser = store
-  const friendsArr = store.friends.items
-  const [friends, setFriends] = useState([])
-  let arr = []
-
-  const findFriends = async () => {
-    try {
-      for (let i = 0; i < friendsArr.length; i++) {
-        const foundUser = await API.graphql(
-          graphqlOperation(getUser, { id: friendsArr[i].receiverId }),
-        )
-        arr.push(foundUser.data.getUser)
-      }
-      setFriends(...friends, arr)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    findFriends()
-    // console.log('FRIENDS', friends)
-    console.log('CURRENTUSER', currentUser)
-  }, [])
-
   const onMenuPress = async (person) => {
-    const receiverFriendshipId = person.friends.items.find((item) => {
-      return (item = currentUser.id)
-    })
-    const currentUserFriendshipId = currentUser.friends.items.find((item) => {
+    const foundFriend = await API.graphql(
+      graphqlOperation(getUser, { id: person.userId }),
+    )
+
+    console.log('FOUNDFRIEND', foundFriend)
+    const friendsFriendshipId = foundFriend.data.getUser.friends.items.find(
+      (item) => {
+        return (item = store.id)
+      },
+    )
+    const currentUserFriendshipId = store.friends.items.find((item) => {
       return (item = person.id)
     })
 
     await API.graphql(
       graphqlOperation(deleteFriend, {
-        input: { id: receiverFriendshipId.id },
+        input: { id: friendsFriendshipId.id },
       }),
     )
     await API.graphql(
@@ -57,7 +39,7 @@ function Contacts({ navigation }) {
       }),
     )
 
-    // console.log('RECEIVER', receiverFriendshipId.id)
+    // console.log('FRIENDSFRIENDSIPID', friendsFriendshipId.id)
     // console.log('CURRENT', currentUserFriendshipId.id)
     // // console.log('MENUPRESS', person)
   }
@@ -94,7 +76,7 @@ function Contacts({ navigation }) {
 
       <View>
         <FlatList
-          data={friends}
+          data={store.friends.items}
           keyExtractor={(user) => user.id}
           renderItem={({ item, index }) => (
             <ContactButton

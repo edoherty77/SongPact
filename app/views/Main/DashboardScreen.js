@@ -9,13 +9,24 @@ import PactButton from '../../components/PactButton'
 import Pending from '../../components/UserPacts/Pending'
 import NeedsAction from '../../components/UserPacts/NeedsAction'
 import Closed from '../../components/UserPacts/Closed'
-
+import { listPacts } from '../../../src/graphql/queries'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppText from '../../components/AppText'
 
 import { observer } from 'mobx-react'
 import { Tab, Tabs, TabHeading } from 'native-base'
 
 const DashboardScreen = observer(() => {
+  const [pacts, setPacts] = useState([])
+
+  const findPacts = async () => {
+    const foundPacts = await API.graphql(graphqlOperation(listPacts))
+    console.log('PACTS', foundPacts)
+  }
+
+  useEffect(() => {
+    findPacts()
+  }, [])
   return (
     <Screen>
       <Header

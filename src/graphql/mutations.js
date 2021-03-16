@@ -21,7 +21,10 @@ export const createUser = /* GraphQL */ `
       friends {
         items {
           id
-          receiverId
+          artistName
+          userId
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -80,7 +83,10 @@ export const updateUser = /* GraphQL */ `
       friends {
         items {
           id
-          receiverId
+          artistName
+          userId
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -139,7 +145,10 @@ export const deleteUser = /* GraphQL */ `
       friends {
         items {
           id
-          receiverId
+          artistName
+          userId
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -185,7 +194,6 @@ export const createFriend = /* GraphQL */ `
   ) {
     createFriend(input: $input, condition: $condition) {
       id
-      receiverId
       user {
         id
         cognitoID
@@ -210,6 +218,10 @@ export const createFriend = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      artistName
+      userId
+      firstName
+      lastName
       createdAt
       updatedAt
     }
@@ -222,7 +234,6 @@ export const updateFriend = /* GraphQL */ `
   ) {
     updateFriend(input: $input, condition: $condition) {
       id
-      receiverId
       user {
         id
         cognitoID
@@ -247,6 +258,10 @@ export const updateFriend = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      artistName
+      userId
+      firstName
+      lastName
       createdAt
       updatedAt
     }
@@ -259,7 +274,6 @@ export const deleteFriend = /* GraphQL */ `
   ) {
     deleteFriend(input: $input, condition: $condition) {
       id
-      receiverId
       user {
         id
         cognitoID
@@ -284,6 +298,10 @@ export const deleteFriend = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      artistName
+      userId
+      firstName
+      lastName
       createdAt
       updatedAt
     }

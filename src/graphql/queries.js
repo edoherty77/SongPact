@@ -18,7 +18,10 @@ export const getUser = /* GraphQL */ `
       friends {
         items {
           id
-          receiverId
+          artistName
+          userId
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -77,12 +80,6 @@ export const listUsers = /* GraphQL */ `
         zipCode
         email
         friends {
-          items {
-            id
-            receiverId
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         performed {
@@ -102,7 +99,6 @@ export const getFriend = /* GraphQL */ `
   query GetFriend($id: ID!) {
     getFriend(id: $id) {
       id
-      receiverId
       user {
         id
         cognitoID
@@ -127,6 +123,10 @@ export const getFriend = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      artistName
+      userId
+      firstName
+      lastName
       createdAt
       updatedAt
     }
@@ -141,7 +141,6 @@ export const listFriends = /* GraphQL */ `
     listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        receiverId
         user {
           id
           cognitoID
@@ -157,6 +156,10 @@ export const listFriends = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        artistName
+        userId
+        firstName
+        lastName
         createdAt
         updatedAt
       }
@@ -251,6 +254,13 @@ export const listPacts = /* GraphQL */ `
         labelName
         collaborators
         performers {
+          items {
+            artistName
+            createdAt
+            firstName
+            id
+            lastName
+          }
           nextToken
         }
         producer {

@@ -9,7 +9,8 @@ import { Formik } from 'formik'
 import ButtonIcon from '../../components/ButtonIcon'
 import ConfirmModal from '../../components/ConfirmModal'
 import AppButton from '../../components/AppButton'
-
+import { API, graphqlOperation } from 'aws-amplify'
+import { createPact } from '../../../src/graphql/mutations'
 import store from '../../stores/CreatePactStore'
 
 import {
@@ -33,8 +34,23 @@ export default function RecordInfo({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [isInputVisible, setInputVisible] = useState(false)
 
-  function nextScreen(values) {
+  async function nextScreen(values) {
     store.setRecordInfo(values)
+
+    const newPact = await API.graphql(
+      graphqlOperation(createPact, {
+        input: {
+          type: store.type,
+          recordTitle: store.recordTitle,
+          initBy: store.initBy,
+          sample: store.sample,
+          labelName: store.labelName,
+          recordLabel: store.recordLabel,
+          createdAt: new Date().toISOString(),
+        },
+      }),
+    )
+    store.setPactId(newPact.data.createPact.id)
     navigation.navigate('ReviewAndSign')
   }
 

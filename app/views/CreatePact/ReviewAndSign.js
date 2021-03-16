@@ -25,54 +25,55 @@ import * as Yup from 'yup'
 
 export default function ReviewAndSign({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
-  const [info, setInfo] = useState('')
-
-  const getStoreInfo = () => {
-    setInfo(store)
-  }
-
-  useEffect(() => {
-    getStoreInfo()
-    console.log('STORE INFO', info)
-  }, [])
 
   const handleAddPact = async () => {
-    console.log('PACT INFO', info)
-
-    const pactInfo = {
-      type: info.type,
-      recordTitle: info.recordTitle,
-      initBy: info.initBy,
-      sample: info.sample,
-      labelName: info.labelName,
-      recordLabel: info.recordLabel,
-      createdAt: new Date().toISOString(),
-      producer: {
-        userId: info.producer.userId,
-        advancePercent: info.producer.advancePercent,
-        royaltyPercent: info.producer.royaltyPercent,
-        publisherPercent: info.producer.publisherPercent,
-        credit: info.producer.credit,
-      },
-      performers: [],
-      collaborators: [],
+    try {
+      for (let i = 0; i < store.performers.length; i++) {
+        await API.graphql(
+          graphqlOperation(createPerformer, {
+            input: {
+              performerUserId: store.performers[i].userId,
+              performerPactId: store.pactId,
+              userId: store.performers[i].userId,
+              firstName: store.performers[i].firstName,
+              lastName: store.performers[i].lastName,
+              artistName: store.performers[i].artistName,
+              publisherPercent: parseInt(store.performers[i].publisherPercent),
+            },
+          }),
+        )
+      }
+    } catch (error) {
+      console.log(error)
     }
 
-    for (let i = 0; i < info.collaborators.length; i++) {
-      pactInfo.collaborators.push(info.collaborators[i].userId)
+    const producerShit = {
+      producerPactId: store.pactId,
+      producerUserId: store.producer.userId,
+      advancePercent: parseInt(store.producer.advancePercent),
+      royaltyPercent: parseInt(store.producer.royaltyPercent),
+      publisherPercent: parseInt(store.producer.publisherPercent),
+      credit: store.producer.credit,
+      userId: store.producer.userId,
     }
-
-    for (let i = 0; i < info.performers.length; i++) {
-      pactInfo.performers.push(info.performers[i])
+    console.log('PRODUCER SHIT', producerShit)
+    try {
       await API.graphql(
-        graphqlOperation(createPerformer, { input: info.performers[i] }),
+        graphqlOperation(createProducer, {
+          input: {
+            producerPactId: store.pactId,
+            producerUserId: store.producer.userId,
+            advancePercent: parseInt(store.producer.advancePercent),
+            royaltyPercent: parseInt(store.producer.royaltyPercent),
+            publisherPercent: parseInt(store.producer.publisherPercent),
+            credit: store.producer.credit,
+            userId: store.producer.userId,
+          },
+        }),
       )
+    } catch (error) {
+      console.log(error)
     }
-
-    await API.graphql(graphqlOperation(createPact, { input: pactInfo }))
-    await API.graphql(
-      graphqlOperation(createProducer, { input: pactInfo.producer }),
-    )
   }
 
   function trash() {

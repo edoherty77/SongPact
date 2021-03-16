@@ -66,6 +66,19 @@
         "GetAttUserPactDataSourceName": "UserPact",
         "GetAttUserPactTableName": "UserPact",
         "UsercontactsResolver": "ConnectionStack 5",
-        "FriendshipuserResolver": "ConnectionStack 5"
+        "FriendshipuserResolver": "ConnectionStack 5",
+        "UserfriendsResolver": "ConnectionStack",
+        "FrienduserResolver": "ConnectionStack",
+        "FriendTable": "Friend",
+        "FriendIAMRole": "Friend",
+        "FriendDataSource": "Friend",
+        "GetFriendResolver": "Friend",
+        "ListFriendResolver": "Friend",
+        "CreateFriendResolver": "Friend",
+        "UpdateFriendResolver": "Friend",
+        "DeleteFriendResolver": "Friend",
+        "GetAttFriendTableStreamArn": "Friend",
+        "GetAttFriendDataSourceName": "Friend",
+        "GetAttFriendTableName": "Friend"
     }
 }

@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 
 class CreatePactStore {
   type = 'Producer'
+  pactId = ''
   sample = false
   recordLabel = false
   labelName = ''
@@ -25,7 +26,7 @@ class CreatePactStore {
     this.initBy = foundUser.userId
     // console.log(this.collaborators, this.initBy)
 
-    //Find everyone involved in aggreement and push in to collaborator array
+    //Find everyone involved in agreement and push in to collaborator array
     const collabsArr = values.collabs
     for (let i = 0; i < collabsArr.length; i++) {
       this.collaborators.push(collabsArr[i])
@@ -87,8 +88,13 @@ class CreatePactStore {
     }
   }
 
+  setPactId(id) {
+    this.pactId = id
+  }
+
   resetPact() {
     this.recordTitle = ''
+    this.pactId = ''
     this.initBy = ''
     this.collaborators = []
     this.performers = []
