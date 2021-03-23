@@ -13,7 +13,7 @@ type User @model {
   friends: [Friend] @connection(name: "Friend")
   performed: [Performer] @connection(name: "UserPerformer")
   produced: [Producer] @connection(name: "UserProducer")
-  # pacts: [UserPact] @connection(keyName: "byUser", fields: ["id"])
+  pacts: [UserPact] @connection(name: "byUser")
 }
 
 type Friend @model {
@@ -34,9 +34,9 @@ type Pact @model {
   recordLabel: Boolean
   labelName: String
   collaborators: [String]
-  # users: [UserPact] @connection(keyName: "byPact", fields: ["id"])
+  users: [UserPact] @connection(name: "byPact")
   performers: [Performer] @connection(name: "PactPerformers")
-  producer: Producer @connection(name: "PactProducer")
+  producer: [Producer] @connection(name: "PactProducer")
   createdAt: String
   status: Boolean
 }
@@ -62,16 +62,14 @@ type Producer @model {
   publisherPercent: Int!
   royaltyPercent: Int!
   credit: String
+  artistName: String
+  firstName: String
+  lastName: String
   pact: Pact @connection(name: "PactProducer")
 }
 
-type UserPact
-  @model(queries: null)
-  @key(name: "byUser", fields: ["userId", "pactId"])
-  @key(name: "byPact", fields: ["pactId", "userId"]) {
+type UserPact @model {
   id: ID!
-  userId: ID!
-  pactId: ID!
-  user: User! @connection(fields: ["userId"])
-  pact: Pact! @connection(fields: ["pactId"])
+  user: User @connection(name: "byUser")
+  pact: Pact @connection(name: "byPact")
 }

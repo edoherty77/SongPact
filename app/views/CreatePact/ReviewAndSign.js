@@ -15,6 +15,7 @@ import {
   createPact,
   createProducer,
   createPerformer,
+  createUserPact,
 } from '../../../src/graphql/mutations'
 import config from '../../../src/aws-exports'
 Amplify.configure(config)
@@ -42,21 +43,19 @@ export default function ReviewAndSign({ navigation }) {
             },
           }),
         )
+        await API.graphql(
+          graphqlOperation(createUserPact, {
+            input: {
+              userPactPactId: store.pactId,
+              userPactUserId: store.performers[i].userId,
+            },
+          }),
+        )
       }
     } catch (error) {
       console.log(error)
     }
 
-    const producerShit = {
-      producerPactId: store.pactId,
-      producerUserId: store.producer.userId,
-      advancePercent: parseInt(store.producer.advancePercent),
-      royaltyPercent: parseInt(store.producer.royaltyPercent),
-      publisherPercent: parseInt(store.producer.publisherPercent),
-      credit: store.producer.credit,
-      userId: store.producer.userId,
-    }
-    console.log('PRODUCER SHIT', producerShit)
     try {
       await API.graphql(
         graphqlOperation(createProducer, {
@@ -68,6 +67,22 @@ export default function ReviewAndSign({ navigation }) {
             publisherPercent: parseInt(store.producer.publisherPercent),
             credit: store.producer.credit,
             userId: store.producer.userId,
+            artistName: store.producer.artistName,
+            firstName: store.producer.firstName,
+            lastName: store.producer.lastName,
+          },
+        }),
+      )
+    } catch (error) {
+      console.log(error)
+    }
+
+    try {
+      await API.graphql(
+        graphqlOperation(createUserPact, {
+          input: {
+            userPactPactId: store.pactId,
+            userPactUserId: store.producer.userId,
           },
         }),
       )

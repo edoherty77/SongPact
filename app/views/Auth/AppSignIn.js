@@ -35,9 +35,8 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
         graphqlOperation(getUser, { id: data.username }),
       )
 
-      console.log('current user', currentUser.data.getUser.artistName)
-
       store.setUser(currentUser.data.getUser)
+      console.log('current user', store)
 
       updateAuthState('loggedIn')
     } catch (err) {

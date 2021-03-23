@@ -38,84 +38,84 @@ const Profile = ({ navigation }) => {
         name="comment-edit"
         iconPress={() => navigation.navigate('Edit')}
       />
-      <ScrollView>
-        <View style={styles.main}>
-          <View style={styles.nameContainer}>
-            <View style={styles.circle}>
-              <AppText
-                // fontWeight="bold"
-                fontSize={100}
-                color={colors.red}
-              >
-                {store.firstName[0]}
-                {store.lastName[0]}
-              </AppText>
-            </View>
-            <AppText fontSize={30} style={styles.name}>
-              {store.firstName} {store.lastName}
+      {/* <ScrollView> */}
+      <View style={styles.main}>
+        <View style={styles.nameContainer}>
+          <View style={styles.circle}>
+            <AppText
+              // fontWeight="bold"
+              fontSize={50}
+              color={colors.red}
+            >
+              {store.firstName[0]}
+              {store.lastName[0]}
             </AppText>
           </View>
-          <View style={styles.paymentContainer}>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Payment Setup</AppText>
-              <View style={styles.fieldEditContainer}>
-                <AppText style={styles.fieldInfo}>None</AppText>
-                <MaterialCommunityIcons
-                  // onPress={back}
-                  name="chevron-right"
-                  size={35}
-                  color="#42C1FC"
-                />
-              </View>
-            </View>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Subscription</AppText>
-              <View style={styles.fieldEditContainer}>
-                <AppText style={styles.fieldInfo}>None</AppText>
-                <MaterialCommunityIcons
-                  // onPress={back}
-                  name="chevron-right"
-                  size={35}
-                  color="#42C1FC"
-                />
-              </View>
+          <AppText fontSize={30} style={styles.name}>
+            {store.firstName} {store.lastName}
+          </AppText>
+        </View>
+        <View style={styles.paymentContainer}>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Payment Setup</AppText>
+            <View style={styles.fieldEditContainer}>
+              <AppText style={styles.fieldInfo}>None</AppText>
+              <MaterialCommunityIcons
+                // onPress={back}
+                name="chevron-right"
+                size={35}
+                color="#42C1FC"
+              />
             </View>
           </View>
-          {/* <Separator /> */}
-          <View style={styles.userInfoContainer}>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Email</AppText>
-              <AppText style={styles.fieldInfo}>{store.email}</AppText>
-            </View>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Artist Name</AppText>
-              <AppText style={styles.fieldInfo}>{store.artistName}</AppText>
-            </View>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Company Name</AppText>
-              <AppText style={styles.fieldInfo}>{store.companyName}</AppText>
-            </View>
-            <View style={styles.fieldContainer}>
-              <AppText style={styles.fieldHeader}>Address</AppText>
-              <AppText style={styles.fieldInfo}>{store.address}</AppText>
-            </View>
-            <View style={styles.addressContainer}>
-              <View style={styles.fieldContainer}>
-                <AppText style={styles.fieldHeader}>City</AppText>
-                <AppText style={styles.fieldInfo}>{store.city}</AppText>
-              </View>
-              <View style={styles.fieldContainer}>
-                <AppText style={styles.fieldHeader}>State</AppText>
-                <AppText style={styles.fieldInfo}>{store.state}</AppText>
-              </View>
-              <View style={styles.fieldContainer}>
-                <AppText style={styles.fieldHeader}>Zip</AppText>
-                <AppText style={styles.fieldInfo}>{store.zipCode}</AppText>
-              </View>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Subscription</AppText>
+            <View style={styles.fieldEditContainer}>
+              <AppText style={styles.fieldInfo}>None</AppText>
+              <MaterialCommunityIcons
+                // onPress={back}
+                name="chevron-right"
+                size={35}
+                color="#42C1FC"
+              />
             </View>
           </View>
         </View>
-      </ScrollView>
+        {/* <Separator /> */}
+        <View style={styles.userInfoContainer}>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Email</AppText>
+            <AppText style={styles.fieldInfo}>{store.email}</AppText>
+          </View>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Artist Name</AppText>
+            <AppText style={styles.fieldInfo}>{store.artistName}</AppText>
+          </View>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Company Name</AppText>
+            <AppText style={styles.fieldInfo}>{store.companyName}</AppText>
+          </View>
+          <View style={styles.fieldContainer}>
+            <AppText style={styles.fieldHeader}>Address</AppText>
+            <AppText style={styles.fieldInfo}>{store.address}</AppText>
+          </View>
+          <View style={styles.addressContainer}>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>City</AppText>
+              <AppText style={styles.fieldInfo}>{store.city}</AppText>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>State</AppText>
+              <AppText style={styles.fieldInfo}>{store.state}</AppText>
+            </View>
+            <View style={styles.fieldContainer}>
+              <AppText style={styles.fieldHeader}>Zip</AppText>
+              <AppText style={styles.fieldInfo}>{store.zipCode}</AppText>
+            </View>
+          </View>
+        </View>
+      </View>
+      {/* </ScrollView> */}
     </Screen>
   )
 }
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.lttan,
-    width: 150,
-    height: 150,
+    width: 85,
+    height: 85,
     borderRadius: 75,
     marginRight: 8,
   },

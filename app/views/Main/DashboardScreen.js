@@ -19,13 +19,13 @@ import { Tab, Tabs, TabHeading } from 'native-base'
 const DashboardScreen = observer(() => {
   const [pacts, setPacts] = useState([])
 
-  const findPacts = async () => {
-    const foundPacts = await API.graphql(graphqlOperation(listPacts))
-    console.log('PACTS', foundPacts)
-  }
+  // const findPacts = async () => {
+  //   const foundPacts = await API.graphql(graphqlOperation(listPacts))
+  //   console.log('PACTS', foundPacts)
+  // }
 
   useEffect(() => {
-    findPacts()
+    // findPacts()
   }, [])
   return (
     <Screen>
