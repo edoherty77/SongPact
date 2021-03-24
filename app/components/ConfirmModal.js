@@ -20,15 +20,23 @@ export default function ConfirmModal({
       onBackdropPress={onBackdropPress}
     >
       <View style={styles.modalView}>
-        <AppText style={styles.modalName} fontSize={25}>
-          {text}
-        </AppText>
-        <AppText onPress={confirm} style={styles.modalInfo} fontSize={25}>
-          Yes
-        </AppText>
-        <AppText onPress={deny} style={styles.modalInfo} fontSize={25}>
-          No
-        </AppText>
+        <View style={styles.headerView}>
+          <AppText style={styles.modalName} fontSize={25}>
+            {text}
+          </AppText>
+        </View>
+        <View style={styles.answers}>
+          <View style={styles.answer}>
+            <AppText onPress={confirm} style={styles.modalInfo} fontSize={25}>
+              Yes
+            </AppText>
+          </View>
+          <View style={styles.answer}>
+            <AppText onPress={deny} style={styles.modalInfo} fontSize={25}>
+              No
+            </AppText>
+          </View>
+        </View>
       </View>
     </NativeModal>
   )
@@ -50,7 +58,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
+  headerView: {
+    // backgroundColor: 'green',
+  },
   modalName: {
     textAlign: 'center',
+  },
+  answers: {
+    flexDirection: 'row',
+  },
+  answer: {
+    padding: 10,
+    margin: 10,
+    // backgroundColor: 'red',
   },
 })

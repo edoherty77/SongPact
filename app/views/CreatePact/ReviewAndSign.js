@@ -1,44 +1,95 @@
-import React, { useState } from "react"
-import { StyleSheet, Text, View, FlatList } from "react-native"
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 
-import colors from "../../config/colors"
-import Screen from "../../components/Screen"
-import AppText from "../../components/AppText"
-import Header from "../../components/Header"
-import { Formik } from "formik"
-import ButtonIcon from "../../components/ButtonIcon"
-import ConfirmModal from "../../components/ConfirmModal"
-import { useFormState, useFormDispatch } from "../../context/form-context"
-import Amplify, { API, Auth, graphqlOperation } from "aws-amplify"
-import { createPact } from "../../src/graphql/Queries"
-import config from "../../../aws-exports"
+import colors from '../../config/colors'
+import Screen from '../../components/Screen'
+import AppText from '../../components/AppText'
+import Header from '../../components/Header'
+import { Formik } from 'formik'
+import AppButton from '../../components/AppButton'
+import ButtonIcon from '../../components/ButtonIcon'
+import ConfirmModal from '../../components/ConfirmModal'
+import { useFormState, useFormDispatch } from '../../context/form-context'
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import {
+  createPact,
+  createProducer,
+  createPerformer,
+  createUserPact,
+} from '../../../src/graphql/mutations'
+import config from '../../../src/aws-exports'
 Amplify.configure(config)
+import store from '../../stores/CreatePactStore'
 
-import { SubmitButton } from "../../components/forms"
-import * as Yup from "yup"
+import { SubmitButton } from '../../components/forms'
+import * as Yup from 'yup'
 
 export default function ReviewAndSign({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
-  const form = React.useRef()
-  const dispatch = useFormDispatch()
-  const { values: formValues, errors: formErrors } = useFormState("customer")
 
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
-      if (form.current) {
-        const { values, errors } = form.current
-        dispatch({
-          type: "UPDATE_FORM",
-          payload: {
-            id: "customer",
-            data: { values, errors },
-          },
-        })
+  const handleAddPact = async () => {
+    try {
+      for (let i = 0; i < store.performers.length; i++) {
+        await API.graphql(
+          graphqlOperation(createPerformer, {
+            input: {
+              performerUserId: store.performers[i].userId,
+              performerPactId: store.pactId,
+              userId: store.performers[i].userId,
+              firstName: store.performers[i].firstName,
+              lastName: store.performers[i].lastName,
+              artistName: store.performers[i].artistName,
+              publisherPercent: parseInt(store.performers[i].publisherPercent),
+            },
+          }),
+        )
+        await API.graphql(
+          graphqlOperation(createUserPact, {
+            input: {
+              userPactPactId: store.pactId,
+              userPactUserId: store.performers[i].userId,
+            },
+          }),
+        )
       }
-    })
+    } catch (error) {
+      console.log(error)
+    }
 
-    return unsubscribe
-  }, [navigation])
+    try {
+      await API.graphql(
+        graphqlOperation(createProducer, {
+          input: {
+            producerPactId: store.pactId,
+            producerUserId: store.producer.userId,
+            advancePercent: parseInt(store.producer.advancePercent),
+            royaltyPercent: parseInt(store.producer.royaltyPercent),
+            publisherPercent: parseInt(store.producer.publisherPercent),
+            credit: store.producer.credit,
+            userId: store.producer.userId,
+            artistName: store.producer.artistName,
+            firstName: store.producer.firstName,
+            lastName: store.producer.lastName,
+          },
+        }),
+      )
+    } catch (error) {
+      console.log(error)
+    }
+
+    try {
+      await API.graphql(
+        graphqlOperation(createUserPact, {
+          input: {
+            userPactPactId: store.pactId,
+            userPactUserId: store.producer.userId,
+          },
+        }),
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   function trash() {
     setModalVisible(true)
@@ -49,63 +100,43 @@ export default function ReviewAndSign({ navigation }) {
   }
 
   function trashConfirm() {
+    store.resetPact()
     setModalVisible(false)
-    navigation.navigate("New")
+    navigation.navigate('New')
   }
 
   async function addPact(values) {
     try {
       await API.graphql(graphqlOperation(createPact, values))
-      console.log("pact successfully created.")
+      console.log('pact successfully created.')
     } catch (err) {
-      console.log("error creating pact...", err)
+      console.log('error creating pact...', err)
     }
   }
 
   return (
     <Screen>
-      <Header back={() => navigation.navigate("Last")} icon="arrow-left-bold" />
-      <Formik
-        innerRef={form}
-        initialValues={formValues}
-        initialErrors={formErrors}
-        enableReinitialize
-      >
-        {({ values, errors }) => (
-          <View style={styles.mainView}>
-            <View style={styles.dataView}>
-              {/* <FlatList
-                data={Object.keys(values)}
-                renderItem={({ item }) => <AppText>{values[item]}</AppText>}
-              /> */}
-            </View>
-            <View style={styles.footer}>
-              <SubmitButton
-                title="Sign and Send"
-                style={styles.nextButton}
-                onPress={() => {
-                  dispatch({
-                    type: "UPDATE_FORM",
-                    payload: {
-                      id: "customer",
-                      data: { values, errors },
-                    },
-                  })
-                  addPact(values)
-                }}
-              />
-              <View style={styles.iconView}>
-                <ButtonIcon
-                  onPress={trash}
-                  name="delete"
-                  backgroundColor="transparent"
-                  iconColor={colors.red}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-      </Formik>
+      <Header
+        back={() => navigation.navigate('RecordInfo')}
+        icon="arrow-left-bold"
+      />
+
+      <View style={styles.footer}>
+        <AppButton
+          title="Sign and Send"
+          style={styles.nextButton}
+          onPress={handleAddPact}
+        />
+        <View style={styles.iconView}>
+          <ButtonIcon
+            onPress={trash}
+            name="delete"
+            backgroundColor="transparent"
+            iconColor={colors.red}
+          />
+        </View>
+      </View>
+
       <ConfirmModal
         text="Are you sure you'd like to delete?"
         onBackdropPress={() => setModalVisible(false)}
@@ -123,13 +154,13 @@ const styles = StyleSheet.create({
     // backgroundColor: 'orange',
   },
   footer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   iconView: {
-    position: "absolute",
+    position: 'absolute',
     right: 10,
     bottom: 10,
   },
@@ -138,6 +169,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: "50%",
+    width: '50%',
   },
 })

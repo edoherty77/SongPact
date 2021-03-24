@@ -1,0 +1,75 @@
+type User @model {
+  id: ID!
+  cognitoID: String
+  firstName: String!
+  lastName: String!
+  artistName: String
+  companyName: String
+  address: String
+  city: String
+  state: String
+  zipCode: Int
+  email: String!
+  friends: [Friend] @connection(name: "Friend")
+  performed: [Performer] @connection(name: "UserPerformer")
+  produced: [Producer] @connection(name: "UserProducer")
+  pacts: [UserPact] @connection(name: "byUser")
+}
+
+type Friend @model {
+  id: ID!
+  user: User @connection(name: "Friend")
+  artistName: String
+  userId: String
+  firstName: String
+  lastName: String
+}
+
+type Pact @model {
+  id: ID!
+  type: String!
+  recordTitle: String!
+  initBy: String
+  sample: Boolean
+  recordLabel: Boolean
+  labelName: String
+  collaborators: [String]
+  users: [UserPact] @connection(name: "byPact")
+  performers: [Performer] @connection(name: "PactPerformers")
+  producer: [Producer] @connection(name: "PactProducer")
+  createdAt: String
+  status: Boolean
+}
+
+type Performer @model {
+  id: ID!
+  user: User @connection(name: "UserPerformer")
+  pactID: String
+  userId: String!
+  artistName: String
+  firstName: String
+  lastName: String
+  publisherPercent: Int!
+  pact: Pact @connection(name: "PactPerformers")
+}
+
+type Producer @model {
+  id: ID!
+  user: User @connection(name: "UserProducer")
+  pactID: String
+  userId: String!
+  advancePercent: Int!
+  publisherPercent: Int!
+  royaltyPercent: Int!
+  credit: String
+  artistName: String
+  firstName: String
+  lastName: String
+  pact: Pact @connection(name: "PactProducer")
+}
+
+type UserPact @model {
+  id: ID!
+  user: User @connection(name: "byUser")
+  pact: Pact @connection(name: "byPact")
+}

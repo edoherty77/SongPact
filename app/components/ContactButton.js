@@ -6,7 +6,14 @@ import Separator from '../components/Separator'
 import colors from '../config/colors'
 import ButtonIcon from '../components/ButtonIcon'
 
-const ContactButton = ({ initials, title, onPress, name, noIcon }) => {
+const ContactButton = ({
+  initials,
+  title,
+  onPress,
+  name,
+  noIcon,
+  menuPress,
+}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.contactButton}>
       <View style={styles.contactView}>
@@ -22,6 +29,7 @@ const ContactButton = ({ initials, title, onPress, name, noIcon }) => {
               backgroundColor={'transparent'}
               size={35}
               iconColor={colors.red}
+              onPress={menuPress}
             />
           )}
         </View>

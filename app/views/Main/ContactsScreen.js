@@ -1,13 +1,49 @@
-import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Header, Item, Input, Icon, Button, Text } from 'native-base'
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, FlatList } from 'react-native'
+import { Header, Item, Input, Icon } from 'native-base'
 import Head from '../../components/Header'
 import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
 
-function Contacts() {
-  const [firstName, setFirstName] = useState('')
+import { getUser, listUsers } from '../../../src/graphql/queries'
+import { deleteFriend, updateUser } from '../../../src/graphql/mutations'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
+import AppButton from '../../components/AppButton'
+import store from '../../stores/UserStore'
+
+function Contacts({ navigation }) {
+  const onMenuPress = async (person) => {
+    const foundFriend = await API.graphql(
+      graphqlOperation(getUser, { id: person.userId }),
+    )
+
+    console.log('FOUNDFRIEND', foundFriend)
+    const friendsFriendshipId = foundFriend.data.getUser.friends.items.find(
+      (item) => {
+        return (item = store.id)
+      },
+    )
+    const currentUserFriendshipId = store.friends.items.find((item) => {
+      return (item = person.id)
+    })
+
+    await API.graphql(
+      graphqlOperation(deleteFriend, {
+        input: { id: friendsFriendshipId.id },
+      }),
+    )
+    await API.graphql(
+      graphqlOperation(deleteFriend, {
+        input: { id: currentUserFriendshipId.id },
+      }),
+    )
+
+    // console.log('FRIENDSFRIENDSIPID', friendsFriendshipId.id)
+    // console.log('CURRENT', currentUserFriendshipId.id)
+    // // console.log('MENUPRESS', person)
+  }
+
   return (
     <Screen>
       <Head title="Contacts" />
@@ -39,18 +75,25 @@ function Contacts() {
       </Header>
 
       <View>
-        <ContactButton
-          name={'Christopher Dibona'}
-          onPress={() => console.log('go fuck yourself')}
+        <FlatList
+          data={store.friends.items}
+          keyExtractor={(user) => user.id}
+          renderItem={({ item, index }) => (
+            <ContactButton
+              name={item.firstName + ' ' + item.lastName}
+              menuPress={() => onMenuPress(item)}
+              onPress={() => {
+                // setModalVisible(true)
+                // setFriendInfo(item)
+              }}
+            />
+          )}
         />
-        <ContactButton name={'Evan Doherty'} />
-        <ContactButton name={'Michael Giannone'} />
-        <ContactButton name={'Pat Doherty'} />
-        <ContactButton name={'Ryan Kleshefsky'} />
-        <ContactButton name={'Seth Johnson'} />
-        <ContactButton name={'Stephan Nale'} />
-        <ContactButton name={'Zack Fye'} />
       </View>
+      <AppButton
+        title="Find an artist"
+        onPress={() => navigation.navigate('Find')}
+      />
     </Screen>
   )
 }

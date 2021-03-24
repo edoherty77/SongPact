@@ -3,12 +3,25 @@ import { useFormikContext } from 'formik'
 import { Button } from 'react-native-paper'
 import AppButton from '../AppButton'
 
-const SubmitButton = ({ title, style, dismissKey, mode, onPress }) => {
+const SubmitButton = ({
+  title,
+  style,
+  dismissKey,
+  mode,
+  onPress,
+  disabled,
+  props,
+}) => {
   const { handleSubmit, values } = useFormikContext()
 
   return (
-    <AppButton title={title} onPress={handleSubmit} style={style} />
-    // <AppButton onPress={onPress} title={title} style={style} />
+    <AppButton
+      title={title}
+      onPress={handleSubmit}
+      style={style}
+      disabled={disabled}
+    />
+    /* <AppButton onPress={onPress} title={title} style={style} /> */
   )
 }
 

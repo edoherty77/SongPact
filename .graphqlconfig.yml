@@ -1,6 +1,6 @@
 projects:
-  songpact:
-    schemaPath: amplify/backend/api/songpact/build/schema.graphql
+  songpactapi:
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -9,7 +9,7 @@ projects:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: /graphql
-        region: us-west-2
-        apiId: null
-        maxDepth: 2
+        docsFilePath: src/graphql
+extensions:
+  amplify:
+    version: 3

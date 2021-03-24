@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   ImageBackground,
   StyleSheet,
@@ -7,41 +7,40 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-} from "react-native"
+} from 'react-native'
 
-import { API, Auth, graphqlOperation } from "aws-amplify"
+import { API, Auth, graphqlOperation } from 'aws-amplify'
 
-import Screen from "../../components/Screen"
-import AppTextInput from "../../components/AppTextInput"
-import AppButton from "../../components/AppButton"
-import AppText from "../../components/AppText"
-import colors from "../../config/colors"
-import { getUser } from "../../../graphql/queries"
-import store from "../../stores/UserStore"
-import { observer } from "mobx-react"
+import Screen from '../../components/Screen'
+import AppTextInput from '../../components/AppTextInput'
+import AppButton from '../../components/AppButton'
+import AppText from '../../components/AppText'
+import colors from '../../config/colors'
+import { getUser } from '../../../src/graphql/queries'
+import store from '../../stores/UserStore'
+import { observer } from 'mobx-react'
 
 const AppSignIn = observer(({ navigation, updateAuthState }) => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   async function signIn() {
     try {
       const data = await Auth.signIn(username, password)
-      console.log("Success - Signed In!")
-      console.log(data.username)
+      console.log('Success - Signed In!')
+      console.log('auth username', data.username)
       store.setID(data.username)
-      console.log(store.id)
+      console.log('store id', store.id)
       const currentUser = await API.graphql(
-        graphqlOperation(getUser, { id: data.username })
+        graphqlOperation(getUser, { id: data.username }),
       )
-      console.log("////current user////")
-      console.log(currentUser.data.getUser.artistName)
 
       store.setUser(currentUser.data.getUser)
+      console.log('current user FROM GRAPHQL', currentUser)
 
-      updateAuthState("loggedIn")
+      updateAuthState('loggedIn')
     } catch (err) {
-      console.log("Error signing in...", err)
+      console.log('Error signing in...', err)
     }
   }
 
@@ -51,13 +50,13 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
         imageStyle={{ opacity: 0.4 }}
         style={{
           flex: 1,
-          resizeMode: "cover",
-          justifyContent: "center",
+          resizeMode: 'cover',
+          justifyContent: 'center',
         }}
-        source={require("../../assets/pic1.jpeg")}
+        source={require('../../assets/pic1.jpeg')}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -65,7 +64,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
               <View style={styles.header}>
                 <AppText
                   style={{
-                    fontFamily: "Futura",
+                    fontFamily: 'Futura',
                   }}
                   fontWeight="bold"
                   fontSize={70}
@@ -73,7 +72,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                   Song
                   {/* Play with fonts here if you want */}
                   {/* http://iosfonts.com/ */}
-                  <AppText style={{ fontFamily: "Baskerville-BoldItalic" }}>
+                  <AppText style={{ fontFamily: 'Baskerville-BoldItalic' }}>
                     Pact
                   </AppText>
                 </AppText>
@@ -111,7 +110,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
                 <AppText>Don't have an account?</AppText>
                 <AppButton
                   title="Sign Up"
-                  onPress={() => navigation.navigate("SignUp1")}
+                  onPress={() => navigation.navigate('SignUp1')}
                 />
               </View>
             </View>
@@ -130,22 +129,22 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-around",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   header: {
     marginTop: 50,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   signInView: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
-    width: "80%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    width: '80%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
     height: 45,
@@ -156,16 +155,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     backgroundColor: colors.red,
-    width: "80%",
+    width: '80%',
   },
   footerButtonContainer: {
     marginVertical: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   forgotPasswordButtonText: {
     color: colors.black,
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 })

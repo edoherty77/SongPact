@@ -32,7 +32,7 @@ function NewSongPact({ navigation }) {
 
   function createConfirm(type) {
     setModalVisible(false)
-    navigation.navigate('First', {
+    navigation.navigate('Collabs', {
       type: type,
     })
   }

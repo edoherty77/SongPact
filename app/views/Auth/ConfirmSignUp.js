@@ -1,33 +1,33 @@
-import React, { useState } from "react"
-import { View, StyleSheet } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Auth } from "aws-amplify"
+import { Auth } from 'aws-amplify'
 
-import AppButton from "../../components/AppButton"
-import AppText from "../../components/AppText"
-import AppTextInput from "../../components/AppTextInput"
-import Screen from "../../components/Screen"
-import { KeyboardAvoidingView } from "react-native"
-import { Platform } from "react-native"
-import Header from "../../components/Header"
-import colors from "../../config/colors"
-import { TouchableWithoutFeedback } from "react-native"
-import { Keyboard } from "react-native"
+import AppButton from '../../components/AppButton'
+import AppText from '../../components/AppText'
+import AppTextInput from '../../components/AppTextInput'
+import Screen from '../../components/Screen'
+import { KeyboardAvoidingView } from 'react-native'
+import { Platform } from 'react-native'
+import Header from '../../components/Header'
+import colors from '../../config/colors'
+import { TouchableWithoutFeedback } from 'react-native'
+import { Keyboard } from 'react-native'
 
 export default function ConfirmSignUp({ navigation }) {
-  const [username, setUsername] = useState("")
-  const [authCode, setAuthCode] = useState("")
+  const [username, setUsername] = useState('')
+  const [authCode, setAuthCode] = useState('')
 
   async function confirmSignUp() {
     try {
       await Auth.confirmSignUp(username, authCode)
-      console.log("✅ Code confirmed")
-      navigation.navigate("SignIn")
+      console.log('✅ Code confirmed')
+      navigation.navigate('SignIn')
     } catch (error) {
       console.log(
-        "❌ Verification code does not match. Please enter a valid verification code.",
-        error.code
+        '❌ Verification code does not match. Please enter a valid verification code.',
+        error.code,
       )
     }
   }
@@ -37,7 +37,7 @@ export default function ConfirmSignUp({ navigation }) {
         <View style={styles.container}>
           <Header title="Sign Up" noIcon />
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={styles.mainView}
           >
             <View style={styles.confirmation}>
@@ -58,7 +58,7 @@ export default function ConfirmSignUp({ navigation }) {
                 onChangeText={(text) => setAuthCode(text)}
                 // icon="numeric"
                 placeholder="Enter verification code"
-                keyboardType="numeric"
+                // keyboardType="numeric"
               />
               <AppButton
                 style={styles.signUpButton}
@@ -71,7 +71,7 @@ export default function ConfirmSignUp({ navigation }) {
             <AppText>Already have an account?</AppText>
             <AppButton
               title="Sign In"
-              onPress={() => navigation.navigate("SignIn")}
+              onPress={() => navigation.navigate('SignIn')}
             />
           </View>
         </View>
@@ -87,23 +87,23 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-around",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   title: {
     fontSize: 20,
-    color: "#202020",
-    fontWeight: "500",
+    color: '#202020',
+    fontWeight: '500',
     marginVertical: 15,
   },
   confirmation: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
-    width: "80%",
-    backgroundColor: "rgba(250, 250, 250, 0.8)",
+    width: '80%',
+    backgroundColor: 'rgba(250, 250, 250, 0.8)',
     fontSize: 18,
     paddingLeft: 20,
     height: 35,
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 40,
     backgroundColor: colors.red,
-    paddingHorizontal: "15%",
+    paddingHorizontal: '15%',
   },
   loginView: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     marginVertical: 50,
   },
 })

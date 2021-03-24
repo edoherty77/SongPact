@@ -1,6 +1,6 @@
-export { default as First } from "./First"
-export { default as Second } from "./Second"
-export { default as Third } from "./Third"
-export { default as Fourth } from "./Fourth"
-export { default as Last } from "./Last"
-export { default as ReviewAndSign } from "./ReviewAndSign"
+export { default as Collabs } from './ChooseCollabs'
+export { default as Producer } from './ChooseProducer'
+export { default as ProducerInfo } from './ProducerInfo'
+export { default as PerformerInfo } from './PerformerInfo'
+export { default as RecordInfo } from './RecordInfo'
+export { default as ReviewAndSign } from './ReviewAndSign'
