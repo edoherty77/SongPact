@@ -1,7 +1,28 @@
 {
+  "files.exclude": {
+    "amplify/.config": true,
+    "amplify/**/*-parameters.json": true,
+    "amplify/**/amplify.state": true,
+    "amplify/**/transform.conf.json": true,
+    "amplify/#current-cloud-backend": true,
+    "amplify/backend/amplify-meta.json": true,
+    "amplify/backend/awscloudformation": true
+  },
   "workbench.colorCustomizations": {
     "activityBar.background": "#268d42",
     "titleBar.activeBackground": "#268d42",
-    "titleBar.activeForeground": "#EDFFF1"
-  }
+    "titleBar.activeForeground": "#e7e7e7",
+    "activityBar.activeBackground": "#268d42",
+    "activityBar.activeBorder": "#522fb0",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#522fb0",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBar.background": "#1b652f",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#268d42",
+    "titleBar.inactiveBackground": "#268d4299",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#1b652f"
 }
