@@ -13,6 +13,7 @@ import { RadioButton } from 'react-native-paper'
 
 import { Formik, FieldArray } from 'formik'
 import store from '../../stores/CreatePactStore'
+import CurrentUser from '../../stores/UserStore'
 
 import { SubmitButton } from '../../components/forms'
 import * as Yup from 'yup'
@@ -27,7 +28,7 @@ export default function ChooseProducer({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [data, setData] = useState(null)
   const [value, setValue] = React.useState('')
-
+  console.log('CURRENT NIG', CurrentUser)
   function setStoreData() {
     setData(store.collaborators)
   }
@@ -58,7 +59,7 @@ export default function ChooseProducer({ navigation }) {
   return (
     <Screen>
       <Header
-        title="Producer?"
+        // title="Producer?"
         icon="arrow-left-bold"
         back={() => navigation.navigate('Collabs')}
       />
@@ -70,39 +71,50 @@ export default function ChooseProducer({ navigation }) {
       >
         {({ setFieldValue }) => (
           <View style={styles.mainView}>
+            <AppText style={styles.pageHeader}>SELECT THE PRODUCER</AppText>
             <View style={styles.formView}>
-              <View style={styles.roleView}>
-                <FieldArray name="producer">
-                  {({}) => (
-                    <RadioButton.Group
-                      name="producer"
-                      onValueChange={(value) => {
-                        setFieldValue('producer', value), setValue(value)
+              <FieldArray name="producer">
+                {({}) => (
+                  <RadioButton.Group
+                    name="producer"
+                    onValueChange={(value) => {
+                      setFieldValue('producer', value), setValue(value)
+                    }}
+                    value={value}
+                  >
+                    <FlatList
+                      style={styles.addedCollabsList}
+                      data={data}
+                      contentContainerStyle={{
+                        display: 'flex',
+                        // alignItems: 'center',
+                        justifyContent: 'space-evenly',
+                        // marginTop: 50,
+                        width: '100%',
+                        // backgroundColor: 'red',
+                        flex: 1,
                       }}
-                      value={value}
-                    >
-                      <FlatList
-                        style={styles.addedCollabsList}
-                        data={data}
-                        keyExtractor={(data) => data.id}
-                        renderItem={({ item, index }) => (
-                          <View style={styles.checkView}>
-                            {/* <AppText
-                              style={styles.radioName}
-                            >{`${item.firstName} ${item.lastName}`}</AppText> */}
-                            <RadioButton.Item
-                              label={`${item.firstName} ${item.lastName}`}
-                              // color="pink"
-                              name="producer"
-                              value={`${item.userId}`}
-                            />
-                          </View>
-                        )}
-                      />
-                    </RadioButton.Group>
-                  )}
-                </FieldArray>
-              </View>
+                      keyExtractor={(data) => data.id}
+                      renderItem={({ item, index }) => (
+                        <View style={styles.checkView}>
+                          <RadioButton.Item
+                            label={
+                              item.userId === CurrentUser.id
+                                ? 'Me'
+                                : `${item.firstName} ${item.lastName}`
+                            }
+                            labelStyle={{ fontSize: 20, padding: 10 }}
+                            uncheckedColor="red"
+                            color="brown"
+                            name="producer"
+                            value={`${item.userId}`}
+                          />
+                        </View>
+                      )}
+                    />
+                  </RadioButton.Group>
+                )}
+              </FieldArray>
             </View>
             <View style={styles.footer}>
               <SubmitButton
@@ -139,25 +151,20 @@ const styles = StyleSheet.create({
   mainView: {
     display: 'flex',
     flex: 1,
-    // backgroundColor: 'white',
     padding: 10,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     // backgroundColor: 'red',
     marginBottom: 30,
   },
-  formView: {
-    // backgroundColor: colors.gray,
-    width: '85%',
-    height: '60%',
-    // paddingLeft: 10,
-    // backgroundColor: 'green',
-    flex: 1,
+  pageHeader: {
+    fontSize: 35,
+    marginVertical: 15,
   },
-  roleView: {
-    justifyContent: 'space-evenly',
-    flex: 1,
+  formView: {
+    width: '85%',
     // backgroundColor: 'green',
+    flex: 1,
   },
   addedCollabsList: {
     position: 'relative',
@@ -169,17 +176,10 @@ const styles = StyleSheet.create({
   },
   checkView: {
     display: 'flex',
-    // flexDirection: 'row',
-    // position: 'relative',
-    // backgroundColor: 'green',
-    // height: '100%',
-    // width: '100%',
-  },
-  radioName: {
-    // backgroundColor: 'purple',
-  },
-  radio: {
-    // backgroundColor: 'pink',
+    marginBottom: 10,
+    borderColor: 'black',
+    borderWidth: 0.4,
+    borderRadius: 50,
   },
   input: {
     width: '90%',

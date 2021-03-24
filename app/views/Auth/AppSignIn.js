@@ -36,7 +36,7 @@ const AppSignIn = observer(({ navigation, updateAuthState }) => {
       )
 
       store.setUser(currentUser.data.getUser)
-      console.log('current user', store)
+      console.log('current user FROM GRAPHQL', currentUser)
 
       updateAuthState('loggedIn')
     } catch (err) {

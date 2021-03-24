@@ -23,7 +23,6 @@ import AppText from '../../components/AppText'
 function ChooseCollabs({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
   const [foundUser, setFoundUser] = useState('')
-  const [otherUsers, setOtherUsers] = useState('')
 
   const setStoreUser = () => {
     let currentUser = {
@@ -51,20 +50,6 @@ function ChooseCollabs({ navigation }) {
     // store.initBy(foundUser)
     store.setCollabInfo(values, foundUser)
     navigation.navigate('Producer')
-  }
-
-  const [people, setPeople] = useState([])
-  // const [isChecked, setIsChecked] = useState(false)
-
-  function chooseCollab(person) {
-    // console.log(person)
-    setPeople([
-      ...people,
-      {
-        name: person.first,
-        id: people.length,
-      },
-    ])
   }
 
   function trash() {
@@ -121,7 +106,7 @@ function ChooseCollabs({ navigation }) {
                   </View>
                 ) : null}
                 <FieldArray name="collabs">
-                  {({ push, remove }) => (
+                  {() => (
                     <FlatList
                       horizontal={true}
                       contentContainerStyle={{
@@ -137,9 +122,6 @@ function ChooseCollabs({ navigation }) {
                         <UserIcon
                           name={`collabs.${index}`}
                           title={`${item.firstName} ${item.lastName}`}
-                          onPress={() => {
-                            push(item), chooseCollab(item)
-                          }}
                         />
                       )}
                     />
@@ -149,23 +131,24 @@ function ChooseCollabs({ navigation }) {
               <Separator />
               <View style={styles.contactsView}>
                 <FieldArray name="collabs">
-                  {({ push, remove }) => (
+                  {({ remove, push }) => (
                     <FlatList
                       style={styles.contactsList}
-                      contentContainerStyle={
-                        {
-                          // flexGrow: 1,
-                          // backgroundColor: 'blue',
-                        }
-                      }
                       data={user.friends.items}
-                      keyExtractor={(item) => item.id}
-                      renderItem={({ item, index }) => (
+                      keyExtractor={(item) => item.userId}
+                      renderItem={({ item }) => (
                         <ContactCheckBox
-                          name={`collabs.${index}`}
+                          name={`collabs.${item.id}`}
                           title={`${item.firstName} ${item.lastName}`}
-                          onPress={() => {
-                            push(item), chooseCollab({ item })
+                          onPress={(checked) => {
+                            const index = values.collabs.findIndex(
+                              (person) => person.id === item.id,
+                            )
+                            if (checked === true) {
+                              push(item)
+                            } else {
+                              remove(index)
+                            }
                           }}
                         />
                       )}

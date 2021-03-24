@@ -23,7 +23,7 @@ class CreatePactStore {
 
   setCollabInfo(values, foundUser) {
     //Set initBy value with foundUser
-    this.initBy = foundUser.userId
+    this.initBy = foundUser.artistName
     // console.log(this.collaborators, this.initBy)
 
     //Find everyone involved in agreement and push in to collaborator array

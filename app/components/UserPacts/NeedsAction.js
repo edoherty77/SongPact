@@ -1,82 +1,27 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 import PactButton from '../PactButton'
+import CurrentUser from '../../stores/UserStore'
 
-import { Image } from 'react-native'
-import {
-  Container,
-  Header,
-  View,
-  DeckSwiper,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Left,
-  Body,
-  Icon,
-  Button,
-} from 'native-base'
 import AppText from '../AppText'
 
 const NeedsAction = () => {
-  const cards = [
-    {
-      text: 'Card One',
-      name: 'One',
-      image: require('../../assets/FKJ.jpg'),
-    },
-    {
-      text: 'Card Two',
-      name: 'Two',
-      image: require('../../assets/FKJ.jpg'),
-    },
-    {
-      text: 'Card Three',
-      name: 'Three',
-      image: require('../../assets/FKJ.jpg'),
-    },
-    {
-      text: 'Card Four',
-      name: 'Four',
-      image: require('../../assets/FKJ.jpg'),
-    },
-    {
-      text: 'Card Five',
-      name: 'Five',
-      image: require('../../assets/FKJ.jpg'),
-    },
-  ]
+  // console.log('CURRENT USER FROM STORE', CurrentUser.pacts.items)
   return (
     <View style={styles.mainView}>
-      <DeckSwiper
-        dataSource={cards}
-        renderItem={(item) => (
-          <Card style={styles.card}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={item.image} />
-                <Body>
-                  <Text>Seth Johnson</Text>
-                  <Text note>Collaborator</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody style={styles.body}>
-              <View>
-                <AppText>Track: Weather</AppText>
-                <AppText>Contract Type: Producer</AppText>
-              </View>
-              <View>
-                <AppText>Initialized By: Seth</AppText>
-                <AppText>Date Created: 12/11/2020</AppText>
-              </View>
-            </CardItem>
-            <CardItem>
-              <Icon name="heart" style={{ color: '#ED4A6A' }} />
-              <Text>{item.name}</Text>
-            </CardItem>
-          </Card>
+      <FlatList
+        data={CurrentUser.pacts.items}
+        keyExtractor={(item) => item.pact.id}
+        renderItem={({ item, index }) => (
+          <PactButton
+            type={item.pact.type}
+            title={item.pact.recordTitle}
+            name={
+              item.pact.initBy === CurrentUser.artistName
+                ? 'Me'
+                : item.pact.initBy
+            }
+          />
         )}
       />
     </View>

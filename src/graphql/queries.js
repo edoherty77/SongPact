@@ -65,6 +65,7 @@ export const getUser = /* GraphQL */ `
           updatedAt
           pact {
             id
+            initBy
             recordTitle
             performers {
               items {
