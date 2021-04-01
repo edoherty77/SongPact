@@ -29,7 +29,7 @@ export default function PerformerInfo({ navigation }) {
 
   useEffect(() => {
     getPerformers()
-    // console.log(performers)
+    console.log('performers', performers)
   }, [])
 
   function nextScreen(values) {

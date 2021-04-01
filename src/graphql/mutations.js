@@ -64,6 +64,7 @@ export const createUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -137,6 +138,7 @@ export const updateUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -210,6 +212,7 @@ export const deleteUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -366,6 +369,7 @@ export const createPact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -425,6 +429,7 @@ export const updatePact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -484,6 +489,7 @@ export const deletePact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -944,6 +950,7 @@ export const createUserPact = /* GraphQL */ `
   ) {
     createUserPact(input: $input, condition: $condition) {
       id
+      userId
       user {
         id
         cognitoID
@@ -1005,6 +1012,7 @@ export const updateUserPact = /* GraphQL */ `
   ) {
     updateUserPact(input: $input, condition: $condition) {
       id
+      userId
       user {
         id
         cognitoID
@@ -1066,6 +1074,7 @@ export const deleteUserPact = /* GraphQL */ `
   ) {
     deleteUserPact(input: $input, condition: $condition) {
       id
+      userId
       user {
         id
         cognitoID

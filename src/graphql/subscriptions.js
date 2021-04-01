@@ -61,6 +61,7 @@ export const onCreateUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -131,6 +132,7 @@ export const onUpdateUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -201,6 +203,7 @@ export const onDeleteUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -345,6 +348,7 @@ export const onCreatePact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -401,6 +405,7 @@ export const onUpdatePact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -457,6 +462,7 @@ export const onDeletePact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -896,6 +902,7 @@ export const onCreateUserPact = /* GraphQL */ `
   subscription OnCreateUserPact {
     onCreateUserPact {
       id
+      userId
       user {
         id
         cognitoID
@@ -954,6 +961,7 @@ export const onUpdateUserPact = /* GraphQL */ `
   subscription OnUpdateUserPact {
     onUpdateUserPact {
       id
+      userId
       user {
         id
         cognitoID
@@ -1012,6 +1020,7 @@ export const onDeleteUserPact = /* GraphQL */ `
   subscription OnDeleteUserPact {
     onDeleteUserPact {
       id
+      userId
       user {
         id
         cognitoID

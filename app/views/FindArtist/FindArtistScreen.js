@@ -8,6 +8,7 @@ import ContactButton from '../../components/ContactButton'
 import ConfirmModal from '../../components/ConfirmModal'
 import { getUser, listUsers } from '../../../src/graphql/queries'
 import { createFriend } from '../../../src/graphql/mutations'
+import { onCreateFriend } from '../../../src/graphql/subscriptions'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
 
@@ -31,11 +32,11 @@ const FindArtist = observer(({ navigation }) => {
       })
       // console.log('NOT CURRENT', notCurrentUser)
       // console.log('FRIENDS', currentUserFriends)
-      const allOtherUsers = notCurrentUser.filter(
+      const notFriends = notCurrentUser.filter(
         (user) => !currentUserFriends.find(({ userId }) => user.id === userId),
       )
-      // console.log('OTHER', allOtherUsers)
-      setUsers(allOtherUsers)
+
+      setUsers(notFriends)
     } catch (error) {
       console.log(error)
     }
@@ -43,7 +44,6 @@ const FindArtist = observer(({ navigation }) => {
 
   useEffect(() => {
     findUsers()
-    // console.log('FRIENDS', store.friends.items)
   }, [])
 
   function cancel() {
@@ -75,7 +75,9 @@ const FindArtist = observer(({ navigation }) => {
       }),
     )
 
+    store.addFriend(friendInfo)
     setModalVisible(false)
+    navigation.navigate('Contacts')
   }
 
   return (

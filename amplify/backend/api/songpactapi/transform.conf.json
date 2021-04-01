@@ -79,6 +79,10 @@
         "DeleteFriendResolver": "Friend",
         "GetAttFriendTableStreamArn": "Friend",
         "GetAttFriendDataSourceName": "Friend",
-        "GetAttFriendTableName": "Friend"
+        "GetAttFriendTableName": "Friend",
+        "UserpactsResolver": "ConnectionStack",
+        "PactusersResolver": "ConnectionStack",
+        "GetUserPactResolver": "UserPact",
+        "ListUserPactResolver": "UserPact"
     }
 }

@@ -61,32 +61,9 @@ export const getUser = /* GraphQL */ `
       pacts {
         items {
           id
+          userId
           createdAt
           updatedAt
-          pact {
-            id
-            initBy
-            recordTitle
-            performers {
-              items {
-                firstName
-                lastName
-                id
-                artistName
-              }
-            }
-            producer {
-              items {
-                artistName
-                firstName
-                lastName
-                id
-              }
-            }
-            recordLabel
-            sample
-            type
-          }
         }
         nextToken
       }
@@ -94,7 +71,7 @@ export const getUser = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -132,7 +109,7 @@ export const listUsers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getFriend = /* GraphQL */ `
   query GetFriend($id: ID!) {
     getFriend(id: $id) {
@@ -172,7 +149,7 @@ export const getFriend = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listFriends = /* GraphQL */ `
   query ListFriends(
     $filter: ModelFriendFilterInput
@@ -207,7 +184,7 @@ export const listFriends = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getPact = /* GraphQL */ `
   query GetPact($id: ID!) {
     getPact(id: $id) {
@@ -222,6 +199,7 @@ export const getPact = /* GraphQL */ `
       users {
         items {
           id
+          userId
           createdAt
           updatedAt
         }
@@ -263,7 +241,7 @@ export const getPact = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listPacts = /* GraphQL */ `
   query ListPacts(
     $filter: ModelPactFilterInput
@@ -296,7 +274,7 @@ export const listPacts = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getPerformer = /* GraphQL */ `
   query GetPerformer($id: ID!) {
     getPerformer(id: $id) {
@@ -360,7 +338,7 @@ export const getPerformer = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listPerformers = /* GraphQL */ `
   query ListPerformers(
     $filter: ModelPerformerFilterInput
@@ -410,7 +388,7 @@ export const listPerformers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getProducer = /* GraphQL */ `
   query GetProducer($id: ID!) {
     getProducer(id: $id) {
@@ -477,7 +455,7 @@ export const getProducer = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listProducers = /* GraphQL */ `
   query ListProducers(
     $filter: ModelProducerFilterInput
@@ -530,11 +508,12 @@ export const listProducers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getUserPact = /* GraphQL */ `
   query GetUserPact($id: ID!) {
     getUserPact(id: $id) {
       id
+      userId
       user {
         id
         cognitoID
@@ -588,7 +567,7 @@ export const getUserPact = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listUserPacts = /* GraphQL */ `
   query ListUserPacts(
     $filter: ModelUserPactFilterInput
@@ -598,6 +577,7 @@ export const listUserPacts = /* GraphQL */ `
     listUserPacts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userId
         user {
           id
           cognitoID
@@ -632,4 +612,4 @@ export const listUserPacts = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

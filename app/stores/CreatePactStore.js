@@ -22,6 +22,7 @@ class CreatePactStore {
   }
 
   setCollabInfo(values, foundUser) {
+    console.log('fuck', values)
     //Set initBy value with foundUser
     this.initBy = foundUser.artistName
     // console.log(this.collaborators, this.initBy)
@@ -31,8 +32,6 @@ class CreatePactStore {
     for (let i = 0; i < collabsArr.length; i++) {
       this.collaborators.push(collabsArr[i])
     }
-
-    console.log('collabs', this.collaborators)
   }
 
   setProducer(values) {
@@ -53,8 +52,7 @@ class CreatePactStore {
     for (let i = 0; i < foundPerformers.length; i++) {
       this.performers.push(foundPerformers[i])
     }
-    // console.log('performers', this.performers)
-    // console.log(this.producer)
+    console.log('FOUNDPERFOM', this.performers)
   }
 
   setProducerInfo(values) {
@@ -63,7 +61,7 @@ class CreatePactStore {
     this.producer.publisherPercent = parseInt(values.publisherPercent)
     this.producer.credit = values.credit
 
-    // console.log('producers', this.producer)
+    console.log('producer', this.producer)
     // console.log('performers', this.performers)
   }
 
@@ -74,7 +72,7 @@ class CreatePactStore {
     for (let i = 0; i < values.length; i++) {
       this.performers.push(values[i])
     }
-    // console.log('new', this.performers)
+    console.log('performers', this.performers)
   }
 
   setRecordInfo(values) {

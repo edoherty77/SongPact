@@ -39,9 +39,6 @@ function ChooseCollabs({ navigation }) {
   }, [])
 
   const nextScreen = (values) => {
-    for (let i = 0; i < values.collabs.length; i++) {
-      values.collabs[i].userId = values.collabs[i].id
-    }
     try {
       values.collabs.push(foundUser)
     } catch (err) {

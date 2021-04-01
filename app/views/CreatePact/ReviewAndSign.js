@@ -30,6 +30,7 @@ export default function ReviewAndSign({ navigation }) {
   const handleAddPact = async () => {
     try {
       for (let i = 0; i < store.performers.length; i++) {
+        console.log('performersID', store.performers[i].userId)
         await API.graphql(
           graphqlOperation(createPerformer, {
             input: {
@@ -43,9 +44,18 @@ export default function ReviewAndSign({ navigation }) {
             },
           }),
         )
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    try {
+      for (let i = 0; i < store.performers.length; i++) {
+        console.log('USERPACTPERF', store.performers[i].userId)
         await API.graphql(
           graphqlOperation(createUserPact, {
             input: {
+              userId: store.performers[i].userId,
               userPactPactId: store.pactId,
               userPactUserId: store.performers[i].userId,
             },
@@ -57,6 +67,7 @@ export default function ReviewAndSign({ navigation }) {
     }
 
     try {
+      console.log('CREATEPROD', store.producer.userId)
       await API.graphql(
         graphqlOperation(createProducer, {
           input: {
@@ -81,6 +92,7 @@ export default function ReviewAndSign({ navigation }) {
       await API.graphql(
         graphqlOperation(createUserPact, {
           input: {
+            userId: store.producer.userId,
             userPactPactId: store.pactId,
             userPactUserId: store.producer.userId,
           },

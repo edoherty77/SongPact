@@ -5,14 +5,17 @@ import Head from '../../components/Header'
 import Screen from '../../components/Screen'
 import AppTextInput from '../../components/AppTextInput'
 import ContactButton from '../../components/ContactButton'
+import { observer } from 'mobx-react'
 
 import { getUser, listUsers } from '../../../src/graphql/queries'
 import { deleteFriend, updateUser } from '../../../src/graphql/mutations'
+import { onCreateFriend } from '../../../src/graphql/subscriptions'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import AppButton from '../../components/AppButton'
-import store from '../../stores/UserStore'
+import User from '../../stores/UserStore'
 
-function Contacts({ navigation }) {
+const Contacts = ({ navigation }) => {
+  const [friends, setFriends] = useState([])
   const onMenuPress = async (person) => {
     const foundFriend = await API.graphql(
       graphqlOperation(getUser, { id: person.userId }),
@@ -21,10 +24,10 @@ function Contacts({ navigation }) {
     console.log('FOUNDFRIEND', foundFriend)
     const friendsFriendshipId = foundFriend.data.getUser.friends.items.find(
       (item) => {
-        return (item = store.id)
+        return (item = User.id)
       },
     )
-    const currentUserFriendshipId = store.friends.items.find((item) => {
+    const currentUserFriendshipId = User.friends.items.find((item) => {
       return (item = person.id)
     })
 
@@ -41,21 +44,36 @@ function Contacts({ navigation }) {
 
     // console.log('FRIENDSFRIENDSIPID', friendsFriendshipId.id)
     // console.log('CURRENT', currentUserFriendshipId.id)
-    // // console.log('MENUPRESS', person)
+    // console.log('MENUPRESS', person)
   }
+
+  const fetchFriends = async () => {
+    const userFriends = User.friends.items
+    setFriends(userFriends)
+  }
+
+  useEffect(() => {
+    fetchFriends()
+    const createFriendListener = API.graphql(
+      graphqlOperation(onCreateFriend),
+    ).subscribe({
+      next: (userFriend) => {
+        const createdFriend = userFriend.value.data.onCreateFriend
+        if (createdFriend.userId === User.id) {
+          setFriends([...friends, createdFriend.user])
+        }
+      },
+    })
+
+    return () => {
+      // Unsubscribe for the focus Listener
+      createFriendListener.unsubscribe()
+    }
+  }, [navigation])
 
   return (
     <Screen>
       <Head title="Contacts" />
-      {/* <Separator /> */}
-      {/* <View style={styles.inputView}>
-        <AppTextInput
-          width="90%"
-          placeholder={"Search"}
-          icon={"account-search"}
-          style={styles.input}
-        />
-      </View> */}
       <Header
         transparent={true}
         searchBar
@@ -76,7 +94,7 @@ function Contacts({ navigation }) {
 
       <View>
         <FlatList
-          data={store.friends.items}
+          data={User.friends.items}
           keyExtractor={(user) => user.id}
           renderItem={({ item, index }) => (
             <ContactButton
@@ -98,6 +116,8 @@ function Contacts({ navigation }) {
   )
 }
 
+export default Contacts
+
 const styles = StyleSheet.create({
   inputView: {
     display: 'flex',
@@ -108,5 +128,3 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 })
-
-export default Contacts

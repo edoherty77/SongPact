@@ -13,6 +13,7 @@ class UserStore {
   email = ''
   pacts = []
   friends = []
+  notFriends = []
 
   setID(id) {
     console.log('storing authenticated user ID')
@@ -35,6 +36,21 @@ class UserStore {
     this.pacts = values.pacts
     this.friends = values.friends
     // console.log(this.firstName, this.lastName, 'set')
+  }
+
+  // addOtherUsers(values) {
+  //   console.log(this.notFriends)
+  //   this.notFriends.push(values)
+  //   console.log('VAALUES', values)
+  // }
+
+  addFriend(value) {
+    this.friends.items.push(value)
+    // for (let i = 0; i < this.notFriends.length; i++) {
+    //   if (this.notFriends[i].id === value.id) {
+    //     this.notFriends.splice(i, 1)
+    //   }
+    // }
   }
 
   resetUser() {

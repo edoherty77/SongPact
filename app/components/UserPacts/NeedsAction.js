@@ -11,16 +11,12 @@ const NeedsAction = () => {
     <View style={styles.mainView}>
       <FlatList
         data={CurrentUser.pacts.items}
-        keyExtractor={(item) => item.pact.id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <PactButton
-            type={item.pact.type}
-            title={item.pact.recordTitle}
-            name={
-              item.pact.initBy === CurrentUser.artistName
-                ? 'Me'
-                : item.pact.initBy
-            }
+            type={item.type}
+            title={item.recordTitle}
+            name={item.initBy === CurrentUser.artistName ? 'Me' : item.initBy}
           />
         )}
       />

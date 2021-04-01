@@ -70,6 +70,7 @@ type Producer @model {
 
 type UserPact @model {
   id: ID!
+  userId: String
   user: User @connection(name: "byUser")
   pact: Pact @connection(name: "byPact")
 }
