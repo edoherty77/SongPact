@@ -37,20 +37,20 @@ export default function RecordInfo({ navigation }) {
   async function nextScreen(values) {
     store.setRecordInfo(values)
 
-    const newPact = await API.graphql(
-      graphqlOperation(createPact, {
-        input: {
-          type: store.type,
-          recordTitle: store.recordTitle,
-          initBy: store.initBy,
-          sample: store.sample,
-          labelName: store.labelName,
-          recordLabel: store.recordLabel,
-          createdAt: new Date().toISOString(),
-        },
-      }),
-    )
-    store.setPactId(newPact.data.createPact.id)
+    // const newPact = await API.graphql(
+    //   graphqlOperation(createPact, {
+    //     input: {
+    //       type: store.type,
+    //       recordTitle: store.recordTitle,
+    //       initBy: store.initBy,
+    //       sample: store.sample,
+    //       labelName: store.labelName,
+    //       recordLabel: store.recordLabel,
+    //       createdAt: new Date().toISOString(),
+    //     },
+    //   }),
+    // )
+    // store.setPactId(newPact.data.createPact.id)
     navigation.navigate('ReviewAndSign')
   }
 

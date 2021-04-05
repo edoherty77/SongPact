@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 
 import colors from '../../config/colors'
 import Screen from '../../components/Screen'
@@ -28,6 +28,25 @@ export default function ReviewAndSign({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const handleAddPact = async () => {
+    try {
+      const newPact = await API.graphql(
+        graphqlOperation(createPact, {
+          input: {
+            type: store.type,
+            recordTitle: store.recordTitle,
+            initBy: store.initBy,
+            sample: store.sample,
+            labelName: store.labelName,
+            recordLabel: store.recordLabel,
+            createdAt: new Date().toISOString(),
+          },
+        }),
+      )
+      store.setPactId(newPact.data.createPact.id)
+    } catch (error) {
+      console.log(error)
+    }
+
     try {
       for (let i = 0; i < store.performers.length; i++) {
         console.log('performersID', store.performers[i].userId)
@@ -101,6 +120,9 @@ export default function ReviewAndSign({ navigation }) {
     } catch (error) {
       console.log(error)
     }
+
+    store.resetPact
+    navigation.navigate('New')
   }
 
   function trash() {
@@ -131,23 +153,105 @@ export default function ReviewAndSign({ navigation }) {
       <Header
         back={() => navigation.navigate('RecordInfo')}
         icon="arrow-left-bold"
+        title="Review"
       />
-
-      <View style={styles.footer}>
-        <AppButton
-          title="Sign and Send"
-          style={styles.nextButton}
-          onPress={handleAddPact}
-        />
-        <View style={styles.iconView}>
-          <ButtonIcon
-            onPress={trash}
-            name="delete"
-            backgroundColor="transparent"
-            iconColor={colors.red}
-          />
+      <ScrollView style={styles.mainView}>
+        <View style={styles.dataBlock}>
+          <View style={styles.header}>
+            <AppText style={styles.headerText}>Record Title</AppText>
+          </View>
+          <View style={styles.recordDataContainer}>
+            <AppText style={styles.recordDataText}>{store.recordTitle}</AppText>
+          </View>
         </View>
-      </View>
+        <View style={styles.dataBlock}>
+          <View style={styles.header}>
+            <AppText style={styles.headerText}>Sample</AppText>
+          </View>
+          <View style={styles.recordDataContainer}>
+            <AppText style={styles.recordDataText}>
+              {store.sample === true ? 'Yes' : 'No'}
+            </AppText>
+          </View>
+        </View>
+        <View style={styles.dataBlock}>
+          <View style={styles.header}>
+            <AppText style={styles.headerText}>Label</AppText>
+          </View>
+          <View style={styles.recordDataContainer}>
+            <AppText style={styles.recordDataText}>
+              {store.recordLabel === true ? store.labelName : 'None'}
+            </AppText>
+          </View>
+        </View>
+        <View style={styles.dataBlock}>
+          <View style={styles.header}>
+            <AppText style={styles.headerText}>Producer</AppText>
+          </View>
+          <View style={styles.data}>
+            <AppText style={styles.artistNameText}>
+              {store.producer.artistName}
+            </AppText>
+            <View style={styles.percView}>
+              <AppText style={styles.subHeaderText}>Advance %</AppText>
+              <AppText style={styles.perc}>
+                {store.producer.advancePercent}%
+              </AppText>
+            </View>
+            <View style={styles.percView}>
+              <AppText style={styles.subHeaderText}>Publisher %</AppText>
+              <AppText style={styles.perc}>
+                {store.producer.publisherPercent}%
+              </AppText>
+            </View>
+            <View style={styles.percView}>
+              <AppText style={styles.subHeaderText}>Royalty %</AppText>
+              <AppText style={styles.perc}>
+                {store.producer.royaltyPercent}%
+              </AppText>
+            </View>
+          </View>
+        </View>
+        <View style={styles.dataBlock}>
+          <View style={styles.header}>
+            <AppText style={styles.headerText}>Performers</AppText>
+          </View>
+          <View style={styles.data}>
+            <FlatList
+              data={store.performers}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => (
+                <View style={styles.dataBlock}>
+                  <AppText style={styles.artistNameText}>
+                    {item.artistName}
+                  </AppText>
+                  <View style={styles.percView}>
+                    <AppText style={styles.subHeaderText}>Publisher %</AppText>
+                    <AppText style={styles.perc}>
+                      {item.publisherPercent}%
+                    </AppText>
+                  </View>
+                </View>
+              )}
+            />
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <AppButton
+            title="Sign and Send"
+            style={styles.nextButton}
+            onPress={handleAddPact}
+          />
+          <View style={styles.iconView}>
+            <ButtonIcon
+              onPress={trash}
+              name="delete"
+              backgroundColor="transparent"
+              iconColor={colors.red}
+            />
+          </View>
+        </View>
+      </ScrollView>
 
       <ConfirmModal
         text="Are you sure you'd like to delete?"
@@ -164,6 +268,50 @@ const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     // backgroundColor: 'orange',
+    paddingHorizontal: 20,
+  },
+  dataBlock: {
+    // backgroundColor: 'red',
+    marginVertical: 10,
+  },
+  header: {},
+  headerText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subHeaderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    marginVertical: 10,
+  },
+  artistNameText: {
+    marginLeft: 10,
+    color: 'red',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  recordDataContainer: {
+    // backgroundColor: 'green',
+    marginLeft: 10,
+  },
+  recordDataText: {
+    color: 'red',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  percView: {
+    display: 'flex',
+    flexDirection: 'row',
+    // backgroundColor: 'blue',
+    justifyContent: 'space-between',
+    marginLeft: 10,
+  },
+  perc: {
+    color: 'red',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   footer: {
     justifyContent: 'center',
